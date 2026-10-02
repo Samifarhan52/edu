@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Edconsultants - Sign Up | Create Free Student Account</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="css/edconsultants.css"/>
+    <!-- Note: Mobile journey scroll flow is strictly excluded from authentication pages -->
+    <style>
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 11px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--stroke-2);
+            background: #ffffff;
+            color: var(--title-text);
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            flex: 1;
+        }
+        .social-btn:hover {
+            background-color: var(--secondary);
+            border-color: #bbbbbb;
+            transform: translateY(-1px);
+        }
+        .pwd-strength-bar {
+            height: 4px;
+            border-radius: 2px;
+            background: #e0e0e0;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+        .pwd-strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="font-family-nunitoSans direction-ltr bg-white">
+
+    <div class="signLog-section">
+        <!-- Brand Left Banner (Desktop) -->
+        <div class="right" style="background: linear-gradient(135deg, rgba(0, 0, 100, 0.88), rgba(6, 6, 141, 0.85)), url('images/hero-students.jpg') center/cover no-repeat;">
+            <a href="index.html" class="logo text-decoration-none d-flex align-items-center gap-2">
+                <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px; min-width: 48px; min-height: 48px; background-color: var(--button); color: var(--brand-primary);">
+                    <i class="fa-solid fa-graduation-cap fs-4"></i>
+                </div>
+                <span class="fs-3 fw-bold text-white" style="font-family: 'Poppins', sans-serif;">
+                    Ed<span style="color: var(--button);">consultants</span>
+                </span>
+            </a>
+            <div class="my-auto py-5">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3">Begin Your Future</span>
+                <h2 class="title fw-800 text-white display-6">
+                    Join 25,000+ Global Students Studying Worldwide.
+                </h2>
+                <p class="text-white-50 fs-16 mt-3 max-w-550">
+                    Create your free portal account to match with top universities, calculate scholarship eligibility, and access one-on-one expert counseling.
+                </p>
+                <div class="d-flex flex-column gap-3 mt-4 text-white-90 fs-14">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-circle-check text-warning"></i> 100% Free Counseling for 100+ Partner Universities
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-circle-check text-warning"></i> Direct Application Fee Waivers up to $150/uni
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-circle-check text-warning"></i> End-to-End Visa Filing & Mock Interview Prep
+                    </div>
+                </div>
+            </div>
+            <div class="text-white-50 fs-13 d-flex justify-content-between align-items-center">
+                <span>© 2026 Edconsultants Global Inc.</span>
+                <a href="index.html" class="text-white-50 text-decoration-underline">Back to Homepage</a>
+            </div>
+        </div>
+
+        <!-- Form Right / Center Content -->
+        <div class="left">
+            <div class="wrap w-100" style="max-width: 500px;">
+                <!-- Mobile Logo Header (visible on < 992px) -->
+                <div class="d-lg-none text-center mb-4">
+                    <a href="index.html" class="d-inline-flex align-items-center gap-2 text-decoration-none">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px; min-width: 42px; min-height: 42px; background-color: var(--brand-primary); color: var(--button);">
+                            <i class="fa-solid fa-graduation-cap fs-5"></i>
+                        </div>
+                        <span class="fs-4 fw-800" style="color: var(--brand-primary); font-family: 'Poppins', sans-serif;">
+                            Ed<span style="color: var(--red);">consultants</span>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="zMain-signLog-content">
+                    <div class="mb-4">
+                        <h3 class="fs-2 fw-800 text-title-text mb-1">Create Student Account</h3>
+                        <p class="fs-15 fw-500 text-para-text">
+                            Already registered? 
+                            <a href="login.html" class="text-brand-primary fw-bold text-decoration-none">Sign In Here</a>
+                        </p>
+                    </div>
+
+                    <!-- Social Sign Up Options -->
+                    <div class="d-flex gap-2 mb-4">
+                        <button type="button" class="social-btn" onclick="edAuth.signup({name: 'Google Scholar', email: 'google.scholar@edconsultants.org', destination: 'United States'})">
+                            <i class="fa-brands fa-google text-danger"></i> Google
+                        </button>
+                        <button type="button" class="social-btn" onclick="edAuth.signup({name: 'Apple Scholar', email: 'apple.scholar@edconsultants.org', destination: 'United Kingdom'})">
+                            <i class="fa-brands fa-apple text-dark"></i> Apple
+                        </button>
+                        <button type="button" class="social-btn" onclick="edAuth.signup({name: 'LinkedIn Scholar', email: 'linkedin.scholar@edconsultants.org', destination: 'Canada'})">
+                            <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
+                        </button>
+                    </div>
+
+                    <div class="position-relative text-center my-4">
+                        <hr class="text-muted opacity-25">
+                        <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-13 fw-semibold">
+                            Or register with email
+                        </span>
+                    </div>
+
+                    <!-- Sign Up Form -->
+                    <form id="signUpForm" onsubmit="handleSignUpSubmit(event)">
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <label for="regFullName" class="zForm-label">Full Name</label>
+                                <input type="text" required name="fullName" class="form-control zForm-control" id="regFullName" placeholder="e.g. Alex Morgan" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="regPhone" class="zForm-label">Phone Number</label>
+                                <input type="tel" required name="phone" class="form-control zForm-control" id="regPhone" placeholder="+1 (555) 000-0000" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="regEmail" class="zForm-label">Email Address</label>
+                            <input type="email" required name="email" class="form-control zForm-control" id="regEmail" placeholder="you@domain.com" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="regDestination" class="zForm-label">Preferred Study Destination</label>
+                            <select class="form-select zForm-control sf-select-checkbox" id="regDestination" required>
+                                <option value="" selected disabled>Select Target Country</option>
+                                <option value="United States">🇺🇸 United States</option>
+                                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                                <option value="Canada">🇨🇦 Canada</option>
+                                <option value="Australia">🇦🇺 Australia</option>
+                                <option value="Germany">🇩🇪 Germany</option>
+                                <option value="Ireland">🇮🇪 Ireland</option>
+                                <option value="New Zealand">🇳🇿 New Zealand</option>
+                            </select>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <label for="regPassword" class="zForm-label">Password</label>
+                                <div class="position-relative">
+                                    <input type="password" required name="password" class="form-control zForm-control passShowHideInput" id="regPassword" placeholder="Min. 6 chars" oninput="checkStrength(this.value)" />
+                                    <button type="button" class="btn border-0 position-absolute end-0 top-50 translate-middle-y text-muted toggle-password">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="pwd-strength-bar">
+                                    <div class="pwd-strength-fill" id="strengthFill"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="regConfirmPassword" class="zForm-label">Confirm Password</label>
+                                <input type="password" required name="confirmPassword" class="form-control zForm-control" id="regConfirmPassword" placeholder="Re-enter password" />
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="d-flex align-items-start gap-2 cursor-pointer fs-13 text-para-text">
+                                <input type="checkbox" required class="form-check-input mt-1" id="agreeTerms" checked />
+                                <span>I agree to Edconsultants <a href="#" class="text-brand-primary text-decoration-underline fw-bold">Terms of Service</a> and <a href="#" class="text-brand-primary text-decoration-underline fw-bold">Privacy Policy</a>.</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" id="regSubmitBtn" class="btn btn-warning w-100 py-3 rounded-3 fw-bold fs-16 shadow-sm d-flex align-items-center justify-content-center gap-2" style="background-color: var(--button); color: var(--brand-primary); border: none;">
+                            <span>Create Free Account</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-4 pt-2">
+                        <a href="index.html" class="text-muted fs-13 text-decoration-none d-inline-flex align-items-center gap-1">
+                            <i class="fa-solid fa-arrow-left"></i> Return to Edconsultants Homepage
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/edconsultants.js"></script>
+    <script>
+        function checkStrength(val) {
+            const bar = document.getElementById('strengthFill');
+            if (!val) {
+                bar.style.width = '0%';
+                return;
+            }
+            if (val.length < 6) {
+                bar.style.width = '30%';
+                bar.style.backgroundColor = '#fb5421';
+            } else if (val.length < 10) {
+                bar.style.width = '65%';
+                bar.style.backgroundColor = '#f5dc3c';
+            } else {
+                bar.style.width = '100%';
+                bar.style.backgroundColor = '#14d971';
+            }
+        }
+
+        function handleSignUpSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('regFullName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const destination = document.getElementById('regDestination').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please re-check.');
+                return;
+            }
+
+            const btn = document.getElementById('regSubmitBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+
+            setTimeout(() => {
+                edAuth.signup({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    destination: destination
+                });
+            }, 500);
+        }
+    </script>
+</body>
+</html>

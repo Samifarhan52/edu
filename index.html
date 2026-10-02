@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Edconsultants - Home | Premier Study Abroad Consultancy</title>
+    
+    <meta name="description" content="Edconsultants helps you explore top study abroad destinations, offering diverse programs, personalized guidance, and an interactive mobile scroll journey.">
+
+    <!-- CSS stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="css/edconsultants.css"/>
+    <link rel="stylesheet" href="css/mobile-journey.css"/>
+</head>
+
+<body class="direction-ltr">
+
+    <!-- Header -->
+    <header class="ld-header-section">
+        <div class="container-fluid px-xl-5 px-lg-4 px-3" style="max-width: 1540px; margin: 0 auto;">
+            <div class="ld-header-wrap d-flex align-items-center justify-content-between">
+                <!-- Brand Logo -->
+                <a href="index.html" class="ld-header-logo d-flex align-items-center gap-2 text-decoration-none flex-shrink-0">
+                    <div class="brand-icon-circle">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <span class="brand-title">
+                        Ed<span>consultants</span>
+                    </span>
+                </a>
+
+                <!-- Desktop & Offcanvas Navigation -->
+                <nav class="navbar navbar-expand-lg p-0 flex-grow-1">
+                    <div class="offcanvas offcanvas-start menu-navbar-collapse" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                        <!-- Mobile Drawer Header (visible on < 992px) -->
+                        <div class="offcanvas-header d-lg-none d-flex justify-content-between align-items-center w-100 pb-3 border-bottom mb-2">
+                            <a href="index.html" class="d-flex align-items-center gap-2 text-decoration-none">
+                                <div class="brand-icon-circle" style="width: 36px; height: 36px; min-width: 36px; min-height: 36px;">
+                                    <i class="fa-solid fa-graduation-cap fs-6"></i>
+                                </div>
+                                <span class="brand-title" style="font-size: 19px;">
+                                    Ed<span>consultants</span>
+                                </span>
+                            </a>
+                            <button type="button" class="btn-close text-reset shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+
+                        <!-- Offcanvas Body: Nav Links (centered on desktop) + Desktop Auth Buttons (docked right) -->
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav menu-navbar-nav mx-auto align-items-lg-center">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="index.html">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="about-us-details.html">About Us</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Study Abroad
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="universities-list.html">Universities</a></li>
+                                        <li><a class="dropdown-item" href="subject-list.html">Subjects</a></li>
+                                        <li><a class="dropdown-item" href="scholarship-list.html">Scholarship</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Courses
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="courses-programs-IELTS.html">IELTS</a></li>
+                                        <li><a class="dropdown-item" href="courses-programs-GRE.html">GRE</a></li>
+                                        <li><a class="dropdown-item" href="courses-programs-GMAT.html">GMAT</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="blog-list.html">Blogs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="event-list.html">Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="contact-us.html">Contact Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link nav-link-journey" href="#mobileJourneySection">
+                                        <i class="fa-solid fa-mobile-screen-button me-1"></i> Journey Flow
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <!-- Desktop Auth Slot (docked right) -->
+                            <div class="header-auth-slot d-none d-lg-flex align-items-center gap-2 flex-shrink-0 ms-lg-3">
+                                <a href="login.html" class="btn-header-signin">Sign In</a>
+                                <a href="signup.html" class="btn-header-signup">
+                                    Sign Up <i class="fa-solid fa-arrow-right" style="font-size: 11px;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Mobile Hamburger Button (< 992px) -->
+                <button class="navbar-toggler menu-navbar-toggler d-lg-none ms-2 shadow-none border-0" type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner with 2-Column Live Animation & Student Visual -->
+    <section class="hero-banner-section">
+        <div class="container">
+            <div class="hero-banner-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="row align-items-center g-4">
+                    <!-- Left Column: Compelling Pitch & Trust Elements -->
+                    <div class="col-lg-6 col-xl-6 text-start position-relative z-index-2">
+                        <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3" style="background: rgba(245, 220, 60, 0.18); border: 1px solid var(--button); color: var(--button); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                            <i class="fa-solid fa-star text-warning"></i> #1 Global Study Abroad Consultancy
+                        </div>
+                        <h1 class="hero-main-title mb-3">
+                            Explore Top <span style="color: var(--button);">Study Abroad</span> Destinations.
+                        </h1>
+                        <p class="hero-subtext mb-4">
+                            Edconsultants connects ambitious students with 500+ world-class universities across USA, UK, Canada, Australia, and Germany. Benefit from 100% free counseling, official application fee waivers, and a 98.2% visa success rate.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 align-items-center mb-4">
+                            <a href="signup.html" class="sf-btn-icon-primary text-decoration-none shadow">
+                                Register Now
+                                <span class="icon">
+                                    <i class="fa-solid fa-chevron-right text-dark" style="font-size: 10px;"></i>
+                                </span>
+                            </a>
+                            <button type="button" class="btn btn-outline-light rounded-pill px-4 py-2 fw-bold d-inline-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#campusVideoModal" style="border-width: 2px;">
+                                <span class="rounded-circle bg-warning text-dark d-flex align-items-center justify-content-center shadow" style="width: 28px; height: 28px; font-size: 11px;"><i class="fa-solid fa-play"></i></span>
+                                <span>Watch Campus Video</span>
+                            </button>
+                        </div>
+                        <!-- Social Proof Avatar Stack -->
+                        <div class="d-flex align-items-center gap-3 pt-2">
+                            <div class="d-flex align-items-center">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80" class="rounded-circle border border-2 border-white shadow-sm" width="34" height="34" alt="Scholar" style="margin-right: -10px;">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80" class="rounded-circle border border-2 border-white shadow-sm" width="34" height="34" alt="Scholar" style="margin-right: -10px;">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" class="rounded-circle border border-2 border-white shadow-sm" width="34" height="34" alt="Scholar" style="margin-right: -10px;">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80" class="rounded-circle border border-2 border-white shadow-sm" width="34" height="34" alt="Scholar">
+                            </div>
+                            <div class="text-white-90 fs-13" style="line-height: 1.3;">
+                                <div class="fw-bold text-warning">★★★★★ 4.9/5 Trust Rating</div>
+                                <div class="text-white-50 fs-12">1,280+ Placed Scholars Worldwide</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Live Animation Video Card & Student Showcase -->
+                    <div class="col-lg-6 col-xl-6 text-center position-relative">
+                        <div class="hero-media-showcase">
+                            <!-- Floating Pill 1 (Visa Approved) -->
+                            <div class="hero-float-pill float-pill-1">
+                                <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center shadow-sm" style="width: 34px; height: 34px; font-size: 13px;">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <div class="text-start">
+                                    <div class="fw-bold fs-12 text-dark">98.2% Visa Clearance</div>
+                                    <div class="fs-10 text-muted">First-attempt grant</div>
+                                </div>
+                            </div>
+
+                            <!-- Floating Pill 2 (Partner Universities) -->
+                            <div class="hero-float-pill float-pill-2">
+                                <div class="rounded-circle bg-warning text-dark d-flex align-items-center justify-content-center shadow-sm" style="width: 34px; height: 34px; font-size: 13px;">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                                <div class="text-start">
+                                    <div class="fw-bold fs-12 text-dark">100+ Partner Unis</div>
+                                    <div class="fs-10 text-muted">Fee waivers unlocked</div>
+                                </div>
+                            </div>
+
+                            <!-- Media Frame with Student Visual & Play Pulse -->
+                            <div class="hero-media-frame">
+                                <img src="images/hero-students.jpg" alt="Edconsultants Scholars" class="hero-main-img">
+                                <div class="hero-media-overlay">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge bg-danger text-white rounded-pill px-3 py-1 fs-12 fw-bold d-flex align-items-center gap-2 shadow">
+                                            <span class="live-pulse-dot"></span> LIVE CAMPUS TOUR
+                                        </span>
+                                        <span class="badge bg-dark bg-opacity-75 text-white rounded-pill px-2 py-1 fs-11">
+                                            <i class="fa-solid fa-video me-1 text-warning"></i> 4K UHD
+                                        </span>
+                                    </div>
+                                    <button type="button" class="hero-center-play-btn shadow-lg" data-bs-toggle="modal" data-bs-target="#campusVideoModal" title="Play Video Tour">
+                                        <i class="fa-solid fa-play fs-4 ps-1"></i>
+                                    </button>
+                                    <div class="text-white text-start">
+                                        <div class="fw-bold fs-15 text-white">Experience Campus Life with Edconsultants</div>
+                                        <div class="text-white-50 fs-12">Oxford • Melbourne • Toronto • Harvard</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="hero-banner-filterWrap" data-aos="fade-up" data-aos-duration="1000">
+                <div class="zTab-wrap">
+                    <ul class="nav nav-tabs zTab-reset zTab-one border-0" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="universities-tab" data-bs-toggle="tab"
+                                    data-bs-target="#universities-tab-pane" type="button" role="tab">Universities
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="courses-tab" data-bs-toggle="tab"
+                                    data-bs-target="#courses-tab-pane" type="button" role="tab">Subject
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="scholarships-tab" data-bs-toggle="tab"
+                                    data-bs-target="#scholarships-tab-pane" type="button" role="tab">Scholarships
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="events-tab" data-bs-toggle="tab"
+                                    data-bs-target="#events-tab-pane" type="button" role="tab">Events
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="universities-tab-pane" role="tabpanel">
+                        <form class="searchForm" method="GET" action="universities-list.html">
+                            <div class="hero-banner-filterInut">
+                                <div class="item">
+                                    <label class="zForm-label">Study Destination <span>*</span></label>
+                                    <select class="sf-select-checkbox" name="country">
+                                        <option value="">Select Destination</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="United States">United States</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option value="Germany">Germany</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label class="zForm-label">Select University</label>
+                                    <select name="university" class="sf-select-checkbox">
+                                        <option value="">All Partner Universities</option>
+                                        <option value="melbourne">University of Melbourne</option>
+                                        <option value="toronto">University of Toronto</option>
+                                        <option value="oxford">University of Oxford</option>
+                                        <option value="munich">Technical University of Munich</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label class="zForm-label">Study Level</label>
+                                    <select class="sf-select-checkbox" name="study_level">
+                                        <option value="">Select Study Level</option>
+                                        <option value="Postgraduate">Postgraduate</option>
+                                        <option value="Undergraduate">Undergraduate</option>
+                                        <option value="Doctorate">Doctorate</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="searchButton flipBtn sf-flipBtn-brand-alt">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         PROMINENT MOBILE SCROLL JOURNEY FLOW SIMULATOR (USER'S SIGNATURE FEATURE)
+         ========================================================================== -->
+    <section class="mobile-journey-wrapper" id="mobileJourneySection">
+        <div class="container">
+            <div class="text-center max-w-721 m-auto mb-5" data-aos="fade-up" data-aos-duration="1000">
+                <span class="badge px-3 py-2 rounded-pill mb-2 text-uppercase fw-bold" style="background-color: var(--secondary-bg); color: var(--red);">
+                    Interactive Process Experience
+                </span>
+                <h3 class="section-title">The Edconsultants Mobile Scroll Journey</h3>
+                <p class="section-info">
+                    Scroll down or up directly inside the phone below to journey in and out of our 5-step admissions flow. Experience how our process works with dynamic depth zoom!
+                </p>
+                <div class="d-flex justify-content-center gap-2 mt-3">
+                    <button id="autoTourBtn" onclick="window.mobileJourney.toggleAutoTour()" class="btn btn-sm btn-outline-primary rounded-pill px-4 fw-bold">
+                        Start Auto Journey Tour ▶️
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interactive Smartphone Device Mockup -->
+            <div class="phone-mockup-container" data-aos="fade-up" data-aos-duration="1000">
+                <div class="phone-device">
+                    <div class="phone-screen" id="phoneScreen">
+                        <!-- Dynamic Island -->
+                        <div class="phone-island">
+                            <span id="islandStatusText"><i class="fa-solid fa-plane-departure me-1"></i> 01: Search & Discover</span>
+                            <div class="island-camera"></div>
+                        </div>
+
+                        <!-- 3D Scroll Journey Chamber -->
+                        <div class="journey-mobile-chamber">
+                            <!-- Stage 01 -->
+                            <div class="journey-step-slide active-step" data-step="0">
+                                <div class="step-badge">Phase 01 • Search</div>
+                                <h4 class="step-title">01. Search 50K+ Courses</h4>
+                                <p class="step-desc">
+                                    Explore 20K courses across 500+ world-class universities in Australia, the US, Canada, the UK, and Germany based on your GPA and test scores.
+                                </p>
+                                <div class="step-card-preview text-white-50">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Institutions:</span> <b class="text-warning">100+ Top Ranked</b>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Tuition Filter:</span> <b class="text-success">Up to 100% Scholarships</b>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Stage 02 -->
+                            <div class="journey-step-slide" data-step="1">
+                                <div class="step-badge" style="color: var(--tertiary); border-color: var(--tertiary);">Phase 02 • Compare</div>
+                                <h4 class="step-title">02. Compare Options & ROI</h4>
+                                <p class="step-desc">
+                                    Compare post-study work rights, living costs, stay-back visas (up to 5 years), and median starting salaries all in one unified dashboard.
+                                </p>
+                                <div class="step-card-preview text-white-50">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Side-by-Side:</span> <b class="text-info">Tuition vs Stay-back</b>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Match Rate:</span> <b class="text-success">96% Student Satisfaction</b>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Stage 03 -->
+                            <div class="journey-step-slide" data-step="2">
+                                <div class="step-badge" style="color: #14d971; border-color: #14d971;">Phase 03 • Engage</div>
+                                <h4 class="step-title">03. 1-on-1 Consultation</h4>
+                                <p class="step-desc">
+                                    Connect with senior certified Edconsultants mentors via in-person meetings or high-definition virtual strategy sessions.
+                                </p>
+                                <div class="step-card-preview text-white-50">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Advisor Fee:</span> <b class="text-success">100% Free Consultation</b>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Availability:</span> <b class="text-warning">Monday - Saturday</b>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Stage 04 -->
+                            <div class="journey-step-slide" data-step="3">
+                                <div class="step-badge" style="color: var(--red); border-color: var(--red);">Phase 04 • Apply</div>
+                                <h4 class="step-title">04. Apply & Clear Visa</h4>
+                                <p class="step-desc">
+                                    Our seasoned documentation officers polish your SOP & LOR, submit university applications, and conduct rigorous consular visa mock interviews.
+                                </p>
+                                <div class="step-card-preview text-white-50">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Visa Success Rate:</span> <b class="text-warning">98% Approved</b>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>File Review:</span> <b class="text-success">Zero Error Guarantee</b>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Stage 05 -->
+                            <div class="journey-step-slide" data-step="4">
+                                <div class="step-badge" style="color: #fe5dfe; border-color: #fe5dfe;">Phase 05 • Start</div>
+                                <h4 class="step-title">05. Fly & Kick Off Journey</h4>
+                                <p class="step-desc">
+                                    Board your flight with confidence! Enjoy airport greetings, university accommodation arrangements, and active alumni connections abroad.
+                                </p>
+                                <div class="step-card-preview text-white-50">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Arrival Pack:</span> <b class="text-info">Housing & SIM card ready</b>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Alumni Network:</span> <b class="text-success">20+ Global Cities</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phone Bottom Nav Bar -->
+                        <div class="phone-bottom-nav">
+                            <button class="step-bullet-btn active" data-step="0">01</button>
+                            <button class="step-bullet-btn" data-step="1">02</button>
+                            <button class="step-bullet-btn" data-step="2">03</button>
+                            <button class="step-bullet-btn" data-step="3">04</button>
+                            <button class="step-bullet-btn" data-step="4">05</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="position-relative section-gap bg-secondary-bg" id="serviceSection">
+        <div class="container">
+            <div class="row rg-24" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-lg-4">
+                    <div class="service-content-left">
+                        <h4 class="section-title">Our Services</h4>
+                        <p class="section-info">Edconsultants helps you explore top study abroad destinations, offering diverse programs and unforgettable cultural experiences.</p>
+                        <div class="img mt-4"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80" alt="" class="img-fluid"/></div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row g-4">
+                        <div class="col-sm-6">
+                            <div class="service-item-one">
+                                <div class="icon"><i class="fa-solid fa-file-invoice"></i></div>
+                                <a href="contact-us.html" class="title">Document Processing</a>
+                                <p class="info">SOP and LOR review, academic credential verification, and tailored admission portfolio polishing.</p>
+                                <a href="contact-us.html" class="link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="service-item-one">
+                                <div class="icon"><i class="fa-solid fa-passport"></i></div>
+                                <a href="contact-us.html" class="title">Visa Processing</a>
+                                <p class="info">Comprehensive visa file preparation, embassy biometric guidance, and consular mock interview training.</p>
+                                <a href="contact-us.html" class="link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="service-item-one">
+                                <div class="icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                                <a href="contact-us.html" class="title">University Admission Counseling</a>
+                                <p class="info">Diagnostic profile evaluation, university shortlist strategy, and direct institutional application fee waivers.</p>
+                                <a href="contact-us.html" class="link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="service-item-one">
+                                <div class="icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                                <a href="contact-us.html" class="title">Professor Matching Services</a>
+                                <p class="info">Academic thesis supervisor discovery and research fellowship outreach for Masters and PhD scholars.</p>
+                                <a href="contact-us.html" class="link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="service-item-one">
+                                <div class="icon"><i class="fa-solid fa-award"></i></div>
+                                <a href="scholarship-list.html" class="title">Scholarship Guidance</a>
+                                <p class="info">Identify and apply for merit bursaries, dean's awards, and country grants up to 100% of tuition costs.</p>
+                                <a href="scholarship-list.html" class="link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="service-item-one">
+                                <div class="icon"><i class="fa-solid fa-plane-arrival"></i></div>
+                                <a href="contact-us.html" class="title">Pre-Departure Support</a>
+                                <p class="info">Flight coordination, pre-departure orientation, currency cards, student accommodation, and local buddy support.</p>
+                                <a href="contact-us.html" class="link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="section-gap home-about-section bg-brand-primary position-relative" style="background: url('') right center/cover no-repeat;">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
+                    <h4 class="section-title text-white">Empowering Students to Achieve Their International Education Dreams.</h4>
+                    <p class="section-info text-white-50">At Edconsultants, we are dedicated to empowering students to achieve their international education dreams through expert guidance and personalized support.</p>
+                    <div class="d-flex flex-column gap-2 mb-4">
+                        <div class="d-flex align-items-center gap-3 text-white"><i class="fa-solid fa-circle-check text-warning"></i> Tailored Educational Pathways</div>
+                        <div class="d-flex align-items-center gap-3 text-white"><i class="fa-solid fa-circle-check text-warning"></i> Direct Official University Partnerships</div>
+                    </div>
+                    <a href="contact-us.html" class="sf-btn-icon-primary">
+                        Book a Consultation
+                        <span class="icon">
+                            <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="row g-4 text-center">
+                        <div class="col-6">
+                            <div class="bg-white p-4 rounded-4 shadow-sm">
+                                <h3 class="fw-800" style="color: var(--brand-primary); font-size: 40px;">1,280+</h3>
+                                <p class="mb-0 text-muted fs-14">Students Placed Worldwide</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="bg-white p-4 rounded-4 shadow-sm">
+                                <h3 class="fw-800 text-success" style="font-size: 40px;">98%</h3>
+                                <p class="mb-0 text-muted fs-14">Student Visa Approval Rate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discover Destinations -->
+    <section class="section-gap bg-secondary">
+        <div class="container" data-aos="fade-up" data-aos-duration="1000">
+            <div class="section-content-wrap max-w-550 m-auto text-center mb-5">
+                <h4 class="section-title">Discover Your Ideal Study Destination</h4>
+                <p class="section-info">We work collaboratively with students to provide tailored solutions for their study abroad needs.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="discover-item-one">
+                        <a href="universities-list.html" class="img">
+                            <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=800&q=80" alt="Australia"/>
+                        </a>
+                        <div class="content">
+                            <h4 class="title">Australia</h4>
+                            <p class="info">Studying in Australia is a transformative experience with up to 5-year post-study work rights.</p>
+                            <a href="universities-list.html" class="link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="discover-item-one">
+                        <a href="universities-list.html" class="img">
+                            <img src="https://images.unsplash.com/photo-1485738422979-f5c462d49f74?auto=format&fit=crop&w=800&q=80" alt="United States"/>
+                        </a>
+                        <div class="content">
+                            <h4 class="title">United States</h4>
+                            <p class="info">The global summit of research innovation, STEM OPT permits, and prestigious Ivy League campuses.</p>
+                            <a href="universities-list.html" class="link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="discover-item-one">
+                        <a href="universities-list.html" class="img">
+                            <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?auto=format&fit=crop&w=800&q=80" alt="Canada"/>
+                        </a>
+                        <div class="content">
+                            <h4 class="title">Canada</h4>
+                            <p class="info">High quality of life, 3-year PGWP permits, welcoming immigration policies, and co-op terms.</p>
+                            <a href="universities-list.html" class="link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Form Section -->
+    <section class="section-gap bg-white" id="freeConsultation">
+        <div class="container" data-aos="fade-up" data-aos-duration="1000">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <div class="p-4 p-md-5 rounded-4 border bg-white shadow-sm">
+                        <h4 class="section-title mb-4">Book Your Free Consultation.</h4>
+                        <form action="contact-us.html" method="GET">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="zForm-label">First Name *</label>
+                                    <input type="text" required class="zForm-control" placeholder="Enter First Name"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="zForm-label">Last Name *</label>
+                                    <input type="text" required class="zForm-control" placeholder="Enter Last Name"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="zForm-label">Mobile Number *</label>
+                                    <input type="tel" required class="zForm-control" placeholder="Enter Mobile Number"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="zForm-label">Email Address *</label>
+                                    <input type="email" required class="zForm-control" placeholder="Enter Email Address"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="zForm-label">Preferred Study Destination *</label>
+                                    <select class="sf-select-checkbox">
+                                        <option>Australia</option>
+                                        <option>United States</option>
+                                        <option>Canada</option>
+                                        <option>United Kingdom</option>
+                                        <option>Germany</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="zForm-label">Counseling Method *</label>
+                                    <select class="sf-select-checkbox">
+                                        <option>Virtual (Video Stage)</option>
+                                        <option>In Person (Headquarters)</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="sf-btn-icon-primary w-100 justify-content-center">
+                                        Book a Consultation
+                                        <span class="icon">
+                                            <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="rounded-4 overflow-hidden shadow">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Consultation" class="img-fluid"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section-gap bg-secondary">
+        <div class="container" data-aos="fade-up" data-aos-duration="1000">
+            <div class="section-content-wrap max-w-550 m-auto text-center mb-5">
+                <h4 class="section-title">Why Choose Us</h4>
+                <p class="section-info">We work collaboratively with students to provide tailored solutions for their study abroad needs.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="choose-item">
+                        <div class="icon"><i class="fa-solid fa-university"></i></div>
+                        <h4 class="title">100+</h4>
+                        <p class="info">Partnering Universities</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="choose-item">
+                        <div class="icon"><i class="fa-solid fa-globe"></i></div>
+                        <h4 class="title">20+</h4>
+                        <p class="info">Countries</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="choose-item">
+                        <div class="icon"><i class="fa-solid fa-users"></i></div>
+                        <h4 class="title">1,280+</h4>
+                        <p class="info">Global Students</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="choose-item">
+                        <div class="icon"><i class="fa-solid fa-book-open"></i></div>
+                        <h4 class="title">25+</h4>
+                        <p class="info">Courses</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-gap bg-white">
+        <div class="container" data-aos="fade-up" data-aos-duration="1000">
+            <div class="max-w-721 m-auto text-center mb-5">
+                <h4 class="section-title">Frequently Asked Questions</h4>
+            </div>
+            <div class="accordion max-w-721 m-auto" id="faqAccordion">
+                <div class="accordion-item mb-3 border rounded-3 overflow-hidden">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            How can I choose the best study destination?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show">
+                        <div class="accordion-body text-muted">
+                            Edconsultants offers personalized advice based on your academic profile, preferred career outcome, climate, and tuition budget.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item mb-3 border rounded-3 overflow-hidden">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            What services does Edconsultants offer?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse">
+                        <div class="accordion-body text-muted">
+                            We provide comprehensive support: university shortlisting, SOP/LOR drafting, visa file compilation, mock interviews, and pre-departure briefings.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item mb-3 border rounded-3 overflow-hidden">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            Are scholarships available for international students?
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse">
+                        <div class="accordion-body text-muted">
+                            Yes! We connect qualified candidates with merit-based waivers and government grants that can discount tuition up to 100%.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row g-4 justify-content-between">
+                <div class="col-lg-3 col-md-4">
+                    <h4 class="footer-title">About Edconsultants</h4>
+                    <p class="footer-info">Edconsultants offers personalized support for students starting their study abroad journeys with top universities.</p>
+                </div>
+                <div class="col-lg-6 col-md-8">
+                    <div class="row g-4">
+                        <div class="col-sm-4 col-6">
+                            <h4 class="footer-title">Useful Links</h4>
+                            <ul class="footer-menu">
+                                <li><a href="about-us-details.html">About Us</a></li>
+                                <li><a href="contact-us.html">Contact Us</a></li>
+                                <li><a href="#serviceSection">Services</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-6">
+                            <h4 class="footer-title">Explore</h4>
+                            <ul class="footer-menu">
+                                <li><a href="blog-list.html">Blog</a></li>
+                                <li><a href="subject-list.html">Discover a Subject</a></li>
+                                <li><a href="universities-list.html">Universities</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-6">
+                            <h4 class="footer-title">Programs</h4>
+                            <ul class="footer-menu">
+                                <li><a href="scholarship-list.html">Scholarships</a></li>
+                                <li><a href="event-list.html">Events</a></li>
+                                <li><a href="courses-programs-IELTS.html">IELTS Prep</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-auto col-md-4">
+                    <h4 class="footer-title">Policies</h4>
+                    <ul class="footer-menu">
+                        <li><a href="contact-us.html">Terms & Services</a></li>
+                        <li><a href="contact-us.html">Refund Policy</a></li>
+                        <li><a href="contact-us.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottomArea d-flex flex-wrap justify-content-between align-items-center">
+                <p class="footer-copywrite mb-0">© 2026 Edconsultants. All Rights Reserved By Edconsultants</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-muted"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="text-muted"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="text-muted"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Launcher Pill on Screen -->
+    <div class="journey-launcher-pill" id="journeyLauncherPill">
+        <div class="pulse-indicator"></div>
+        <span>📱 Mobile Journey Flow</span>
+    </div>
+
+    <!-- Campus Tour Video Modal -->
+    <div class="modal fade" id="campusVideoModal" tabindex="-1" aria-labelledby="campusVideoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark border-0 rounded-4 overflow-hidden shadow-2xl">
+                <div class="modal-header border-0 bg-black text-white px-4 py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="modal-title fw-bold fs-16 d-flex align-items-center gap-2 mb-0" id="campusVideoModalLabel">
+                        <span class="rounded-circle bg-danger" style="width: 10px; height: 10px; display: inline-block;"></span>
+                        Global University Campus Tour & Admissions Journey
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0 bg-black">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube-nocookie.com/embed/nF_d36Uf7uA?autoplay=1&mute=0&rel=0" 
+                                title="Global Campus Tour" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen class="border-0">
+                        </iframe>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 bg-black px-4 py-3 d-flex justify-content-between align-items-center">
+                    <div class="text-white-50 fs-13">
+                        <i class="fa-solid fa-circle-check text-success me-1"></i> Official partner institutions in US, UK, Canada, Australia & Germany.
+                    </div>
+                    <a href="signup.html" class="btn btn-warning rounded-pill px-4 py-2 fw-bold fs-14" style="background-color: var(--button); color: var(--brand-primary); border: none;">
+                        Apply Now <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/edconsultants.js"></script>
+    <script src="js/mobile-journey.js"></script>
+</body>
+</html>

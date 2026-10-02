@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Edconsultants - Sign In | Student & Advisor Portal</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="css/edconsultants.css"/>
+    <!-- Note: Mobile journey scroll flow is strictly excluded from authentication pages -->
+    <style>
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 11px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--stroke-2);
+            background: #ffffff;
+            color: var(--title-text);
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            flex: 1;
+        }
+        .social-btn:hover {
+            background-color: var(--secondary);
+            border-color: #bbbbbb;
+            transform: translateY(-1px);
+        }
+        .role-pill-btn {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--stroke-2);
+            background: var(--secondary);
+            color: var(--para-text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .role-pill-btn:hover, .role-pill-btn.active {
+            background: var(--button);
+            color: var(--brand-primary);
+            border-color: var(--button);
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body class="font-family-nunitoSans direction-ltr bg-white">
+
+    <div class="signLog-section">
+        <!-- Brand Left Banner (Desktop) -->
+        <div class="right" style="background: linear-gradient(135deg, rgba(0, 0, 100, 0.88), rgba(6, 6, 141, 0.85)), url('images/scholar-acceptance.jpg') center/cover no-repeat;">
+            <a href="index.html" class="logo text-decoration-none d-flex align-items-center gap-2">
+                <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px; min-width: 48px; min-height: 48px; background-color: var(--button); color: var(--brand-primary);">
+                    <i class="fa-solid fa-graduation-cap fs-4"></i>
+                </div>
+                <span class="fs-3 fw-bold text-white" style="font-family: 'Poppins', sans-serif;">
+                    Ed<span style="color: var(--button);">consultants</span>
+                </span>
+            </a>
+            <div class="my-auto py-5">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3">Global Scholar Portal</span>
+                <h2 class="title fw-800 text-white display-6">
+                    Welcome Back to Your Global Education Journey!
+                </h2>
+                <p class="text-white-50 fs-16 mt-3 max-w-550">
+                    Log in to track university admissions, review CAS/I-20 issuance, upload visa documents, and chat directly with your assigned educational counselor.
+                </p>
+
+                <!-- Student Testimonial Glass Card -->
+                <div class="p-4 rounded-4 mt-4 text-white" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); max-width: 480px;">
+                    <div class="d-flex align-items-center gap-1 text-warning mb-2 fs-14">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="fs-14 fst-italic text-white-90 mb-3" style="line-height: 1.5;">
+                        "Edconsultants made my dream of studying abroad a reality. From application fee waivers to visa filing, their dedicated advisors were with me every step."
+                    </p>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 13px;">SJ</div>
+                        <div>
+                            <div class="fw-bold fs-13 text-white">Sarah Jenkins</div>
+                            <div class="text-white-50 fs-11">MSc Candidate • University of Oxford (UK)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-white-50 fs-13 d-flex justify-content-between align-items-center">
+                <span>© 2026 Edconsultants Global Inc.</span>
+                <a href="index.html" class="text-white-50 text-decoration-underline">Back to Homepage</a>
+            </div>
+        </div>
+
+        <!-- Form Right / Center Content -->
+        <div class="left">
+            <div class="wrap w-100" style="max-width: 440px;">
+                <!-- Mobile Logo Header (visible on < 992px) -->
+                <div class="d-lg-none text-center mb-4">
+                    <a href="index.html" class="d-inline-flex align-items-center gap-2 text-decoration-none">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px; min-width: 42px; min-height: 42px; background-color: var(--brand-primary); color: var(--button);">
+                            <i class="fa-solid fa-graduation-cap fs-5"></i>
+                        </div>
+                        <span class="fs-4 fw-800" style="color: var(--brand-primary); font-family: 'Poppins', sans-serif;">
+                            Ed<span style="color: var(--red);">consultants</span>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="zMain-signLog-content">
+                    <div class="mb-4">
+                        <h3 class="fs-2 fw-800 text-title-text mb-1">Sign In</h3>
+                        <p class="fs-15 fw-500 text-para-text">
+                            Don’t have an account? 
+                            <a href="signup.html" class="text-brand-primary fw-bold text-decoration-none">Sign Up Free</a>
+                        </p>
+                    </div>
+
+                    <!-- Social Sign In Options -->
+                    <div class="d-flex gap-2 mb-4">
+                        <button type="button" class="social-btn" onclick="edAuth.login('student@edconsultants.org', '123456', 'Student')">
+                            <i class="fa-brands fa-google text-danger"></i> Google
+                        </button>
+                        <button type="button" class="social-btn" onclick="edAuth.login('student@edconsultants.org', '123456', 'Student')">
+                            <i class="fa-brands fa-apple text-dark"></i> Apple
+                        </button>
+                        <button type="button" class="social-btn" onclick="edAuth.login('student@edconsultants.org', '123456', 'Student')">
+                            <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
+                        </button>
+                    </div>
+
+                    <div class="position-relative text-center my-4">
+                        <hr class="text-muted opacity-25">
+                        <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-13 fw-semibold">
+                            Or continue with email
+                        </span>
+                    </div>
+
+                    <!-- Sign In Form -->
+                    <form id="signInForm" onsubmit="handleSignInSubmit(event)">
+                        <div class="mb-3">
+                            <label for="inputEmail" class="zForm-label">Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-regular fa-envelope"></i></span>
+                                <input type="email" required name="email" value=""
+                                       class="form-control zForm-control border-start-0" id="inputEmail"
+                                       placeholder="name@example.com" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label for="inputPassword" class="zForm-label mb-0">Password</label>
+                                <a href="#" class="fs-13 text-brand-primary text-decoration-none fw-semibold" onclick="alert('Password reset instructions have been dispatched to your email address.'); return false;">
+                                    Forgot password?
+                                </a>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-lock"></i></span>
+                                <input type="password" required name="password" value=""
+                                       class="form-control zForm-control border-start-0 border-end-0 passShowHideInput" id="inputPassword"
+                                       placeholder="••••••••" />
+                                <button type="button" class="input-group-text bg-light border-start-0 text-muted toggle-password" style="cursor: pointer;">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4 fs-14">
+                            <label class="d-flex align-items-center gap-2 cursor-pointer user-select-none">
+                                <input type="checkbox" checked class="form-check-input mt-0" id="rememberMe"/> Keep me signed in
+                            </label>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn btn-warning w-100 py-3 rounded-3 fw-bold fs-16 shadow-sm d-flex align-items-center justify-content-center gap-2" style="background-color: var(--button); color: var(--brand-primary); border: none;">
+                            <span>Sign In to Portal</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-4 pt-3 border-top">
+                        <a href="index.html" class="text-muted fs-13 text-decoration-none d-inline-flex align-items-center gap-2">
+                            <i class="fa-solid fa-arrow-left"></i> Return to Edconsultants Homepage
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/edconsultants.js"></script>
+    <script>
+        let currentRole = 'Admin';
+
+        function selectRole(email, password, name, role) {
+            document.getElementById('inputEmail').value = email;
+            document.getElementById('inputPassword').value = password;
+            currentRole = role;
+
+            document.querySelectorAll('.role-pill-btn').forEach(btn => btn.classList.remove('active'));
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        function handleSignInSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('inputEmail').value;
+            const password = document.getElementById('inputPassword').value;
+            const btn = document.getElementById('submitBtn');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+
+            setTimeout(() => {
+                edAuth.login(email, password, currentRole);
+            }, 400);
+        }
+    </script>
+</body>
+</html>

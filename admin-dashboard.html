@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Edconsultants - Admin Dashboard | Management Portal</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="css/edconsultants.css"/>
+    <style>
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+            background-color: var(--secondary);
+        }
+        .dashboard-sidebar {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            color: #ffffff;
+            padding: 24px 16px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+        .sidebar-menu li {
+            margin-bottom: 6px;
+        }
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--button);
+        }
+        .dashboard-main {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+            width: 100%;
+        }
+        .metric-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--stroke);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+        .mobile-admin-bar {
+            display: none;
+            background-color: var(--sidebar-bg);
+            color: #ffffff;
+            padding: 14px 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        @media (max-width: 991px) {
+            .dashboard-layout {
+                flex-direction: column;
+            }
+            .mobile-admin-bar {
+                display: flex;
+            }
+            .dashboard-sidebar {
+                width: 100%;
+                display: none;
+                padding: 16px 20px;
+            }
+            .dashboard-sidebar.show-mobile {
+                display: flex;
+            }
+            .dashboard-main {
+                padding: 20px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Mobile Admin Top Bar (Visible < 992px) -->
+    <header class="mobile-admin-bar">
+        <a href="index.html" class="d-flex align-items-center gap-2 text-decoration-none text-white">
+            <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 36px; height: 36px; min-width: 36px; min-height: 36px; background-color: var(--button); color: var(--brand-primary);">
+                <i class="fa-solid fa-graduation-cap fs-6"></i>
+            </div>
+            <span class="fs-5 fw-800" style="font-family: 'Poppins', sans-serif;">
+                Ed<span style="color: var(--button);">consultants</span>
+            </span>
+        </a>
+        <div class="d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3 fw-bold" onclick="edAuth.logout()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+            <button type="button" class="btn btn-warning btn-sm rounded-circle" id="sidebarToggleBtn" style="background-color: var(--button); color: var(--brand-primary); width: 36px; height: 36px;">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar" id="dashboardSidebar">
+            <div>
+                <div class="d-none d-lg-block">
+                    <a href="index.html" class="d-flex align-items-center gap-2 text-decoration-none text-white">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px; min-width: 40px; min-height: 40px; background-color: var(--button); color: var(--brand-primary);">
+                            <i class="fa-solid fa-graduation-cap fs-5"></i>
+                        </div>
+                        <span class="fs-4 fw-800" style="font-family: 'Poppins', sans-serif;">
+                            Ed<span style="color: var(--button);">consultants</span>
+                        </span>
+                    </a>
+                </div>
+
+                <ul class="sidebar-menu">
+                    <li><a href="admin-dashboard.html" class="active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+                    <li><a href="universities-list.html"><i class="fa-solid fa-building-columns"></i> Universities</a></li>
+                    <li><a href="subject-list.html"><i class="fa-solid fa-book-bookmark"></i> Subjects</a></li>
+                    <li><a href="scholarship-list.html"><i class="fa-solid fa-award"></i> Scholarships</a></li>
+                    <li><a href="contact-us.html"><i class="fa-solid fa-user-graduate"></i> Consultations</a></li>
+                    <li><a href="event-list.html"><i class="fa-solid fa-calendar-days"></i> Events</a></li>
+                    <li><a href="blog-list.html"><i class="fa-solid fa-newspaper"></i> Blog Articles</a></li>
+                    <li><a href="index.html"><i class="fa-solid fa-arrow-left"></i> Return to Website</a></li>
+                </ul>
+            </div>
+
+            <div class="pt-4 border-top border-white-20">
+                <button type="button" onclick="edAuth.logout()" class="btn btn-outline-light w-100 rounded-pill fs-14 fw-bold ed-logout-trigger">
+                    <i class="fa-solid fa-right-from-bracket me-2"></i> Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard View -->
+        <main class="dashboard-main">
+            <!-- Topbar -->
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                <div>
+                    <h3 class="fw-800 text-dark mb-1">Admissions Management Console</h3>
+                    <p class="text-muted fs-14 mb-0">Overview of student pipelines, visa files, and university articulation contracts.</p>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-white p-2 rounded-circle border shadow-sm">
+                        <i class="fa-regular fa-bell text-muted fs-5"></i>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn d-flex align-items-center gap-2 bg-white px-3 py-2 rounded-pill border shadow-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="rounded-circle dashboard-admin-avatar" width="34" height="34" alt="Admin"/>
+                            <div class="text-start">
+                                <span class="fs-14 fw-bold text-dark dashboard-admin-name d-block" style="line-height: 1.1;">Alexander Morgan</span>
+                                <span class="fs-11 text-muted dashboard-admin-role d-block">Admissions Director</span>
+                            </div>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 mt-2">
+                            <li><a class="dropdown-item py-2" href="index.html"><i class="fa-solid fa-house me-2"></i> Homepage</a></li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            <li>
+                                <button type="button" class="dropdown-item py-2 text-danger ed-logout-trigger" onclick="edAuth.logout()">
+                                    <i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metric Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="metric-card">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fs-13 text-muted fw-bold text-uppercase">Total Placed</span>
+                            <div class="p-2 rounded-3 bg-primary-subtle text-primary"><i class="fa-solid fa-user-graduate"></i></div>
+                        </div>
+                        <h2 class="fw-800 text-dark">1,280</h2>
+                        <span class="text-success fs-13 fw-bold"><i class="fa-solid fa-arrow-trend-up me-1"></i> +14% vs last term</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="metric-card">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fs-13 text-muted fw-bold text-uppercase">Active Applications</span>
+                            <div class="p-2 rounded-3 bg-warning-subtle text-warning-emphasis"><i class="fa-solid fa-file-signature"></i></div>
+                        </div>
+                        <h2 class="fw-800 text-dark">142</h2>
+                        <span class="text-warning fs-13 fw-bold"><i class="fa-regular fa-clock me-1"></i> Under file review</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="metric-card">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fs-13 text-muted fw-bold text-uppercase">Visa Clear Rate</span>
+                            <div class="p-2 rounded-3 bg-success-subtle text-success"><i class="fa-solid fa-passport"></i></div>
+                        </div>
+                        <h2 class="fw-800 text-success">98.2%</h2>
+                        <span class="text-muted fs-13">First-attempt grants</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="metric-card">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fs-13 text-muted fw-bold text-uppercase">Partner Unis</span>
+                            <div class="p-2 rounded-3 bg-danger-subtle text-danger"><i class="fa-solid fa-university"></i></div>
+                        </div>
+                        <h2 class="fw-800 text-dark">100+</h2>
+                        <span class="text-primary fs-13 fw-bold">Official waivers enabled</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Applications Data Table -->
+            <div class="card border rounded-4 shadow-sm overflow-hidden mb-4">
+                <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold text-dark mb-0">Recent Candidate Applications (Intake 2026/2027)</h5>
+                    <a href="contact-us.html" class="btn btn-sm btn-outline-primary rounded-pill px-3">Export CSV</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light fs-13 text-uppercase text-muted">
+                            <tr>
+                                <th class="ps-4">Applicant</th>
+                                <th>Target Destination</th>
+                                <th>Institution & Degree</th>
+                                <th>Visa Status</th>
+                                <th>Assigned Mentor</th>
+                                <th class="pe-4 text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="fs-14">
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">BH</div>
+                                        <div>
+                                            <b>Benjamin Harris</b><br>
+                                            <span class="text-muted fs-12">ben.harris@example.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>🇦🇺 Australia</td>
+                                <td>Univ. of Melbourne • MSc Data Science</td>
+                                <td><span class="badge bg-success-subtle text-success">Visa Granted ✓</span></td>
+                                <td>Dr. Eleanor Vance</td>
+                                <td class="pe-4 text-end"><button class="btn btn-sm btn-light border">Details</button></td>
+                            </tr>
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle bg-warning-subtle text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">CJ</div>
+                                        <div>
+                                            <b>Christopher Jordan</b><br>
+                                            <span class="text-muted fs-12">cjordan@example.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>🇨🇦 Canada</td>
+                                <td>Univ. of Toronto • MEng Robotics</td>
+                                <td><span class="badge bg-primary-subtle text-primary">Biometrics Filed</span></td>
+                                <td>Marcus Sterling</td>
+                                <td class="pe-4 text-end"><button class="btn btn-sm btn-light border">Details</button></td>
+                            </tr>
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle bg-info-subtle text-info-emphasis fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">AW</div>
+                                        <div>
+                                            <b>Ava White</b><br>
+                                            <span class="text-muted fs-12">ava.white@example.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>🇬🇧 United Kingdom</td>
+                                <td>King's College London • LLM Law</td>
+                                <td><span class="badge bg-warning-subtle text-warning-emphasis">SOP Review</span></td>
+                                <td>Sophia Chen</td>
+                                <td class="pe-4 text-end"><button class="btn btn-sm btn-light border">Details</button></td>
+                            </tr>
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle bg-success-subtle text-success fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">ET</div>
+                                        <div>
+                                            <b>Emma Thomas</b><br>
+                                            <span class="text-muted fs-12">emma.t@example.com</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>🇩🇪 Germany</td>
+                                <td>TU Munich • MS Computer Science</td>
+                                <td><span class="badge bg-success-subtle text-success">Visa Granted ✓</span></td>
+                                <td>David O'Connor</td>
+                                <td class="pe-4 text-end"><button class="btn btn-sm btn-light border">Details</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/edconsultants.js"></script>
+    <script>
+        const toggleBtn = document.getElementById('sidebarToggleBtn');
+        const sidebar = document.getElementById('dashboardSidebar');
+        if (toggleBtn && sidebar) {
+            toggleBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('show-mobile');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+/* ==========================================================================
+   EduConsultants - Core Luxury Design System
+   Enterprise Higher Education Design System with Bespoke Visual Craftsmanship
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --brand-navy: #050b1d;
+    --brand-navy-light: #0d1733;
+    --brand-navy-card: rgba(13, 23, 51, 0.7);
+    --brand-gold: #f5c042;
+    --brand-gold-hover: #e0ac2b;
+    --brand-emerald: #00e599;
+    --brand-cyan: #38bdf8;
+    --brand-purple: #8b5cf6;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --text-dark: #0f172a;
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-border-hover: rgba(245, 192, 66, 0.4);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-bg-subtle: rgba(255, 255, 255, 0.02);
+    --glass-bg-card: rgba(15, 23, 42, 0.65);
+    --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 25px 0 rgba(56, 189, 248, 0.05);
+    --glow-gold: 0 0 30px rgba(245, 192, 66, 0.25);
+    --glow-emerald: 0 0 30px rgba(0, 229, 153, 0.25);
+    --glow-cyan: 0 0 30px rgba(56, 189, 248, 0.25);
+    --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: var(--brand-navy);
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+body {
+    background-color: var(--brand-navy);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #050b1d;
+}
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 999px;
+    border: 2px solid #050b1d;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-gold);
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+    background: var(--brand-navy-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 1.25rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.4s var(--transition-smooth);
+}
+
+.glass-panel:hover {
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--card-shadow), var(--glow-gold);
+}
+
+.glass-card {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    transition: all 0.35s var(--transition-smooth);
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
+}
+
+.glass-pill {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+}
+
+/* Typography Gradient */
+.text-gradient-gold {
+    background: linear-gradient(135deg, #ffffff 20%, #fde047 60%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan {
+    background: linear-gradient(135deg, #ffffff 10%, #38bdf8 60%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-emerald {
+    background: linear-gradient(135deg, #ffffff 10%, #34d399 60%, #059669 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Buttons */
+.btn-primary-glow {
+    background: linear-gradient(135deg, #f5c042 0%, #eab308 100%);
+    color: #050b1d;
+    font-weight: 700;
+    border-radius: 9999px;
+    padding: 0.85rem 1.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.95rem;
+    transition: all 0.3s var(--transition-smooth);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(245, 192, 66, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary-glow:hover {
+    background: linear-gradient(135deg, #fde047 0%, #f59e0b 100%);
+    box-shadow: 0 8px 30px rgba(245, 192, 66, 0.55);
+    transform: translateY(-2px);
+}
+
+.btn-primary-glow:active {
+    transform: translateY(0);
+}
+
+.btn-secondary-glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 9999px;
+    padding: 0.85rem 1.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: all 0.3s var(--transition-smooth);
+    cursor: pointer;
+}
+
+.btn-secondary-glass:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+}
+
+.shimmer-effect {
+    position: relative;
+    overflow: hidden;
+}
+.shimmer-effect::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    animation: shimmer 2.5s infinite;
+}
+
+/* Floating animation */
+@keyframes subtleFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+.floating-element {
+    animation: subtleFloat 5s ease-in-out infinite;
+}
+
+/* Background Gradients & Glow Orbs */
+.ambient-glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+}
+
+.glow-blue {
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, transparent 70%);
+}
+.glow-purple {
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+}
+.glow-gold {
+    background: radial-gradient(circle, rgba(245, 192, 66, 0.2) 0%, transparent 70%);
+}
+
+/* Form inputs */
+.form-input-luxury {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.75rem;
+    padding: 0.85rem 1.15rem;
+    color: #ffffff;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+}
+
+.form-input-luxury:focus {
+    outline: none;
+    border-color: var(--brand-gold);
+    box-shadow: 0 0 0 3px rgba(245, 192, 66, 0.15);
+    background: rgba(15, 23, 42, 0.9);
+}
+
+.form-input-luxury::placeholder {
+    color: #64748b;
+}
+
+/* Selection / Custom Select */
+select.form-input-luxury option {
+    background: #0d1733;
+    color: #f8fafc;
+    padding: 0.5rem;
+}
+
+/* Marquee / Infinite Slider */
+@keyframes marqueeScroll {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marqueeScroll 35s linear infinite;
+}
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+/* Modal Overlay */
+.modal-backdrop {
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Tab indicator */
+.tab-btn.active {
+    background: var(--brand-gold);
+    color: #050b1d;
+    box-shadow: 0 4px 15px rgba(245, 192, 66, 0.3);
+}
+
+/* Accordion */
+.accordion-item {
+    transition: all 0.3s ease;
+}
+.accordion-item.active .accordion-content {
+    max-height: 350px;
+    opacity: 1;
+    margin-top: 1rem;
+}
+.accordion-item.active .accordion-icon {
+    transform: rotate(180deg);
+    color: var(--brand-gold);
+}
+.accordion-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
