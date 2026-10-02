@@ -1,6 +1,6 @@
-# Edconsultants — Complete 14-Page Ecosystem & Mobile Journey Engine
+# The Edu Consultants — Complete 14-Page Ecosystem & Mobile Journey Engine
 
-All requested pages have been cloned and elevated for **Edconsultants** with authentic colors (`#000064`, `#f5dc3c`, `#fb5421`), robust mobile-first responsiveness, an interactive **Mobile Scroll Journey Flow**, and an enterprise-grade authentication system with persistent session states.
+All requested pages have been cloned and elevated for **The Edu Consultants** with authentic colors (`#000064`, `#f5dc3c`, `#fb5421`), robust mobile-first responsiveness, an interactive **Mobile Scroll Journey Flow**, and an enterprise-grade authentication system with persistent session states.
 
 ---
 

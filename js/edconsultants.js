@@ -1,5 +1,5 @@
 /**
- * Edconsultants - Core Interactive Platform Engine
+ * The Edu Consultants - Core Interactive Platform Engine
  * Handles AOS Entry Reveals, Header Offcanvas, Search Filtering, FAQs, and Modals
  */
 

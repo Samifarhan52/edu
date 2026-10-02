@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Edconsultants - Authentic Design System & Styles
-   Matching Edconsultants Colors, Typography, Buttons, Entry Reveals & Components
+   The Edu Consultants - Authentic Design System & Styles
+   Matching The Edu Consultants Colors, Typography, Buttons, Entry Reveals & Components
    ========================================================================== */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Nunito+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap");
@@ -235,7 +235,7 @@ a {
         padding: 10px 0;
     }
     .ld-header-logo .brand-title {
-        font-size: 19px !important;
+        font-size: 18px !important;
     }
     .ld-header-logo .brand-icon-circle {
         width: 36px !important;
@@ -1154,6 +1154,19 @@ a {
         overflow-x: clip;
     }
 
+    .ld-header-logo .brand-title {
+        font-size: 18px !important;
+    }
+
+    .ld-header-logo .brand-icon-circle {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+        max-width: 36px !important;
+        max-height: 36px !important;
+    }
+
     .section-gap {
         padding: 50px 0;
     }
@@ -1380,6 +1393,19 @@ a {
 
 /* Small Smart Phones (< 480px) */
 @media (max-width: 480px) {
+    .ld-header-logo .brand-title {
+        font-size: 16px !important;
+    }
+
+    .ld-header-logo .brand-icon-circle {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        min-height: 32px !important;
+        max-width: 32px !important;
+        max-height: 32px !important;
+    }
+
     .hero-banner-content .title {
         font-size: 21px;
     }

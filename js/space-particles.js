@@ -1,5 +1,5 @@
 /**
- * EduConsultants - Ambient 3D Space & Flight Particles
+ * The Edu Consultants - Ambient 3D Space & Flight Particles
  * Light, responsive constellation depth field that accelerates with scroll velocity
  */
 

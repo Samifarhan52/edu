@@ -1,6 +1,6 @@
-# Edconsultants — Global Study Abroad & Admissions Platform
+# The Edu Consultants — Global Study Abroad & Admissions Platform
 
-> An enterprise, full-suite educational consultancy web platform built under the **Edconsultants** brand. Features an interactive **Mobile Scroll Journey Flow**, full 14-page university admissions directory, client portal with dynamic session management, and responsive layouts across all mobile, tablet, and desktop screens.
+> An enterprise, full-suite educational consultancy web platform built under the **The Edu Consultants** brand. Features an interactive **Mobile Scroll Journey Flow**, full 14-page university admissions directory, client portal with dynamic session management, and responsive layouts across all mobile, tablet, and desktop screens.
 
 ---
 

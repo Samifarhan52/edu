@@ -1,14 +1,14 @@
 /**
- * EduConsultants - Global Educational Dataset & Content Repository
+ * The Edu Consultants - Global Educational Dataset & Content Repository
  * Enterprise Higher Education Admissions Platform
  */
 
 window.EduData = {
     brand: {
-        name: "EduConsultants",
+        name: "The Edu Consultants",
         tagline: "Empowering Students to Achieve Their International Education Dreams",
         phone: "+1 (800) 458-3382",
-        email: "admissions@educonsultants.org",
+        email: "admissions@theeduconsultants.org",
         address: "740 Broadway, 12th Floor, New York, NY 10003, United States",
         workingHours: "Mon - Sat: 9:00 AM - 7:00 PM EST"
     },
@@ -160,7 +160,7 @@ window.EduData = {
             sub: "The Mentor Link",
             metric: "1-on-1 Certified Mentors",
             depth: "60%",
-            tagline: "Connect directly with EduConsultants senior education advisors.",
+            tagline: "Connect directly with The Edu Consultants senior education advisors.",
             details: "Book dedicated 1-on-1 virtual or in-person strategy sessions. Your assigned counselor refines your university shortlist, reviews eligibility, and establishes your personalized timeline.",
             icon: "users",
             color: "from-emerald-500 to-teal-600",
@@ -283,7 +283,7 @@ window.EduData = {
             category: "Financial Aid",
             image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80",
             summary: "Navigating international merit grants and need-based tuition waivers requires early planning, articulate essays, and strategic positioning.",
-            content: "International education is an extraordinary investment, but tuition expenses can feel daunting. Securing scholarships is far more accessible when you understand institutional scoring criteria. Many top universities allocate dedicated endowment funding for global diversity. Here are four foundational strategies our EduConsultants counselors swear by..."
+            content: "International education is an extraordinary investment, but tuition expenses can feel daunting. Securing scholarships is far more accessible when you understand institutional scoring criteria. Many top universities allocate dedicated endowment funding for global diversity. Here are four foundational strategies our counselors at The Edu Consultants swear by..."
         },
         {
             id: "blog-application-workshop",
@@ -316,7 +316,7 @@ window.EduData = {
             category: "Student Wellness",
             image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=800&q=80",
             summary: "Overcoming culture shock, networking with local communities, and building lasting international friendships.",
-            content: "The emotional curve of international study follows a predictable cadence: the initial honeymoon excitement, the subtle dissonance of unfamiliar norms, and the triumphant breakthrough into cultural fluency. Discover how EduConsultants peer-mentorship networks make this transition empowering..."
+            content: "The emotional curve of international study follows a predictable cadence: the initial honeymoon excitement, the subtle dissonance of unfamiliar norms, and the triumphant breakthrough into cultural fluency. Discover how The Edu Consultants peer-mentorship networks make this transition empowering..."
         }
     ],
 
@@ -327,7 +327,7 @@ window.EduData = {
             date: "June 7, 2026",
             rating: 5,
             avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=200&q=80",
-            text: "EduConsultants made my dream of studying in Australia come true with zero stress. Their counselors handled everything seamlessly, from course matching and credit evaluation to my student visa grant in just 14 days."
+            text: "The Edu Consultants made my dream of studying in Australia come true with zero stress. Their counselors handled everything seamlessly, from course matching and credit evaluation to my student visa grant in just 14 days."
         },
         {
             name: "Christopher Jordan",
@@ -335,7 +335,7 @@ window.EduData = {
             date: "June 8, 2026",
             rating: 5,
             avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
-            text: "I was completely overwhelmed by the Canadian PGWP rules and university prerequisites, but the team at EduConsultants guided me at every turn. Their SOP editing service alone was worth gold."
+            text: "I was completely overwhelmed by the Canadian PGWP rules and university prerequisites, but the team at The Edu Consultants guided me at every turn. Their SOP editing service alone was worth gold."
         },
         {
             name: "Ava White",
@@ -343,7 +343,7 @@ window.EduData = {
             date: "June 6, 2026",
             rating: 5,
             avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80",
-            text: "Their expertise in securing scholarships is genuinely incredible. EduConsultants helped me win a £10,000 international merit bursary that made studying in London fully affordable."
+            text: "Their expertise in securing scholarships is genuinely incredible. The Edu Consultants helped me win a £10,000 international merit bursary that made studying in London fully affordable."
         },
         {
             name: "Emma Thomas",
@@ -351,7 +351,7 @@ window.EduData = {
             date: "June 3, 2026",
             rating: 5,
             avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80",
-            text: "Applying to German universities requires meticulous document notarization and APS verification. The EduConsultants team walked me through every deadline with flawless patience."
+            text: "Applying to German universities requires meticulous document notarization and APS verification. The Edu Consultants team walked me through every deadline with flawless patience."
         },
         {
             name: "Emily Johnson",
@@ -359,7 +359,7 @@ window.EduData = {
             date: "June 1, 2026",
             rating: 5,
             avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
-            text: "EduConsultants' guidance was invaluable. Their counselors organized mock F-1 visa interviews that completely eliminated my anxiety before visiting the US consulate."
+            text: "The Edu Consultants' guidance was invaluable. Their counselors organized mock F-1 visa interviews that completely eliminated my anxiety before visiting the US consulate."
         },
         {
             name: "Jhon Morgan",
@@ -367,7 +367,7 @@ window.EduData = {
             date: "May 13, 2026",
             rating: 5,
             avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
-            text: "Working with EduConsultants was an extraordinary experience. Proactive, knowledgeable, and genuinely invested in their students' lifelong career trajectory."
+            text: "Working with The Edu Consultants was an extraordinary experience. Proactive, knowledgeable, and genuinely invested in their students' lifelong career trajectory."
         },
         {
             name: "Mera D.",
@@ -375,25 +375,25 @@ window.EduData = {
             date: "May 12, 2026",
             rating: 5,
             avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80",
-            text: "From selecting universities to getting my visa approved, EduConsultants transformed a complicated process into a clear, inspiring journey. Highly recommend!"
+            text: "From selecting universities to getting my visa approved, The Edu Consultants transformed a complicated process into a clear, inspiring journey. Highly recommend!"
         }
     ],
 
     faqs: [
         {
             q: "How can I choose the best study destination for my profile?",
-            a: "At EduConsultants, we offer personalized diagnostic counseling based on your academic background, test scores, long-term career aspirations, preferred climate, and financial budget. We compare post-study work rights, cost of living, and job markets across Australia, the US, Canada, the UK, Germany, and Europe."
+            a: "At The Edu Consultants, we offer personalized diagnostic counseling based on your academic background, test scores, long-term career aspirations, preferred climate, and financial budget. We compare post-study work rights, cost of living, and job markets across Australia, the US, Canada, the UK, Germany, and Europe."
         },
         {
-            q: "What services does EduConsultants offer to prospective students?",
-            a: "EduConsultants provides complete end-to-end guidance: profile evaluation, university shortlisting, SOP & LOR editing, direct university application submission, scholarship matching, embassy visa file assembly, mock interviews, and post-arrival pre-departure accommodations."
+            q: "What services does The Edu Consultants offer to prospective students?",
+            a: "The Edu Consultants provides complete end-to-end guidance: profile evaluation, university shortlisting, SOP & LOR editing, direct university application submission, scholarship matching, embassy visa file assembly, mock interviews, and post-arrival pre-departure accommodations."
         },
         {
             q: "What is the university application process like and how long does it take?",
             a: "The timeline typically spans 3 to 6 months depending on the country intake (Fall, Spring, or Summer). Our team coordinates your document verification, manages portal submissions, tracks offer letters, and ensures you meet early application deadlines to secure scholarships."
         },
         {
-            q: "Are scholarships available for international students through EduConsultants?",
+            q: "Are scholarships available for international students through The Edu Consultants?",
             a: "Yes! Many of our partner universities offer merit-based waivers, dean's awards, and country-specific bursaries ranging from 15% to 100% of tuition. We help you identify all scholarships you qualify for and optimize your essays."
         },
         {
@@ -401,7 +401,7 @@ window.EduData = {
             a: "We provide comprehensive pre-departure briefings, airport arrival coordination, student housing search assistance, international SIM and bank account setup, and connect you with local alumni student networks."
         },
         {
-            q: "How can I book a free consultation with EduConsultants?",
+            q: "How can I book a free consultation with The Edu Consultants?",
             a: "You can easily schedule a complimentary 1-on-1 session using the booking form on this page or clicking 'Book Consultation' in the top header. You can choose either an in-person meeting at our office or a virtual video consultation."
         }
     ],

@@ -1,5 +1,5 @@
 /**
- * Edconsultants - Centralized Authentication & Session Management
+ * The Edu Consultants - Centralized Authentication & Session Management
  * Handles login, signup, persistent sessions (localStorage), dynamic navbar states, and logout across all pages.
  */
 
@@ -10,29 +10,34 @@
 
     // Demo user database
     const DEMO_USERS = {
-        'admin@edconsultants.org': {
+        'admin@theeduconsultants.org': {
             name: 'Alexander Morgan',
-            email: 'admin@edconsultants.org',
+            email: 'admin@theeduconsultants.org',
             role: 'Admissions Director',
             avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
             badge: 'Admin'
         },
-        'counselor@edconsultants.org': {
+        'counselor@theeduconsultants.org': {
             name: 'Dr. Eleanor Vance',
-            email: 'counselor@edconsultants.org',
+            email: 'counselor@theeduconsultants.org',
             role: 'Senior Academic Counselor',
             avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80',
             badge: 'Staff'
         },
-        'student@edconsultants.org': {
+        'student@theeduconsultants.org': {
             name: 'Sophia Patel',
-            email: 'student@edconsultants.org',
+            email: 'student@theeduconsultants.org',
             role: 'Prospective Scholar',
             destination: 'United Kingdom',
             avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80',
             badge: 'Student'
         }
     };
+
+    // Legacy aliases for backward compatibility
+    DEMO_USERS['admin@edconsultants.org'] = DEMO_USERS['admin@theeduconsultants.org'];
+    DEMO_USERS['counselor@edconsultants.org'] = DEMO_USERS['counselor@theeduconsultants.org'];
+    DEMO_USERS['student@edconsultants.org'] = DEMO_USERS['student@theeduconsultants.org'];
 
     const edAuth = {
         getUser: function () {
