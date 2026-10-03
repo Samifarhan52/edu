@@ -225,6 +225,12 @@
                         </button>
                     </li>
                     <li>
+                        <button type="button" class="admin-nav-tab" data-target="panel-meetings">
+                            <i class="fa-solid fa-calendar-days"></i> Scheduled Meetings
+                            <span class="badge bg-warning text-dark rounded-pill ms-auto" id="sidebarMeetingsBadge">1 Pending</span>
+                        </button>
+                    </li>
+                    <li>
                         <button type="button" class="admin-nav-tab" data-target="panel-pages">
                             <i class="fa-solid fa-file-circle-plus"></i> Page Builder Studio
                         </button>
@@ -341,6 +347,9 @@
                 </button>
                 <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-leads]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
                     <i class="fa-solid fa-address-book"></i> Leads
+                </button>
+                <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-meetings]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
+                    <i class="fa-solid fa-calendar-days"></i> Meetings
                 </button>
                 <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-pages]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
                     <i class="fa-solid fa-file-circle-plus"></i> Pages
@@ -491,6 +500,17 @@
                                     <div>
                                         <h6 class="fw-bold text-dark mb-1">Owner Security & Pass</h6>
                                         <span class="text-muted fs-13">Change password & manage master profile.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="p-3 rounded-3 border bg-light h-100 cursor-pointer transition-hover" onclick="document.querySelector('[data-target=panel-meetings]').click();">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-warning text-dark p-3 fs-5"><i class="fa-solid fa-calendar-check"></i></div>
+                                    <div>
+                                        <h6 class="fw-bold text-dark mb-1">Scheduled Meetings</h6>
+                                        <span class="text-muted fs-13">Review & confirm 1-on-1 counseling slots.</span>
                                     </div>
                                 </div>
                             </div>
@@ -665,6 +685,113 @@
                                 </tr>
                             </thead>
                             <tbody id="adminLeadsTableBody" class="fs-13">
+                                <!-- Rendered dynamically by js/leads.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- PANEL: SCHEDULED MEETINGS & ADVISORY SESSIONS HUB             -->
+            <!-- ============================================================== -->
+            <section id="panel-meetings" class="admin-view-panel">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                    <div>
+                        <h4 class="fw-800 text-dark mb-1">
+                            <i class="fa-solid fa-calendar-days text-warning me-2"></i>Scheduled Meetings & Advisory Sessions
+                        </h4>
+                        <p class="text-muted fs-14 mb-0">
+                            Real-time 1-on-1 counseling slots booked via website & WhatsApp. Confirming triggers automated emails from <span class="badge bg-danger text-white">noreply@theeduconsultant.com</span>.
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <button type="button" class="btn btn-warning rounded-pill px-3 py-2 fw-bold fs-13 d-flex align-items-center gap-2" style="background-color: var(--button); color: var(--brand-primary); border: none;" onclick="window.EduLeads.openMeetingModal()">
+                            <i class="fa-solid fa-calendar-plus fs-6"></i> Book Session Manually
+                        </button>
+                        <a href="https://wa.me/919845371459" target="_blank" class="btn btn-success rounded-pill px-3 py-2 fw-bold fs-13 d-flex align-items-center gap-2">
+                            <i class="fa-brands fa-whatsapp fs-5"></i> Admin WhatsApp (+91 9845371459)
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Meetings KPI Row -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card bg-white border rounded-4 p-3 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Total Bookings</span>
+                                <div class="p-2 rounded-3 bg-primary-subtle text-primary"><i class="fa-solid fa-calendar-check"></i></div>
+                            </div>
+                            <h3 class="fw-800 text-dark mb-0" id="adminTotalMeetingsCounter">0</h3>
+                            <span class="text-muted fs-11">All Virtual & Lounge Requests</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card bg-white border rounded-4 p-3 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Awaiting Confirmation</span>
+                                <div class="p-2 rounded-3 bg-warning-subtle text-warning"><i class="fa-solid fa-hourglass-half fs-5"></i></div>
+                            </div>
+                            <h3 class="fw-800 text-warning mb-0" id="adminPendingMeetingsCounter">0</h3>
+                            <span class="text-warning fs-11 fw-bold">Pending Counselor Confirmation</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card bg-white border rounded-4 p-3 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Confirmed Sessions</span>
+                                <div class="p-2 rounded-3 bg-success-subtle text-success"><i class="fa-solid fa-circle-check fs-5"></i></div>
+                            </div>
+                            <h3 class="fw-800 text-success mb-0" id="adminConfirmedMeetingsCounter">0</h3>
+                            <span class="text-success fs-11 fw-bold">Slotted & Link Sent</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="metric-card bg-white border rounded-4 p-3 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Automated Emails Sent</span>
+                                <div class="p-2 rounded-3 bg-danger-subtle text-danger"><i class="fa-solid fa-envelope-circle-check fs-5"></i></div>
+                            </div>
+                            <h3 class="fw-800 text-danger mb-0" id="adminEmailsSentCounter">0</h3>
+                            <span class="text-muted fs-11">From noreply@theeduconsultant.com</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meetings Filter & Table Card -->
+                <div class="card border rounded-4 shadow-sm bg-white overflow-hidden mb-4">
+                    <div class="card-header bg-white border-bottom p-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="fw-bold fs-14 text-dark"><i class="fa-solid fa-filter me-1 text-primary"></i> Filter Meetings:</span>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-outline-secondary active" onclick="window.EduLeads.renderAdminMeetingsTable('All'); this.parentElement.querySelectorAll('.btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">All</button>
+                                <button type="button" class="btn btn-outline-warning" onclick="window.EduLeads.renderAdminMeetingsTable('Pending'); this.parentElement.querySelectorAll('.btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">Pending</button>
+                                <button type="button" class="btn btn-outline-success" onclick="window.EduLeads.renderAdminMeetingsTable('Confirmed'); this.parentElement.querySelectorAll('.btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">Confirmed</button>
+                                <button type="button" class="btn btn-outline-info" onclick="window.EduLeads.renderAdminMeetingsTable('Rescheduled'); this.parentElement.querySelectorAll('.btn').forEach(b=>b.classList.remove('active')); this.classList.add('active');">Rescheduled</button>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-light text-muted border fs-12">
+                                <i class="fa-solid fa-bolt text-warning me-1"></i> WhatsApp link clicks auto-confirm meetings instantly
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light fs-12 text-uppercase text-muted">
+                                <tr>
+                                    <th scope="col" style="min-width: 110px;">Booking ID</th>
+                                    <th scope="col" style="min-width: 170px;">Prospective Student</th>
+                                    <th scope="col" style="min-width: 170px;">Contact Details</th>
+                                    <th scope="col" style="min-width: 160px;">Date & Time Slot</th>
+                                    <th scope="col" style="min-width: 120px;">Advisory Mode</th>
+                                    <th scope="col" style="min-width: 130px;">Counselor Status</th>
+                                    <th scope="col" class="text-end" style="min-width: 160px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminMeetingsTableBody" class="fs-13">
                                 <!-- Rendered dynamically by js/leads.js -->
                             </tbody>
                         </table>
