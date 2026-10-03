@@ -123,93 +123,55 @@
         </div>
     </section>
 
-    <!-- Blog Grid -->
+    <!-- Blog Search & Category Filter Section -->
     <section class="section-gap bg-white">
         <div class="container">
-            <div class="row g-4" data-aos="fade-up" data-aos-duration="1000">
-                <!-- Article 1 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border rounded-4 overflow-hidden shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" class="card-img-top object-fit-cover" style="height: 220px;" alt="Scholarship"/>
-                        <div class="card-body p-4 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="badge bg-warning text-dark fw-bold">Scholarships</span>
-                                    <span class="fs-13 text-muted">Nov 15th 2026</span>
-                                </div>
-                                <h5 class="card-title fw-bold text-dark">How to Secure Scholarships for International Students</h5>
-                                <p class="card-text fs-14 text-muted">Strategic insights on demonstrating merit, writing persuasive statement of purpose letters, and meeting early grant deadlines.</p>
-                            </div>
-                            <div class="pt-3 border-top mt-3 d-flex justify-content-between align-items-center">
-                                <span class="fs-13 text-muted">By Admissions Director</span>
-                                <a href="contact-us.html" class="fw-bold text-primary fs-14 text-decoration-none">Read More <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
+            <!-- Search & Filter Controls -->
+            <div class="row g-3 align-items-center mb-4">
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                        <input type="text" id="blogSearchInput" class="form-control rounded-pill py-3 ps-5 pe-4 fs-14 border" placeholder="Search articles by title, keyword, or author..."/>
                     </div>
                 </div>
+                <div class="col-lg-6 text-lg-end">
+                    <div class="d-flex align-items-center justify-content-lg-end gap-2">
+                        <span class="fs-13 text-muted fw-bold text-uppercase" id="blogCountDisplay">Showing Articles</span>
+                        <a href="admin-dashboard.html#blogs" class="btn btn-sm btn-outline-warning text-dark rounded-pill px-3 py-2 fw-bold fs-12">
+                            <i class="fa-solid fa-pen-nib me-1 text-danger"></i> Author Studio
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Article 2 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border rounded-4 overflow-hidden shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=600&q=80" class="card-img-top object-fit-cover" style="height: 220px;" alt="Application"/>
-                        <div class="card-body p-4 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="badge bg-primary text-white fw-bold">Admissions</span>
-                                    <span class="fs-13 text-muted">Nov 18th 2026</span>
-                                </div>
-                                <h5 class="card-title fw-bold text-dark">Application Workshop: Ace Your Study Abroad File</h5>
-                                <p class="card-text fs-14 text-muted">A step-by-step masterclass on avoiding critical SOP errors, securing compelling letters of recommendation, and transcript notarization.</p>
-                            </div>
-                            <div class="pt-3 border-top mt-3 d-flex justify-content-between align-items-center">
-                                <span class="fs-13 text-muted">By Head of Counseling</span>
-                                <a href="contact-us.html" class="fw-bold text-primary fs-14 text-decoration-none">Read More <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Horizontal Swipeable Category Pills -->
+            <div class="scroll-pills-container mb-4" id="blogCategoryPills">
+                <button type="button" class="category-pill active" data-category="All">
+                    <i class="fa-solid fa-layer-group"></i> All Articles
+                </button>
+                <button type="button" class="category-pill" data-category="Scholarships">
+                    <i class="fa-solid fa-award"></i> Scholarships
+                </button>
+                <button type="button" class="category-pill" data-category="Admissions">
+                    <i class="fa-solid fa-graduation-cap"></i> Admissions
+                </button>
+                <button type="button" class="category-pill" data-category="Pre-Departure">
+                    <i class="fa-solid fa-plane-departure"></i> Pre-Departure
+                </button>
+                <button type="button" class="category-pill" data-category="Culture">
+                    <i class="fa-solid fa-earth-americas"></i> Culture & Life
+                </button>
+                <button type="button" class="category-pill" data-category="Visa & Immigration">
+                    <i class="fa-solid fa-passport"></i> Visa & Immigration
+                </button>
+                <button type="button" class="category-pill" data-category="University Guides">
+                    <i class="fa-solid fa-building-columns"></i> University Guides
+                </button>
+            </div>
 
-                <!-- Article 3 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border rounded-4 overflow-hidden shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" class="card-img-top object-fit-cover" style="height: 220px;" alt="Departure"/>
-                        <div class="card-body p-4 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="badge bg-success text-white fw-bold">Pre-Departure</span>
-                                    <span class="fs-13 text-muted">Nov 22nd 2026</span>
-                                </div>
-                                <h5 class="card-title fw-bold text-dark">Pre-Departure Orientation: Get Ready for Life Abroad</h5>
-                                <p class="card-text fs-14 text-muted">Crucial packing checklists, setting up international student bank accounts, foreign SIM activation, and health coverage registration.</p>
-                            </div>
-                            <div class="pt-3 border-top mt-3 d-flex justify-content-between align-items-center">
-                                <span class="fs-13 text-muted">By Student Welfare Lead</span>
-                                <a href="contact-us.html" class="fw-bold text-primary fs-14 text-decoration-none">Read More <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Article 4 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border rounded-4 overflow-hidden shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=600&q=80" class="card-img-top object-fit-cover" style="height: 220px;" alt="Culture"/>
-                        <div class="card-body p-4 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="badge bg-danger text-white fw-bold">Culture</span>
-                                    <span class="fs-13 text-muted">Dec 1st 2026</span>
-                                </div>
-                                <h5 class="card-title fw-bold text-dark">Cultural Adjustment: How to Thrive in a New Country</h5>
-                                <p class="card-text fs-14 text-muted">Navigating the cultural adaptation curve, joining campus societies, building global networks, and finding part-time jobs.</p>
-                            </div>
-                            <div class="pt-3 border-top mt-3 d-flex justify-content-between align-items-center">
-                                <span class="fs-13 text-muted">By Alumni Mentor</span>
-                                <a href="contact-us.html" class="fw-bold text-primary fs-14 text-decoration-none">Read More <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Dynamic Blog Cards Grid (managed by js/cms.js) -->
+            <div class="row g-4" id="dynamicBlogGrid" data-aos="fade-up" data-aos-duration="1000">
+                <!-- Articles populated dynamically by js/cms.js -->
             </div>
         </div>
     </section>
@@ -274,6 +236,7 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/cms.js"></script>
     <script src="js/edconsultants.js"></script>
 </body>
 </html>

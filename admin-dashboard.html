@@ -1,110 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-    <title>The Edu Consultants - Admin Dashboard | Management Portal</title>
+    <title>The Edu Consultants - Admin Dashboard | Management & Content Studio</title>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <link rel="stylesheet" href="css/edconsultants.css"/>
+
     <style>
+        :root {
+            --brand-primary: #000064;
+            --button: #f5dc3c;
+            --red: #fb5421;
+        }
+
+        body {
+            background-color: #f4f6fa;
+            font-family: 'Nunito Sans', 'Inter', sans-serif;
+            color: #334155;
+            min-height: 100vh;
+        }
+
         .dashboard-layout {
             display: flex;
             min-height: 100vh;
-            background-color: var(--secondary);
         }
+
+        /* Sidebar Styling */
         .dashboard-sidebar {
-            width: 260px;
-            background-color: var(--sidebar-bg);
+            width: 270px;
+            background-color: var(--brand-primary);
             color: #ffffff;
-            padding: 24px 16px;
-            flex-shrink: 0;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            padding: 24px 18px;
+            flex-shrink: 0;
             transition: all 0.3s ease;
+            z-index: 1040;
         }
+
         .sidebar-menu {
             list-style: none;
             padding: 0;
-            margin-top: 30px;
+            margin: 24px 0 0;
         }
+
         .sidebar-menu li {
             margin-bottom: 6px;
         }
-        .sidebar-menu a {
+
+        .sidebar-menu a, .sidebar-menu button {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 16px;
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 10px;
+            padding: 11px 16px;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14.5px;
             transition: all 0.2s ease;
-        }
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-            background-color: rgba(255, 255, 255, 0.15);
-            color: var(--button);
-        }
-        .dashboard-main {
-            flex-grow: 1;
-            padding: 30px;
-            overflow-y: auto;
+            background: none;
+            border: none;
             width: 100%;
+            text-align: left;
         }
+
+        .sidebar-menu a:hover, .sidebar-menu button:hover,
+        .sidebar-menu a.active, .sidebar-menu button.active {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .sidebar-menu a.active, .sidebar-menu button.active {
+            background-color: var(--button) !important;
+            color: var(--brand-primary) !important;
+            box-shadow: 0 4px 12px rgba(245, 220, 60, 0.25);
+        }
+
+        /* Main Content View */
+        .dashboard-main {
+            flex: 1;
+            padding: 30px 36px 60px;
+            overflow-y: auto;
+            max-width: 100%;
+        }
+
         .metric-card {
             background: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
-            border: 1px solid var(--stroke);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            border-radius: 18px;
+            padding: 22px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 100, 0.06);
+        }
+
         .mobile-admin-bar {
             display: none;
-            background-color: var(--sidebar-bg);
+            background-color: var(--brand-primary);
+            padding: 12px 18px;
             color: #ffffff;
-            padding: 14px 20px;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+
+        /* Mobile Swipeable Tab Switcher */
+        .mobile-admin-tab-scroller {
+            display: none;
+            gap: 6px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0 16px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .mobile-admin-tab-scroller::-webkit-scrollbar { display: none; }
+
         @media (max-width: 991px) {
             .dashboard-layout {
                 flex-direction: column;
             }
+            .dashboard-sidebar {
+                position: fixed;
+                top: 0;
+                left: -280px;
+                bottom: 0;
+                width: 280px;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
+            }
+            .dashboard-sidebar.show-mobile {
+                left: 0;
+            }
             .mobile-admin-bar {
                 display: flex;
             }
-            .dashboard-sidebar {
-                width: 100%;
-                display: none;
-                padding: 16px 20px;
-            }
-            .dashboard-sidebar.show-mobile {
+            .mobile-admin-tab-scroller {
                 display: flex;
             }
             .dashboard-main {
-                padding: 20px 14px;
+                padding: 16px 14px 80px;
             }
+        }
+
+        .cms-preset-chip {
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 20px;
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .cms-preset-chip:hover {
+            background: var(--brand-primary);
+            color: white;
+            border-color: var(--brand-primary);
         }
     </style>
 </head>
-
 <body>
 
     <!-- Mobile Admin Top Bar (Visible < 992px) -->
     <header class="mobile-admin-bar">
         <a href="index.html" class="d-flex align-items-center gap-2 text-decoration-none text-white">
-            <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 36px; height: 36px; min-width: 36px; min-height: 36px; background-color: var(--button); color: var(--brand-primary);">
+            <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 34px; height: 34px; background-color: var(--button); color: var(--brand-primary);">
                 <i class="fa-solid fa-graduation-cap fs-6"></i>
             </div>
-            <span class="fs-5 fw-800" style="font-family: 'Poppins', sans-serif;">
+            <span class="fs-6 fw-800" style="font-family: 'Poppins', sans-serif;">
                 The Edu <span style="color: var(--button);">Consultants</span>
             </span>
         </a>
@@ -119,209 +197,645 @@
     </header>
 
     <div class="dashboard-layout">
-        <!-- Sidebar -->
+        <!-- Sidebar Navigation -->
         <aside class="dashboard-sidebar" id="dashboardSidebar">
             <div>
-                <div class="d-none d-lg-block">
+                <div class="d-none d-lg-block pb-3 border-bottom border-white-10">
                     <a href="index.html" class="d-flex align-items-center gap-2 text-decoration-none text-white">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px; min-width: 40px; min-height: 40px; background-color: var(--button); color: var(--brand-primary);">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px; background-color: var(--button); color: var(--brand-primary);">
                             <i class="fa-solid fa-graduation-cap fs-5"></i>
                         </div>
                         <span class="fs-4 fw-800" style="font-family: 'Poppins', sans-serif;">
                             The Edu <span style="color: var(--button);">Consultants</span>
                         </span>
                     </a>
+                    <div class="text-white-50 fs-11 mt-1 ps-1">Enterprise Admissions & Content Suite</div>
                 </div>
 
                 <ul class="sidebar-menu">
-                    <li><a href="admin-dashboard.html" class="active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
-                    <li><a href="universities-list.html"><i class="fa-solid fa-building-columns"></i> Universities</a></li>
-                    <li><a href="subject-list.html"><i class="fa-solid fa-book-bookmark"></i> Subjects</a></li>
-                    <li><a href="scholarship-list.html"><i class="fa-solid fa-award"></i> Scholarships</a></li>
-                    <li><a href="contact-us.html"><i class="fa-solid fa-user-graduate"></i> Consultations</a></li>
-                    <li><a href="event-list.html"><i class="fa-solid fa-calendar-days"></i> Events</a></li>
-                    <li><a href="blog-list.html"><i class="fa-solid fa-newspaper"></i> Blog Articles</a></li>
-                    <li><a href="index.html"><i class="fa-solid fa-arrow-left"></i> Return to Website</a></li>
+                    <li>
+                        <button type="button" class="admin-nav-tab active" data-target="panel-overview">
+                            <i class="fa-solid fa-chart-pie"></i> Dashboard & KPIs
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="admin-nav-tab" data-target="panel-blogs">
+                            <i class="fa-solid fa-newspaper"></i> Post & Manage Blogs
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="admin-nav-tab" data-target="panel-universities">
+                            <i class="fa-solid fa-building-columns"></i> University Directory
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="admin-nav-tab" data-target="panel-announcements">
+                            <i class="fa-solid fa-bullhorn"></i> Site Announcements
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="admin-nav-tab" data-target="panel-applications">
+                            <i class="fa-solid fa-user-graduate"></i> Student Pipeline
+                        </button>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <i class="fa-solid fa-arrow-left"></i> View Public Website
+                        </a>
+                    </li>
                 </ul>
             </div>
 
             <div class="pt-4 border-top border-white-20">
+                <div class="d-flex align-items-center gap-2 mb-3 px-2">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="rounded-circle dashboard-admin-avatar" width="34" height="34" alt="Admin"/>
+                    <div class="text-start text-truncate">
+                        <span class="fs-13 fw-bold text-white dashboard-admin-name d-block text-truncate">Alexander Morgan</span>
+                        <span class="fs-11 text-white-50 dashboard-admin-role d-block">Admissions Director</span>
+                    </div>
+                </div>
                 <button type="button" onclick="edAuth.logout()" class="btn btn-outline-light w-100 rounded-pill fs-14 fw-bold ed-logout-trigger">
                     <i class="fa-solid fa-right-from-bracket me-2"></i> Log Out
                 </button>
             </div>
         </aside>
 
-        <!-- Main Dashboard View -->
+        <!-- Main Dashboard Viewport -->
         <main class="dashboard-main">
-            <!-- Topbar -->
+            <!-- Topbar on Desktop -->
             <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                 <div>
-                    <h3 class="fw-800 text-dark mb-1">Admissions Management Console</h3>
-                    <p class="text-muted fs-14 mb-0">Overview of student pipelines, visa files, and university articulation contracts.</p>
+                    <h3 class="fw-800 text-dark mb-1">Content Management & Admissions Hub</h3>
+                    <p class="text-muted fs-14 mb-0">Publish new articles, register partner universities, and broadcast live alerts.</p>
                 </div>
-                <div class="d-flex align-items-center gap-3">
-                    <div class="bg-white p-2 rounded-circle border shadow-sm">
-                        <i class="fa-regular fa-bell text-muted fs-5"></i>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn d-flex align-items-center gap-2 bg-white px-3 py-2 rounded-pill border shadow-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="rounded-circle dashboard-admin-avatar" width="34" height="34" alt="Admin"/>
-                            <div class="text-start">
-                                <span class="fs-14 fw-bold text-dark dashboard-admin-name d-block" style="line-height: 1.1;">Alexander Morgan</span>
-                                <span class="fs-11 text-muted dashboard-admin-role d-block">Admissions Director</span>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <button type="button" class="btn btn-warning rounded-pill px-3 py-2 fw-bold fs-13 shadow-sm d-flex align-items-center gap-2" style="background-color: var(--button); color: var(--brand-primary); border: none;" onclick="document.querySelector('[data-target=panel-blogs]').click();">
+                        <i class="fa-solid fa-plus"></i> Post New Blog
+                    </button>
+                    <button type="button" class="btn btn-primary rounded-pill px-3 py-2 fw-bold fs-13 shadow-sm d-flex align-items-center gap-2" style="background-color: var(--brand-primary); border: none;" onclick="document.querySelector('[data-target=panel-universities]').click();">
+                        <i class="fa-solid fa-building-columns"></i> Add University
+                    </button>
+                    <a href="index.html" class="btn btn-outline-secondary rounded-pill px-3 py-2 fw-bold fs-13">
+                        <i class="fa-solid fa-globe me-1"></i> Live Site
+                    </a>
+                </div>
+            </div>
+
+            <!-- Mobile Quick Tab Switcher (< 992px) -->
+            <div class="mobile-admin-tab-scroller">
+                <button type="button" class="category-pill active" onclick="document.querySelector('[data-target=panel-overview]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
+                    <i class="fa-solid fa-chart-pie"></i> Overview
+                </button>
+                <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-blogs]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
+                    <i class="fa-solid fa-newspaper"></i> Post Blogs
+                </button>
+                <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-universities]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
+                    <i class="fa-solid fa-building-columns"></i> Universities
+                </button>
+                <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-announcements]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
+                    <i class="fa-solid fa-bullhorn"></i> Announcements
+                </button>
+                <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-applications]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
+                    <i class="fa-solid fa-user-graduate"></i> Students
+                </button>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- PANEL 1: DASHBOARD OVERVIEW & KPIS                             -->
+            <!-- ============================================================== -->
+            <section id="panel-overview" class="admin-view-panel active">
+                <!-- Metric Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="metric-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fs-13 text-muted fw-bold text-uppercase">Total Placed</span>
+                                <div class="p-2 rounded-3 bg-primary-subtle text-primary"><i class="fa-solid fa-user-graduate"></i></div>
                             </div>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 mt-2">
-                            <li><a class="dropdown-item py-2" href="index.html"><i class="fa-solid fa-house me-2"></i> Homepage</a></li>
-                            <li><hr class="dropdown-divider my-1"></li>
-                            <li>
-                                <button type="button" class="dropdown-item py-2 text-danger ed-logout-trigger" onclick="edAuth.logout()">
-                                    <i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out
+                            <h2 class="fw-800 text-dark">1,280</h2>
+                            <span class="text-success fs-13 fw-bold"><i class="fa-solid fa-arrow-trend-up me-1"></i> +14% vs last term</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="metric-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fs-13 text-muted fw-bold text-uppercase">Active Applications</span>
+                                <div class="p-2 rounded-3 bg-warning-subtle text-warning-emphasis"><i class="fa-solid fa-file-signature"></i></div>
+                            </div>
+                            <h2 class="fw-800 text-dark">142</h2>
+                            <span class="text-warning fs-13 fw-bold"><i class="fa-regular fa-clock me-1"></i> Under file review</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="metric-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fs-13 text-muted fw-bold text-uppercase">Published Articles</span>
+                                <div class="p-2 rounded-3 bg-danger-subtle text-danger"><i class="fa-solid fa-newspaper"></i></div>
+                            </div>
+                            <h2 class="fw-800 text-dark" id="adminTotalBlogsCounter">4</h2>
+                            <span class="text-primary fs-13 fw-bold"><i class="fa-solid fa-circle-check me-1"></i> Dynamic CMS Active</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="metric-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fs-13 text-muted fw-bold text-uppercase">Partner Unis</span>
+                                <div class="p-2 rounded-3 bg-success-subtle text-success"><i class="fa-solid fa-university"></i></div>
+                            </div>
+                            <h2 class="fw-800 text-success" id="adminTotalUnisCounter">6</h2>
+                            <span class="text-muted fs-13">Official waivers enabled</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick CMS Actions Banner -->
+                <div class="card border rounded-4 shadow-sm p-4 mb-4 bg-white">
+                    <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-wand-magic-sparkles text-warning me-2"></i>Quick Content Creator Actions</h5>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="p-3 rounded-3 border bg-light h-100 cursor-pointer transition-hover" onclick="document.querySelector('[data-target=panel-blogs]').click();">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-warning text-dark p-3 fs-5"><i class="fa-solid fa-pen-nib"></i></div>
+                                    <div>
+                                        <h6 class="fw-bold text-dark mb-1">Post a New Blog</h6>
+                                        <span class="text-muted fs-13">Create guides, scholarship alerts, and visa news.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 rounded-3 border bg-light h-100 cursor-pointer transition-hover" onclick="document.querySelector('[data-target=panel-universities]').click();">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-primary text-white p-3 fs-5"><i class="fa-solid fa-school"></i></div>
+                                    <div>
+                                        <h6 class="fw-bold text-dark mb-1">Add New University</h6>
+                                        <span class="text-muted fs-13">Add institutional partners and program details.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 rounded-3 border bg-light h-100 cursor-pointer transition-hover" onclick="document.querySelector('[data-target=panel-announcements]').click();">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-danger text-white p-3 fs-5"><i class="fa-solid fa-bullhorn"></i></div>
+                                    <div>
+                                        <h6 class="fw-bold text-dark mb-1">Broadcast Site Alert</h6>
+                                        <span class="text-muted fs-13">Update the top homepage marquee notification.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Applications Summary -->
+                <div class="card border rounded-4 shadow-sm overflow-hidden mb-4">
+                    <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold text-dark mb-0">Recent Candidate Applications (Intake 2026/2027)</h5>
+                        <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="document.querySelector('[data-target=panel-applications]').click();">View Full Pipeline</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light fs-13 text-uppercase text-muted">
+                                <tr>
+                                    <th class="ps-4">Candidate</th>
+                                    <th>Target Destination</th>
+                                    <th>Program / University</th>
+                                    <th>Application Status</th>
+                                    <th class="pe-4 text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">SP</div>
+                                            <div>
+                                                <b>Sophia Patel</b><br>
+                                                <span class="text-muted fs-12">sophia.p@example.com</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>🇬🇧 United Kingdom</td>
+                                    <td>Univ of Manchester • MSc AI</td>
+                                    <td><span class="badge bg-warning-subtle text-warning">CAS Issued</span></td>
+                                    <td class="pe-4 text-end"><a href="contact-us.html" class="btn btn-sm btn-light border">Details</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="rounded-circle bg-success-subtle text-success fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">LR</div>
+                                            <div>
+                                                <b>Lucas Rodriguez</b><br>
+                                                <span class="text-muted fs-12">lucas.r@example.com</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>🇦🇺 Australia</td>
+                                    <td>Univ of Melbourne • Master of Finance</td>
+                                    <td><span class="badge bg-info-subtle text-info">Offer Letter Sent</span></td>
+                                    <td class="pe-4 text-end"><a href="contact-us.html" class="btn btn-sm btn-light border">Details</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- PANEL 2: POST & MANAGE BLOGS (DYNAMIC CMS)                    -->
+            <!-- ============================================================== -->
+            <section id="panel-blogs" class="admin-view-panel">
+                <div class="row g-4 mb-4">
+                    <!-- Blog Creator Form (Left Column) -->
+                    <div class="col-lg-7">
+                        <div class="card border rounded-4 shadow-sm bg-white p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-pen-to-square text-warning me-2"></i>Post New Article / Blog</h5>
+                                <span class="badge bg-success text-white fw-bold">Live Public Publishing</span>
+                            </div>
+                            <p class="text-muted fs-14 mb-4">Published posts immediately display on <a href="blog-list.html" target="_blank" class="fw-bold text-brand-primary">blog-list.html</a> with interactive full-text readers.</p>
+
+                            <form id="adminNewBlogForm">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold fs-14 text-dark">Article Title <span class="text-danger">*</span></label>
+                                    <input type="text" id="blogTitleInput" class="form-control rounded-3 p-3 fs-15" placeholder="e.g. 5 Secrets to Winning Full Study Abroad Scholarships in 2026" required/>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold fs-14 text-dark">Category</label>
+                                        <select id="blogCategoryInput" class="form-select rounded-3 p-3 fs-14">
+                                            <option value="Scholarships">Scholarships</option>
+                                            <option value="Admissions">Admissions</option>
+                                            <option value="Visa & Immigration">Visa & Immigration</option>
+                                            <option value="University Guides">University Guides</option>
+                                            <option value="Pre-Departure">Pre-Departure</option>
+                                            <option value="Culture & Life">Culture & Life</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold fs-14 text-dark">Read Time</label>
+                                        <input type="text" id="blogReadTimeInput" class="form-control rounded-3 p-3 fs-14" value="5 min read" placeholder="e.g. 4 min read"/>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold fs-14 text-dark">Author Name</label>
+                                        <input type="text" id="blogAuthorInput" class="form-control rounded-3 p-3 fs-14" value="Alexander Morgan"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold fs-14 text-dark">Author Role</label>
+                                        <input type="text" id="blogAuthorRoleInput" class="form-control rounded-3 p-3 fs-14" value="Admissions Director"/>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <label class="form-label fw-bold fs-14 text-dark mb-0">Cover Image URL</label>
+                                        <div class="d-flex gap-1 flex-wrap">
+                                            <span class="cms-preset-chip image-preset-btn" data-url="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80">Campus</span>
+                                            <span class="cms-preset-chip image-preset-btn" data-url="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80">Graduation</span>
+                                            <span class="cms-preset-chip image-preset-btn" data-url="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80">Scholarship</span>
+                                            <span class="cms-preset-chip image-preset-btn" data-url="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80">Travel</span>
+                                        </div>
+                                    </div>
+                                    <input type="url" id="blogImageInput" class="form-control rounded-3 p-3 fs-14" value="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" placeholder="https://..."/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold fs-14 text-dark">Short Summary / Excerpt <span class="text-danger">*</span></label>
+                                    <textarea id="blogSummaryInput" rows="2" class="form-control rounded-3 p-3 fs-14" placeholder="Brief 1-2 sentence teaser for card listings..." required></textarea>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold fs-14 text-dark">Full Article Content <span class="text-danger">*</span></label>
+                                    <textarea id="blogContentInput" rows="6" class="form-control rounded-3 p-3 fs-14 font-monospace" placeholder="Write full article here. Use blank lines for paragraphs, and '### Heading' for subheadings..." required></textarea>
+                                </div>
+
+                                <div class="d-flex align-items-center justify-content-between gap-3">
+                                    <select id="blogStatusInput" class="form-select rounded-pill w-auto px-3">
+                                        <option value="published">Status: Published (Live)</option>
+                                        <option value="draft">Status: Draft</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-warning rounded-pill px-4 py-3 fw-bold fs-15 shadow-sm d-flex align-items-center gap-2" style="background-color: var(--button); color: var(--brand-primary); border: none;">
+                                        <i class="fa-solid fa-paper-plane"></i> Publish Article to Website
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Live Real-Time Card Preview (Right Column) -->
+                    <div class="col-lg-5">
+                        <div class="card border rounded-4 shadow-sm bg-white p-4 sticky-top" style="top: 20px;">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold text-dark mb-0"><i class="fa-regular fa-eye me-1"></i> Live Card Preview</h6>
+                                <span class="badge bg-primary-subtle text-primary">Card on Blog List</span>
+                            </div>
+                            <div class="card border rounded-4 overflow-hidden shadow-sm">
+                                <div class="position-relative" style="height: 190px; background: #e2e8f0;">
+                                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" id="livePreviewBlogImage" class="w-100 h-100 object-fit-cover" alt="preview"/>
+                                    <div class="position-absolute top-0 start-0 p-3">
+                                        <span class="badge bg-warning text-dark fw-bold" id="livePreviewBlogCategory">Admissions</span>
+                                    </div>
+                                </div>
+                                <div class="card-body p-4">
+                                    <h5 class="card-title fw-bold text-dark mb-2" id="livePreviewBlogTitle">Your Compelling Blog Title Here...</h5>
+                                    <p class="card-text fs-14 text-muted mb-3" id="livePreviewBlogSummary">A short, engaging teaser of your article will appear here in real time as you compose it...</p>
+                                    <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+                                        <span class="fs-13 text-muted">By Alexander Morgan</span>
+                                        <span class="fw-bold text-brand-primary fs-14">Read Article <i class="fa-solid fa-arrow-right"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 p-3 rounded-3 bg-light text-muted fs-12">
+                                <i class="fa-solid fa-circle-info me-1"></i> Changes publish automatically into local storage and appear on the visitor website immediately.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Published Blogs Table -->
+                <div class="card border rounded-4 shadow-sm overflow-hidden mb-4 bg-white">
+                    <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <h5 class="fw-bold text-dark mb-0">Manage Published Articles</h5>
+                        <a href="blog-list.html" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Open Blog Page
+                        </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light fs-13 text-uppercase text-muted">
+                                <tr>
+                                    <th class="ps-4">Article</th>
+                                    <th>Category</th>
+                                    <th>Author</th>
+                                    <th>Status</th>
+                                    <th class="pe-4 text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminBlogsTableBody">
+                                <!-- Populated dynamically by js/cms.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- PANEL 3: UNIVERSITY DIRECTORY CMS                              -->
+            <!-- ============================================================== -->
+            <section id="panel-universities" class="admin-view-panel">
+                <div class="row g-4 mb-4">
+                    <!-- Add University Form -->
+                    <div class="col-lg-5">
+                        <div class="card border rounded-4 shadow-sm bg-white p-4">
+                            <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-school-flag text-primary me-2"></i>Add New Partner University</h5>
+                            <p class="text-muted fs-14 mb-4">Instantly adds the institution to <a href="universities-list.html" target="_blank" class="fw-bold text-brand-primary">universities-list.html</a>.</p>
+
+                            <form id="adminNewUniForm">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold fs-14 text-dark">University Name <span class="text-danger">*</span></label>
+                                    <input type="text" id="uniNameInput" class="form-control rounded-3 p-3 fs-14" placeholder="e.g. University of Edinburgh" required/>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold fs-14 text-dark">Country <span class="text-danger">*</span></label>
+                                        <select id="uniCountryInput" class="form-select rounded-3 p-3 fs-14">
+                                            <option value="United Kingdom">United Kingdom</option>
+                                            <option value="United States">United States</option>
+                                            <option value="Australia">Australia</option>
+                                            <option value="Canada">Canada</option>
+                                            <option value="Germany">Germany</option>
+                                            <option value="Ireland">Ireland</option>
+                                            <option value="Europe">Europe</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold fs-14 text-dark">Ranking</label>
+                                        <input type="text" id="uniRankingInput" class="form-control rounded-3 p-3 fs-14" value="#22 QS World Ranking" placeholder="#15 World"/>
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold fs-14 text-dark">Estimated Tuition</label>
+                                        <input type="text" id="uniTuitionInput" class="form-control rounded-3 p-3 fs-14" value="£26,000 / year"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold fs-14 text-dark">Acceptance Rate</label>
+                                        <input type="text" id="uniAcceptanceInput" class="form-control rounded-3 p-3 fs-14" value="48% Acceptance Rate"/>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold fs-14 text-dark">Key Academic Programs</label>
+                                    <input type="text" id="uniProgramsInput" class="form-control rounded-3 p-3 fs-14" value="Informatics, AI, Medicine, Business" placeholder="Programs..."/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold fs-14 text-dark">Campus Image URL</label>
+                                    <input type="url" id="uniImageInput" class="form-control rounded-3 p-3 fs-14" value="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80"/>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold fs-14 text-dark">Partnership Badge</label>
+                                    <input type="text" id="uniTagInput" class="form-control rounded-3 p-3 fs-14" value="Fast-Track Waiver" placeholder="e.g. Official Partner"/>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 fw-bold fs-15 shadow-sm" style="background-color: var(--brand-primary); border: none;">
+                                    <i class="fa-solid fa-plus me-1"></i> Add to University Directory
                                 </button>
-                            </li>
-                        </ul>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Metric Cards -->
-            <div class="row g-4 mb-4">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="metric-card">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="fs-13 text-muted fw-bold text-uppercase">Total Placed</span>
-                            <div class="p-2 rounded-3 bg-primary-subtle text-primary"><i class="fa-solid fa-user-graduate"></i></div>
+                    <!-- Manage Universities Table -->
+                    <div class="col-lg-7">
+                        <div class="card border rounded-4 shadow-sm bg-white overflow-hidden">
+                            <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center">
+                                <h5 class="fw-bold text-dark mb-0">Active University Directory</h5>
+                                <a href="universities-list.html" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                    <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Open Directory
+                                </a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light fs-13 text-uppercase text-muted">
+                                        <tr>
+                                            <th class="ps-4">Institution</th>
+                                            <th>Country</th>
+                                            <th>Tuition</th>
+                                            <th>Acceptance</th>
+                                            <th class="pe-4 text-end">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminUniTableBody">
+                                        <!-- Populated dynamically by js/cms.js -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <h2 class="fw-800 text-dark">1,280</h2>
-                        <span class="text-success fs-13 fw-bold"><i class="fa-solid fa-arrow-trend-up me-1"></i> +14% vs last term</span>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="metric-card">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="fs-13 text-muted fw-bold text-uppercase">Active Applications</span>
-                            <div class="p-2 rounded-3 bg-warning-subtle text-warning-emphasis"><i class="fa-solid fa-file-signature"></i></div>
-                        </div>
-                        <h2 class="fw-800 text-dark">142</h2>
-                        <span class="text-warning fs-13 fw-bold"><i class="fa-regular fa-clock me-1"></i> Under file review</span>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="metric-card">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="fs-13 text-muted fw-bold text-uppercase">Visa Clear Rate</span>
-                            <div class="p-2 rounded-3 bg-success-subtle text-success"><i class="fa-solid fa-passport"></i></div>
-                        </div>
-                        <h2 class="fw-800 text-success">98.2%</h2>
-                        <span class="text-muted fs-13">First-attempt grants</span>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="metric-card">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="fs-13 text-muted fw-bold text-uppercase">Partner Unis</span>
-                            <div class="p-2 rounded-3 bg-danger-subtle text-danger"><i class="fa-solid fa-university"></i></div>
-                        </div>
-                        <h2 class="fw-800 text-dark">100+</h2>
-                        <span class="text-primary fs-13 fw-bold">Official waivers enabled</span>
-                    </div>
-                </div>
-            </div>
+            </section>
 
-            <!-- Recent Applications Data Table -->
-            <div class="card border rounded-4 shadow-sm overflow-hidden mb-4">
-                <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center">
-                    <h5 class="fw-bold text-dark mb-0">Recent Candidate Applications (Intake 2026/2027)</h5>
-                    <a href="contact-us.html" class="btn btn-sm btn-outline-primary rounded-pill px-3">Export CSV</a>
+            <!-- ============================================================== -->
+            <!-- PANEL 4: SITE ANNOUNCEMENTS BROADCAST                          -->
+            <!-- ============================================================== -->
+            <section id="panel-announcements" class="admin-view-panel">
+                <div class="card border rounded-4 shadow-sm bg-white p-4 max-w-721 mx-auto">
+                    <h5 class="fw-bold text-dark mb-2"><i class="fa-solid fa-bullhorn text-danger me-2"></i>Homepage Broadcast Banner Studio</h5>
+                    <p class="text-muted fs-14 mb-4">Broadcast urgency notices, intake deadlines, and scholarship discounts to all website visitors.</p>
+
+                    <form id="adminAnnouncementForm">
+                        <div class="form-check form-switch mb-4 p-3 bg-light rounded-3 d-flex align-items-center justify-content-between">
+                            <label class="form-check-label fw-bold text-dark fs-15 mb-0" for="annEnabledInput">
+                                Activate Live Broadcast Banner
+                            </label>
+                            <input class="form-check-input fs-4 mt-0" type="checkbox" id="annEnabledInput" checked>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-8">
+                                <label class="form-label fw-bold fs-14 text-dark">Headline Title</label>
+                                <input type="text" id="annTitleInput" class="form-control rounded-3 p-3 fs-14" value="Fall 2026 Admissions Now Open!" required/>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold fs-14 text-dark">Urgency Theme</label>
+                                <select id="annUrgencyInput" class="form-select rounded-3 p-3 fs-14">
+                                    <option value="gold">Gold Accent (Recommended)</option>
+                                    <option value="urgent">Urgent Red</option>
+                                    <option value="info">Navy Information</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold fs-14 text-dark">Badge Text</label>
+                            <input type="text" id="annBadgeInput" class="form-control rounded-3 p-3 fs-14" value="Priority Intake"/>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold fs-14 text-dark">Announcement Message</label>
+                            <textarea id="annMessageInput" rows="2" class="form-control rounded-3 p-3 fs-14" required>100% Free Counseling & Official University Application Fee Waivers available this week.</textarea>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold fs-14 text-dark">Button CTA Text</label>
+                                <input type="text" id="annCtaTextInput" class="form-control rounded-3 p-3 fs-14" value="Claim Your Waiver"/>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold fs-14 text-dark">Destination Link</label>
+                                <input type="text" id="annCtaLinkInput" class="form-control rounded-3 p-3 fs-14" value="contact-us.html"/>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning w-100 rounded-pill py-3 fw-bold fs-15 shadow-sm" style="background-color: var(--button); color: var(--brand-primary); border: none;">
+                            <i class="fa-solid fa-floppy-disk me-1"></i> Save & Broadcast to Visitors
+                        </button>
+                    </form>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light fs-13 text-uppercase text-muted">
-                            <tr>
-                                <th class="ps-4">Applicant</th>
-                                <th>Target Destination</th>
-                                <th>Institution & Degree</th>
-                                <th>Visa Status</th>
-                                <th>Assigned Mentor</th>
-                                <th class="pe-4 text-end">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody class="fs-14">
-                            <tr>
-                                <td class="ps-4">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">BH</div>
-                                        <div>
-                                            <b>Benjamin Harris</b><br>
-                                            <span class="text-muted fs-12">ben.harris@example.com</span>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- PANEL 5: STUDENT PIPELINE                                      -->
+            <!-- ============================================================== -->
+            <section id="panel-applications" class="admin-view-panel">
+                <div class="card border rounded-4 shadow-sm overflow-hidden mb-4 bg-white">
+                    <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold text-dark mb-0">Candidate Intake Pipeline (2026/2027)</h5>
+                        <div class="d-flex gap-2">
+                            <span class="badge bg-primary text-white p-2">Total: 142 Active</span>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light fs-13 text-uppercase text-muted">
+                                <tr>
+                                    <th class="ps-4">Candidate Name</th>
+                                    <th>Target Destination</th>
+                                    <th>University & Course</th>
+                                    <th>Status</th>
+                                    <th>Counselor</th>
+                                    <th class="pe-4 text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">SP</div>
+                                            <div>
+                                                <b>Sophia Patel</b><br>
+                                                <span class="text-muted fs-12">sophia.p@example.com</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>🇦🇺 Australia</td>
-                                <td>Univ. of Melbourne • MSc Data Science</td>
-                                <td><span class="badge bg-success-subtle text-success">Visa Granted ✓</span></td>
-                                <td>Dr. Eleanor Vance</td>
-                                <td class="pe-4 text-end"><button class="btn btn-sm btn-light border">Details</button></td>
-                            </tr>
-                            <tr>
-                                <td class="ps-4">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-circle bg-warning-subtle text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">CJ</div>
-                                        <div>
-                                            <b>Christopher Jordan</b><br>
-                                            <span class="text-muted fs-12">cjordan@example.com</span>
+                                    </td>
+                                    <td>🇬🇧 United Kingdom</td>
+                                    <td>Univ of Manchester • MSc AI</td>
+                                    <td><span class="badge bg-warning-subtle text-warning">CAS Issued</span></td>
+                                    <td>Dr. Eleanor Vance</td>
+                                    <td class="pe-4 text-end"><a href="contact-us.html" class="btn btn-sm btn-light border">Details</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="rounded-circle bg-success-subtle text-success fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">LR</div>
+                                            <div>
+                                                <b>Lucas Rodriguez</b><br>
+                                                <span class="text-muted fs-12">lucas.r@example.com</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>🇨🇦 Canada</td>
-                                <td>Univ. of Toronto • MEng Robotics</td>
-                                <td><span class="badge bg-primary-subtle text-primary">Biometrics Filed</span></td>
-                                <td>Marcus Sterling</td>
-                                <td class="pe-4 text-end"><button class="btn btn-sm btn-light border">Details</button></td>
-                            </tr>
-                            <tr>
-                                <td class="ps-4">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-circle bg-info-subtle text-info-emphasis fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">AW</div>
-                                        <div>
-                                            <b>Ava White</b><br>
-                                            <span class="text-muted fs-12">ava.white@example.com</span>
+                                    </td>
+                                    <td>🇦🇺 Australia</td>
+                                    <td>Univ of Melbourne • Master of Finance</td>
+                                    <td><span class="badge bg-info-subtle text-info">Offer Letter Sent</span></td>
+                                    <td>Alexander Morgan</td>
+                                    <td class="pe-4 text-end"><a href="contact-us.html" class="btn btn-sm btn-light border">Details</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="rounded-circle bg-danger-subtle text-danger fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">AY</div>
+                                            <div>
+                                                <b>Amina Yusuf</b><br>
+                                                <span class="text-muted fs-12">amina.y@example.com</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>🇬🇧 United Kingdom</td>
-                                <td>King's College London • LLM Law</td>
-                                <td><span class="badge bg-warning-subtle text-warning-emphasis">SOP Review</span></td>
-                                <td>Sophia Chen</td>
-                                <td class="pe-4 text-end"><button class="btn btn-sm btn-light border">Details</button></td>
-                            </tr>
-                            <tr>
-                                <td class="ps-4">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-circle bg-success-subtle text-success fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">ET</div>
-                                        <div>
-                                            <b>Emma Thomas</b><br>
-                                            <span class="text-muted fs-12">emma.t@example.com</span>
+                                    </td>
+                                    <td>🇨🇦 Canada</td>
+                                    <td>UBC • Master of Data Science</td>
+                                    <td><span class="badge bg-primary-subtle text-primary">Biometrics Booked</span></td>
+                                    <td>Sophia Patel</td>
+                                    <td class="pe-4 text-end"><a href="contact-us.html" class="btn btn-sm btn-light border">Details</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="rounded-circle bg-success-subtle text-success fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">ET</div>
+                                            <div>
+                                                <b>Emma Thomas</b><br>
+                                                <span class="text-muted fs-12">emma.t@example.com</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>🇩🇪 Germany</td>
-                                <td>TU Munich • MS Computer Science</td>
-                                <td><span class="badge bg-success-subtle text-success">Visa Granted ✓</span></td>
-                                <td>David O'Connor</td>
-                                <td class="pe-4 text-end"><button class="btn btn-sm btn-light border">Details</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                    <td>🇩🇪 Germany</td>
+                                    <td>TU Munich • MS Computer Science</td>
+                                    <td><span class="badge bg-success-subtle text-success">Visa Granted ✓</span></td>
+                                    <td>David O'Connor</td>
+                                    <td class="pe-4 text-end"><a href="contact-us.html" class="btn btn-sm btn-light border">Details</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </section>
         </main>
     </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/cms.js"></script>
     <script src="js/edconsultants.js"></script>
     <script>
         const toggleBtn = document.getElementById('sidebarToggleBtn');

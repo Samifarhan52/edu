@@ -1,52 +1,65 @@
-# The Edu Consultants — Complete 14-Page Ecosystem & Mobile Journey Engine
+# The Edu Consultants — Complete 14-Page Ecosystem & Dynamic CMS Engine
 
-All requested pages have been cloned and elevated for **The Edu Consultants** with authentic colors (`#000064`, `#f5dc3c`, `#fb5421`), robust mobile-first responsiveness, an interactive **Mobile Scroll Journey Flow**, and an enterprise-grade authentication system with persistent session states.
+All requested pages have been elevated for **The Edu Consultants** with authentic colors (`#000064`, `#f5dc3c`, `#fb5421`), robust mobile-first responsiveness, an interactive **Mobile Scroll Journey Flow**, an enterprise **Dynamic CMS Content Studio** in the Admin Dashboard, and a native **Mobile Bottom Dock** navigation experience.
 
 ---
 
 ### Complete Page Directory (14 Pages):
-1. **`index.html`** — Home (Hero banner, stacked responsive search filters, services, **Mobile Journey Flow**, destinations, consultation booking, events, FAQ, footer).
+1. **`index.html`** — Home (Hero banner, dynamic live announcement broadcast, stacked filters, services, **Mobile Journey Flow**, destinations, consultation booking, events, FAQ, mobile dock).
 2. **`about-us-details.html`** — About Us Details (Mission, values, image gallery, trust metrics).
-3. **`universities-list.html`** — Universities List (Search, destination filter, ranking cards).
+3. **`universities-list.html`** — Universities List (**Dynamic CMS Integrated**: Live instant search, horizontal country filter chips, interactive directory, partner badges).
 4. **`subject-list.html`** — Subject List (Disciplines, degree levels, durations, starting salaries).
 5. **`scholarship-list.html`** — Scholarship List (100% tuition waivers, government bursaries, deadlines).
 6. **`courses-programs-IELTS.html`** — IELTS Prep (Band 7.5–8.5+ roadmap, syllabus, test booking).
 7. **`courses-programs-GRE.html`** — GRE Prep (Quant, Verbal, AWA, 320–335+ cohort).
 8. **`courses-programs-GMAT.html`** — GMAT Prep (Focus Edition, Data Insights, MBA strategy).
-9. **`blog-list.html`** — Blogs & Articles (Admissions guides, authors, publishing dates).
+9. **`blog-list.html`** — Blogs & Articles (**Dynamic CMS Integrated**: Category filter pills, instant title/author search, interactive full-text Reader Modal, live admin publish sync).
 10. **`event-list.html`** — Global Events (Expos, webinars, ticket booking modal).
 11. **`contact-us.html`** — Contact Us (Inquiry form, HQ coordinates, interactive map).
 12. **`login.html`** — Sign In Portal (**Professional interface**: Social login with Google/Apple/LinkedIn, email/password validation, show/hide password toggle, remember me, quick demo profiles — **NO journey flow**).
-13. **`signup.html`** — Registration Portal (**New Dedicated Page**: Full name, email, phone, study destination, password strength meter, terms acceptance, social registration, session generation — **NO journey flow**).
-14. **`admin-dashboard.html` / `admin/dashboard.html`** — Management Console (Mobile toggle bar, dynamic user greeting, metrics, candidate pipeline table, functional log out).
+13. **`signup.html`** — Registration Portal (**Clean Registration**: Full name, email, phone, study destination, password strength meter, terms acceptance, social registration — **NO journey flow**).
+14. **`admin-dashboard.html` / `admin/dashboard.html`** — Management & CMS Studio (**Full Interactive Content Management System**: Post New Blogs with live card preview, Add Partner Universities, Broadcast Site Announcements, Manage Applications Pipeline).
 
 ---
 
-### Key Improvements & Fixes in This Release:
+### 🚀 Key New Advanced Features:
 
-#### 1. 100% Mobile Viewport Compatibility:
-- **Zero Horizontal Overflow**: Added strict `overflow-x: hidden` and `max-width: 100vw` protection on `html`, `body`, and container wrappers.
-- **Responsive Mobile Navigation**: Engineered offcanvas drawer with branded header logo, close button, touch-friendly tap targets, and nested dropdown expansion.
-- **Adaptive Hero Filter System**: Stacked filter grid automatically collapses from multi-column grid into single-column touch inputs on screens `< 768px`.
-- **Responsive Mobile Journey Simulator**: Phone mockup dynamically scales down to 100% width on smaller screens (< 576px) with adaptive bezels, 560px screen height, and touch bullet dock navigation.
+#### 1. Interactive Admin CMS Studio (`admin-dashboard.html` & `js/cms.js`):
+- **✍️ Blog & Article Publisher**:
+  - Full article creator with Title, Category, Author, Read Time, Preset Image Selectors (Campus, Library, Graduation, Travel, Scholarship), Summary, and Multi-Paragraph Article Body.
+  - **Live Card Preview**: Real-time rendering of what the blog card will look like on the live site as you type.
+  - **Draft vs. Published** toggle with instant `localStorage` persistence.
+  - **Manage Published Blogs Table**: Displays all articles with live status, thumbnail, "View on Website" shortcut, and custom article deletion.
+- **🏛️ University Directory Manager**:
+  - Add new institutions with name, country, world ranking, tuition, acceptance rate, and programs.
+  - Live table to inspect and delete partner institutions.
+- **📢 Homepage Announcement Broadcast**:
+  - Control the live broadcast alert banner displayed at the top of the visitor website.
+  - Customize headline, badge, message, urgency theme (Gold / Urgent / Info), and CTA button.
 
-#### 2. Enterprise Authentication & Session Management (`js/auth.js`):
-- **Removed Raw Credentials Dump**: Replaced the amateur test credentials table with an authentic, sleek portal interface.
-- **Persistent Sessions**: State is automatically preserved via `localStorage`.
-- **Dynamic Header & Offcanvas State**:
-  - **When Logged Out**: Displays clean `Sign In` link and `Sign Up` button.
-  - **When Logged In**: Displays user avatar pill with role badge and dropdown menu (`Dashboard`, `My Applications`, `Scholarships`, `Log Out`). Mobile offcanvas also shows personal greeting and log out trigger.
-- **Functional Logout Everywhere**: Clicking "Log Out" in header or dashboard clears user session, triggers a toast notification, and gracefully updates the UI.
-- **Quick Demo Access**: Discreet one-click demo profile pills (`Admin`, `Student`, `Counselor`) allow instant testing without manual typing.
+#### 2. Distinct Mobile View vs. Desktop View:
+- **📱 Mobile App Experience (`<= 768px`)**:
+  - **Floating Bottom App Dock**: Sleek frosted glass bar (`backdrop-filter: blur(20px)`) with 5 touch-friendly controls (`Home`, `Universities`, `Journey` with pulsating trigger, `Articles` with unread dot, `Admin`).
+  - **Horizontal Momentum-Scroll Chips**: Category and country filter lists transform into smooth horizontal swipeable pills without vertical clutter.
+  - **Compact Sticky Top Bar**: Branded logo, phone contact button, and 44px tactile offcanvas menu toggle.
+  - **Automatic Padding Guard**: `padding-bottom: 78px` applied automatically so content is never hidden behind the dock.
+- **💻 Desktop Experience (`>= 992px`)**:
+  - **Dual-Pane CMS**: Form editor on the left and live card preview on the right.
+  - **Expansive Luxury Grids**: 3-column article cards with hover elevations and 3D micro-interactions.
+  - **Multi-Tier Navigation**: Full desktop menu with dropdown catalogs and top alert bar.
+
+#### 3. Public Dynamic Integration:
+- Newly published articles in the Admin Dashboard immediately show up on `blog-list.html` with a distinctive `NEW POST` badge.
+- Clicking "Read Article" opens an interactive **Reader Modal** displaying formatted sections, author bio, social share copy, and consultation booking CTAs.
 
 ---
 
 ### How to Preview:
 ```bash
-# Option 1: Open index.html directly
+# Open index.html directly
 open index.html
 
-# Option 2: Run local web server
+# Or run local web server
 python3 -m http.server 8080
 ```
-Then visit `http://localhost:8080` in your web browser.
+Visit `http://localhost:8080` in your web browser.

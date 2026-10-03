@@ -1438,3 +1438,216 @@ a {
     }
 }
 
+/* ==========================================================================
+   Mobile Bottom Floating Dock (Native App Experience for Mobile Viewports)
+   ========================================================================== */
+.mobile-bottom-dock {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 78px !important;
+    }
+
+    .mobile-bottom-dock {
+        display: flex;
+        position: fixed;
+        bottom: 12px;
+        left: 14px;
+        right: 14px;
+        height: 62px;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 100, 0.08);
+        border-radius: 36px;
+        box-shadow: 0 10px 30px rgba(0, 0, 100, 0.15), 0 2px 6px rgba(0, 0, 0, 0.05);
+        z-index: 9998;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0 8px;
+    }
+
+    .dock-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #71717a;
+        font-size: 10px;
+        font-weight: 700;
+        gap: 3px;
+        flex: 1;
+        height: 100%;
+        transition: all 0.2s ease;
+        background: none;
+        border: none;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .dock-item i {
+        font-size: 17px;
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .dock-item.active {
+        color: var(--brand-primary);
+    }
+
+    .dock-item.active i {
+        color: var(--red);
+        transform: translateY(-2px);
+    }
+
+    .dock-item-highlight {
+        position: relative;
+        top: -14px;
+    }
+
+    .dock-highlight-circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--red) 0%, #ff7b54 100%);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 6px 18px rgba(251, 84, 33, 0.45);
+        transition: transform 0.25s ease;
+        border: 3px solid #ffffff;
+    }
+
+    .dock-highlight-circle i {
+        font-size: 20px;
+        color: #ffffff !important;
+    }
+
+    .dock-item-highlight:active .dock-highlight-circle {
+        transform: scale(0.92);
+    }
+
+    .dock-badge-dot {
+        position: absolute;
+        top: -2px;
+        right: -4px;
+        width: 7px;
+        height: 7px;
+        background-color: var(--red);
+        border-radius: 50%;
+        border: 1px solid #ffffff;
+    }
+}
+
+/* ==========================================================================
+   Dynamic Announcement Broadcast Bar
+   ========================================================================== */
+.edu-dynamic-announcement-bar {
+    background: linear-gradient(90deg, #000064 0%, #0c1a40 50%, #000064 100%);
+    border-bottom: 2px solid var(--button);
+    position: relative;
+    z-index: 1002;
+    transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   Interactive Filter Pills & Horizontal Momentum Scroll
+   ========================================================================== */
+.scroll-pills-container {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 6px 2px 14px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.scroll-pills-container::-webkit-scrollbar {
+    display: none;
+}
+
+.category-pill, .country-pill {
+    padding: 8px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 50px;
+    background: #f4f5f8;
+    color: var(--title-text);
+    border: 1.5px solid #e5e7eb;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+}
+
+.category-pill:hover, .country-pill:hover {
+    border-color: var(--red);
+    color: var(--red);
+    background: #fff;
+}
+
+.category-pill.active, .country-pill.active {
+    background: var(--brand-primary);
+    color: #ffffff;
+    border-color: var(--brand-primary);
+    box-shadow: 0 4px 14px rgba(0, 0, 100, 0.2);
+}
+
+/* ==========================================================================
+   Admin CMS Tabs & Layout
+   ========================================================================== */
+.admin-view-panel {
+    display: none;
+}
+
+.admin-view-panel.active {
+    display: block;
+    animation: fadeInTab 0.35s ease;
+}
+
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-nav-tab {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.admin-nav-tab.active {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: var(--button) !important;
+    border-left: 3px solid var(--button);
+}
+
+.transition-hover {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.transition-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 34px rgba(0, 0, 100, 0.12) !important;
+}
+
+@keyframes toastSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseEffect {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.animate-pulse {
+    animation: pulseEffect 2s infinite ease-in-out;
+}
+
+

@@ -123,127 +123,52 @@
         </div>
     </section>
 
-    <!-- University List Grid -->
+    <!-- University List Grid Section -->
     <section class="section-gap bg-white">
         <div class="container">
-            <div class="row rg-24 align-items-center pb-4 mb-3" data-aos="fade-up" data-aos-duration="1000">
-                <div class="col-lg-8">
-                    <h5 class="fw-bold text-dark mb-0">Showing 1 - 6 of 30 Partner Universities</h5>
+            <!-- Search & Filter Controls -->
+            <div class="row g-3 align-items-center mb-4">
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                        <input type="text" id="uniSearchInput" class="form-control rounded-pill py-3 ps-5 pe-4 fs-14 border" placeholder="Search university by name, program, or ranking..."/>
+                    </div>
                 </div>
-                <div class="col-lg-4 text-lg-end">
-                    <select class="sf-select-checkbox d-inline-block w-auto">
-                        <option>Sort By: Default</option>
-                        <option>Name A to Z</option>
-                        <option>Ranking High to Low</option>
-                    </select>
+                <div class="col-lg-6 text-lg-end">
+                    <div class="d-flex align-items-center justify-content-lg-end gap-2">
+                        <span class="fs-13 text-muted fw-bold text-uppercase" id="uniCountDisplay">Partner Universities</span>
+                        <a href="admin-dashboard.html#universities" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-2 fw-bold fs-12">
+                            <i class="fa-solid fa-plus me-1"></i> Add Institution
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <div class="row g-4">
-                <!-- Sidebar Filters -->
-                <div class="col-lg-4">
-                    <div class="p-4 rounded-4 border bg-secondary mb-4" data-aos="fade-up" data-aos-duration="1000">
-                        <h5 class="fw-bold text-dark mb-3">Search University</h5>
-                        <input type="text" placeholder="Search by name or keyword..." class="zForm-control mb-4"/>
-                        <h6 class="fw-bold text-dark mb-3">Country</h6>
-                        <div class="d-flex flex-column gap-2">
-                            <label class="d-flex align-items-center gap-2 fs-14 text-muted"><input type="checkbox" checked/> Australia (8)</label>
-                            <label class="d-flex align-items-center gap-2 fs-14 text-muted"><input type="checkbox"/> United States (12)</label>
-                            <label class="d-flex align-items-center gap-2 fs-14 text-muted"><input type="checkbox"/> Canada (6)</label>
-                            <label class="d-flex align-items-center gap-2 fs-14 text-muted"><input type="checkbox"/> United Kingdom (5)</label>
-                            <label class="d-flex align-items-center gap-2 fs-14 text-muted"><input type="checkbox"/> Germany (4)</label>
-                        </div>
-                    </div>
-                </div>
+            <!-- Horizontal Swipeable Country Pills -->
+            <div class="scroll-pills-container mb-4" id="uniCountryPills">
+                <button type="button" class="country-pill active" data-country="All">
+                    <i class="fa-solid fa-globe"></i> All Countries
+                </button>
+                <button type="button" class="country-pill" data-country="Australia">
+                    🇦🇺 Australia
+                </button>
+                <button type="button" class="country-pill" data-country="United States">
+                    🇺🇸 United States
+                </button>
+                <button type="button" class="country-pill" data-country="United Kingdom">
+                    🇬🇧 United Kingdom
+                </button>
+                <button type="button" class="country-pill" data-country="Canada">
+                    🇨🇦 Canada
+                </button>
+                <button type="button" class="country-pill" data-country="Germany">
+                    🇩🇪 Germany
+                </button>
+            </div>
 
-                <!-- Universities Cards -->
-                <div class="col-lg-8">
-                    <div class="row g-4" data-aos="fade-up" data-aos-duration="1000">
-                        <!-- University 1 -->
-                        <div class="col-md-6">
-                            <div class="card h-100 border rounded-4 overflow-hidden shadow-sm">
-                                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=80" class="card-img-top object-fit-cover" style="height: 190px;" alt="Melbourne"/>
-                                <div class="card-body p-4 d-flex flex-column justify-content-between">
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <span class="badge bg-warning text-dark fw-bold">#13 Global Rank</span>
-                                            <span class="fs-13 text-muted">Melbourne, Australia</span>
-                                        </div>
-                                        <h5 class="card-title fw-bold text-dark">University of Melbourne</h5>
-                                        <p class="card-text fs-14 text-muted">Australia's leading research comprehensive university with extensive scholarship funding.</p>
-                                    </div>
-                                    <div class="pt-3 border-top mt-3 d-flex justify-content-between align-items-center">
-                                        <span class="fw-bold text-primary fs-14">Avg AUD $34,000/yr</span>
-                                        <a href="contact-us.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold">Apply Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- University 2 -->
-                        <div class="col-md-6">
-                            <div class="card h-100 border rounded-4 overflow-hidden shadow-sm">
-                                <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80" class="card-img-top object-fit-cover" style="height: 190px;" alt="Toronto"/>
-                                <div class="card-body p-4 d-flex flex-column justify-content-between">
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <span class="badge bg-warning text-dark fw-bold">#21 Global Rank</span>
-                                            <span class="fs-13 text-muted">Toronto, Canada</span>
-                                        </div>
-                                        <h5 class="card-title fw-bold text-dark">University of Toronto</h5>
-                                        <p class="card-text fs-14 text-muted">Canada's flagship institution renowned for AI, Engineering, and Business degrees.</p>
-                                    </div>
-                                    <div class="pt-3 border-top mt-3 d-flex justify-content-between align-items-center">
-                                        <span class="fw-bold text-primary fs-14">Avg CAD $38,000/yr</span>
-                                        <a href="contact-us.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold">Apply Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- University 3 -->
-                        <div class="col-md-6">
-                            <div class="card h-100 border rounded-4 overflow-hidden shadow-sm">
-                                <img src="https://images.unsplash.com/photo-1592280771190-3e2e4d571952?auto=format&fit=crop&w=600&q=80" class="card-img-top object-fit-cover" style="height: 190px;" alt="Imperial"/>
-                                <div class="card-body p-4 d-flex flex-column justify-content-between">
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <span class="badge bg-warning text-dark fw-bold">#6 Global Rank</span>
-                                            <span class="fs-13 text-muted">London, UK</span>
-                                        </div>
-                                        <h5 class="card-title fw-bold text-dark">Imperial College London</h5>
-                                        <p class="card-text fs-14 text-muted">World-leader in science, engineering, business and medical faculties with 2-year post-study work visa.</p>
-                                    </div>
-                                    <div class="pt-3 border-top mt-3 d-flex justify-content-between align-items-center">
-                                        <span class="fw-bold text-primary fs-14">Avg GBP £28,000/yr</span>
-                                        <a href="contact-us.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold">Apply Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- University 4 -->
-                        <div class="col-md-6">
-                            <div class="card h-100 border rounded-4 overflow-hidden shadow-sm">
-                                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=80" class="card-img-top object-fit-cover" style="height: 190px;" alt="Munich"/>
-                                <div class="card-body p-4 d-flex flex-column justify-content-between">
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <span class="badge bg-warning text-dark fw-bold">#37 Global Rank</span>
-                                            <span class="fs-13 text-muted">Munich, Germany</span>
-                                        </div>
-                                        <h5 class="card-title fw-bold text-dark">Technical University of Munich</h5>
-                                        <p class="card-text fs-14 text-muted">Europe's engineering powerhouse offering tuition-free or nominal-fee academic programs.</p>
-                                    </div>
-                                    <div class="pt-3 border-top mt-3 d-flex justify-content-between align-items-center">
-                                        <span class="fw-bold text-success fs-14">Tuition Free Public</span>
-                                        <a href="contact-us.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold">Apply Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Dynamic Universities Cards Grid (managed by js/cms.js) -->
+            <div class="row g-4" id="dynamicUniGrid" data-aos="fade-up" data-aos-duration="1000">
+                <!-- Populated dynamically by js/cms.js -->
             </div>
         </div>
     </section>
@@ -308,6 +233,7 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/cms.js"></script>
     <script src="js/edconsultants.js"></script>
 </body>
 </html>
