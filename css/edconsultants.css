@@ -762,34 +762,58 @@ a {
 
 .hero-banner-filterInut {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) 160px;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)) minmax(180px, auto);
     gap: 16px;
     align-items: flex-end;
     margin-top: 20px;
 }
 
+.hero-search-btn,
+.searchButton,
 .hero-banner-filterInut button {
-    background-color: var(--brand-primary);
-    color: #ffffff;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    height: 46px;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    background: linear-gradient(135deg, #f5dc3c 0%, #f5c000 100%) !important;
+    color: #000064 !important;
+    font-weight: 800 !important;
+    font-size: 15px !important;
+    letter-spacing: 0.3px !important;
+    height: 48px !important;
+    padding: 0 24px !important;
+    border: none !important;
+    border-radius: 50px !important;
+    box-shadow: 0 4px 16px rgba(245, 192, 0, 0.45) !important;
+    cursor: pointer !important;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    white-space: nowrap !important;
+    text-transform: none !important;
+    outline: none !important;
+    text-decoration: none !important;
 }
 
+.hero-search-btn:hover,
+.searchButton:hover,
 .hero-banner-filterInut button:hover {
-    background-color: var(--button);
-    color: var(--brand-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(0, 0, 100, 0.15);
+    background: linear-gradient(135deg, #000064 0%, #080d54 100%) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 100, 0.3) !important;
+}
+
+.hero-search-btn:active,
+.searchButton:active,
+.hero-banner-filterInut button:active {
+    transform: translateY(0) scale(0.98) !important;
+}
+
+/* Floating Journey Launcher Pill permanently removed per user request */
+.journey-launcher-pill {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
 }
 
 .zForm-label {
@@ -1535,12 +1559,15 @@ a {
         margin-top: 14px;
     }
 
-    .hero-banner-filterInut button {
+    .hero-banner-filterInut button,
+    .hero-search-btn,
+    .searchButton {
         width: 100% !important;
-        padding: 13px;
-        border-radius: 10px;
-        font-size: 15px;
-        font-weight: 700;
+        height: 50px !important;
+        padding: 13px !important;
+        border-radius: 50px !important;
+        font-size: 15px !important;
+        font-weight: 800 !important;
         margin-top: 4px;
     }
 
@@ -2073,13 +2100,30 @@ a {
     cursor: pointer;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .edu-connect-wrapper {
-        bottom: 20px;
-        left: 14px;
+        position: fixed !important;
+        bottom: 84px !important;
+        right: 16px !important;
+        left: auto !important;
+        z-index: 10000 !important;
     }
+
+    .edu-connect-pill-btn {
+        padding: 9px 15px 9px 12px !important;
+        font-size: 13px !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 100, 0.45) !important;
+        border: 2px solid var(--button) !important;
+    }
+
     .edu-connect-card {
-        width: 310px;
+        right: 0 !important;
+        left: auto !important;
+        bottom: 54px !important;
+        width: min(340px, calc(100vw - 32px)) !important;
+        max-width: calc(100vw - 32px) !important;
+        border-radius: 18px !important;
+        z-index: 10001 !important;
     }
 }
 
