@@ -27,7 +27,7 @@
         isOwner: true
     };
 
-    // Default Seed Student Accounts
+    // Default Seed Student Accounts (Pre-registered for immediate scholar access)
     const DEFAULT_ACCOUNTS = {
         'student@theeduconsultants.org': {
             name: 'Sophia Patel',
@@ -37,6 +37,26 @@
             badge: 'Scholar',
             destination: 'United Kingdom',
             avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80',
+            authProvider: 'Email'
+        },
+        'lucas@theeduconsultants.org': {
+            name: 'Lucas Miller',
+            email: 'lucas@theeduconsultants.org',
+            password: 'password123',
+            role: 'Student',
+            badge: 'Scholar',
+            destination: 'United States',
+            avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
+            authProvider: 'Email'
+        },
+        'amina@theeduconsultants.org': {
+            name: 'Amina Khan',
+            email: 'amina@theeduconsultants.org',
+            password: 'password123',
+            role: 'Student',
+            badge: 'Scholar',
+            destination: 'Canada',
+            avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80',
             authProvider: 'Email'
         }
     };
@@ -59,9 +79,10 @@
     function getDB() {
         try {
             const raw = localStorage.getItem(DB_KEY);
-            return raw ? JSON.parse(raw) : DEFAULT_ACCOUNTS;
+            const parsed = raw ? JSON.parse(raw) : {};
+            return Object.assign({}, DEFAULT_ACCOUNTS, parsed);
         } catch (e) {
-            return DEFAULT_ACCOUNTS;
+            return Object.assign({}, DEFAULT_ACCOUNTS);
         }
     }
 
@@ -138,26 +159,18 @@
 
             // B. Regular Scholar / Student Login
             const db = getDB();
-            let user = db[cleanEmail];
+            const user = db[cleanEmail];
 
+            // 1. Strict Authentication: Account must already exist
             if (!user) {
-                // Dynamically register new scholar account in DB
-                const rawNamePart = email.split('@')[0] || 'Scholar';
-                const safeName = window.EduSecurity ? window.EduSecurity.sanitizeText(rawNamePart) : rawNamePart;
-                const formattedName = safeName.charAt(0).toUpperCase() + safeName.slice(1);
+                this.showToast(`Account Not Found: No profile registered with "${cleanEmail}". Please register on the Sign Up page first.`, 'danger');
+                return false;
+            }
 
-                user = {
-                    name: formattedName,
-                    email: cleanEmail,
-                    password: password || '123456',
-                    role: 'Student',
-                    badge: 'Scholar',
-                    destination: 'United Kingdom',
-                    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
-                    authProvider: 'Email'
-                };
-                db[cleanEmail] = user;
-                saveDB(db);
+            // 2. Strict Password Verification: Password must match account record
+            if (user.password !== password) {
+                this.showToast('Authentication Failed: Incorrect password for this account. Please try again.', 'danger');
+                return false;
             }
 
             // Generate Session Token
@@ -191,6 +204,20 @@
                 return false;
             }
 
+            if (!formData.password || formData.password.length < 6) {
+                this.showToast('Security Alert: Password must be at least 6 characters long.', 'danger');
+                return false;
+            }
+
+            const db = getDB();
+            const owner = getOwner();
+
+            // 3. Prevent duplicate account creation
+            if (cleanEmail === owner.email.toLowerCase() || db[cleanEmail]) {
+                this.showToast(`Account Exists: An account is already registered with "${cleanEmail}". Please sign in instead.`, 'warning');
+                return false;
+            }
+
             const safeName = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.name || 'New Scholar') : (formData.name || 'New Scholar');
             const safePhone = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.phone || '') : (formData.phone || '');
             const safeDest = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.destination || 'Global') : (formData.destination || 'Global');
@@ -201,7 +228,7 @@
                 email: cleanEmail,
                 phone: safePhone,
                 destination: safeDest,
-                password: formData.password || 'password123',
+                password: formData.password,
                 role: 'Student',
                 badge: 'Scholar',
                 avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
@@ -209,7 +236,6 @@
                 loggedInAt: new Date().toISOString()
             };
 
-            const db = getDB();
             db[cleanEmail] = user;
             saveDB(db);
 

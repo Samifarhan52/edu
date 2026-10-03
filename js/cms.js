@@ -284,22 +284,8 @@ Start internship networking during your second semester. Utilize university care
         }
     ];
 
-    // Seed Default Nav Items
-    const DEFAULT_NAV = [
-        {
-            id: 'nav-resources',
-            label: 'Resources',
-            icon: 'fa-book-bookmark',
-            type: 'dropdown',
-            isCustom: false,
-            items: [
-                { label: 'Visa Guide 2026', url: 'page.html?slug=visa-guide' },
-                { label: 'Scholarship Handbook', url: 'page.html?slug=scholarship-handbook' },
-                { label: 'Post-Study Work Visas', url: 'page.html?slug=post-study-work-visas' },
-                { label: 'Partner Universities Directory', url: 'universities-list.html' }
-            ]
-        }
-    ];
+    // Seed Default Nav Items (Custom dropdowns created by owner in Admin CMS)
+    const DEFAULT_NAV = [];
 
     // Default Global Site Settings
     const DEFAULT_SETTINGS = {
@@ -629,6 +615,21 @@ Start internship networking during your second semester. Utilize university care
         },
 
         renderCustomNavbar: function () {
+            // A. Dynamically append any custom CMS pages created by Owner into the native Resources dropdown
+            const customPages = this.getCustomPages ? this.getCustomPages() : [];
+            const resDropdowns = document.querySelectorAll('#navResourcesDropdown, #mobileResourcesDropdown');
+            if (customPages.length > 0 && resDropdowns.length > 0) {
+                resDropdowns.forEach(menu => {
+                    menu.querySelectorAll('.cms-injected-page').forEach(el => el.remove());
+                    customPages.forEach(p => {
+                        const li = document.createElement('li');
+                        li.className = 'cms-injected-page';
+                        li.innerHTML = `<a class="dropdown-item py-2" href="page.html?slug=${encodeURIComponent(p.slug)}"><i class="fa-solid fa-file-lines me-2 text-primary fs-12"></i> ${p.title}</a>`;
+                        menu.appendChild(li);
+                    });
+                });
+            }
+
             const navItems = this.getNavItems();
             if (!navItems || navItems.length === 0) return;
 

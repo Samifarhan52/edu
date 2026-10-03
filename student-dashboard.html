@@ -566,8 +566,8 @@
                 if (prefName) prefName.value = user.name;
                 if (prefDest && user.destination) prefDest.value = user.destination;
             } else {
-                // If not logged in, seed default student session
-                edAuth.login('student@theeduconsultants.org', '123456', 'Student');
+                // If not logged in, redirect to login page
+                window.location.href = 'login.html?authReason=unauthenticated';
             }
         });
 

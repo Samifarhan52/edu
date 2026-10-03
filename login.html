@@ -193,9 +193,14 @@
                         <a href="index.html" class="text-muted fs-13 text-decoration-none d-inline-flex align-items-center gap-1">
                             <i class="fa-solid fa-arrow-left"></i> Return Home
                         </a>
-                        <a href="#" class="text-muted fs-12 text-decoration-none" onclick="const o = window.edAuth ? window.edAuth.getOwnerCreds() : null; document.getElementById('inputEmail').value = o ? o.email : 'admin@theeduconsultants.org'; document.getElementById('inputPassword').value = o ? o.password : 'AdminMaster2026!'; document.getElementById('inputEmail').focus(); return false;" title="Quickfill Owner Master Credentials">
-                            <i class="fa-solid fa-shield-halved text-warning me-1"></i> Owner CMS Access
-                        </a>
+                        <div class="d-flex align-items-center gap-3">
+                            <a href="#" class="text-muted fs-12 text-decoration-none" onclick="document.getElementById('inputEmail').value = 'student@theeduconsultants.org'; document.getElementById('inputPassword').value = 'password123'; document.getElementById('inputEmail').focus(); return false;" title="Quickfill Demo Scholar Credentials">
+                                <i class="fa-solid fa-user-graduate text-primary me-1"></i> Demo Scholar
+                            </a>
+                            <a href="#" class="text-muted fs-12 text-decoration-none" onclick="const o = window.edAuth ? window.edAuth.getOwnerCreds() : null; document.getElementById('inputEmail').value = o ? o.email : 'admin@theeduconsultants.org'; document.getElementById('inputPassword').value = o ? o.password : 'AdminMaster2026!'; document.getElementById('inputEmail').focus(); return false;" title="Quickfill Owner Master Credentials">
+                                <i class="fa-solid fa-shield-halved text-warning me-1"></i> Owner CMS Access
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

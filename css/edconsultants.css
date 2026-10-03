@@ -340,50 +340,57 @@ a {
     }
 }
 
-/* Medium Desktop & Tablet Landscape (992px to 1199px - specifically 1024px screens) */
+/* Medium Desktop & Tablet Landscape (992px to 1199px) */
 @media (min-width: 992px) and (max-width: 1199px) {
     .ld-header-section {
         padding: 10px 0;
     }
     .ld-header-logo .brand-title {
-        font-size: 18px !important;
+        font-size: 19px !important;
     }
     .ld-header-logo .brand-icon-circle {
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
-        min-height: 36px !important;
-        max-width: 36px !important;
-        max-height: 36px !important;
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
     }
     .menu-navbar-nav {
-        gap: 1px !important;
+        gap: 6px !important;
     }
     .menu-navbar-nav .nav-link {
-        font-size: 13px !important;
-        padding: 6px 7px !important;
-    }
-    .menu-navbar-nav .nav-link-journey {
-        font-size: 12px !important;
-        padding: 4px 9px !important;
+        font-size: 13.5px !important;
+        padding: 6px 10px !important;
+        font-weight: 600;
     }
     .btn-header-signin {
-        padding: 6px 12px !important;
-        font-size: 12.5px !important;
+        padding: 7px 14px !important;
+        font-size: 13px !important;
     }
     .btn-header-signup {
-        padding: 6px 14px !important;
-        font-size: 12.5px !important;
+        padding: 7px 16px !important;
+        font-size: 13px !important;
     }
 }
 
 @media (min-width: 1200px) {
     .menu-navbar-nav {
-        gap: 6px;
+        gap: 14px;
+    }
+    .menu-navbar-nav .nav-link {
+        font-size: 14.5px;
+        padding: 8px 14px !important;
+        font-weight: 600;
+        letter-spacing: -0.1px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .menu-navbar-nav {
+        gap: 20px;
     }
     .menu-navbar-nav .nav-link {
         font-size: 15px;
-        padding: 7px 12px !important;
+        padding: 8px 16px !important;
     }
 }
 
