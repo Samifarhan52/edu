@@ -414,9 +414,14 @@ Message: ${lead.message}`, 'color: #000064; font-weight: bold;', 'color: #333;')
 
             const waEncoded = encodeURIComponent(waTextLines.join('\n'));
             const waLink = `https://wa.me/${CONFIG.whatsappInternational}?text=${waEncoded}`;
+            newMeeting.waLink = waLink;
 
-            // Open WhatsApp with all meeting details and buttons
-            window.open(waLink, '_blank');
+            // Open WhatsApp with all meeting details and buttons safely
+            try {
+                window.open(waLink, '_blank');
+            } catch (openErr) {
+                console.warn('[EduLeads] WhatsApp popup blocked or not permitted:', openErr);
+            }
 
             // Log initial booking email dispatch notice
             this.logEmailNotification({
@@ -672,8 +677,28 @@ noreply@theeduconsultant.com`
         // ======================================================================
         openMeetingModal: function () {
             let modal = document.getElementById('eduScheduleMeetingModal');
-            if (!modal) {
-                const todayStr = new Date().toISOString().slice(0, 10);
+            const todayStr = new Date().toISOString().slice(0, 10);
+
+            if (modal) {
+                // Reset form state if already present
+                const form = document.getElementById('eduScheduleMeetingForm');
+                if (form) form.reset();
+                const dateEl = document.getElementById('meetingDate');
+                if (dateEl) {
+                    dateEl.value = todayStr;
+                    dateEl.min = todayStr;
+                }
+                const errBox = document.getElementById('meetingFormError');
+                if (errBox) {
+                    errBox.classList.add('d-none');
+                    errBox.textContent = '';
+                }
+                const submitBtn = document.getElementById('btnSubmitMeeting');
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-calendar-check me-2"></i> Confirm & Book Slot';
+                }
+            } else {
                 const modalHtml = `
                 <div class="modal fade" id="eduScheduleMeetingModal" tabindex="-1" aria-labelledby="eduScheduleMeetingModalLabel" aria-hidden="true" style="z-index: 9990;">
                     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -688,18 +713,21 @@ noreply@theeduconsultant.com`
                                         <span class="fs-12 text-white-50">Select your preferred date, time slot, and consultation mode</span>
                                     </div>
                                 </div>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="document.getElementById('eduScheduleMeetingModal').classList.remove('show'); document.getElementById('eduScheduleMeetingModal').style.display='none'; document.querySelectorAll('.modal-backdrop').forEach(b=>b.remove());"></button>
                             </div>
 
-                            <form id="eduScheduleMeetingForm" onsubmit="window.EduLeads.handleMeetingSubmit(event)">
+                            <form id="eduScheduleMeetingForm" action="javascript:void(0);" onsubmit="window.EduLeads.handleMeetingSubmit(event); return false;">
                                 <div class="modal-body p-4 text-start">
+                                    <!-- Inline Validation Error Box -->
+                                    <div id="meetingFormError" class="alert alert-danger py-2 px-3 fs-13 mb-3 d-none"></div>
+
                                     <div class="row g-3">
                                         <!-- Full Name -->
                                         <div class="col-md-6">
                                             <label class="form-label fw-bold fs-13 text-dark">Full Name <span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-user"></i></span>
-                                                <input type="text" class="form-control zForm-control border-start-0" id="meetingFullName" placeholder="Enter your full name" required>
+                                                <input type="text" class="form-control zForm-control border-start-0" id="meetingFullName" placeholder="Enter your full name">
                                             </div>
                                         </div>
 
@@ -708,7 +736,7 @@ noreply@theeduconsultant.com`
                                             <label class="form-label fw-bold fs-13 text-dark">Mobile / WhatsApp Number <span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-phone"></i></span>
-                                                <input type="tel" class="form-control zForm-control border-start-0" id="meetingPhone" placeholder="e.g. +91 98453 71459" required>
+                                                <input type="tel" class="form-control zForm-control border-start-0" id="meetingPhone" placeholder="e.g. +91 98453 71459">
                                             </div>
                                         </div>
 
@@ -717,7 +745,7 @@ noreply@theeduconsultant.com`
                                             <label class="form-label fw-bold fs-13 text-dark">Email Address <span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-envelope"></i></span>
-                                                <input type="email" class="form-control zForm-control border-start-0" id="meetingEmail" placeholder="name@example.com" required>
+                                                <input type="email" class="form-control zForm-control border-start-0" id="meetingEmail" placeholder="name@example.com">
                                             </div>
                                             <div class="fs-11 text-muted mt-1">Confirmation will be sent from <strong>noreply@theeduconsultant.com</strong>.</div>
                                         </div>
@@ -725,8 +753,8 @@ noreply@theeduconsultant.com`
                                         <!-- Target Destination -->
                                         <div class="col-md-6">
                                             <label class="form-label fw-bold fs-13 text-dark">Target Study Destination <span class="text-danger">*</span></label>
-                                            <select class="form-select zForm-control" id="meetingDestination" required>
-                                                <option value="United Kingdom">🇬🇧 United Kingdom (Russell Group)</option>
+                                            <select class="form-select zForm-control" id="meetingDestination">
+                                                <option value="United Kingdom" selected>🇬🇧 United Kingdom (Russell Group)</option>
                                                 <option value="United States">🇺🇸 United States (Top 100 STEM)</option>
                                                 <option value="Canada">🇨🇦 Canada (Top Universities & PR)</option>
                                                 <option value="Australia">🇦🇺 Australia (Group of Eight)</option>
@@ -741,14 +769,14 @@ noreply@theeduconsultant.com`
                                             <label class="form-label fw-bold fs-13 text-dark">Preferred Date <span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-calendar-day"></i></span>
-                                                <input type="date" class="form-control zForm-control border-start-0" id="meetingDate" min="${todayStr}" value="${todayStr}" required>
+                                                <input type="date" class="form-control zForm-control border-start-0" id="meetingDate" min="${todayStr}" value="${todayStr}">
                                             </div>
                                         </div>
 
                                         <!-- Preferred Time Slot -->
                                         <div class="col-md-6">
                                             <label class="form-label fw-bold fs-13 text-dark">Preferred Time Slot <span class="text-danger">*</span></label>
-                                            <select class="form-select zForm-control" id="meetingTime" required>
+                                            <select class="form-select zForm-control" id="meetingTime">
                                                 <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM (Morning Slot)</option>
                                                 <option value="11:30 AM - 12:30 PM" selected>11:30 AM - 12:30 PM (Mid-Day Slot)</option>
                                                 <option value="02:00 PM - 03:00 PM">02:00 PM - 03:00 PM (Afternoon Slot)</option>
@@ -790,7 +818,7 @@ noreply@theeduconsultant.com`
                                             <div class="edu-whatsapp-optin-box d-flex align-items-center gap-2">
                                                 <i class="fa-brands fa-whatsapp text-success fs-4 flex-shrink-0"></i>
                                                 <div class="fs-12 text-dark">
-                                                    <strong>Instant Sync to Counselor WhatsApp:</strong> Submitting will automatically forward your chosen date, time, and session mode to our admissions director.
+                                                    <strong>Instant Counselor Sync:</strong> Booking automatically updates the Admin Dashboard and dispatches an instant WhatsApp alert to senior advisory.
                                                 </div>
                                             </div>
                                         </div>
@@ -798,8 +826,8 @@ noreply@theeduconsultant.com`
                                 </div>
 
                                 <div class="modal-footer border-0 p-4 pt-0 bg-white">
-                                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fs-13" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" id="btnSubmitMeeting" class="btn btn-warning rounded-pill px-5 py-2.5 fw-bold fs-14 shadow-sm" style="background-color: var(--button); color: var(--brand-primary); border: none;">
+                                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fs-13" data-bs-dismiss="modal" onclick="document.getElementById('eduScheduleMeetingModal').classList.remove('show'); document.getElementById('eduScheduleMeetingModal').style.display='none'; document.querySelectorAll('.modal-backdrop').forEach(b=>b.remove());">Cancel</button>
+                                    <button type="button" id="btnSubmitMeeting" onclick="window.EduLeads.handleMeetingSubmit(event)" class="btn btn-warning rounded-pill px-5 py-2.5 fw-bold fs-14 shadow-sm" style="background-color: var(--button); color: var(--brand-primary); border: none;">
                                         <i class="fa-solid fa-calendar-check me-2"></i> Confirm & Book Slot
                                     </button>
                                 </div>
@@ -811,33 +839,81 @@ noreply@theeduconsultant.com`
                 modal = document.getElementById('eduScheduleMeetingModal');
             }
 
-            // Show using Bootstrap
-            if (window.bootstrap && window.bootstrap.Modal) {
-                const bsModal = new bootstrap.Modal(modal);
-                bsModal.show();
-            } else {
+            // Show using Bootstrap if present, else fallback
+            try {
+                if (window.bootstrap && window.bootstrap.Modal) {
+                    const bsModal = bootstrap.Modal.getOrCreateInstance(modal);
+                    bsModal.show();
+                } else {
+                    modal.classList.add('show');
+                    modal.style.display = 'block';
+                }
+            } catch (err) {
                 modal.classList.add('show');
                 modal.style.display = 'block';
             }
         },
 
         handleMeetingSubmit: function (e) {
-            if (e && e.preventDefault) e.preventDefault();
+            if (e) {
+                if (typeof e.preventDefault === 'function') e.preventDefault();
+                if (typeof e.stopPropagation === 'function') e.stopPropagation();
+            }
 
-            const fullName = document.getElementById('meetingFullName').value.trim();
-            const phone = document.getElementById('meetingPhone').value.trim();
-            const email = document.getElementById('meetingEmail').value.trim();
-            const destination = document.getElementById('meetingDestination').value;
-            const date = document.getElementById('meetingDate').value;
-            const time = document.getElementById('meetingTime').value;
-            const notes = document.getElementById('meetingNotes').value.trim();
+            const fullNameEl = document.getElementById('meetingFullName');
+            const phoneEl = document.getElementById('meetingPhone');
+            const emailEl = document.getElementById('meetingEmail');
+            const destEl = document.getElementById('meetingDestination');
+            const dateEl = document.getElementById('meetingDate');
+            const timeEl = document.getElementById('meetingTime');
+            const notesEl = document.getElementById('meetingNotes');
+            const errBox = document.getElementById('meetingFormError');
+
+            const showError = (msg, inputEl) => {
+                if (errBox) {
+                    errBox.textContent = msg;
+                    errBox.classList.remove('d-none');
+                } else {
+                    alert(msg);
+                }
+                if (inputEl) inputEl.focus();
+            };
+
+            const fullName = fullNameEl ? fullNameEl.value.trim() : '';
+            const phone = phoneEl ? phoneEl.value.trim() : '';
+            const email = emailEl ? emailEl.value.trim() : '';
+            const destination = destEl ? destEl.value : 'United Kingdom';
+            const date = dateEl ? dateEl.value : '';
+            const time = timeEl ? timeEl.value : '11:30 AM - 12:30 PM';
+            const notes = notesEl ? notesEl.value.trim() : '';
 
             const modeRadio = document.querySelector('input[name="meetingMode"]:checked');
-            const mode = modeRadio ? modeRadio.value : 'Virtual Video Session (Google Meet)';
+            const mode = modeRadio ? modeRadio.value : 'Virtual Video Session (Google Meet / Zoom)';
 
-            if (!fullName || !phone || !email || !date || !time) {
-                alert('Please fill out all required meeting details.');
+            // Validation Checks
+            if (!fullName) {
+                showError('Please enter your full name.', fullNameEl);
                 return false;
+            }
+            if (!phone || phone.length < 7) {
+                showError('Please enter a valid mobile or WhatsApp phone number.', phoneEl);
+                return false;
+            }
+            if (!email || !email.includes('@')) {
+                showError('Please enter a valid email address for booking confirmation.', emailEl);
+                return false;
+            }
+            if (!date) {
+                showError('Please select your preferred session date.', dateEl);
+                return false;
+            }
+
+            if (errBox) errBox.classList.add('d-none');
+
+            const submitBtn = document.getElementById('btnSubmitMeeting');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Registering Session...';
             }
 
             const meetingData = {
@@ -851,22 +927,37 @@ noreply@theeduconsultant.com`
                 notes: notes
             };
 
-            const created = this.saveMeeting(meetingData);
+            try {
+                const created = this.saveMeeting(meetingData);
 
-            // Hide Schedule Meeting modal
-            const modalEl = document.getElementById('eduScheduleMeetingModal');
-            if (modalEl) {
-                if (window.bootstrap && window.bootstrap.Modal) {
-                    const bsModal = bootstrap.Modal.getInstance(modalEl);
-                    if (bsModal) bsModal.hide();
+                // Hide Schedule Meeting modal cleanly
+                const modalEl = document.getElementById('eduScheduleMeetingModal');
+                if (modalEl) {
+                    try {
+                        if (window.bootstrap && window.bootstrap.Modal) {
+                            const bsModal = bootstrap.Modal.getInstance(modalEl);
+                            if (bsModal) bsModal.hide();
+                        }
+                    } catch (mErr) {}
+                    modalEl.classList.remove('show');
+                    modalEl.style.display = 'none';
+                    document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+                    document.body.classList.remove('modal-open');
+                    document.body.style.removeProperty('overflow');
+                    document.body.style.removeProperty('padding-right');
                 }
-                modalEl.classList.remove('show');
-                modalEl.style.display = 'none';
-                document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+
+                // Show Friendly Confirmation popup
+                this.showStudentMeetingSubmittedModal(created);
+            } catch (saveErr) {
+                console.error('[EduLeads] Error during meeting submission:', saveErr);
+                alert('An error occurred while booking: ' + saveErr.message);
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-calendar-check me-2"></i> Confirm & Book Slot';
+                }
             }
 
-            // Show Friendly Confirmation popup
-            this.showStudentMeetingSubmittedModal(created);
             return false;
         },
 
@@ -874,9 +965,11 @@ noreply@theeduconsultant.com`
             let existing = document.getElementById('eduStudentMeetingSuccessModal');
             if (existing) existing.remove();
 
+            const waLink = meeting.waLink || `https://wa.me/${CONFIG.whatsappInternational}?text=${encodeURIComponent(`Hello The Edu Consultants, I booked meeting ID ${meeting.id} for ${meeting.date} at ${meeting.time}.`)}`;
+
             const html = `
             <div class="modal fade show" id="eduStudentMeetingSuccessModal" tabindex="-1" style="display: block; background: rgba(0,0,100,0.6); z-index: 9999;" aria-modal="true" role="dialog">
-                <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;">
+                <div class="modal-dialog modal-dialog-centered" style="max-width: 520px;">
                     <div class="modal-content rounded-4 border-0 shadow-2xl overflow-hidden">
                         <div class="modal-header border-0 pb-0" style="background: linear-gradient(135deg, #000064, #00004a); color: white;">
                             <div class="d-flex align-items-center gap-2">
@@ -884,7 +977,7 @@ noreply@theeduconsultant.com`
                                     <i class="fa-solid fa-calendar-check fs-5"></i>
                                 </div>
                                 <div>
-                                    <h5 class="modal-title fw-bold fs-16 mb-0 text-white">Meeting Request Submitted!</h5>
+                                    <h5 class="modal-title fw-bold fs-16 mb-0 text-white">Meeting Registered Successfully!</h5>
                                     <span class="fs-11 text-white-50">Booking Reference: ${meeting.id}</span>
                                 </div>
                             </div>
@@ -892,24 +985,28 @@ noreply@theeduconsultant.com`
                         </div>
                         <div class="modal-body p-4 text-start">
                             <p class="text-dark fs-14 mb-3">
-                                Thank you, <strong>${meeting.name}</strong>! Your 1-on-1 counseling slot has been securely registered in our system.
+                                Thank you, <strong>${meeting.name}</strong>! Your 1-on-1 counseling session has been recorded in our system.
                             </p>
                             <div class="p-3 rounded-3 bg-light border mb-3 fs-13">
                                 <div class="mb-1"><span class="text-muted">Booking ID:</span> <span class="badge bg-primary text-white">${meeting.id}</span></div>
                                 <div class="mb-1"><span class="text-muted">Requested Date:</span> <strong>${meeting.date}</strong></div>
                                 <div class="mb-1"><span class="text-muted">Time Slot:</span> <strong>${meeting.time}</strong></div>
-                                <div class="mb-1"><span class="text-muted">Mode:</span> <strong>${meeting.mode}</strong></div>
+                                <div class="mb-1"><span class="text-muted">Consultation Mode:</span> <strong>${meeting.mode}</strong></div>
                                 <div><span class="text-muted">Target Destination:</span> <strong>${meeting.destination}</strong></div>
                             </div>
                             <div class="alert alert-info d-flex align-items-center gap-2 py-2 px-3 fs-13 mb-3 rounded-3 border-0">
                                 <i class="fa-solid fa-envelope fs-5 text-primary"></i>
                                 <div>
-                                    Our senior counselor has received your request on WhatsApp. Once confirmed, you will receive an official confirmation email from <strong>${CONFIG.noreplyEmail}</strong>.
+                                    Our senior counselor has received your request. Once confirmed, you will receive an official confirmation email from <strong>${CONFIG.noreplyEmail}</strong>.
                                 </div>
                             </div>
-                            <div class="d-flex gap-2">
-                                <button type="button" class="btn btn-secondary rounded-pill w-100 fs-13" onclick="document.getElementById('eduStudentMeetingSuccessModal').remove()">
-                                    Close & Return to Website
+                            <div class="d-flex flex-column gap-2">
+                                <a href="${waLink}" target="_blank" class="btn btn-success rounded-pill w-100 py-2.5 fs-14 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
+                                    <i class="fa-brands fa-whatsapp fs-5"></i>
+                                    <span>Send to Counselor on WhatsApp</span>
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary rounded-pill w-100 py-2 fs-13" onclick="document.getElementById('eduStudentMeetingSuccessModal').remove()">
+                                    Done & Return to Website
                                 </button>
                             </div>
                         </div>

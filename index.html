@@ -277,6 +277,131 @@
                             </div>
                         </form>
                     </div>
+
+                    <!-- Tab Pane 2: Subject / Course Finder -->
+                    <div class="tab-pane fade" id="courses-tab-pane" role="tabpanel" aria-labelledby="courses-tab">
+                        <form class="searchForm" method="GET" action="subject-list.html">
+                            <div class="hero-banner-filterInut">
+                                <div class="item">
+                                    <label class="zForm-label">Field of Study / Discipline <span>*</span></label>
+                                    <select class="sf-select-checkbox" name="discipline">
+                                        <option value="">All Academic Disciplines</option>
+                                        <option value="Computer Science & Artificial Intelligence">Computer Science & AI</option>
+                                        <option value="Business, MBA & Management">Business & Management (MBA)</option>
+                                        <option value="Data Science & Business Analytics">Data Science & Analytics</option>
+                                        <option value="Engineering, Robotics & Mechatronics">Engineering & Robotics</option>
+                                        <option value="Medicine, Healthcare & Life Sciences">Healthcare & Medicine</option>
+                                        <option value="Law, International Relations & Policy">Law & Public Policy</option>
+                                        <option value="Finance, Banking & FinTech">Finance & FinTech</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label class="zForm-label">Degree Level</label>
+                                    <select name="level" class="sf-select-checkbox">
+                                        <option value="">All Degree Levels</option>
+                                        <option value="Master's / Postgraduate">Master's / Postgraduate</option>
+                                        <option value="Bachelor's / Undergraduate">Bachelor's / Undergraduate</option>
+                                        <option value="Doctorate / PhD">Doctorate / PhD</option>
+                                        <option value="Executive Diploma">Executive Diploma</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label class="zForm-label">Study Destination</label>
+                                    <select class="sf-select-checkbox" name="country">
+                                        <option value="">Global (All Countries)</option>
+                                        <option value="United Kingdom">United Kingdom (Russell Group)</option>
+                                        <option value="United States">United States (Top 100)</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="Germany">Germany & Europe</option>
+                                        <option value="Ireland">Ireland</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="searchButton flipBtn sf-flipBtn-brand-alt">
+                                    <i class="fa-solid fa-book-open me-1"></i> Search Subjects
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Tab Pane 3: Scholarships & Grants Finder -->
+                    <div class="tab-pane fade" id="scholarships-tab-pane" role="tabpanel" aria-labelledby="scholarships-tab">
+                        <form class="searchForm" method="GET" action="scholarship-list.html">
+                            <div class="hero-banner-filterInut">
+                                <div class="item">
+                                    <label class="zForm-label">Scholarship Coverage <span>*</span></label>
+                                    <select class="sf-select-checkbox" name="coverage">
+                                        <option value="">All Funding Tiers</option>
+                                        <option value="Full Tuition Waiver (100%)">100% Full Tuition Waiver</option>
+                                        <option value="Partial Waiver (50% - 75%)">50% - 75% Tuition Discount</option>
+                                        <option value="Merit Grant ($10,000 - $25,000)">$10,000 - $25,000 Merit Award</option>
+                                        <option value="Living Stipend + Full Ride">Full Ride + Living Stipend</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label class="zForm-label">Target Destination</label>
+                                    <select name="destination" class="sf-select-checkbox">
+                                        <option value="">All Target Countries</option>
+                                        <option value="United Kingdom">United Kingdom (Chevening & Russell Group)</option>
+                                        <option value="United States">United States (Fulbright & Dean's Merit)</option>
+                                        <option value="Canada">Canada (Vanier & Entrance Awards)</option>
+                                        <option value="Australia">Australia (Australia Awards & RTP)</option>
+                                        <option value="Germany">Germany (DAAD & State Free Tuition)</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label class="zForm-label">Intake Year</label>
+                                    <select class="sf-select-checkbox" name="intake">
+                                        <option value="2026">Fall Intake 2026</option>
+                                        <option value="2027">Spring / Fall 2027</option>
+                                        <option value="all">All Open Deadlines</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="searchButton flipBtn sf-flipBtn-brand-alt">
+                                    <i class="fa-solid fa-award me-1"></i> Find Scholarships
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Tab Pane 4: Events & Global Admissions Fairs -->
+                    <div class="tab-pane fade" id="events-tab-pane" role="tabpanel" aria-labelledby="events-tab">
+                        <form class="searchForm" method="GET" action="event-list.html">
+                            <div class="hero-banner-filterInut">
+                                <div class="item">
+                                    <label class="zForm-label">Event Format / Mode <span>*</span></label>
+                                    <select class="sf-select-checkbox" name="format">
+                                        <option value="">All Formats (Online & Offline)</option>
+                                        <option value="Virtual Webinar">Virtual Webinar (Live Zoom / Meet)</option>
+                                        <option value="In-Person Fair">In-Person Lounge Fair (Bengaluru)</option>
+                                        <option value="University Delegation">Direct University Delegation Meet</option>
+                                        <option value="Visa Workshop">Visa & SOP Masterclass</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label class="zForm-label">Target Destination</label>
+                                    <select name="target" class="sf-select-checkbox">
+                                        <option value="">All Countries</option>
+                                        <option value="UK & Europe">UK & Europe Fair</option>
+                                        <option value="USA & Canada">USA & Canada Fair</option>
+                                        <option value="Australia & New Zealand">Australia & New Zealand</option>
+                                        <option value="Global">Global Multi-Country Fair</option>
+                                    </select>
+                                </div>
+                                <div class="item">
+                                    <label class="zForm-label">Upcoming Month</label>
+                                    <select class="sf-select-checkbox" name="month">
+                                        <option value="current">Current Month Sessions</option>
+                                        <option value="next">Next Month Sessions</option>
+                                        <option value="quarter">Full Quarter Calendar</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="searchButton flipBtn sf-flipBtn-brand-alt">
+                                    <i class="fa-solid fa-calendar-days me-1"></i> View Events
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
