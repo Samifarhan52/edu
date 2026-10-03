@@ -1132,6 +1132,71 @@ a {
     color: var(--para-text);
 }
 
+/* Footer Location & Map Card (Headquarters Embed) */
+.footer-location-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 0 4px 16px rgba(0, 0, 100, 0.05);
+    transition: all 0.3s ease;
+}
+
+.footer-location-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 6px 22px rgba(0, 0, 100, 0.09);
+    transform: translateY(-2px);
+}
+
+.footer-location-card .footer-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--title-text);
+    margin-bottom: 0;
+}
+
+.footer-location-text {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--para-text);
+}
+
+.footer-map-frame {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f1f5f9;
+}
+
+.footer-map-frame iframe {
+    display: block;
+    width: 100%;
+    height: 125px;
+    border: 0;
+}
+
+.footer-map-btn {
+    background-color: var(--button);
+    color: var(--brand-primary) !important;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 7px 14px;
+    text-decoration: none;
+    border: 1px solid rgba(0, 0, 100, 0.08);
+    transition: all 0.25s ease;
+}
+
+.footer-map-btn:hover {
+    background-color: var(--button-alt);
+    color: var(--brand-primary) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(245, 220, 60, 0.4);
+}
+
+.fs-11 { font-size: 11px !important; }
+.fs-12 { font-size: 12px !important; }
+.fs-13 { font-size: 13px !important; }
+
 /* Entry Reveal Animations (AOS Style) */
 [data-aos] {
     opacity: 0;
