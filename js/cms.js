@@ -219,18 +219,41 @@ Our pre-departure webinars connect incoming scholars with current university stu
         },
 
         saveBlog: function (blogData) {
+            // 1. Authorization Guard (AuthZ != AuthN)
+            const user = (window.edAuth && window.edAuth.getUser) ? window.edAuth.getUser() : null;
+            if (window.EduSecurity && !window.EduSecurity.hasPermission(user, 'create_blog')) {
+                this.showToast('Authorization Denied (403)', 'Only Admissions Directors and Staff may publish articles.', 'danger');
+                return null;
+            }
+
+            // 2. Image Source Security Check
+            if (window.EduSecurity && blogData.image) {
+                const imgCheck = window.EduSecurity.validateImageSource(blogData.image);
+                if (!imgCheck.valid) {
+                    this.showToast('Security Alert', imgCheck.message, 'danger');
+                    return null;
+                }
+            }
+
+            // 3. Input Sanitization
+            const safeTitle = window.EduSecurity ? window.EduSecurity.sanitizeText(blogData.title) : blogData.title.trim();
+            const safeCategory = window.EduSecurity ? window.EduSecurity.sanitizeText(blogData.category) : (blogData.category || 'General');
+            const safeSummary = window.EduSecurity ? window.EduSecurity.sanitizeText(blogData.summary) : blogData.summary.trim();
+            const safeContent = window.EduSecurity ? window.EduSecurity.sanitizeHTML(blogData.content) : blogData.content.trim();
+            const safeAuthor = window.EduSecurity ? window.EduSecurity.sanitizeText(blogData.author) : (blogData.author || 'Advisor');
+
             const custom = this.getCustomBlogs();
             const newBlog = {
                 id: 'blog-custom-' + Date.now(),
-                title: blogData.title.trim(),
-                category: blogData.category || 'General',
+                title: safeTitle,
+                category: safeCategory,
                 readTime: blogData.readTime || '4 min read',
                 date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-                author: blogData.author || 'Admissions Specialist',
+                author: safeAuthor,
                 authorRole: blogData.authorRole || 'The Edu Consultants Staff',
                 image: blogData.image || 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
-                summary: blogData.summary.trim(),
-                content: blogData.content.trim(),
+                summary: safeSummary,
+                content: safeContent,
                 status: blogData.status || 'published',
                 isCustom: true,
                 createdAt: Date.now()
@@ -241,6 +264,11 @@ Our pre-departure webinars connect incoming scholars with current university stu
         },
 
         deleteBlog: function (blogId) {
+            const user = (window.edAuth && window.edAuth.getUser) ? window.edAuth.getUser() : null;
+            if (window.EduSecurity && !window.EduSecurity.hasPermission(user, 'delete_blog')) {
+                this.showToast('Authorization Denied (403)', 'Administrative privileges required to delete content.', 'danger');
+                return;
+            }
             let custom = this.getCustomBlogs();
             custom = custom.filter(b => b.id !== blogId);
             this.saveCustomBlogs(custom);
@@ -266,16 +294,36 @@ Our pre-departure webinars connect incoming scholars with current university stu
         },
 
         saveUni: function (uniData) {
+            const user = (window.edAuth && window.edAuth.getUser) ? window.edAuth.getUser() : null;
+            if (window.EduSecurity && !window.EduSecurity.hasPermission(user, 'manage_universities')) {
+                this.showToast('Authorization Denied (403)', 'Administrative privileges required to modify directory.', 'danger');
+                return null;
+            }
+
+            if (window.EduSecurity && uniData.image) {
+                const imgCheck = window.EduSecurity.validateImageSource(uniData.image);
+                if (!imgCheck.valid) {
+                    this.showToast('Security Alert', imgCheck.message, 'danger');
+                    return null;
+                }
+            }
+
+            const safeName = window.EduSecurity ? window.EduSecurity.sanitizeText(uniData.name) : uniData.name.trim();
+            const safeCountry = window.EduSecurity ? window.EduSecurity.sanitizeText(uniData.country) : (uniData.country || 'Global');
+            const safeTuition = window.EduSecurity ? window.EduSecurity.sanitizeText(uniData.tuition) : (uniData.tuition || 'Inquire');
+            const safeAcceptance = window.EduSecurity ? window.EduSecurity.sanitizeText(uniData.acceptance) : (uniData.acceptance || 'Rolling');
+            const safePrograms = window.EduSecurity ? window.EduSecurity.sanitizeText(uniData.programs) : (uniData.programs || 'Diverse Programs');
+
             const custom = this.getCustomUnis();
             const newUni = {
                 id: 'uni-custom-' + Date.now(),
-                name: uniData.name.trim(),
-                country: uniData.country || 'Global',
+                name: safeName,
+                country: safeCountry,
                 ranking: uniData.ranking || 'Top 100 Global',
-                tuition: uniData.tuition || 'Contact Admissions',
-                acceptance: uniData.acceptance || 'Rolling Admissions',
+                tuition: safeTuition,
+                acceptance: safeAcceptance,
                 image: uniData.image || 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80',
-                programs: uniData.programs || 'Diverse Graduate & Undergraduate Degrees',
+                programs: safePrograms,
                 tag: uniData.tag || 'New Partner',
                 status: 'published',
                 isCustom: true,

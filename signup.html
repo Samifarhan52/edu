@@ -208,6 +208,7 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/security.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/edconsultants.js"></script>
     <script>
@@ -248,13 +249,17 @@
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
 
             setTimeout(() => {
-                edAuth.signup({
+                const success = edAuth.signup({
                     name: name,
                     email: email,
                     phone: phone,
                     destination: destination
                 });
-            }, 500);
+                if (!success) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>Create Free Student Account</span> <i class="fa-solid fa-arrow-right"></i>';
+                }
+            }, 300);
         }
     </script>
 </body>

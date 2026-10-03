@@ -58,13 +58,30 @@
         },
 
         login: function (email, password, roleHint = 'Student') {
+            // 1. Rate Limiting Check
+            if (window.EduSecurity) {
+                const rateCheck = window.EduSecurity.rateLimiter.check('login_attempts', 5, 60000);
+                if (!rateCheck.allowed) {
+                    this.showToast(rateCheck.message, 'danger');
+                    return false;
+                }
+                window.EduSecurity.rateLimiter.record('login_attempts');
+            }
+
+            // 2. Input Validation & Sanitization
             const cleanEmail = (email || '').trim().toLowerCase();
+            if (window.EduSecurity && !window.EduSecurity.validateEmail(cleanEmail)) {
+                this.showToast('Security Alert: Invalid email format.', 'danger');
+                return false;
+            }
+
             let user = DEMO_USERS[cleanEmail];
 
             if (!user) {
-                // Allow custom email sign in dynamically
-                const namePart = email.split('@')[0] || 'Member';
-                const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+                // Dynamically create authenticated user with roleHint
+                const rawNamePart = email.split('@')[0] || 'Member';
+                const safeName = window.EduSecurity ? window.EduSecurity.sanitizeText(rawNamePart) : rawNamePart;
+                const formattedName = safeName.charAt(0).toUpperCase() + safeName.slice(1);
                 user = {
                     name: formattedName,
                     email: cleanEmail,
@@ -74,33 +91,64 @@
                 };
             }
 
+            // 3. Secrets Management: Ephemeral Token Generation
+            user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_' + Date.now();
             user.loggedInAt = new Date().toISOString();
             this.setUser(user);
-            this.showToast(`Welcome back, ${user.name}! Redirecting...`, 'success');
+
+            // 4. AuthN != AuthZ Redirection Logic:
+            // Administrators & Counselors route to Admin Management Console;
+            // Prospective Scholars & Students route to Public Platform.
+            const destinationPage = (user.role === 'Admin' || user.role === 'Counselor') ? 'admin-dashboard.html' : 'index.html';
+
+            this.showToast(`Authenticated as ${user.role}: Welcome back, ${user.name}!`, 'success');
 
             setTimeout(() => {
-                window.location.href = 'admin-dashboard.html';
+                window.location.href = destinationPage;
             }, 800);
             return true;
         },
 
         signup: function (formData) {
+            // 1. Rate Limiting Check
+            if (window.EduSecurity) {
+                const rateCheck = window.EduSecurity.rateLimiter.check('signup_attempts', 4, 300000);
+                if (!rateCheck.allowed) {
+                    this.showToast(rateCheck.message, 'danger');
+                    return false;
+                }
+                window.EduSecurity.rateLimiter.record('signup_attempts');
+            }
+
+            // 2. Input Validation & Sanitization
+            const cleanEmail = (formData.email || '').trim().toLowerCase();
+            if (window.EduSecurity && !window.EduSecurity.validateEmail(cleanEmail)) {
+                this.showToast('Security Alert: Please enter a valid email address.', 'danger');
+                return false;
+            }
+
+            const safeName = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.name || 'New Scholar') : (formData.name || 'New Scholar');
+            const safePhone = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.phone || '') : (formData.phone || '');
+            const safeDest = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.destination || 'Global') : (formData.destination || 'Global');
+
             const user = {
-                name: formData.name || 'New Scholar',
-                email: (formData.email || '').trim().toLowerCase(),
-                phone: formData.phone || '',
-                destination: formData.destination || 'Global',
-                role: 'Student',
+                name: safeName,
+                email: cleanEmail,
+                phone: safePhone,
+                destination: safeDest,
+                role: 'Student', // Standard signups are assigned Student role
                 badge: 'Scholar',
                 avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
                 loggedInAt: new Date().toISOString()
             };
 
+            user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_' + Date.now();
             this.setUser(user);
-            this.showToast(`Account created successfully! Welcome, ${user.name}!`, 'success');
+            this.showToast(`Account registered successfully! Welcome, ${user.name}!`, 'success');
 
             setTimeout(() => {
-                window.location.href = 'admin-dashboard.html';
+                // Students route to Homepage/Student Portal, preserving AuthZ boundaries
+                window.location.href = 'index.html';
             }, 900);
             return true;
         },
