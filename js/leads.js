@@ -28,12 +28,35 @@
         baseUrl: 'https://edu-two-eta.vercel.app'
     };
 
+    // Robust, cross-browser date/time formatter (safe against Intl option errors)
+    function formatDateTime(d) {
+        try {
+            const dt = (d instanceof Date) ? d : (d ? new Date(d) : new Date());
+            if (isNaN(dt.getTime())) return new Date().toDateString();
+            return dt.toLocaleDateString('en-IN', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            }) + ', ' + dt.toLocaleTimeString('en-IN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+        } catch (e) {
+            try {
+                return new Date().toLocaleString();
+            } catch (e2) {
+                return new Date().toDateString();
+            }
+        }
+    }
+
     // Default Seed Inquiries for Admin Dashboard
     const SEED_LEADS = [
         {
             id: 'lead-1791001',
             createdAt: new Date(Date.now() - 3600000 * 2).toISOString(),
-            dateFormatted: new Date(Date.now() - 3600000 * 2).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+            dateFormatted: formatDateTime(Date.now() - 3600000 * 2),
             name: 'Aarav Sharma',
             phone: '+91 98765 43210',
             email: 'aarav.sharma@gmail.com',
@@ -46,7 +69,7 @@
         {
             id: 'lead-1791002',
             createdAt: new Date(Date.now() - 3600000 * 7).toISOString(),
-            dateFormatted: new Date(Date.now() - 3600000 * 7).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+            dateFormatted: formatDateTime(Date.now() - 3600000 * 7),
             name: 'Priyanka Reddy',
             phone: '+91 98451 23456',
             email: 'priyanka.r@outlook.com',
@@ -59,7 +82,7 @@
         {
             id: 'lead-1791003',
             createdAt: new Date(Date.now() - 86400000 * 1.5).toISOString(),
-            dateFormatted: new Date(Date.now() - 86400000 * 1.5).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+            dateFormatted: formatDateTime(Date.now() - 86400000 * 1.5),
             name: 'Karan Mehra',
             phone: '+91 97112 88990',
             email: 'karan.m@yahoo.com',
@@ -76,7 +99,7 @@
         {
             id: 'MTG-2026-1082',
             createdAt: new Date(Date.now() - 3600000 * 3).toISOString(),
-            dateFormatted: new Date(Date.now() - 3600000 * 3).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+            dateFormatted: formatDateTime(Date.now() - 3600000 * 3),
             name: 'Rohan Deshmukh',
             phone: '+91 98452 33445',
             email: 'rohan.d@example.com',
@@ -91,7 +114,7 @@
         {
             id: 'MTG-2026-1055',
             createdAt: new Date(Date.now() - 86400000 * 1).toISOString(),
-            dateFormatted: new Date(Date.now() - 86400000 * 1).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+            dateFormatted: formatDateTime(Date.now() - 86400000 * 1),
             name: 'Ananya Sen',
             phone: '+91 98200 44556',
             email: 'ananya.sen@example.com',
@@ -107,6 +130,7 @@
 
     const EduLeads = {
         config: CONFIG,
+        formatDateTime: formatDateTime,
 
         // ======================================================================
         // 1. LEADS REPOSITORY
@@ -131,7 +155,7 @@
             const newLead = Object.assign({
                 id: 'lead-' + Date.now(),
                 createdAt: new Date().toISOString(),
-                dateFormatted: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+                dateFormatted: formatDateTime(),
                 status: 'New'
             }, lead);
 
@@ -274,7 +298,8 @@
         },
 
         logEmailNotification: function (lead) {
-            console.log(`%c[Lead Notification Sent]%c 
+            if (typeof console !== 'undefined' && console && typeof console.log === 'function') {
+                console.log(`%c[Lead Notification Sent]%c 
 To: ${CONFIG.enquiryEmail}, ${CONFIG.adminEmail}
 From: ${CONFIG.noreplyEmail}
 Subject: [New Student Lead] ${lead.name} - ${lead.destination}
@@ -282,6 +307,7 @@ Phone: ${lead.phone}
 Email: ${lead.email}
 WhatsApp Opt-In: ${lead.whatsappOptIn ? 'YES' : 'NO'}
 Message: ${lead.message}`, 'color: #000064; font-weight: bold;', 'color: #333;');
+            }
         },
 
         showSuccessModal: function (lead, openedWhatsApp) {
@@ -361,7 +387,7 @@ Message: ${lead.message}`, 'color: #000064; font-weight: bold;', 'color: #333;')
                 id: meetingId,
                 status: 'Pending',
                 createdAt: new Date().toISOString(),
-                dateFormatted: new Date().toLocaleDateString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+                dateFormatted: formatDateTime(),
                 confirmedAt: null,
                 rescheduledAt: null
             }, meetingData);
@@ -418,10 +444,10 @@ Message: ${lead.message}`, 'color: #000064; font-weight: bold;', 'color: #333;')
 
             // Open WhatsApp with all meeting details and buttons safely
             try {
-                window.open(waLink, '_blank');
-            } catch (openErr) {
-                console.warn('[EduLeads] WhatsApp popup blocked or not permitted:', openErr);
-            }
+                if (typeof window !== 'undefined' && typeof window.open === 'function') {
+                    window.open(waLink, '_blank');
+                }
+            } catch (openErr) {}
 
             // Log initial booking email dispatch notice
             this.logEmailNotification({
@@ -463,7 +489,7 @@ Message: ${lead.message}`, 'color: #000064; font-weight: bold;', 'color: #333;')
                 cc: `${CONFIG.adminEmail}, ${CONFIG.enquiryEmail}`,
                 subject: `Confirmed: Your 1-on-1 Advisory Session with The Edu Consultants [${meeting.id}]`,
                 date: new Date().toISOString(),
-                dateFormatted: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+                dateFormatted: formatDateTime(),
                 body: `Dear ${meeting.name},
 
 We are pleased to confirm that your 1-on-1 Study Abroad Advisory Consultation with The Edu Consultants has been officially CONFIRMED!
@@ -526,7 +552,7 @@ Office: ${CONFIG.address}`
                 cc: `${CONFIG.adminEmail}, ${CONFIG.enquiryEmail}`,
                 subject: `Rescheduled: Your Study Abroad Advisory Session with The Edu Consultants [${meeting.id}]`,
                 date: new Date().toISOString(),
-                dateFormatted: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+                dateFormatted: formatDateTime(),
                 body: `Dear ${meeting.name},
 
 Your 1-on-1 Study Abroad Advisory Session [${meeting.id}] has been rescheduled to the following updated slot:
@@ -672,6 +698,25 @@ noreply@theeduconsultant.com`
             document.body.insertAdjacentHTML('beforeend', html);
         },
 
+        closeMeetingModal: function () {
+            const modalEl = document.getElementById('eduScheduleMeetingModal');
+            if (modalEl) {
+                try {
+                    if (window.bootstrap && window.bootstrap.Modal) {
+                        const bsModal = bootstrap.Modal.getInstance(modalEl);
+                        if (bsModal) bsModal.hide();
+                    }
+                } catch (mErr) {}
+                modalEl.classList.remove('show');
+                modalEl.style.display = 'none';
+                modalEl.setAttribute('aria-hidden', 'true');
+            }
+            document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+            document.body.classList.remove('modal-open');
+            document.body.style.removeProperty('overflow');
+            document.body.style.removeProperty('padding-right');
+        },
+
         // ======================================================================
         // 3. SCHEDULE MEETING MODAL (CLIENT INTERFACE)
         // ======================================================================
@@ -713,7 +758,7 @@ noreply@theeduconsultant.com`
                                         <span class="fs-12 text-white-50">Select your preferred date, time slot, and consultation mode</span>
                                     </div>
                                 </div>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="document.getElementById('eduScheduleMeetingModal').classList.remove('show'); document.getElementById('eduScheduleMeetingModal').style.display='none'; document.querySelectorAll('.modal-backdrop').forEach(b=>b.remove());"></button>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="window.EduLeads.closeMeetingModal();"></button>
                             </div>
 
                             <form id="eduScheduleMeetingForm" action="javascript:void(0);" onsubmit="window.EduLeads.handleMeetingSubmit(event); return false;">
@@ -826,7 +871,7 @@ noreply@theeduconsultant.com`
                                 </div>
 
                                 <div class="modal-footer border-0 p-4 pt-0 bg-white">
-                                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fs-13" data-bs-dismiss="modal" onclick="document.getElementById('eduScheduleMeetingModal').classList.remove('show'); document.getElementById('eduScheduleMeetingModal').style.display='none'; document.querySelectorAll('.modal-backdrop').forEach(b=>b.remove());">Cancel</button>
+                                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fs-13" data-bs-dismiss="modal" onclick="window.EduLeads.closeMeetingModal();">Cancel</button>
                                     <button type="button" id="btnSubmitMeeting" onclick="window.EduLeads.handleMeetingSubmit(event)" class="btn btn-warning rounded-pill px-5 py-2.5 fw-bold fs-14 shadow-sm" style="background-color: var(--button); color: var(--brand-primary); border: none;">
                                         <i class="fa-solid fa-calendar-check me-2"></i> Confirm & Book Slot
                                     </button>
@@ -931,21 +976,7 @@ noreply@theeduconsultant.com`
                 const created = this.saveMeeting(meetingData);
 
                 // Hide Schedule Meeting modal cleanly
-                const modalEl = document.getElementById('eduScheduleMeetingModal');
-                if (modalEl) {
-                    try {
-                        if (window.bootstrap && window.bootstrap.Modal) {
-                            const bsModal = bootstrap.Modal.getInstance(modalEl);
-                            if (bsModal) bsModal.hide();
-                        }
-                    } catch (mErr) {}
-                    modalEl.classList.remove('show');
-                    modalEl.style.display = 'none';
-                    document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
-                    document.body.classList.remove('modal-open');
-                    document.body.style.removeProperty('overflow');
-                    document.body.style.removeProperty('padding-right');
-                }
+                this.closeMeetingModal();
 
                 // Show Friendly Confirmation popup
                 this.showStudentMeetingSubmittedModal(created);

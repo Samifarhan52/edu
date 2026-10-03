@@ -209,17 +209,12 @@
     <script src="js/leads.js"></script>
     <script src="js/edconsultants.js"></script>
     <script>
-        let currentRole = 'Admin';
+        let currentRole = 'Student';
 
         function selectRole(email, password, name, role) {
             document.getElementById('inputEmail').value = email;
             document.getElementById('inputPassword').value = password;
-            currentRole = role;
-
-            document.querySelectorAll('.role-pill-btn').forEach(btn => btn.classList.remove('active'));
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
-            }
+            currentRole = role || 'Student';
         }
 
         function handleSignInSubmit(event) {
@@ -232,7 +227,7 @@
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
 
             setTimeout(() => {
-                const success = edAuth.login(email, password, currentRole);
+                const success = edAuth.login(email, password);
                 if (!success) {
                     btn.disabled = false;
                     btn.innerHTML = '<span>Sign In to Portal</span> <i class="fa-solid fa-arrow-right"></i>';

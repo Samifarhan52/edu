@@ -4,19 +4,23 @@
  */
 
 (function () {
-    const canvas = document.createElement('canvas');
-    canvas.id = 'ambient-space-canvas';
-    canvas.style.position = 'fixed';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.width = '100vw';
-    canvas.style.height = '100vh';
-    canvas.style.pointerEvents = 'none';
-    canvas.style.zIndex = '0';
-    canvas.style.opacity = '0.55';
-    document.body.prepend(canvas);
+    function init() {
+        if (typeof document === 'undefined' || !document.body) return;
+        const canvas = document.createElement('canvas');
+        canvas.id = 'ambient-space-canvas';
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100vw';
+        canvas.style.height = '100vh';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '0';
+        canvas.style.opacity = '0.55';
+        if (document.body.prepend) document.body.prepend(canvas);
+        else document.body.appendChild(canvas);
 
-    const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext ? canvas.getContext('2d') : null;
+        if (!ctx) return;
     let width, height;
     let stars = [];
     const NUM_STARS = window.innerWidth < 768 ? 45 : 95;
@@ -108,6 +112,14 @@
         ctx.globalAlpha = 1;
         requestAnimationFrame(draw);
     }
+    draw();
+    }
 
-    requestAnimationFrame(draw);
+    if (typeof document !== 'undefined') {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    }
 })();
