@@ -7,10 +7,12 @@ window.EduData = {
     brand: {
         name: "The Edu Consultants",
         tagline: "Empowering Students to Achieve Their International Education Dreams",
-        phone: "+1 (800) 458-3382",
-        email: "admissions@theeduconsultants.org",
-        address: "740 Broadway, 12th Floor, New York, NY 10003, United States",
-        workingHours: "Mon - Sat: 9:00 AM - 7:00 PM EST"
+        phone: "+91 9845371459",
+        email: "enquiry@theeduconsultant.com",
+        adminEmail: "adm.faraz@gmail.com",
+        noreplyEmail: "noreply@theeduconsultant.com",
+        address: "Shanthala Nagar, Ashok Nagar, Bengaluru, Karnataka 560025",
+        workingHours: "Mon - Sat: 9:00 AM - 8:00 PM IST"
     },
 
     stats: [

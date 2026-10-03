@@ -135,31 +135,44 @@
                 <div class="col-lg-7" data-aos="fade-up" data-aos-duration="1000">
                     <div class="p-4 p-md-5 rounded-4 border bg-white shadow-sm">
                         <h4 class="section-title mb-4">Get in Touch with The Edu Consultants</h4>
-                        <form id="contactInquiryForm" onsubmit="event.preventDefault(); if (window.EduSecurity) { const rate = window.EduSecurity.rateLimiter.check('contact_form', 2, 60000); if (!rate.allowed) { alert(rate.message); return; } window.EduSecurity.rateLimiter.record('contact_form'); } alert('Thank you! Your inquiry has been securely verified and received. A senior counselor from The Edu Consultants will contact you within 24 hours.'); this.reset();">
+                        <form id="contactInquiryForm" onsubmit="return window.EduLeads.handleFormSubmit(event, 'Contact Us Page');">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="zForm-label">First Name <span class="text-danger">*</span></label>
-                                    <input type="text" required class="zForm-control" placeholder="Enter First Name"/>
+                                    <input type="text" required name="firstName" class="zForm-control" placeholder="Enter First Name"/>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="zForm-label">Last Name <span class="text-danger">*</span></label>
-                                    <input type="text" required class="zForm-control" placeholder="Enter Last Name"/>
+                                    <input type="text" required name="lastName" class="zForm-control" placeholder="Enter Last Name"/>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="zForm-label">Mobile Number <span class="text-danger">*</span></label>
-                                    <input type="tel" required class="zForm-control" placeholder="Enter Mobile Number"/>
+                                    <input type="tel" required name="phone" class="zForm-control" placeholder="Enter Mobile Number (e.g. 9845371459)"/>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="zForm-label">Email Address <span class="text-danger">*</span></label>
-                                    <input type="email" required class="zForm-control" placeholder="Enter Email Address"/>
+                                    <input type="email" required name="email" class="zForm-control" placeholder="Enter Email Address"/>
                                 </div>
                                 <div class="col-12">
-                                    <label class="zForm-label">Message <span class="text-danger">*</span></label>
-                                    <textarea required rows="4" class="zForm-control" placeholder="Share your academic background, preferred country, or any questions..."></textarea>
+                                    <label class="zForm-label">Message / Study Abroad Goals <span class="text-danger">*</span></label>
+                                    <textarea required name="message" rows="4" class="zForm-control" placeholder="Share your academic background, preferred country, or any questions..."></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <div class="edu-whatsapp-optin-box">
+                                        <div class="form-check d-flex align-items-center gap-2 mb-0">
+                                            <input class="form-check-input flex-shrink-0" type="checkbox" id="contactWhatsAppOptIn" name="whatsappOptIn" checked>
+                                            <label class="form-check-label fs-13 text-dark fw-bold mb-0" for="contactWhatsAppOptIn" style="cursor: pointer;">
+                                                <i class="fa-brands fa-whatsapp text-success fs-15 me-1"></i> Send inquiry to WhatsApp (+91 9845371459) for instant counselor reply
+                                            </label>
+                                        </div>
+                                        <div class="fs-11 text-muted mt-1 ps-4 ms-2">
+                                            A copy of your lead will be forwarded to admissions (enquiry@theeduconsultant.com & adm.faraz@gmail.com) and logged in our counselor dashboard.
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-12 mt-3">
-                                    <button type="submit" class="sf-btn-icon-primary">
-                                        Submit Now
+                                    <button type="submit" class="sf-btn-icon-primary w-100 justify-content-center">
+                                        Submit Inquiry & Connect
                                         <span class="icon"><i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i></span>
                                     </button>
                                 </div>
@@ -185,21 +198,40 @@
                                     <div class="p-2 rounded-circle bg-white text-danger shadow-sm"><i class="fa-solid fa-location-dot"></i></div>
                                     <div>
                                         <b class="text-dark d-block">Office Address</b>
-                                        740 Broadway, 12th Floor, New York, NY 10003, United States
+                                        Shanthala Nagar, Ashok Nagar, Bengaluru, Karnataka 560025
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-2 rounded-circle bg-white text-primary shadow-sm"><i class="fa-solid fa-phone"></i></div>
-                                    <div>
-                                        <b class="text-dark d-block">Admissions Hotline</b>
-                                        +1 (800) 458-3382 / Mon - Sat (9am - 7pm EST)
+                                    <div class="w-100">
+                                        <b class="text-dark d-block">Admissions Hotline & WhatsApp</b>
+                                        <div class="text-dark fw-bold fs-15 mb-2">+91 9845371459</div>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <a href="tel:+919845371459" class="btn btn-sm btn-primary rounded-pill px-3 py-1.5 fw-bold fs-12">
+                                                <i class="fa-solid fa-phone me-1"></i> Direct Call
+                                            </a>
+                                            <a href="https://wa.me/919845371459?text=Hello%20The%20Edu%20Consultants,%20I%20would%20like%20to%20connect%20with%20an%20admissions%20counselor." target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-success rounded-pill px-3 py-1.5 fw-bold fs-12">
+                                                <i class="fa-brands fa-whatsapp me-1"></i> WhatsApp Chat
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-2 rounded-circle bg-white text-success shadow-sm"><i class="fa-solid fa-envelope"></i></div>
                                     <div>
-                                        <b class="text-dark d-block">Direct Email</b>
-                                        admissions@theeduconsultants.org
+                                        <b class="text-dark d-block">Official Email Desks</b>
+                                        <div class="mb-1">
+                                            <span class="badge bg-primary text-white me-1">Enquiry</span>
+                                            <a href="mailto:enquiry@theeduconsultant.com" class="text-dark fw-semibold text-decoration-none">enquiry@theeduconsultant.com</a>
+                                        </div>
+                                        <div class="mb-1">
+                                            <span class="badge bg-danger text-white me-1">Admin / Lead Desk</span>
+                                            <a href="mailto:adm.faraz@gmail.com" class="text-dark fw-semibold text-decoration-none">adm.faraz@gmail.com</a>
+                                        </div>
+                                        <div>
+                                            <span class="badge bg-secondary text-white me-1">Automated System</span>
+                                            <span class="text-muted fs-12">noreply@theeduconsultant.com</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -297,11 +329,11 @@
                     <div class="footer-contact-mini">
                         <p class="mb-1 text-muted fs-13 d-flex align-items-center gap-2">
                             <i class="fa-solid fa-envelope text-primary"></i>
-                            <a href="mailto:info@theeduconsultants.com" class="text-muted text-decoration-none">info@theeduconsultants.com</a>
+                            <a href="mailto:enquiry@theeduconsultant.com" class="text-muted text-decoration-none">enquiry@theeduconsultant.com</a>
                         </p>
                         <p class="mb-0 text-muted fs-13 d-flex align-items-center gap-2">
                             <i class="fa-solid fa-phone text-primary"></i>
-                            <a href="tel:+918001234567" class="text-muted text-decoration-none">+91 (80) 4123-4567</a>
+                            <a href="tel:+919845371459" class="text-muted text-decoration-none">+91 9845371459</a>
                         </p>
                     </div>
                 </div>
@@ -383,6 +415,7 @@
     <script src="js/security.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/cms.js"></script>
+    <script src="js/leads.js"></script>
     <script src="js/edconsultants.js"></script>
 </body>
 </html>

@@ -1838,4 +1838,225 @@ a {
     animation: pulseEffect 2s infinite ease-in-out;
 }
 
+/* ==========================================================================
+   Dual Connect Widget (Direct Call vs WhatsApp Options)
+   ========================================================================== */
+.edu-connect-wrapper {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    z-index: 9980;
+    font-family: "Nunito Sans", "Inter", sans-serif;
+}
+
+.edu-connect-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #000064 0%, #080d54 100%);
+    color: #ffffff;
+    border: 2px solid var(--button);
+    border-radius: 50px;
+    padding: 10px 18px 10px 14px;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 100, 0.28);
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.edu-connect-pill-btn:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #000078 0%, #050a46 100%);
+    box-shadow: 0 12px 28px rgba(0, 0, 100, 0.38);
+}
+
+.connect-ping-ring {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 12px;
+    height: 12px;
+    background-color: #25d366;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    animation: pulseEffect 1.5s infinite;
+}
+
+.connect-btn-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 4px 8px;
+    border-radius: 20px;
+}
+
+.connect-btn-text {
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+}
+
+.edu-connect-card {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 330px;
+    max-width: 90vw;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    box-shadow: 0 16px 42px rgba(0, 0, 100, 0.22);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(0.96);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.edu-connect-card.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.edu-connect-header {
+    background: linear-gradient(135deg, #000064 0%, #00004a 100%);
+    padding: 14px 16px;
+    color: #ffffff;
+}
+
+.connect-logo-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--button);
+    color: var(--brand-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.edu-connect-body {
+    padding: 16px;
+    background: #ffffff;
+}
+
+.edu-connect-option-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1.5px solid #edf2f7;
+    background: #f8fafc;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+}
+
+.edu-connect-option-item:hover {
+    background: #ffffff;
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 100, 0.08);
+}
+
+.option-icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.option-icon-box.bg-success {
+    background-color: #25d366 !important;
+}
+
+.option-icon-box.bg-primary {
+    background-color: var(--brand-primary) !important;
+}
+
+.option-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.option-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--title-text);
+    line-height: 1.2;
+}
+
+.option-subtitle {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--para-text);
+    margin-top: 1px;
+}
+
+.option-tag {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--para-text);
+    margin-top: 2px;
+}
+
+.option-arrow {
+    color: #94a3b8;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.edu-connect-option-item:hover .option-arrow {
+    transform: translateX(3px);
+    color: var(--brand-primary);
+}
+
+.edu-connect-footer {
+    padding-top: 10px;
+    border-top: 1px solid #f1f5f9;
+    margin-top: 6px;
+}
+
+/* WhatsApp Opt-in Box inside Forms */
+.edu-whatsapp-optin-box {
+    background: #f0fdf4;
+    border: 1.5px solid #bbf7d0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    transition: all 0.2s ease;
+}
+
+.edu-whatsapp-optin-box:hover {
+    background: #e8fbee;
+    border-color: #86efac;
+}
+
+.edu-whatsapp-optin-box input[type="checkbox"] {
+    accent-color: #25d366;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+@media (max-width: 767px) {
+    .edu-connect-wrapper {
+        bottom: 20px;
+        left: 14px;
+    }
+    .edu-connect-card {
+        width: 300px;
+    }
+}
+
 
