@@ -114,13 +114,13 @@
 
                     <!-- Social Sign Up Options -->
                     <div class="d-flex gap-2 mb-4">
-                        <button type="button" class="social-btn" onclick="edAuth.signup({name: 'Google Scholar', email: 'google.scholar@theeduconsultants.org', destination: 'United States'})">
+                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('google')">
                             <i class="fa-brands fa-google text-danger"></i> Google
                         </button>
-                        <button type="button" class="social-btn" onclick="edAuth.signup({name: 'Apple Scholar', email: 'apple.scholar@theeduconsultants.org', destination: 'United Kingdom'})">
+                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('apple')">
                             <i class="fa-brands fa-apple text-dark"></i> Apple
                         </button>
-                        <button type="button" class="social-btn" onclick="edAuth.signup({name: 'LinkedIn Scholar', email: 'linkedin.scholar@theeduconsultants.org', destination: 'Canada'})">
+                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('linkedin')">
                             <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
                         </button>
                     </div>
@@ -134,6 +134,20 @@
 
                     <!-- Sign Up Form -->
                     <form id="signUpForm" onsubmit="handleSignUpSubmit(event)">
+                        <div class="mb-3">
+                            <label class="zForm-label">I am joining as:</label>
+                            <div class="d-flex gap-2">
+                                <label class="flex-fill border rounded-3 p-2 text-center cursor-pointer bg-light d-flex align-items-center justify-content-center gap-2">
+                                    <input type="radio" name="accountRole" value="Student" checked class="form-check-input mt-0">
+                                    <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-graduation-cap text-primary me-1"></i> Student / Scholar</span>
+                                </label>
+                                <label class="flex-fill border rounded-3 p-2 text-center cursor-pointer bg-light d-flex align-items-center justify-content-center gap-2">
+                                    <input type="radio" name="accountRole" value="Counselor" class="form-check-input mt-0">
+                                    <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-user-tie text-warning me-1"></i> Counselor / Staff</span>
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="row g-3 mb-3">
                             <div class="col-sm-6">
                                 <label for="regFullName" class="zForm-label">Full Name</label>
@@ -238,6 +252,8 @@
             const destination = document.getElementById('regDestination').value;
             const password = document.getElementById('regPassword').value;
             const confirmPassword = document.getElementById('regConfirmPassword').value;
+            const roleEl = document.querySelector('input[name="accountRole"]:checked');
+            const roleVal = roleEl ? roleEl.value : 'Student';
 
             if (password !== confirmPassword) {
                 alert('Passwords do not match. Please re-check.');
@@ -253,11 +269,13 @@
                     name: name,
                     email: email,
                     phone: phone,
-                    destination: destination
+                    destination: destination,
+                    password: password,
+                    role: roleVal
                 });
                 if (!success) {
                     btn.disabled = false;
-                    btn.innerHTML = '<span>Create Free Student Account</span> <i class="fa-solid fa-arrow-right"></i>';
+                    btn.innerHTML = '<span>Create Free Account</span> <i class="fa-solid fa-arrow-right"></i>';
                 }
             }, 300);
         }

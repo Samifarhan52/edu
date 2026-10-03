@@ -269,6 +269,37 @@
                     <p class="text-muted fs-14 mb-0">Publish new articles, register partner universities, and broadcast live alerts.</p>
                 </div>
                 <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <!-- Executive Workspace Switcher -->
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-dark rounded-pill px-3 py-2 fw-bold fs-13 dropdown-toggle shadow-sm bg-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-users-gear text-primary me-1"></i> <span id="topRoleSwitcherLabel">Admin Mode</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 mt-2 p-2 fs-13" style="min-width: 250px;">
+                            <li class="dropdown-header text-uppercase fs-11 fw-bold text-muted px-3">Switch Workspace View</li>
+                            <li>
+                                <button type="button" class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 fw-bold text-primary" onclick="edAuth.login('admin@theeduconsultants.org', 'password123', 'Admin')">
+                                    <i class="fa-solid fa-shield-halved"></i> Admissions Director (Admin)
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2" onclick="edAuth.login('counselor@theeduconsultants.org', 'password123', 'Counselor')">
+                                    <i class="fa-solid fa-user-tie text-info"></i> Senior Counselor (Staff)
+                                </button>
+                            </li>
+                            <li>
+                                <a class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 text-success fw-bold" href="student-dashboard.html">
+                                    <i class="fa-solid fa-graduation-cap"></i> Scholar Portal (Student View)
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            <li>
+                                <button type="button" class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 text-danger ed-logout-trigger">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
                     <button type="button" class="btn btn-warning rounded-pill px-3 py-2 fw-bold fs-13 shadow-sm d-flex align-items-center gap-2" style="background-color: var(--button); color: var(--brand-primary); border: none;" onclick="document.querySelector('[data-target=panel-blogs]').click();">
                         <i class="fa-solid fa-plus"></i> Post New Blog
                     </button>
@@ -846,6 +877,20 @@
                 sidebar.classList.toggle('show-mobile');
             });
         }
+
+        // Sync active user details
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = (window.edAuth && window.edAuth.getUser()) ? window.edAuth.getUser() : null;
+            if (user) {
+                document.querySelectorAll('.dashboard-admin-name').forEach(el => el.textContent = user.name);
+                document.querySelectorAll('.dashboard-admin-role').forEach(el => el.textContent = user.badge || user.role);
+                document.querySelectorAll('.dashboard-admin-avatar').forEach(el => {
+                    if (user.avatar) el.src = user.avatar;
+                });
+                const topLabel = document.getElementById('topRoleSwitcherLabel');
+                if (topLabel) topLabel.textContent = `${user.name} (${user.badge || user.role})`;
+            }
+        });
     </script>
 </body>
 </html>

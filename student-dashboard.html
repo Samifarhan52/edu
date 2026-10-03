@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scholar Portal | The Edu Consultants</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/edconsultants.css">
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-family: 'Poppins', sans-serif;
+        }
+        .portal-header-bg {
+            background: linear-gradient(135deg, #000064 0%, #06093b 60%, #00004a 100%);
+            color: white;
+            padding: 40px 0 35px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(251, 84, 33, 0.25);
+        }
+        .portal-stat-card {
+            background: white;
+            border-radius: 18px;
+            padding: 22px 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0, 0, 100, 0.04);
+            transition: all 0.3s ease;
+        }
+        .portal-stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 100, 0.08);
+            border-color: #cbd5e1;
+        }
+        .journey-step-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            margin: 0 auto 10px;
+            transition: all 0.3s ease;
+        }
+        .journey-step-completed {
+            background: #10b981;
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        .journey-step-active {
+            background: #fb5421;
+            color: white;
+            box-shadow: 0 4px 12px rgba(251, 84, 33, 0.4);
+            animation: pulseActive 2s infinite;
+        }
+        @keyframes pulseActive {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        .journey-step-pending {
+            background: #e2e8f0;
+            color: #94a3b8;
+        }
+        .portal-card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0, 0, 100, 0.04);
+            overflow: hidden;
+        }
+        .portal-table th {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            font-weight: 700;
+            border-bottom: 2px solid #e2e8f0;
+            padding: 14px 18px;
+            background: #f8fafc;
+        }
+        .portal-table td {
+            padding: 16px 18px;
+            vertical-align: middle;
+            font-size: 14px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .provider-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation Bar -->
+    <header class="header-section shadow-sm bg-white sticky-top">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between py-2">
+                <a href="index.html" class="d-flex align-items-center text-decoration-none">
+                    <span class="fs-4 fw-800 text-brand-primary" style="color: #000064; font-weight: 800; letter-spacing: -0.5px;">The Edu Consultants</span>
+                </a>
+
+                <div class="d-none d-md-flex align-items-center gap-3">
+                    <a href="universities-list.html" class="btn btn-sm btn-light rounded-pill px-3 py-1.5 fw-semibold fs-13">
+                        <i class="fa-solid fa-building-columns me-1 text-primary"></i> Universities
+                    </a>
+                    <a href="scholarship-list.html" class="btn btn-sm btn-light rounded-pill px-3 py-1.5 fw-semibold fs-13">
+                        <i class="fa-solid fa-award me-1 text-warning"></i> Scholarships
+                    </a>
+                    <a href="contact-us.html" class="btn btn-sm btn-light rounded-pill px-3 py-1.5 fw-semibold fs-13">
+                        <i class="fa-solid fa-headset me-1 text-success"></i> Counselor Support
+                    </a>
+                </div>
+
+                <div class="d-flex align-items-center gap-2">
+                    <button type="button" onclick="edAuth.login('admin@theeduconsultants.org', '123456', 'Admin');" class="btn btn-sm btn-warning rounded-pill px-3 py-1.5 fw-bold fs-12 shadow-sm d-none d-sm-inline-flex align-items-center gap-1" style="background-color: var(--button); color: var(--brand-primary); border: none;">
+                        <i class="fa-solid fa-shield-halved"></i> Switch to Admin CMS
+                    </button>
+                    <div class="header-auth-slot">
+                        <!-- Populated by auth.js -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Scholar Profile Banner -->
+    <section class="portal-header-bg">
+        <div class="container">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <div class="d-flex align-items-center gap-3 gap-md-4 flex-wrap">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" 
+                                 id="portalUserAvatar" 
+                                 class="rounded-circle border border-3 border-white shadow" 
+                                 width="84" height="84" style="object-fit: cover;" alt="Avatar">
+                            <span class="position-absolute bottom-0 end-0 bg-success border border-2 border-white rounded-circle p-2" title="Active Session"></span>
+                        </div>
+                        <div>
+                            <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                                <h3 class="fw-800 text-white mb-0" id="portalUserName">Sophia Patel</h3>
+                                <span class="badge bg-warning text-dark fw-bold px-2.5 py-1 rounded-pill fs-11" id="portalRoleBadge">Prospective Scholar</span>
+                                <span class="provider-badge-pill" id="portalProviderBadge">
+                                    <i class="fa-solid fa-envelope"></i> Email Verified
+                                </span>
+                            </div>
+                            <p class="text-white-50 fs-13 mb-2" id="portalUserEmail">student@theeduconsultants.org</p>
+                            <div class="d-flex align-items-center gap-3 fs-12 text-white-50 flex-wrap">
+                                <span><i class="fa-solid fa-id-badge text-warning me-1"></i> ID: <b class="text-white">EDU-2026-9842</b></span>
+                                <span><i class="fa-solid fa-plane-departure text-warning me-1"></i> Target: <b class="text-white" id="portalUserDestination">United Kingdom</b></span>
+                                <span><i class="fa-solid fa-user-tie text-warning me-1"></i> Mentor: <b class="text-white">Dr. Eleanor Vance</b></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <div class="d-flex gap-2 justify-content-lg-end flex-wrap">
+                        <button type="button" class="btn btn-sm btn-outline-light rounded-pill px-3 py-2 fw-semibold fs-13" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                            <i class="fa-solid fa-pen me-1"></i> Edit Study Preferences
+                        </button>
+                        <a href="contact-us.html" class="btn btn-sm btn-warning rounded-pill px-3 py-2 fw-bold fs-13 text-dark shadow-sm">
+                            <i class="fa-solid fa-calendar-check me-1"></i> Book Counseling
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Portal Content -->
+    <main class="py-4">
+        <div class="container">
+
+            <!-- 4 Quick Stat Cards -->
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-lg-3">
+                    <div class="portal-stat-card">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fs-13 text-muted fw-bold">Active Applications</span>
+                            <div class="p-2 rounded-3 bg-primary-subtle text-primary fs-5"><i class="fa-solid fa-file-signature"></i></div>
+                        </div>
+                        <h3 class="fw-800 text-dark mb-0">3</h3>
+                        <span class="fs-12 text-success fw-bold"><i class="fa-solid fa-arrow-up"></i> 1 Conditional Offer</span>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="portal-stat-card">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fs-13 text-muted fw-bold">Saved Universities</span>
+                            <div class="p-2 rounded-3 bg-warning-subtle text-warning-emphasis fs-5"><i class="fa-solid fa-building-columns"></i></div>
+                        </div>
+                        <h3 class="fw-800 text-dark mb-0">6</h3>
+                        <span class="fs-12 text-muted">Across 3 Countries</span>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="portal-stat-card">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fs-13 text-muted fw-bold">Eligible Grants</span>
+                            <div class="p-2 rounded-3 bg-success-subtle text-success fs-5"><i class="fa-solid fa-award"></i></div>
+                        </div>
+                        <h3 class="fw-800 text-dark mb-0">4</h3>
+                        <span class="fs-12 text-success fw-bold">Up to $100K Waivers</span>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="portal-stat-card">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fs-13 text-muted fw-bold">Next Counseling</span>
+                            <div class="p-2 rounded-3 bg-danger-subtle text-danger fs-5"><i class="fa-solid fa-video"></i></div>
+                        </div>
+                        <h4 class="fw-bold text-dark mb-0 fs-16">Nov 20th</h4>
+                        <span class="fs-12 text-primary fw-bold">4:00 PM GMT • Video Call</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Milestone Progress Journey Bar -->
+            <div class="portal-card p-4 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <div>
+                        <h5 class="fw-bold text-dark mb-1">Your Study Abroad Admissions Journey</h5>
+                        <p class="text-muted fs-13 mb-0">Live milestone tracker managed in coordination with your assigned counselor.</p>
+                    </div>
+                    <span class="badge bg-success-subtle text-success fw-bold px-3 py-2 rounded-pill fs-12">
+                        <i class="fa-solid fa-circle-check me-1"></i> Phase 3 of 5 In Progress
+                    </span>
+                </div>
+
+                <div class="row g-3 text-center position-relative">
+                    <div class="col">
+                        <div class="journey-step-circle journey-step-completed"><i class="fa-solid fa-check"></i></div>
+                        <h6 class="fw-bold fs-13 mb-1">1. Profile Diagnostic</h6>
+                        <span class="fs-11 text-success fw-semibold">Completed ✓</span>
+                    </div>
+                    <div class="col">
+                        <div class="journey-step-circle journey-step-completed"><i class="fa-solid fa-check"></i></div>
+                        <h6 class="fw-bold fs-13 mb-1">2. University Selection</h6>
+                        <span class="fs-11 text-success fw-semibold">3 Shortlisted ✓</span>
+                    </div>
+                    <div class="col">
+                        <div class="journey-step-circle journey-step-active"><i class="fa-solid fa-pen-fancy"></i></div>
+                        <h6 class="fw-bold fs-13 mb-1 text-danger">3. SOP & LOR Dossier</h6>
+                        <span class="fs-11 text-danger fw-bold">Under Review 🟡</span>
+                    </div>
+                    <div class="col">
+                        <div class="journey-step-circle journey-step-completed"><i class="fa-solid fa-award"></i></div>
+                        <h6 class="fw-bold fs-13 mb-1">4. Offer Letters</h6>
+                        <span class="fs-11 text-success fw-semibold">1 Offer Received 🎉</span>
+                    </div>
+                    <div class="col">
+                        <div class="journey-step-circle journey-step-pending"><i class="fa-solid fa-passport"></i></div>
+                        <h6 class="fw-bold fs-13 mb-1 text-muted">5. Student Visa</h6>
+                        <span class="fs-11 text-muted">Next Step</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Left Column: Active Applications -->
+                <div class="col-lg-8">
+                    <!-- Applications Card -->
+                    <div class="portal-card mb-4">
+                        <div class="p-3 px-4 border-bottom d-flex justify-content-between align-items-center">
+                            <h5 class="fw-bold text-dark mb-0">Active University Applications</h5>
+                            <a href="universities-list.html" class="btn btn-sm btn-outline-primary rounded-pill px-3 fs-12 fw-bold">
+                                <i class="fa-solid fa-plus me-1"></i> Apply to Another Institution
+                            </a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table portal-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Institution</th>
+                                        <th>Program</th>
+                                        <th>Status</th>
+                                        <th>Intake</th>
+                                        <th class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="rounded-3 bg-primary-subtle text-primary fw-bold p-2"><i class="fa-solid fa-building-columns"></i></div>
+                                                <div>
+                                                    <b class="text-dark">Univ. of Manchester</b><br>
+                                                    <span class="fs-12 text-muted">🇬🇧 United Kingdom</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>MSc Finance & Data Analysis</td>
+                                        <td><span class="badge bg-success text-white fw-bold px-2.5 py-1 rounded-pill">Offer Letter Issued 🎉</span></td>
+                                        <td>Fall 2026</td>
+                                        <td class="text-end">
+                                            <button class="btn btn-sm btn-outline-success rounded-pill px-2.5 py-1 fs-12" onclick="alert('Offer Letter PDF ready for download! Contact Dr. Eleanor Vance to accept before Dec 30th.');">
+                                                <i class="fa-solid fa-download me-1"></i> View Offer
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="rounded-3 bg-warning-subtle text-warning-emphasis fw-bold p-2"><i class="fa-solid fa-building-columns"></i></div>
+                                                <div>
+                                                    <b class="text-dark">Univ. of Melbourne</b><br>
+                                                    <span class="fs-12 text-muted">🇦🇺 Australia</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Master of Computer Science</td>
+                                        <td><span class="badge bg-primary text-white fw-bold px-2.5 py-1 rounded-pill">Under Faculty Review</span></td>
+                                        <td>Spring 2027</td>
+                                        <td class="text-end">
+                                            <button class="btn btn-sm btn-light border rounded-pill px-2.5 py-1 fs-12" onclick="alert('Your file is currently with the admissions board.');">
+                                                Track File
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="rounded-3 bg-danger-subtle text-danger fw-bold p-2"><i class="fa-solid fa-building-columns"></i></div>
+                                                <div>
+                                                    <b class="text-dark">Univ. of British Columbia</b><br>
+                                                    <span class="fs-12 text-muted">🇨🇦 Canada</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Master of Data Science</td>
+                                        <td><span class="badge bg-warning text-dark fw-bold px-2.5 py-1 rounded-pill">Transcripts Verified</span></td>
+                                        <td>Fall 2026</td>
+                                        <td class="text-end">
+                                            <button class="btn btn-sm btn-light border rounded-pill px-2.5 py-1 fs-12" onclick="alert('Verification completed by WES.');">
+                                                Track File
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Digital Document Locker -->
+                    <div class="portal-card p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold text-dark mb-0">Digital Document Locker</h5>
+                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fs-12 fw-bold" onclick="alert('Please select your PDF transcript or passport copy to upload securely.');">
+                                <i class="fa-solid fa-cloud-arrow-up me-1"></i> Upload Document
+                            </button>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3 bg-light d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <i class="fa-solid fa-passport fs-3 text-primary"></i>
+                                        <div>
+                                            <div class="fw-bold fs-13 text-dark">International Passport</div>
+                                            <span class="fs-11 text-success fw-bold"><i class="fa-solid fa-circle-check"></i> Verified (Expires 2031)</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-success-subtle text-success">Valid</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3 bg-light d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <i class="fa-solid fa-file-certificate fs-3 text-primary"></i>
+                                        <div>
+                                            <div class="fw-bold fs-13 text-dark">University Degree Transcripts</div>
+                                            <span class="fs-11 text-success fw-bold"><i class="fa-solid fa-circle-check"></i> Verified (GPA 3.84)</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-success-subtle text-success">Verified</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3 bg-light d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <i class="fa-solid fa-file-pen fs-3 text-warning"></i>
+                                        <div>
+                                            <div class="fw-bold fs-13 text-dark">Statement of Purpose (SOP)</div>
+                                            <span class="fs-11 text-danger fw-bold"><i class="fa-solid fa-clock"></i> Draft v2 (Counselor Editing)</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-warning-subtle text-warning-emphasis">In Review</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3 bg-light d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <i class="fa-solid fa-graduation-cap fs-3 text-muted"></i>
+                                        <div>
+                                            <div class="fw-bold fs-13 text-dark">IELTS / English Scorecard</div>
+                                            <span class="fs-11 text-muted">Target Score: 8.0</span>
+                                        </div>
+                                    </div>
+                                    <a href="courses-programs-IELTS.html" class="btn btn-sm btn-outline-warning rounded-pill fs-11 py-1 px-2.5 fw-bold">Prep Batch</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Counselor Booking & Scholarships -->
+                <div class="col-lg-4">
+                    <!-- Counselor Consultation Card -->
+                    <div class="portal-card p-4 mb-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="p-2 rounded-circle bg-primary-subtle text-primary fs-5"><i class="fa-solid fa-video"></i></div>
+                            <h5 class="fw-bold text-dark mb-0">Upcoming Counseling</h5>
+                        </div>
+                        <div class="p-3 rounded-3 bg-light border mb-3">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" 
+                                     class="rounded-circle" width="46" height="46" style="object-fit: cover;" alt="Counselor">
+                                <div>
+                                    <div class="fw-bold fs-14 text-dark">Dr. Eleanor Vance</div>
+                                    <span class="fs-12 text-muted">Senior Academic Advisor</span>
+                                </div>
+                            </div>
+                            <div class="fs-13 text-dark mb-1"><b>Topic:</b> Final SOP Review & Visa Filing</div>
+                            <div class="fs-12 text-danger fw-bold"><i class="fa-regular fa-clock me-1"></i> Friday, Nov 20, 2026 • 4:00 PM GMT</div>
+                        </div>
+                        <a href="contact-us.html" class="btn btn-warning w-100 py-2.5 rounded-pill fw-bold fs-13 text-dark shadow-sm d-flex align-items-center justify-content-center gap-2">
+                            <i class="fa-solid fa-video"></i> Enter Virtual Consultation Room
+                        </a>
+                    </div>
+
+                    <!-- Matched Scholarships Card -->
+                    <div class="portal-card p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold text-dark mb-0">Matched Scholarships</h5>
+                            <a href="scholarship-list.html" class="text-brand-primary fs-12 fw-bold text-decoration-none">View All 48</a>
+                        </div>
+                        <div class="d-flex flex-column gap-3">
+                            <div class="p-3 rounded-3 border bg-light">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="badge bg-success text-white fw-bold fs-11">100% Tuition Waiver</span>
+                                    <span class="fs-11 text-muted">🇦🇺 Australia</span>
+                                </div>
+                                <div class="fw-bold text-dark fs-13">Global Melbourne Award</div>
+                                <div class="fs-12 text-success fw-bold">Up to AUD $100,000</div>
+                                <div class="fs-11 text-muted mt-1">Status: Eligible based on GPA 3.8</div>
+                            </div>
+                            <div class="p-3 rounded-3 border bg-light">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="badge bg-warning text-dark fw-bold fs-11">Dean's Bursary</span>
+                                    <span class="fs-11 text-muted">🇬🇧 UK</span>
+                                </div>
+                                <div class="fw-bold text-dark fs-13">British Council GREAT Award</div>
+                                <div class="fs-12 text-success fw-bold">GBP £10,000 Waiver</div>
+                                <div class="fs-11 text-muted mt-1">Status: File Pre-Approved</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-user-pen text-primary me-2"></i> Update Study Preferences</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="editProfileForm" onsubmit="handleProfileUpdate(event)">
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-muted">Full Name</label>
+                            <input type="text" id="prefFullName" class="form-control rounded-3 py-2.5" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-muted">Preferred Study Destination</label>
+                            <select id="prefDestination" class="form-select rounded-3 py-2.5" required>
+                                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                                <option value="United States">🇺🇸 United States</option>
+                                <option value="Canada">🇨🇦 Canada</option>
+                                <option value="Australia">🇦🇺 Australia</option>
+                                <option value="Germany">🇩🇪 Germany</option>
+                                <option value="Ireland">🇮🇪 Ireland</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-muted">Target Intake Season</label>
+                            <select id="prefIntake" class="form-select rounded-3 py-2.5">
+                                <option value="Fall 2026">Fall 2026 (September / October)</option>
+                                <option value="Spring 2027">Spring 2027 (January / February)</option>
+                                <option value="Fall 2027">Fall 2027</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-muted">Target Program Level</label>
+                            <input type="text" id="prefProgram" class="form-control rounded-3 py-2.5" value="Postgraduate Master's Degree">
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100 py-3 rounded-pill fw-bold text-dark shadow-sm">
+                            Save & Update Scholar Profile
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cms.js"></script>
+    <script src="js/edconsultants.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = edAuth.getUser();
+            if (user) {
+                // Populate student details
+                const nameEl = document.getElementById('portalUserName');
+                const emailEl = document.getElementById('portalUserEmail');
+                const avatarEl = document.getElementById('portalUserAvatar');
+                const destEl = document.getElementById('portalUserDestination');
+                const roleBadgeEl = document.getElementById('portalRoleBadge');
+                const provBadgeEl = document.getElementById('portalProviderBadge');
+
+                if (nameEl) nameEl.textContent = user.name;
+                if (emailEl) emailEl.textContent = user.email;
+                if (avatarEl && user.avatar) avatarEl.src = user.avatar;
+                if (destEl) destEl.textContent = user.destination || 'United Kingdom';
+                if (roleBadgeEl) roleBadgeEl.textContent = user.badge || user.role || 'Prospective Scholar';
+
+                if (provBadgeEl) {
+                    if (user.authProvider === 'Google') {
+                        provBadgeEl.innerHTML = '<i class="fa-brands fa-google text-danger"></i> Google Account';
+                    } else if (user.authProvider === 'Apple') {
+                        provBadgeEl.innerHTML = '<i class="fa-brands fa-apple text-white"></i> Apple ID';
+                    } else if (user.authProvider === 'LinkedIn') {
+                        provBadgeEl.innerHTML = '<i class="fa-brands fa-linkedin text-info"></i> LinkedIn Verified';
+                    } else {
+                        provBadgeEl.innerHTML = '<i class="fa-solid fa-envelope"></i> Email Verified';
+                    }
+                }
+
+                // Prefill modal
+                const prefName = document.getElementById('prefFullName');
+                const prefDest = document.getElementById('prefDestination');
+                if (prefName) prefName.value = user.name;
+                if (prefDest && user.destination) prefDest.value = user.destination;
+            } else {
+                // If not logged in, seed default student session
+                edAuth.login('student@theeduconsultants.org', '123456', 'Student');
+            }
+        });
+
+        function handleProfileUpdate(e) {
+            e.preventDefault();
+            const user = edAuth.getUser() || {};
+            const newName = document.getElementById('prefFullName').value.trim();
+            const newDest = document.getElementById('prefDestination').value;
+
+            if (newName) user.name = newName;
+            if (newDest) user.destination = newDest;
+
+            edAuth.setUser(user);
+            edAuth.showToast('Profile preferences updated successfully!', 'success');
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
+            if (modal) modal.hide();
+
+            setTimeout(() => window.location.reload(), 600);
+        }
+    </script>
+</body>
+</html>

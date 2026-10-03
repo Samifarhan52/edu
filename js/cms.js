@@ -440,7 +440,12 @@ Our pre-departure webinars connect incoming scholars with current university stu
             const isHome = currentPage === '' || currentPage === 'index.html';
             const isUnis = currentPage === 'universities-list.html';
             const isBlogs = currentPage === 'blog-list.html';
-            const isAdmin = currentPage === 'admin-dashboard.html';
+            const user = (window.edAuth && window.edAuth.getUser) ? window.edAuth.getUser() : null;
+            const isStaff = user && (user.role === 'Admin' || user.role === 'Counselor' || (user.role && user.role.toLowerCase().includes('director')));
+            const fifthHref = isStaff ? 'admin-dashboard.html' : 'student-dashboard.html';
+            const fifthLabel = isStaff ? 'Admin' : 'Portal';
+            const fifthIcon = isStaff ? 'fa-sliders' : 'fa-graduation-cap';
+            const isFifthActive = currentPage === fifthHref;
 
             dock.innerHTML = `
                 <a href="index.html" class="dock-item ${isHome ? 'active' : ''}">
@@ -464,9 +469,9 @@ Our pre-departure webinars connect incoming scholars with current university stu
                     </div>
                     <span>Articles</span>
                 </a>
-                <a href="admin-dashboard.html" class="dock-item ${isAdmin ? 'active' : ''}">
-                    <i class="fa-solid fa-sliders"></i>
-                    <span>Admin</span>
+                <a href="${fifthHref}" class="dock-item ${isFifthActive ? 'active' : ''}">
+                    <i class="fa-solid ${fifthIcon}"></i>
+                    <span>${fifthLabel}</span>
                 </a>
             `;
 

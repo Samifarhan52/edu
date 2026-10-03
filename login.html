@@ -128,21 +128,40 @@
                     </div>
 
                     <!-- Social Sign In Options -->
-                    <div class="d-flex gap-2 mb-4">
-                        <button type="button" class="social-btn" onclick="edAuth.login('student@theeduconsultants.org', '123456', 'Student')">
+                    <div class="d-flex gap-2 mb-3">
+                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('google')">
                             <i class="fa-brands fa-google text-danger"></i> Google
                         </button>
-                        <button type="button" class="social-btn" onclick="edAuth.login('student@theeduconsultants.org', '123456', 'Student')">
+                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('apple')">
                             <i class="fa-brands fa-apple text-dark"></i> Apple
                         </button>
-                        <button type="button" class="social-btn" onclick="edAuth.login('student@theeduconsultants.org', '123456', 'Student')">
+                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('linkedin')">
                             <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
                         </button>
                     </div>
 
-                    <div class="position-relative text-center my-4">
+                    <!-- 1-Click Fast Access Testing Bar -->
+                    <div class="mb-3 p-3 bg-light rounded-4 border">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fs-11 fw-bold text-muted text-uppercase"><i class="fa-solid fa-bolt text-warning me-1"></i> 1-Click Fast Access:</span>
+                            <span class="badge bg-primary-subtle text-primary fs-10">Demo Roles</span>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button type="button" class="btn btn-sm btn-white border rounded-pill px-3 py-1 fs-12 fw-bold shadow-sm" onclick="edAuth.quickLogin('admin')">
+                                <i class="fa-solid fa-shield-halved text-warning me-1"></i> Admin (Director)
+                            </button>
+                            <button type="button" class="btn btn-sm btn-white border rounded-pill px-3 py-1 fs-12 fw-bold shadow-sm" onclick="edAuth.quickLogin('counselor')">
+                                <i class="fa-solid fa-user-tie text-primary me-1"></i> Staff (Counselor)
+                            </button>
+                            <button type="button" class="btn btn-sm btn-white border rounded-pill px-3 py-1 fs-12 fw-bold shadow-sm" onclick="edAuth.quickLogin('student')">
+                                <i class="fa-solid fa-graduation-cap text-success me-1"></i> Scholar (Student)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="position-relative text-center my-3">
                         <hr class="text-muted opacity-25">
-                        <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-13 fw-semibold">
+                        <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-12 fw-semibold">
                             Or continue with email
                         </span>
                     </div>
