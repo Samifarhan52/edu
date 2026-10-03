@@ -219,6 +219,16 @@
                         </button>
                     </li>
                     <li>
+                        <button type="button" class="admin-nav-tab" data-target="panel-pages">
+                            <i class="fa-solid fa-file-circle-plus"></i> Page Builder Studio
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="admin-nav-tab" data-target="panel-navbar">
+                            <i class="fa-solid fa-bars-staggered"></i> Navbar & Menus
+                        </button>
+                    </li>
+                    <li>
                         <button type="button" class="admin-nav-tab" data-target="panel-blogs">
                             <i class="fa-solid fa-newspaper"></i> Post & Manage Blogs
                         </button>
@@ -231,6 +241,16 @@
                     <li>
                         <button type="button" class="admin-nav-tab" data-target="panel-announcements">
                             <i class="fa-solid fa-bullhorn"></i> Site Announcements
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="admin-nav-tab" data-target="panel-settings">
+                            <i class="fa-solid fa-gear"></i> Global Site Settings
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="admin-nav-tab" data-target="panel-account">
+                            <i class="fa-solid fa-shield-halved"></i> Owner Security & Pass
                         </button>
                     </li>
                     <li>
@@ -248,10 +268,10 @@
 
             <div class="pt-4 border-top border-white-20">
                 <div class="d-flex align-items-center gap-2 mb-3 px-2">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="rounded-circle dashboard-admin-avatar" width="34" height="34" alt="Admin"/>
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="rounded-circle dashboard-admin-avatar" width="34" height="34" alt="Owner"/>
                     <div class="text-start text-truncate">
-                        <span class="fs-13 fw-bold text-white dashboard-admin-name d-block text-truncate">Alexander Morgan</span>
-                        <span class="fs-11 text-white-50 dashboard-admin-role d-block">Admissions Director</span>
+                        <span class="fs-13 fw-bold text-white dashboard-admin-name d-block text-truncate">The Edu Consultants Owner</span>
+                        <span class="fs-11 text-warning dashboard-admin-role d-block fw-bold"><i class="fa-solid fa-crown me-1"></i>Master Owner</span>
                     </div>
                 </div>
                 <button type="button" onclick="edAuth.logout()" class="btn btn-outline-light w-100 rounded-pill fs-14 fw-bold ed-logout-trigger">
@@ -265,46 +285,42 @@
             <!-- Topbar on Desktop -->
             <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                 <div>
-                    <h3 class="fw-800 text-dark mb-1">Content Management & Admissions Hub</h3>
-                    <p class="text-muted fs-14 mb-0">Publish new articles, register partner universities, and broadcast live alerts.</p>
+                    <h3 class="fw-800 text-dark mb-1">Master Owner Content & Control Studio</h3>
+                    <p class="text-muted fs-14 mb-0">Build pages, link navbar dropdowns, manage global settings & control your website.</p>
                 </div>
                 <div class="d-flex align-items-center gap-2 flex-wrap">
-                    <!-- Executive Workspace Switcher -->
+                    <!-- Owner Profile Quick Access Dropdown -->
                     <div class="dropdown">
-                        <button class="btn btn-sm btn-outline-dark rounded-pill px-3 py-2 fw-bold fs-13 dropdown-toggle shadow-sm bg-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-users-gear text-primary me-1"></i> <span id="topRoleSwitcherLabel">Admin Mode</span>
+                        <button class="btn btn-sm btn-outline-dark rounded-pill px-3 py-2 fw-bold fs-13 dropdown-toggle shadow-sm bg-white d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="badge bg-warning text-dark fw-bold px-2 py-0.5 rounded-pill"><i class="fa-solid fa-crown me-1"></i>Owner</span>
+                            <span id="topRoleSwitcherLabel" class="dashboard-admin-name text-truncate" style="max-width: 160px;">Master Owner</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 mt-2 p-2 fs-13" style="min-width: 250px;">
-                            <li class="dropdown-header text-uppercase fs-11 fw-bold text-muted px-3">Switch Workspace View</li>
+                            <li class="dropdown-header text-uppercase fs-11 fw-bold text-muted px-3">Master Owner Account</li>
                             <li>
-                                <button type="button" class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 fw-bold text-primary" onclick="edAuth.login('admin@theeduconsultants.org', 'password123', 'Admin')">
-                                    <i class="fa-solid fa-shield-halved"></i> Admissions Director (Admin)
+                                <button type="button" class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 fw-bold text-primary" onclick="document.querySelector('[data-target=panel-account]').click();">
+                                    <i class="fa-solid fa-user-shield"></i> Profile & Password Settings
                                 </button>
                             </li>
                             <li>
-                                <button type="button" class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2" onclick="edAuth.login('counselor@theeduconsultants.org', 'password123', 'Counselor')">
-                                    <i class="fa-solid fa-user-tie text-info"></i> Senior Counselor (Staff)
+                                <button type="button" class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2" onclick="document.querySelector('[data-target=panel-settings]').click();">
+                                    <i class="fa-solid fa-sliders text-info"></i> Global Site Settings
                                 </button>
-                            </li>
-                            <li>
-                                <a class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 text-success fw-bold" href="student-dashboard.html">
-                                    <i class="fa-solid fa-graduation-cap"></i> Scholar Portal (Student View)
-                                </a>
                             </li>
                             <li><hr class="dropdown-divider my-1"></li>
                             <li>
-                                <button type="button" class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 text-danger ed-logout-trigger">
+                                <button type="button" class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 text-danger ed-logout-trigger" onclick="edAuth.logout()">
                                     <i class="fa-solid fa-right-from-bracket"></i> Sign Out
                                 </button>
                             </li>
                         </ul>
                     </div>
 
-                    <button type="button" class="btn btn-warning rounded-pill px-3 py-2 fw-bold fs-13 shadow-sm d-flex align-items-center gap-2" style="background-color: var(--button); color: var(--brand-primary); border: none;" onclick="document.querySelector('[data-target=panel-blogs]').click();">
-                        <i class="fa-solid fa-plus"></i> Post New Blog
+                    <button type="button" class="btn btn-warning rounded-pill px-3 py-2 fw-bold fs-13 shadow-sm d-flex align-items-center gap-2" style="background-color: var(--button); color: var(--brand-primary); border: none;" onclick="document.querySelector('[data-target=panel-pages]').click();">
+                        <i class="fa-solid fa-file-circle-plus"></i> New Page
                     </button>
-                    <button type="button" class="btn btn-primary rounded-pill px-3 py-2 fw-bold fs-13 shadow-sm d-flex align-items-center gap-2" style="background-color: var(--brand-primary); border: none;" onclick="document.querySelector('[data-target=panel-universities]').click();">
-                        <i class="fa-solid fa-building-columns"></i> Add University
+                    <button type="button" class="btn btn-primary rounded-pill px-3 py-2 fw-bold fs-13 shadow-sm d-flex align-items-center gap-2" style="background-color: var(--brand-primary); border: none;" onclick="document.querySelector('[data-target=panel-navbar]').click();">
+                        <i class="fa-solid fa-bars-staggered"></i> Navbar Menus
                     </button>
                     <a href="index.html" class="btn btn-outline-secondary rounded-pill px-3 py-2 fw-bold fs-13">
                         <i class="fa-solid fa-globe me-1"></i> Live Site
@@ -317,14 +333,26 @@
                 <button type="button" class="category-pill active" onclick="document.querySelector('[data-target=panel-overview]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
                     <i class="fa-solid fa-chart-pie"></i> Overview
                 </button>
+                <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-pages]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
+                    <i class="fa-solid fa-file-circle-plus"></i> Pages
+                </button>
+                <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-navbar]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
+                    <i class="fa-solid fa-bars-staggered"></i> Navbar
+                </button>
                 <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-blogs]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
-                    <i class="fa-solid fa-newspaper"></i> Post Blogs
+                    <i class="fa-solid fa-newspaper"></i> Blogs
                 </button>
                 <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-universities]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
-                    <i class="fa-solid fa-building-columns"></i> Universities
+                    <i class="fa-solid fa-building-columns"></i> Unis
                 </button>
                 <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-announcements]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
-                    <i class="fa-solid fa-bullhorn"></i> Announcements
+                    <i class="fa-solid fa-bullhorn"></i> Alerts
+                </button>
+                <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-settings]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
+                    <i class="fa-solid fa-gear"></i> Settings
+                </button>
+                <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-account]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
+                    <i class="fa-solid fa-shield-halved"></i> Owner
                 </button>
                 <button type="button" class="category-pill" onclick="document.querySelector('[data-target=panel-applications]').click(); document.querySelectorAll('.mobile-admin-tab-scroller .category-pill').forEach(p=>p.classList.remove('active')); this.classList.add('active');">
                     <i class="fa-solid fa-user-graduate"></i> Students
@@ -336,82 +364,135 @@
             <!-- ============================================================== -->
             <section id="panel-overview" class="admin-view-panel active">
                 <!-- Metric Cards -->
-                <div class="row g-4 mb-4">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="metric-card">
+                <div class="row g-3 mb-4">
+                    <div class="col-xl-2 col-md-4 col-6">
+                        <div class="metric-card h-100">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fs-13 text-muted fw-bold text-uppercase">Total Placed</span>
-                                <div class="p-2 rounded-3 bg-primary-subtle text-primary"><i class="fa-solid fa-user-graduate"></i></div>
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Custom Pages</span>
+                                <div class="p-2 rounded-3 bg-primary-subtle text-primary"><i class="fa-solid fa-file-circle-plus"></i></div>
                             </div>
-                            <h2 class="fw-800 text-dark">1,280</h2>
-                            <span class="text-success fs-13 fw-bold"><i class="fa-solid fa-arrow-trend-up me-1"></i> +14% vs last term</span>
+                            <h3 class="fw-800 text-dark mb-1" id="adminTotalPagesCounter">3</h3>
+                            <span class="text-success fs-11 fw-bold"><i class="fa-solid fa-globe me-1"></i> Live Webpages</span>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="metric-card">
+                    <div class="col-xl-2 col-md-4 col-6">
+                        <div class="metric-card h-100">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fs-13 text-muted fw-bold text-uppercase">Active Applications</span>
-                                <div class="p-2 rounded-3 bg-warning-subtle text-warning-emphasis"><i class="fa-solid fa-file-signature"></i></div>
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Navbar Menus</span>
+                                <div class="p-2 rounded-3 bg-warning-subtle text-warning-emphasis"><i class="fa-solid fa-bars-staggered"></i></div>
                             </div>
-                            <h2 class="fw-800 text-dark">142</h2>
-                            <span class="text-warning fs-13 fw-bold"><i class="fa-regular fa-clock me-1"></i> Under file review</span>
+                            <h3 class="fw-800 text-dark mb-1" id="adminTotalNavCounter">1</h3>
+                            <span class="text-primary fs-11 fw-bold"><i class="fa-solid fa-link me-1"></i> Dynamic Menus</span>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="metric-card">
+                    <div class="col-xl-2 col-md-4 col-6">
+                        <div class="metric-card h-100">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fs-13 text-muted fw-bold text-uppercase">Published Articles</span>
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Articles Live</span>
                                 <div class="p-2 rounded-3 bg-danger-subtle text-danger"><i class="fa-solid fa-newspaper"></i></div>
                             </div>
-                            <h2 class="fw-800 text-dark" id="adminTotalBlogsCounter">4</h2>
-                            <span class="text-primary fs-13 fw-bold"><i class="fa-solid fa-circle-check me-1"></i> Dynamic CMS Active</span>
+                            <h3 class="fw-800 text-dark mb-1" id="adminTotalBlogsCounter">4</h3>
+                            <span class="text-danger fs-11 fw-bold"><i class="fa-solid fa-circle-check me-1"></i> Published</span>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="metric-card">
+                    <div class="col-xl-2 col-md-4 col-6">
+                        <div class="metric-card h-100">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fs-13 text-muted fw-bold text-uppercase">Partner Unis</span>
-                                <div class="p-2 rounded-3 bg-success-subtle text-success"><i class="fa-solid fa-university"></i></div>
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Partner Unis</span>
+                                <div class="p-2 rounded-3 bg-success-subtle text-success"><i class="fa-solid fa-building-columns"></i></div>
                             </div>
-                            <h2 class="fw-800 text-success" id="adminTotalUnisCounter">6</h2>
-                            <span class="text-muted fs-13">Official waivers enabled</span>
+                            <h3 class="fw-800 text-dark mb-1" id="adminTotalUnisCounter">6</h3>
+                            <span class="text-success fs-11 fw-bold">Waiver Enabled</span>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-4 col-6">
+                        <div class="metric-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Applications</span>
+                                <div class="p-2 rounded-3 bg-info-subtle text-info"><i class="fa-solid fa-file-signature"></i></div>
+                            </div>
+                            <h3 class="fw-800 text-dark mb-1">142</h3>
+                            <span class="text-muted fs-11">Review Stage</span>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-4 col-6">
+                        <div class="metric-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Total Placed</span>
+                                <div class="p-2 rounded-3 bg-primary-subtle text-primary"><i class="fa-solid fa-user-graduate"></i></div>
+                            </div>
+                            <h3 class="fw-800 text-dark mb-1">1,280</h3>
+                            <span class="text-success fs-11 fw-bold">+14% Growth</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Quick CMS Actions Banner -->
                 <div class="card border rounded-4 shadow-sm p-4 mb-4 bg-white">
-                    <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-wand-magic-sparkles text-warning me-2"></i>Quick Content Creator Actions</h5>
+                    <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-wand-magic-sparkles text-warning me-2"></i>Master Owner Control Hub</h5>
                     <div class="row g-3">
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="p-3 rounded-3 border bg-light h-100 cursor-pointer transition-hover" onclick="document.querySelector('[data-target=panel-pages]').click();">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-primary text-white p-3 fs-5"><i class="fa-solid fa-file-circle-plus"></i></div>
+                                    <div>
+                                        <h6 class="fw-bold text-dark mb-1">Page Builder Studio</h6>
+                                        <span class="text-muted fs-13">Create custom pages with unique URL slugs.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="p-3 rounded-3 border bg-light h-100 cursor-pointer transition-hover" onclick="document.querySelector('[data-target=panel-navbar]').click();">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-warning text-dark p-3 fs-5"><i class="fa-solid fa-bars-staggered"></i></div>
+                                    <div>
+                                        <h6 class="fw-bold text-dark mb-1">Navbar & Menus</h6>
+                                        <span class="text-muted fs-13">Create dropdowns and link custom pages.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
                             <div class="p-3 rounded-3 border bg-light h-100 cursor-pointer transition-hover" onclick="document.querySelector('[data-target=panel-blogs]').click();">
                                 <div class="d-flex align-items-center gap-3">
-                                    <div class="rounded-circle bg-warning text-dark p-3 fs-5"><i class="fa-solid fa-pen-nib"></i></div>
+                                    <div class="rounded-circle bg-danger text-white p-3 fs-5"><i class="fa-solid fa-pen-nib"></i></div>
                                     <div>
                                         <h6 class="fw-bold text-dark mb-1">Post a New Blog</h6>
-                                        <span class="text-muted fs-13">Create guides, scholarship alerts, and visa news.</span>
+                                        <span class="text-muted fs-13">Publish articles and admissions guides.</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="p-3 rounded-3 border bg-light h-100 cursor-pointer transition-hover" onclick="document.querySelector('[data-target=panel-universities]').click();">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="p-3 rounded-3 border bg-light h-100 cursor-pointer transition-hover" onclick="document.querySelector('[data-target=panel-settings]').click();">
                                 <div class="d-flex align-items-center gap-3">
-                                    <div class="rounded-circle bg-primary text-white p-3 fs-5"><i class="fa-solid fa-school"></i></div>
+                                    <div class="rounded-circle bg-success text-white p-3 fs-5"><i class="fa-solid fa-sliders"></i></div>
                                     <div>
-                                        <h6 class="fw-bold text-dark mb-1">Add New University</h6>
-                                        <span class="text-muted fs-13">Add institutional partners and program details.</span>
+                                        <h6 class="fw-bold text-dark mb-1">Global Site Settings</h6>
+                                        <span class="text-muted fs-13">Configure brand, phone, email & footer sitewide.</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="p-3 rounded-3 border bg-light h-100 cursor-pointer transition-hover" onclick="document.querySelector('[data-target=panel-account]').click();">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle bg-dark text-white p-3 fs-5"><i class="fa-solid fa-user-shield"></i></div>
+                                    <div>
+                                        <h6 class="fw-bold text-dark mb-1">Owner Security & Pass</h6>
+                                        <span class="text-muted fs-13">Change password & manage master profile.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
                             <div class="p-3 rounded-3 border bg-light h-100 cursor-pointer transition-hover" onclick="document.querySelector('[data-target=panel-announcements]').click();">
                                 <div class="d-flex align-items-center gap-3">
-                                    <div class="rounded-circle bg-danger text-white p-3 fs-5"><i class="fa-solid fa-bullhorn"></i></div>
+                                    <div class="rounded-circle bg-info text-white p-3 fs-5"><i class="fa-solid fa-bullhorn"></i></div>
                                     <div>
-                                        <h6 class="fw-bold text-dark mb-1">Broadcast Site Alert</h6>
-                                        <span class="text-muted fs-13">Update the top homepage marquee notification.</span>
+                                        <h6 class="fw-bold text-dark mb-1">Broadcast Alerts</h6>
+                                        <span class="text-muted fs-13">Manage top marquee announcements.</span>
                                     </div>
                                 </div>
                             </div>
@@ -857,6 +938,470 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- PANEL: PAGE BUILDER STUDIO                                     -->
+            <!-- ============================================================== -->
+            <section id="panel-pages" class="admin-view-panel">
+                <div class="row g-4">
+                    <!-- Left: Page Creation Form -->
+                    <div class="col-xl-7">
+                        <div class="card border rounded-4 shadow-sm p-4 bg-white mb-4">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div>
+                                    <h4 class="fw-bold text-dark mb-1"><i class="fa-solid fa-file-circle-plus text-primary me-2"></i>Page Builder Studio</h4>
+                                    <p class="text-muted fs-13 mb-0">Create new standalone pages with custom URLs that automatically render live on your website.</p>
+                                </div>
+                                <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill">Owner Exclusive</span>
+                            </div>
+
+                            <form id="adminNewPageForm">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Page Title <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="pageTitleInput" placeholder="e.g., Complete Student Visa & Financial Proof Guide 2026" required/>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-7">
+                                        <label class="form-label fw-bold text-dark fs-14">URL Slug (Address) <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light text-muted fs-13">page.html?slug=</span>
+                                            <input type="text" class="form-control rounded-end-3 py-2 px-3 fs-14 font-monospace" id="pageSlugInput" placeholder="visa-guide" required/>
+                                        </div>
+                                        <span class="text-muted fs-11 mt-1 d-block">This slug defines the public URL for students and search engines.</span>
+                                    </div>
+                                    <div class="col-md-5 d-flex align-items-end">
+                                        <button type="button" class="btn btn-outline-secondary w-100 py-2 rounded-3 fs-13 fw-semibold" id="autoGenerateSlugBtn">
+                                            <i class="fa-solid fa-wand-magic-sparkles me-1 text-warning"></i> Auto-Generate Slug
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold text-dark fs-14">Category / Theme</label>
+                                        <select class="form-select rounded-3 py-2 px-3 fs-14" id="pageCategoryInput">
+                                            <option value="Visa & Immigration">Visa & Immigration</option>
+                                            <option value="Scholarships & Funding">Scholarships & Funding</option>
+                                            <option value="Admissions Guidance">Admissions Guidance</option>
+                                            <option value="Campus Life & Culture">Campus Life & Culture</option>
+                                            <option value="Test Preparation (IELTS/GRE)">Test Preparation (IELTS/GRE)</option>
+                                            <option value="Career & Post-Study Work">Career & Post-Study Work</option>
+                                            <option value="Institutional Partnerships">Institutional Partnerships</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold text-dark fs-14">Publication Status</label>
+                                        <select class="form-select rounded-3 py-2 px-3 fs-14" id="pageStatusInput">
+                                            <option value="published">Published (Live Online)</option>
+                                            <option value="draft">Draft (Private)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Hero Headline (Banner Title)</label>
+                                    <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="pageHeroTitleInput" placeholder="e.g., Master Your Embassy Interview & Financial Proof"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Hero Subtitle / Synopsis</label>
+                                    <textarea class="form-control rounded-3 py-2 px-3 fs-14" id="pageHeroSubtitleInput" rows="2" placeholder="Brief summary displayed prominently at the top of the custom page..."></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Cover Image URL</label>
+                                    <input type="url" class="form-control rounded-3 py-2 px-3 fs-14" id="pageCoverImageInput" placeholder="https://images.unsplash.com/photo-..." value="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80"/>
+                                    <div class="d-flex align-items-center gap-1 mt-2 flex-wrap">
+                                        <span class="fs-12 text-muted me-1">Quick Presets:</span>
+                                        <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80">Visa & Docs</button>
+                                        <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80">Scholarships</button>
+                                        <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80">Global Careers</button>
+                                        <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80">University Campus</button>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold text-dark fs-14">Author Name</label>
+                                        <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="pageAuthorInput" value="The Edu Consultants Editorial"/>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold text-dark fs-14">Page Body Content (Markdown or HTML) <span class="text-danger">*</span></label>
+                                    <textarea class="form-control rounded-3 p-3 fs-14 font-monospace" id="pageContentInput" rows="9" placeholder="Write paragraphs, ### Subheadings, - Bullet point lists, or HTML tags..." required></textarea>
+                                    <span class="text-muted fs-12 mt-1 d-block">Supports standard markdown formatting (### Headings, - Bullet points, 1. Numbered steps) and HTML.</span>
+                                </div>
+
+                                <button type="submit" class="btn btn-warning w-100 py-3 rounded-pill fw-bold text-dark shadow-sm fs-15" style="background-color: var(--button); border: none;">
+                                    <i class="fa-solid fa-cloud-arrow-up me-2"></i> Publish Page to Live Website
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Page Preview Card -->
+                    <div class="col-xl-5">
+                        <div class="card border rounded-4 shadow-sm p-4 bg-white sticky-top" style="top: 24px;">
+                            <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+                                <span class="fs-12 text-uppercase fw-bold text-muted"><i class="fa-solid fa-eye me-1 text-primary"></i> Live Rendering Preview</span>
+                                <span class="badge bg-success-subtle text-success fw-bold font-monospace fs-11" id="livePreviewPageSlug">page.html?slug=visa-guide</span>
+                            </div>
+
+                            <div class="border rounded-3 overflow-hidden shadow-xs">
+                                <div style="height: 160px; background: #e2e8f0; position: relative;">
+                                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" id="livePreviewPageImage" class="w-100 h-100 object-fit-cover" alt="Cover Preview"/>
+                                    <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2 fw-bold" id="livePreviewPageCategory">Visa Guidance</span>
+                                </div>
+                                <div class="p-3 bg-white">
+                                    <h5 class="fw-bold text-dark mb-1" id="livePreviewPageTitle">Your Webpage Title</h5>
+                                    <h6 class="fs-13 text-primary fw-semibold mb-2" id="livePreviewPageHero">Page Hero Headline</h6>
+                                    <p class="fs-12 text-muted mb-3" id="livePreviewPageContent">Your comprehensive page content, guidance paragraphs, and advisory roadmap will appear here...</p>
+                                    <div class="pt-2 border-top d-flex justify-content-between align-items-center">
+                                        <span class="fs-11 text-muted">Author: The Edu Consultants</span>
+                                        <span class="badge bg-primary text-white fs-11">Verified Live Template</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-info border-0 rounded-3 mt-4 mb-0 fs-13 d-flex align-items-start gap-2">
+                                <i class="fa-solid fa-circle-info fs-5 mt-1 text-primary"></i>
+                                <div>
+                                    <b>Linking your new page:</b> Once published, go to the <b>Navbar & Menus</b> panel to add it as a menu item in your website's header dropdown!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Published Custom Pages Table -->
+                <div class="card border rounded-4 shadow-sm p-4 bg-white mt-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                        <div>
+                            <h5 class="fw-bold text-dark mb-1"><i class="fa-solid fa-table-list text-primary me-2"></i>All Published Webpages</h5>
+                            <span class="text-muted fs-13">Manage existing pages, view live links, or remove pages.</span>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle table-hover mb-0">
+                            <thead class="table-light fs-13 text-muted text-uppercase">
+                                <tr>
+                                    <th class="ps-4">Page Title & Slug</th>
+                                    <th>Category</th>
+                                    <th>Author</th>
+                                    <th>Status</th>
+                                    <th class="pe-4 text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminPagesTableBody" class="fs-14">
+                                <!-- Populated dynamically by cms.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- PANEL: DYNAMIC NAVBAR & DROPDOWN MANAGER                       -->
+            <!-- ============================================================== -->
+            <section id="panel-navbar" class="admin-view-panel">
+                <div class="row g-4">
+                    <!-- Left: Create Dropdown & Add Sublink Form -->
+                    <div class="col-lg-6">
+                        <!-- Tool 1: Create New Dropdown -->
+                        <div class="card border rounded-4 shadow-sm p-4 bg-white mb-4">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-folder-plus text-primary me-2"></i>1. Create Navbar Dropdown</h5>
+                                <span class="badge bg-primary-subtle text-primary fw-bold">Header & Mobile</span>
+                            </div>
+                            <p class="text-muted fs-13 mb-3">Add a new top-level dropdown menu to the main navigation bar across every page of your website.</p>
+
+                            <form id="adminNewDropdownForm">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Dropdown Menu Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="navDropdownLabelInput" placeholder="e.g., Student Guides, Country Portals, Resources" required/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Menu Icon (FontAwesome)</label>
+                                    <select class="form-select rounded-3 py-2 px-3 fs-14" id="navDropdownIconInput">
+                                        <option value="fa-folder-open">📁 Folder (fa-folder-open)</option>
+                                        <option value="fa-book-bookmark">📖 Book Bookmark (fa-book-bookmark)</option>
+                                        <option value="fa-graduation-cap">🎓 Graduation Cap (fa-graduation-cap)</option>
+                                        <option value="fa-passport">🛂 Passport (fa-passport)</option>
+                                        <option value="fa-globe">🌐 Globe (fa-globe)</option>
+                                        <option value="fa-building-columns">🏛 University (fa-building-columns)</option>
+                                        <option value="fa-plane-departure">✈️ Plane (fa-plane-departure)</option>
+                                        <option value="fa-award">🏆 Award (fa-award)</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 py-2.5 rounded-pill fw-bold fs-14">
+                                    <i class="fa-solid fa-plus me-1"></i> Add Dropdown to Navbar
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Tool 2: Add Link to Dropdown -->
+                        <div class="card border rounded-4 shadow-sm p-4 bg-white mb-4">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-link text-warning me-2"></i>2. Link Page into Dropdown</h5>
+                                <span class="badge bg-warning-subtle text-dark fw-bold">Connect Pages</span>
+                            </div>
+                            <p class="text-muted fs-13 mb-3">Choose any page you've created or any destination URL and assign it into one of your navbar dropdown menus.</p>
+
+                            <form id="adminAddSublinkForm">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Select Target Dropdown Menu <span class="text-danger">*</span></label>
+                                    <select class="form-select rounded-3 py-2 px-3 fs-14" id="adminSublinkDropdownSelect" required>
+                                        <option value="">-- Choose Dropdown --</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Choose Existing Page (Quick Select)</label>
+                                    <select class="form-select rounded-3 py-2 px-3 fs-14" id="adminSublinkPagePresetSelect">
+                                        <option value="">-- Or Select Created Webpage --</option>
+                                    </select>
+                                    <span class="text-muted fs-11 mt-1 d-block">Selecting a created page automatically fills in the title and URL below.</span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Menu Link Display Label <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="adminSublinkTitleInput" placeholder="e.g., Visa Guide 2026" required/>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold text-dark fs-14">Target Destination URL <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control rounded-3 py-2 px-3 fs-14 font-monospace" id="adminSublinkUrlInput" placeholder="e.g., page.html?slug=visa-guide or https://..." required/>
+                                </div>
+
+                                <button type="submit" class="btn btn-warning w-100 py-2.5 rounded-pill fw-bold text-dark fs-14" style="background-color: var(--button); border: none;">
+                                    <i class="fa-solid fa-paperclip me-1"></i> Add Link to Dropdown
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Right: Active Navbar Menus & Sub-links Hierarchy -->
+                    <div class="col-lg-6">
+                        <div class="card border rounded-4 shadow-sm p-4 bg-white sticky-top" style="top: 24px;">
+                            <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-bars-staggered text-primary me-2"></i>Active Navbar Architecture</h5>
+                                    <span class="text-muted fs-12">Live preview of dynamic dropdown menus on desktop and mobile.</span>
+                                </div>
+                            </div>
+
+                            <div id="adminNavItemsContainer">
+                                <!-- Populated dynamically by cms.js -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- PANEL: GLOBAL WEBSITE SETTINGS                                 -->
+            <!-- ============================================================== -->
+            <section id="panel-settings" class="admin-view-panel">
+                <div class="card border rounded-4 shadow-sm p-4 bg-white mb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-3">
+                        <div>
+                            <h4 class="fw-bold text-dark mb-1"><i class="fa-solid fa-sliders text-primary me-2"></i>Global Website Settings</h4>
+                            <p class="text-muted fs-13 mb-0">Control brand information, official contact phone numbers, WhatsApp, office address, and social links sitewide.</p>
+                        </div>
+                        <span class="badge bg-success-subtle text-success fw-bold px-3 py-1 rounded-pill">Sitewide Sync</span>
+                    </div>
+
+                    <form id="adminGlobalSettingsForm">
+                        <div class="row g-4">
+                            <!-- Group 1: Brand & Tagline -->
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 h-100">
+                                    <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-building text-primary me-1"></i> Brand Identity</h6>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold text-dark fs-13">Brand Name</label>
+                                        <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="settingBrandNameInput" value="The Edu Consultants"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold text-dark fs-13">Official Tagline</label>
+                                        <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="settingTaglineInput" value="Premier Global University Admissions & Visa Advisory"/>
+                                    </div>
+                                    <div class="mb-0">
+                                        <label class="form-label fw-bold text-dark fs-13">Copyright Notice</label>
+                                        <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="settingCopyrightInput" value="© 2026 The Edu Consultants. All rights reserved."/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Group 2: Official Contact Info -->
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 h-100">
+                                    <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-phone text-success me-1"></i> Official Contact Info</h6>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold text-dark fs-13">Official Counselor Phone</label>
+                                        <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="settingPhoneInput" value="+1 (800) 555-0199"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold text-dark fs-13">Admissions Support Email</label>
+                                        <input type="email" class="form-control rounded-3 py-2 px-3 fs-14" id="settingEmailInput" value="contact@theeduconsultants.org"/>
+                                    </div>
+                                    <div class="mb-0">
+                                        <label class="form-label fw-bold text-dark fs-13">Official WhatsApp Number</label>
+                                        <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="settingWhatsappInput" value="+1 800 555 0199"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Group 3: Physical Headquarters -->
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 h-100">
+                                    <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-location-dot text-danger me-1"></i> Physical Headquarters & Hours</h6>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold text-dark fs-13">Head Office Address</label>
+                                        <textarea class="form-control rounded-3 py-2 px-3 fs-14" id="settingAddressInput" rows="2">World Trade Center, Suite 4200, Financial District, New York, NY 10007</textarea>
+                                    </div>
+                                    <div class="mb-0">
+                                        <label class="form-label fw-bold text-dark fs-13">Working Hours</label>
+                                        <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="settingHoursInput" value="Mon - Sat: 9:00 AM - 7:00 PM EST"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Group 4: Social Media Links -->
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 h-100">
+                                    <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-share-nodes text-info me-1"></i> Social Media Channels</h6>
+                                    <div class="row g-2 mb-2">
+                                        <div class="col-6">
+                                            <label class="form-label fw-bold text-dark fs-12">LinkedIn URL</label>
+                                            <input type="url" class="form-control rounded-3 py-1.5 px-3 fs-13" id="settingLinkedinInput" value="https://linkedin.com"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label fw-bold text-dark fs-12">Twitter / X URL</label>
+                                            <input type="url" class="form-control rounded-3 py-1.5 px-3 fs-13" id="settingTwitterInput" value="https://twitter.com"/>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <label class="form-label fw-bold text-dark fs-12">Instagram URL</label>
+                                            <input type="url" class="form-control rounded-3 py-1.5 px-3 fs-13" id="settingInstagramInput" value="https://instagram.com"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label fw-bold text-dark fs-12">Facebook URL</label>
+                                            <input type="url" class="form-control rounded-3 py-1.5 px-3 fs-13" id="settingFacebookInput" value="https://facebook.com"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 mt-2 border-top d-flex justify-content-end">
+                            <button type="submit" class="btn btn-warning rounded-pill px-5 py-3 fw-bold text-dark fs-15 shadow-sm" style="background-color: var(--button); border: none;">
+                                <i class="fa-solid fa-floppy-disk me-2"></i> Save & Apply Sitewide Settings
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- PANEL: OWNER ACCOUNT & SECURITY HUB                            -->
+            <!-- ============================================================== -->
+            <section id="panel-account" class="admin-view-panel">
+                <div class="row g-4">
+                    <!-- Card 1: Owner Profile Details -->
+                    <div class="col-lg-6">
+                        <div class="card border rounded-4 shadow-sm p-4 bg-white h-100">
+                            <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+                                <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-user-gear text-primary me-2"></i>Owner Profile Details</h5>
+                                <span class="badge bg-warning text-dark fw-bold px-2 py-1"><i class="fa-solid fa-crown me-1"></i>Master Admin</span>
+                            </div>
+                            <p class="text-muted fs-13 mb-3">Edit your personal owner credentials, administrator display name, and avatar.</p>
+
+                            <div class="d-flex align-items-center gap-3 mb-4 p-3 bg-light rounded-3">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" id="ownerAvatarPreview" class="rounded-circle shadow-xs" width="60" height="60" alt="Avatar"/>
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-0 dashboard-admin-name">The Edu Consultants Owner</h6>
+                                    <span class="badge bg-primary text-white fs-11 mt-1">Master Administrator</span>
+                                </div>
+                            </div>
+
+                            <form id="adminOwnerProfileForm">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Administrator Display Name</label>
+                                    <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="ownerNameInput" value="The Edu Consultants Owner" required/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Master Login Email</label>
+                                    <input type="email" class="form-control rounded-3 py-2 px-3 fs-14" id="ownerEmailInput" value="admin@theeduconsultants.org" required/>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold text-dark fs-14">Avatar Image URL</label>
+                                    <input type="url" class="form-control rounded-3 py-2 px-3 fs-14" id="ownerAvatarInput" value="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"/>
+                                    <div class="d-flex align-items-center gap-1 mt-2 flex-wrap">
+                                        <span class="fs-12 text-muted me-1">Avatar Presets:</span>
+                                        <button type="button" class="cms-preset-chip owner-avatar-preset-btn" data-url="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80">Executive 1</button>
+                                        <button type="button" class="cms-preset-chip owner-avatar-preset-btn" data-url="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80">Executive 2</button>
+                                        <button type="button" class="cms-preset-chip owner-avatar-preset-btn" data-url="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80">Director</button>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 py-2.5 rounded-pill fw-bold fs-14">
+                                    <i class="fa-solid fa-check me-1"></i> Save Profile Details
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Master Password Security & Danger Zone -->
+                    <div class="col-lg-6">
+                        <!-- Password Change Card -->
+                        <div class="card border rounded-4 shadow-sm p-4 bg-white mb-4">
+                            <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+                                <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-key text-warning me-2"></i>Change Master Admin Password</h5>
+                                <span class="badge bg-danger text-white fw-bold">Strict Security</span>
+                            </div>
+                            <p class="text-muted fs-13 mb-3">Update your secret master password. Only you will be able to access this dashboard.</p>
+
+                            <form id="adminOwnerPasswordForm">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">Current Master Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control rounded-3 py-2 px-3 fs-14" id="ownerCurrentPassInput" placeholder="Enter current password" required/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-dark fs-14">New Master Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control rounded-3 py-2 px-3 fs-14" id="ownerNewPassInput" placeholder="Min 6 characters (e.g., MySecureKey2026!)" required/>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold text-dark fs-14">Confirm New Master Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control rounded-3 py-2 px-3 fs-14" id="ownerConfirmPassInput" placeholder="Re-enter new password" required/>
+                                </div>
+                                <button type="submit" class="btn btn-warning w-100 py-2.5 rounded-pill fw-bold text-dark fs-14" style="background-color: var(--button); border: none;">
+                                    <i class="fa-solid fa-lock me-1"></i> Update Master Password
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Danger Zone Card -->
+                        <div class="card border border-danger-subtle rounded-4 shadow-sm p-4 bg-white">
+                            <h5 class="fw-bold text-danger mb-2"><i class="fa-solid fa-triangle-exclamation me-2"></i>Owner Danger Zone</h5>
+                            <p class="text-muted fs-13 mb-3">Emergency recovery options to reset credentials or wipe active administrative session.</p>
+
+                            <div class="d-flex flex-column gap-2">
+                                <button type="button" class="btn btn-outline-warning rounded-3 py-2 fs-13 fw-bold text-start d-flex align-items-center justify-content-between" id="adminResetOwnerBtn">
+                                    <span><i class="fa-solid fa-arrow-rotate-left me-2"></i> Reset Master Password to Factory Default</span>
+                                    <i class="fa-solid fa-chevron-right fs-11"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-danger rounded-3 py-2 fs-13 fw-bold text-start d-flex align-items-center justify-content-between" id="adminDeleteOwnerBtn">
+                                    <span><i class="fa-solid fa-trash-can me-2"></i> Wipe Owner Session from This Browser</span>
+                                    <i class="fa-solid fa-chevron-right fs-11"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

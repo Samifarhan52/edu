@@ -237,46 +237,28 @@
         renderAccessDeniedScreen: function (user, requiredPermission) {
             document.body.innerHTML = `
                 <div style="min-height: 100vh; background: #06093b; display: flex; align-items: center; justify-content: center; padding: 24px; font-family: 'Poppins', sans-serif;">
-                    <div style="max-width: 580px; width: 100%; background: white; border-radius: 24px; padding: 42px 32px; box-shadow: 0 25px 60px rgba(0,0,0,0.3); text-align: center; border-top: 6px solid #fb5421;">
-                        <div style="width: 76px; height: 76px; background: #fff5f2; color: #fb5421; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 34px;">
-                            <i class="fa-solid fa-user-shield"></i>
+                    <div style="max-width: 520px; width: 100%; background: white; border-radius: 24px; padding: 42px 32px; box-shadow: 0 25px 60px rgba(0,0,0,0.3); text-align: center; border-top: 6px solid #fb5421;">
+                        <div style="width: 72px; height: 72px; background: #fff5f2; color: #fb5421; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 32px;">
+                            <i class="fa-solid fa-lock"></i>
                         </div>
-                        <span class="badge" style="background: #eef2ff; color: #000064; font-weight: 700; padding: 6px 16px; border-radius: 50px; font-size: 12px; margin-bottom: 12px; display: inline-block;">
-                            ADMISSIONS & STAFF CMS HUB
+                        <span class="badge" style="background: #fee2e2; color: #991b1b; font-weight: 700; padding: 6px 16px; border-radius: 50px; font-size: 11px; margin-bottom: 12px; display: inline-block;">
+                            RESTRICTED ADMIN CMS
                         </span>
-                        <h3 style="font-weight: 800; color: #000064; margin-bottom: 8px;">Role Access Switcher</h3>
-                        <p style="color: #64748b; font-size: 14.5px; line-height: 1.6; margin-bottom: 20px;">
-                            You are signed in as <b>${this.sanitizeText(user.name)}</b> with the role <b>"${this.sanitizeText(user.role)}"</b>.
-                            The CMS Studio is reserved for Admissions Directors and Counselors.
+                        <h3 style="font-weight: 800; color: #000064; margin-bottom: 8px;">Restricted Access</h3>
+                        <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
+                            The Content Management System and Site Administration Hub is strictly restricted to the authorized platform owner.
                         </p>
 
-                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 18px; text-align: left; margin-bottom: 24px;">
-                            <div style="font-size: 13px; font-weight: 700; color: #000064; margin-bottom: 4px;">Choose where you want to go:</div>
-                            <div style="font-size: 12.5px; color: #64748b; line-height: 1.5;">
-                                • View your applications, shortlisted universities, and counseling appointments in your <b>Scholar Portal</b>.<br>
-                                • Or switch to <b>Director Mode</b> to test and manage blogs, universities, and announcement alerts.
-                            </div>
-                        </div>
-
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <a href="student-dashboard.html" style="background: #000064; color: white; padding: 14px 24px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(0,0,100,0.2);">
-                                <i class="fa-solid fa-graduation-cap"></i> Open My Scholar Portal
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <a href="student-dashboard.html" style="background: #000064; color: white; padding: 13px 24px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <i class="fa-solid fa-graduation-cap"></i> Return to Scholar Portal
                             </a>
-                            
-                            <button onclick="if(window.edAuth){ window.edAuth.login('admin@theeduconsultants.org', '123456', 'Admin'); } else { localStorage.setItem('ed_user', JSON.stringify({name: 'Alexander Morgan', email: 'admin@theeduconsultants.org', role: 'Admin', badge: 'Admin', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'})); window.location.reload(); }" 
-                                    style="background: #f5dc3c; color: #000064; border: none; padding: 14px 24px; border-radius: 50px; font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(245,220,60,0.3);">
-                                <i class="fa-solid fa-unlock-keyhole"></i> Switch to Administrator Mode (Alexander Morgan)
-                            </button>
-                            
-                            <div style="display: flex; gap: 10px; margin-top: 6px;">
-                                <a href="index.html" style="flex: 1; background: #f1f5f9; color: #475569; padding: 10px 18px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 13px; text-align: center;">
-                                    <i class="fa-solid fa-house me-1"></i> Homepage
-                                </a>
-                                <button onclick="if(window.edAuth){ window.edAuth.logout(); } else { localStorage.removeItem('ed_user'); window.location.href='login.html'; }" 
-                                        style="flex: 1; background: #f1f5f9; color: #fb5421; border: none; padding: 10px 18px; border-radius: 50px; font-weight: 600; font-size: 13px; cursor: pointer;">
-                                    <i class="fa-solid fa-right-from-bracket me-1"></i> Sign Out
-                                </button>
-                            </div>
+                            <a href="login.html?adminAccess=true" style="background: #f1f5f9; color: #000064; padding: 13px 24px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <i class="fa-solid fa-key"></i> Sign In with Owner Master Key
+                            </a>
+                            <a href="index.html" style="color: #64748b; font-size: 13px; text-decoration: none; margin-top: 8px;">
+                                Return to Homepage
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -13,6 +13,9 @@
     const STORAGE_BLOGS = 'the_edu_custom_blogs';
     const STORAGE_UNIS = 'the_edu_custom_unis';
     const STORAGE_ANNOUNCEMENT = 'the_edu_site_announcement';
+    const STORAGE_PAGES = 'the_edu_custom_pages';
+    const STORAGE_NAV = 'the_edu_custom_nav';
+    const STORAGE_SETTINGS = 'the_edu_site_settings';
 
     // Seed Default Curated Articles
     const DEFAULT_BLOGS = [
@@ -197,6 +200,123 @@ Our pre-departure webinars connect incoming scholars with current university stu
         ctaLink: 'contact-us.html'
     };
 
+    // Seed Default Curated Pages
+    const DEFAULT_PAGES = [
+        {
+            id: 'page-seed-visa',
+            slug: 'visa-guide',
+            title: 'Complete Student Visa & Financial Proof Guide 2026',
+            category: 'Visa Guidance',
+            heroTitle: 'Comprehensive Student Visa Documentation & Embassy Masterclass',
+            heroSubtitle: 'A definitive roadmap for navigating financial sponsorship, statement of purpose for embassy interviews, and biometric protocols for USA, UK, Canada, Australia, and Germany.',
+            coverImage: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80',
+            author: 'Alexander Morgan',
+            authorRole: 'Admissions Director',
+            updatedAt: 'October 2026',
+            status: 'published',
+            isCustom: false,
+            content: `International student visa compliance requires precision, meticulous documentation, and strategic clarity. Top destination embassies continue to raise scrutiny on genuine student intentions and financial liquidity.
+
+### 1. Proof of Financial Capability (Funds & Solvency)
+Embassy adjudicators require verifiable proof that tuition and living expenses for at least the first 12 to 24 months are readily accessible in liquid or approved educational loan accounts.
+- **Bank Statements:** Ensure funds are seasoned for the required minimum duration (typically 28 days for UK Tier 4, 3 to 6 months for US and Canada).
+- **Sponsorship Letters:** Formal affidavits of support accompanied by tax returns and employment verification from primary sponsors.
+
+### 2. Crafting a Genuine Student Statement
+Whether drafting the Australian Genuine Student (GS) submission or the UK CAS statement, clearly articulate:
+- Why this specific curriculum cannot be replicated in your home country.
+- The precise economic ROI and projected career salary upon return.
+- Thorough knowledge of the target university's research faculty, campus location, and graduation outcomes.
+
+### 3. Embassy Interview Preparation
+Practice concise, honest, and proactive answers. Demonstrate deep familiarity with your course modules and future employer targets.
+
+Connect with The Edu Consultants authorized visa counselors to conduct mock visa interviews and dossier verifications.`
+        },
+        {
+            id: 'page-seed-scholarships',
+            slug: 'scholarship-handbook',
+            title: '2026 Global Merit & Diversity Scholarship Handbook',
+            category: 'Funding & Grants',
+            heroTitle: 'Institutional Waivers & Full-Ride Scholarship Directory',
+            heroSubtitle: 'Unlock fully-funded government awards, university endowment stipends, and graduate assistantships across leading world universities.',
+            coverImage: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80',
+            author: 'Dr. Eleanor Vance',
+            authorRole: 'Senior Academic Counselor',
+            updatedAt: 'October 2026',
+            status: 'published',
+            isCustom: false,
+            content: `Securing external and institutional scholarships can reduce the net financial commitment of your overseas degree by 30% to 100%.
+
+### 1. Types of International Scholarships Available:
+- **Government Prestigious Awards:** Fulbright (USA), Chevening & Commonwealth (UK), Australia Awards, DAAD (Germany).
+- **University Merit Waivers:** Automatic fee discounts ranging from $5,000 to full tuition based on GPA and standardized testing.
+- **Graduate Assistantships (RA/TA):** Tuition waivers combined with monthly living stipends in exchange for departmental research or tutoring.
+
+### 2. Strategic Timeline:
+Scholarship filing deadlines typically close 4 to 8 months earlier than standard intake deadlines. Filing during September to December for Fall admissions yields the highest consideration rate.
+
+Our advisory team assists students in mapping and submitting eligible institutional grant applications with verified fee waivers.`
+        },
+        {
+            id: 'page-seed-career',
+            slug: 'post-study-work-visas',
+            title: 'Post-Study Work Visas & Global Career Pathways',
+            category: 'Career Pathways',
+            heroTitle: 'Post-Study Work Rights, STEM Extensions & Global Employment',
+            heroSubtitle: 'Comparative analysis of post-study graduate employment visas, STEM extensions, and permanent residency options across Australia, the UK, Canada, and the United States.',
+            coverImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
+            author: 'Marcus Chen',
+            authorRole: 'Global Career Strategist',
+            updatedAt: 'October 2026',
+            status: 'published',
+            isCustom: false,
+            content: `A foreign degree is an international career accelerator. Understanding local work rights after graduation allows you to maximize your global return on investment.
+
+### 1. Key Country Post-Study Work Frameworks:
+- **United Kingdom (Graduate Route):** 2 years for Bachelor's/Master's; 3 years for Doctoral degrees without sponsor requirement.
+- **United States (OPT / STEM OPT):** 12 months standard Optional Practical Training, extendable by 24 additional months for STEM designated degree programs (36 months total).
+- **Canada (PGWP):** Up to 3 years Post-Graduation Work Permit for full-time degree programs at designated learning institutions.
+- **Australia (Subclass 485):** Graduate work authorization with regional study bonuses offering extra post-study years.
+
+### 2. Proactive Career Planning:
+Start internship networking during your second semester. Utilize university career fairs, alumni networks on LinkedIn, and campus industry liaisons to secure qualifying corporate roles.`
+        }
+    ];
+
+    // Seed Default Nav Items
+    const DEFAULT_NAV = [
+        {
+            id: 'nav-resources',
+            label: 'Resources',
+            icon: 'fa-book-bookmark',
+            type: 'dropdown',
+            isCustom: false,
+            items: [
+                { label: 'Visa Guide 2026', url: 'page.html?slug=visa-guide' },
+                { label: 'Scholarship Handbook', url: 'page.html?slug=scholarship-handbook' },
+                { label: 'Post-Study Work Visas', url: 'page.html?slug=post-study-work-visas' },
+                { label: 'Partner Universities Directory', url: 'universities-list.html' }
+            ]
+        }
+    ];
+
+    // Default Global Site Settings
+    const DEFAULT_SETTINGS = {
+        brandName: 'The Edu Consultants',
+        tagline: 'Premier Global University Admissions & Visa Advisory',
+        supportEmail: 'contact@theeduconsultants.org',
+        supportPhone: '+1 (800) 555-0199',
+        whatsappNumber: '+1 800 555 0199',
+        officeAddress: 'World Trade Center, Suite 4200, Financial District, New York, NY 10007',
+        workingHours: 'Mon - Sat: 9:00 AM - 7:00 PM EST',
+        socialTwitter: 'https://twitter.com',
+        socialLinkedin: 'https://linkedin.com',
+        socialInstagram: 'https://instagram.com',
+        socialFacebook: 'https://facebook.com',
+        copyrightNotice: '© 2026 The Edu Consultants. All rights reserved.'
+    };
+
     // CMS Engine Object
     const EduCMS = {
         // --- STORAGE RETRIEVAL & PERSISTENCE ---
@@ -352,6 +472,324 @@ Our pre-departure webinars connect incoming scholars with current university stu
 
         saveAnnouncement: function (announcementData) {
             localStorage.setItem(STORAGE_ANNOUNCEMENT, JSON.stringify(announcementData));
+        },
+
+        // --- CUSTOM PAGES CMS ---
+        getCustomPages: function () {
+            try {
+                const data = localStorage.getItem(STORAGE_PAGES);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                return [];
+            }
+        },
+
+        saveCustomPages: function (pages) {
+            localStorage.setItem(STORAGE_PAGES, JSON.stringify(pages));
+        },
+
+        getPages: function () {
+            const custom = this.getCustomPages();
+            return [...custom, ...DEFAULT_PAGES];
+        },
+
+        savePage: function (pageData) {
+            const user = (window.edAuth && window.edAuth.getUser) ? window.edAuth.getUser() : null;
+            if (window.EduSecurity && !window.EduSecurity.hasPermission(user, 'create_blog')) {
+                this.showToast('Authorization Denied (403)', 'Only Admissions Directors and Site Owners may create pages.', 'danger');
+                return null;
+            }
+
+            // Image Source Security Check
+            if (window.EduSecurity && pageData.coverImage) {
+                const imgCheck = window.EduSecurity.validateImageSource(pageData.coverImage);
+                if (!imgCheck.valid) {
+                    this.showToast('Security Alert', imgCheck.message, 'danger');
+                    return null;
+                }
+            }
+
+            // Generate clean slug
+            let cleanSlug = (pageData.slug || pageData.title || 'custom-page')
+                .toLowerCase()
+                .replace(/[^a-z0-9\- ]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim();
+            if (!cleanSlug) cleanSlug = 'custom-page-' + Date.now();
+
+            const safeTitle = window.EduSecurity ? window.EduSecurity.sanitizeText(pageData.title) : pageData.title.trim();
+            const safeCategory = window.EduSecurity ? window.EduSecurity.sanitizeText(pageData.category || 'General') : (pageData.category || 'General');
+            const safeHeroTitle = window.EduSecurity ? window.EduSecurity.sanitizeText(pageData.heroTitle || safeTitle) : (pageData.heroTitle || safeTitle);
+            const safeHeroSubtitle = window.EduSecurity ? window.EduSecurity.sanitizeText(pageData.heroSubtitle || '') : (pageData.heroSubtitle || '');
+            const safeAuthor = window.EduSecurity ? window.EduSecurity.sanitizeText(pageData.author || (user ? user.name : 'The Edu Consultants Editorial')) : (pageData.author || 'The Edu Consultants Editorial');
+            const safeContent = window.EduSecurity ? window.EduSecurity.sanitizeHTML(pageData.content) : pageData.content.trim();
+
+            const custom = this.getCustomPages();
+            const newPage = {
+                id: 'page-custom-' + Date.now(),
+                slug: cleanSlug,
+                title: safeTitle,
+                category: safeCategory,
+                heroTitle: safeHeroTitle,
+                heroSubtitle: safeHeroSubtitle,
+                coverImage: pageData.coverImage || 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80',
+                author: safeAuthor,
+                updatedAt: new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+                status: pageData.status || 'published',
+                content: safeContent,
+                isCustom: true,
+                createdAt: Date.now()
+            };
+
+            const existingIdx = custom.findIndex(p => p.slug === cleanSlug);
+            if (existingIdx >= 0) {
+                custom[existingIdx] = newPage;
+            } else {
+                custom.unshift(newPage);
+            }
+
+            this.saveCustomPages(custom);
+            return newPage;
+        },
+
+        deletePage: function (pageId) {
+            let custom = this.getCustomPages();
+            custom = custom.filter(p => p.id !== pageId);
+            this.saveCustomPages(custom);
+        },
+
+        // --- DYNAMIC NAVBAR & DROPDOWNS CMS ---
+        getCustomNav: function () {
+            try {
+                const data = localStorage.getItem(STORAGE_NAV);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                return [];
+            }
+        },
+
+        saveCustomNav: function (items) {
+            localStorage.setItem(STORAGE_NAV, JSON.stringify(items));
+        },
+
+        getNavItems: function () {
+            const custom = this.getCustomNav();
+            return [...custom, ...DEFAULT_NAV];
+        },
+
+        addNavDropdown: function (label, icon) {
+            const safeLabel = window.EduSecurity ? window.EduSecurity.sanitizeText(label) : label.trim();
+            const safeIcon = (icon || 'fa-folder-open').trim();
+
+            const custom = this.getCustomNav();
+            const newDropdown = {
+                id: 'nav-drop-' + Date.now(),
+                label: safeLabel,
+                icon: safeIcon,
+                type: 'dropdown',
+                isCustom: true,
+                items: []
+            };
+            custom.push(newDropdown);
+            this.saveCustomNav(custom);
+            return newDropdown;
+        },
+
+        addNavLinkToDropdown: function (dropdownId, label, url) {
+            const safeLabel = window.EduSecurity ? window.EduSecurity.sanitizeText(label) : label.trim();
+            const safeUrl = (url || '#').trim();
+
+            let custom = this.getCustomNav();
+            const target = custom.find(d => d.id === dropdownId);
+            if (target) {
+                if (!target.items) target.items = [];
+                target.items.push({ label: safeLabel, url: safeUrl });
+                this.saveCustomNav(custom);
+                return true;
+            }
+            return false;
+        },
+
+        deleteNavItem: function (navId) {
+            let custom = this.getCustomNav();
+            custom = custom.filter(i => i.id !== navId);
+            this.saveCustomNav(custom);
+        },
+
+        deleteNavSubLink: function (dropdownId, subIndex) {
+            let custom = this.getCustomNav();
+            const target = custom.find(d => d.id === dropdownId);
+            if (target && target.items && target.items[subIndex] !== undefined) {
+                target.items.splice(subIndex, 1);
+                this.saveCustomNav(custom);
+                return true;
+            }
+            return false;
+        },
+
+        renderCustomNavbar: function () {
+            const navItems = this.getNavItems();
+            if (!navItems || navItems.length === 0) return;
+
+            // 1. Desktop Header
+            const desktopNav = document.querySelector('header .navbar-nav');
+            if (desktopNav) {
+                desktopNav.querySelectorAll('.custom-nav-item').forEach(el => el.remove());
+
+                let contactItem = null;
+                desktopNav.querySelectorAll('li.nav-item').forEach(li => {
+                    const txt = li.textContent ? li.textContent.trim().toLowerCase() : '';
+                    if (txt.includes('contact')) {
+                        contactItem = li;
+                    }
+                });
+
+                navItems.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'nav-item dropdown custom-nav-item';
+
+                    if (item.type === 'dropdown' && item.items && item.items.length > 0) {
+                        const sublinksHtml = item.items.map(sub => 
+                            `<li><a class="dropdown-item py-2" href="${sub.url}"><i class="fa-solid fa-chevron-right me-2 text-warning fs-11"></i> ${sub.label}</a></li>`
+                        ).join('');
+
+                        li.innerHTML = `
+                            <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid ${item.icon || 'fa-folder-open'} me-1 text-primary"></i> ${item.label}
+                            </a>
+                            <ul class="dropdown-menu shadow border-0 rounded-3 mt-1 py-2" style="min-width: 220px;">
+                                ${sublinksHtml}
+                            </ul>
+                        `;
+                    } else {
+                        li.innerHTML = `
+                            <a class="nav-link fw-semibold" href="${item.url || '#'}">
+                                <i class="fa-solid ${item.icon || 'fa-link'} me-1 text-primary"></i> ${item.label}
+                            </a>
+                        `;
+                    }
+
+                    if (contactItem) {
+                        desktopNav.insertBefore(li, contactItem);
+                    } else {
+                        desktopNav.appendChild(li);
+                    }
+                });
+            }
+
+            // 2. Mobile Offcanvas Menu
+            const mobileNav = document.querySelector('.offcanvas .menu-navbar-nav');
+            if (mobileNav) {
+                mobileNav.querySelectorAll('.custom-nav-item').forEach(el => el.remove());
+
+                let contactItem = null;
+                mobileNav.querySelectorAll('li.nav-item').forEach(li => {
+                    const txt = li.textContent ? li.textContent.trim().toLowerCase() : '';
+                    if (txt.includes('contact')) {
+                        contactItem = li;
+                    }
+                });
+
+                navItems.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'nav-item dropdown custom-nav-item';
+
+                    if (item.type === 'dropdown' && item.items && item.items.length > 0) {
+                        const sublinksHtml = item.items.map(sub => 
+                            `<li><a class="dropdown-item py-1.5 text-dark fs-14" href="${sub.url}"><i class="fa-solid fa-arrow-right fs-10 text-warning me-2"></i> ${sub.label}</a></li>`
+                        ).join('');
+
+                        li.innerHTML = `
+                            <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid ${item.icon || 'fa-folder-open'} me-2 text-warning"></i> ${item.label}
+                            </a>
+                            <ul class="dropdown-menu border-0 bg-light rounded-3 ms-3 py-1">
+                                ${sublinksHtml}
+                            </ul>
+                        `;
+                    } else {
+                        li.innerHTML = `
+                            <a class="nav-link fw-semibold" href="${item.url || '#'}">
+                                <i class="fa-solid ${item.icon || 'fa-link'} me-2 text-warning"></i> ${item.label}
+                            </a>
+                        `;
+                    }
+
+                    if (contactItem) {
+                        mobileNav.insertBefore(li, contactItem);
+                    } else {
+                        mobileNav.appendChild(li);
+                    }
+                });
+            }
+        },
+
+        // --- GLOBAL WEBSITE SETTINGS ---
+        getSettings: function () {
+            try {
+                const data = localStorage.getItem(STORAGE_SETTINGS);
+                return data ? Object.assign({}, DEFAULT_SETTINGS, JSON.parse(data)) : DEFAULT_SETTINGS;
+            } catch (e) {
+                return DEFAULT_SETTINGS;
+            }
+        },
+
+        saveSettings: function (newSettings) {
+            const merged = Object.assign({}, this.getSettings(), newSettings);
+            localStorage.setItem(STORAGE_SETTINGS, JSON.stringify(merged));
+            this.applyGlobalSettings();
+            return merged;
+        },
+
+        applyGlobalSettings: function () {
+            const s = this.getSettings();
+            if (!s) return;
+
+            // Brand name
+            if (s.brandName) {
+                document.querySelectorAll('.global-brand-name').forEach(el => el.textContent = s.brandName);
+            }
+
+            // Support Phone
+            if (s.supportPhone) {
+                document.querySelectorAll('.global-phone-val').forEach(el => el.textContent = s.supportPhone);
+                const pDisp = document.getElementById('sidebarPhoneDisplay');
+                if (pDisp) pDisp.textContent = s.supportPhone;
+                document.querySelectorAll('a[href^="tel:"]').forEach(a => a.href = 'tel:' + s.supportPhone.replace(/[^0-9+]/g, ''));
+            }
+
+            // Support Email
+            if (s.supportEmail) {
+                document.querySelectorAll('.global-email-val').forEach(el => el.textContent = s.supportEmail);
+                const eDisp = document.getElementById('sidebarEmailDisplay');
+                if (eDisp) eDisp.textContent = s.supportEmail;
+                document.querySelectorAll('a[href^="mailto:"]').forEach(a => a.href = 'mailto:' + s.supportEmail);
+            }
+
+            // Office Address
+            if (s.officeAddress) {
+                document.querySelectorAll('.global-address-val').forEach(el => el.textContent = s.officeAddress);
+            }
+
+            // Copyright notice
+            if (s.copyrightNotice) {
+                document.querySelectorAll('.copyright-text, .footer-copywrite').forEach(el => el.textContent = s.copyrightNotice);
+            }
+
+            // Social media links
+            if (s.socialTwitter) {
+                document.querySelectorAll('a[href*="twitter.com"], a.social-twitter').forEach(a => a.href = s.socialTwitter);
+            }
+            if (s.socialLinkedin) {
+                document.querySelectorAll('a[href*="linkedin.com"], a.social-linkedin').forEach(a => a.href = s.socialLinkedin);
+            }
+            if (s.socialInstagram) {
+                document.querySelectorAll('a[href*="instagram.com"], a.social-instagram').forEach(a => a.href = s.socialInstagram);
+            }
+            if (s.socialFacebook) {
+                document.querySelectorAll('a[href*="facebook.com"], a.social-facebook').forEach(a => a.href = s.socialFacebook);
+            }
         },
 
         // --- TOAST NOTIFICATIONS ---
@@ -957,8 +1395,330 @@ Our pre-departure webinars connect incoming scholars with current university stu
                 });
             }
 
-            // 7. Update Dashboard KPI Badges
+            // 7. Bind "Page Builder Studio" Form
+            const pageForm = document.getElementById('adminNewPageForm');
+            if (pageForm) {
+                const titleInput = document.getElementById('pageTitleInput');
+                const slugInput = document.getElementById('pageSlugInput');
+                const catInput = document.getElementById('pageCategoryInput');
+                const heroTitleInput = document.getElementById('pageHeroTitleInput');
+                const heroSubInput = document.getElementById('pageHeroSubtitleInput');
+                const coverInput = document.getElementById('pageCoverImageInput');
+                const authorInput = document.getElementById('pageAuthorInput');
+                const statusInput = document.getElementById('pageStatusInput');
+                const contentInput = document.getElementById('pageContentInput');
+
+                let userSlugEdited = false;
+                if (slugInput) {
+                    slugInput.addEventListener('input', () => { userSlugEdited = true; });
+                }
+
+                const generateSlug = (val) => {
+                    return val.toLowerCase()
+                        .replace(/[^a-z0-9\- ]/g, '')
+                        .replace(/\s+/g, '-')
+                        .replace(/-+/g, '-')
+                        .trim();
+                };
+
+                const updatePagePreview = () => {
+                    const prevTitle = document.getElementById('livePreviewPageTitle');
+                    const prevSlug = document.getElementById('livePreviewPageSlug');
+                    const prevCat = document.getElementById('livePreviewPageCategory');
+                    const prevHero = document.getElementById('livePreviewPageHero');
+                    const prevContent = document.getElementById('livePreviewPageContent');
+                    const prevImage = document.getElementById('livePreviewPageImage');
+
+                    const titleVal = titleInput ? titleInput.value.trim() : '';
+                    if (!userSlugEdited && titleInput && slugInput && titleVal) {
+                        slugInput.value = generateSlug(titleVal);
+                    }
+
+                    if (prevTitle) prevTitle.textContent = titleVal || 'Your Webpage Title';
+                    if (prevSlug && slugInput) prevSlug.textContent = 'page.html?slug=' + (slugInput.value || 'custom-page');
+                    if (prevCat && catInput) prevCat.textContent = catInput.value || 'Admissions';
+                    if (prevHero && heroTitleInput) prevHero.textContent = heroTitleInput.value.trim() || titleVal || 'Page Hero Headline';
+                    if (prevContent && contentInput) {
+                        const snippet = contentInput.value.trim().substring(0, 180);
+                        prevContent.textContent = snippet ? snippet + '...' : 'Your comprehensive page content, guidance paragraphs, and advisory roadmap will appear here...';
+                    }
+                    if (prevImage && coverInput && coverInput.value) prevImage.src = coverInput.value;
+                };
+
+                [titleInput, slugInput, catInput, heroTitleInput, heroSubInput, coverInput, contentInput].forEach(inp => {
+                    if (inp) inp.addEventListener('input', updatePagePreview);
+                });
+
+                const autoSlugBtn = document.getElementById('autoGenerateSlugBtn');
+                if (autoSlugBtn && titleInput && slugInput) {
+                    autoSlugBtn.addEventListener('click', () => {
+                        slugInput.value = generateSlug(titleInput.value.trim() || 'page-' + Date.now());
+                        userSlugEdited = true;
+                        updatePagePreview();
+                    });
+                }
+
+                document.querySelectorAll('.page-image-preset-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const url = btn.getAttribute('data-url');
+                        if (url && coverInput) {
+                            coverInput.value = url;
+                            updatePagePreview();
+                        }
+                    });
+                });
+
+                pageForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const newPage = {
+                        title: titleInput.value,
+                        slug: slugInput ? slugInput.value : '',
+                        category: catInput ? catInput.value : 'Admissions',
+                        heroTitle: heroTitleInput ? heroTitleInput.value : titleInput.value,
+                        heroSubtitle: heroSubInput ? heroSubInput.value : '',
+                        coverImage: coverInput ? coverInput.value : '',
+                        author: authorInput ? authorInput.value : 'The Edu Consultants Editorial',
+                        status: statusInput ? statusInput.value : 'published',
+                        content: contentInput ? contentInput.value : ''
+                    };
+
+                    const saved = this.savePage(newPage);
+                    if (saved) {
+                        this.showToast('Page Published & Live!', `"${saved.title}" is now active at page.html?slug=${saved.slug}`);
+                        pageForm.reset();
+                        userSlugEdited = false;
+                        updatePagePreview();
+                        this.renderAdminPagesTable();
+                        this.renderAdminNavManager();
+                        this.updateAdminDashboardCounters();
+                    }
+                });
+            }
+
+            // 8. Bind "Dynamic Navbar Manager" Forms
+            const dropdownForm = document.getElementById('adminNewDropdownForm');
+            if (dropdownForm) {
+                dropdownForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const labelInput = document.getElementById('navDropdownLabelInput');
+                    const iconInput = document.getElementById('navDropdownIconInput');
+
+                    if (!labelInput || !labelInput.value.trim()) return;
+
+                    const added = this.addNavDropdown(labelInput.value, iconInput ? iconInput.value : 'fa-folder-open');
+                    this.showToast('Dropdown Menu Created!', `"${added.label}" added to the global website navbar.`);
+                    dropdownForm.reset();
+                    this.renderAdminNavManager();
+                    this.renderCustomNavbar();
+                    this.updateAdminDashboardCounters();
+                });
+            }
+
+            const addSublinkForm = document.getElementById('adminAddSublinkForm');
+            if (addSublinkForm) {
+                const presetSelect = document.getElementById('adminSublinkPagePresetSelect');
+                const titleInput = document.getElementById('adminSublinkTitleInput');
+                const urlInput = document.getElementById('adminSublinkUrlInput');
+
+                if (presetSelect) {
+                    presetSelect.addEventListener('change', () => {
+                        const selectedOpt = presetSelect.options[presetSelect.selectedIndex];
+                        if (selectedOpt && selectedOpt.value) {
+                            if (urlInput) urlInput.value = selectedOpt.value;
+                            if (titleInput && selectedOpt.getAttribute('data-title')) {
+                                titleInput.value = selectedOpt.getAttribute('data-title');
+                            }
+                        }
+                    });
+                }
+
+                addSublinkForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const dropSelect = document.getElementById('adminSublinkDropdownSelect');
+                    if (!dropSelect || !dropSelect.value) {
+                        this.showToast('Select Dropdown', 'Please choose a target dropdown menu.', 'danger');
+                        return;
+                    }
+                    if (!titleInput || !titleInput.value.trim()) {
+                        this.showToast('Missing Title', 'Please enter a title for the link.', 'danger');
+                        return;
+                    }
+
+                    const targetDropId = dropSelect.value;
+                    const linkLabel = titleInput.value;
+                    const linkUrl = urlInput ? urlInput.value : '#';
+
+                    this.addNavLinkToDropdown(targetDropId, linkLabel, linkUrl);
+                    this.showToast('Link Linked to Menu!', `"${linkLabel}" successfully linked to navbar dropdown.`);
+                    if (titleInput) titleInput.value = '';
+                    if (urlInput) urlInput.value = '';
+                    if (presetSelect) presetSelect.value = '';
+                    this.renderAdminNavManager();
+                    this.renderCustomNavbar();
+                });
+            }
+
+            // 9. Bind "Global Website Settings" Form
+            const settingsForm = document.getElementById('adminGlobalSettingsForm');
+            if (settingsForm) {
+                const s = this.getSettings();
+                const bNameInp = document.getElementById('settingBrandNameInput');
+                const tagInp = document.getElementById('settingTaglineInput');
+                const phoneInp = document.getElementById('settingPhoneInput');
+                const emailInp = document.getElementById('settingEmailInput');
+                const waInp = document.getElementById('settingWhatsappInput');
+                const addrInp = document.getElementById('settingAddressInput');
+                const hrsInp = document.getElementById('settingHoursInput');
+                const twInp = document.getElementById('settingTwitterInput');
+                const liInp = document.getElementById('settingLinkedinInput');
+                const igInp = document.getElementById('settingInstagramInput');
+                const fbInp = document.getElementById('settingFacebookInput');
+                const copyInp = document.getElementById('settingCopyrightInput');
+
+                if (bNameInp) bNameInp.value = s.brandName || '';
+                if (tagInp) tagInp.value = s.tagline || '';
+                if (phoneInp) phoneInp.value = s.supportPhone || '';
+                if (emailInp) emailInp.value = s.supportEmail || '';
+                if (waInp) waInp.value = s.whatsappNumber || '';
+                if (addrInp) addrInp.value = s.officeAddress || '';
+                if (hrsInp) hrsInp.value = s.workingHours || '';
+                if (twInp) twInp.value = s.socialTwitter || '';
+                if (liInp) liInp.value = s.socialLinkedin || '';
+                if (igInp) igInp.value = s.socialInstagram || '';
+                if (fbInp) fbInp.value = s.socialFacebook || '';
+                if (copyInp) copyInp.value = s.copyrightNotice || '';
+
+                settingsForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const updatedSettings = {
+                        brandName: bNameInp ? bNameInp.value.trim() : s.brandName,
+                        tagline: tagInp ? tagInp.value.trim() : s.tagline,
+                        supportPhone: phoneInp ? phoneInp.value.trim() : s.supportPhone,
+                        supportEmail: emailInp ? emailInp.value.trim() : s.supportEmail,
+                        whatsappNumber: waInp ? waInp.value.trim() : s.whatsappNumber,
+                        officeAddress: addrInp ? addrInp.value.trim() : s.officeAddress,
+                        workingHours: hrsInp ? hrsInp.value.trim() : s.workingHours,
+                        socialTwitter: twInp ? twInp.value.trim() : s.socialTwitter,
+                        socialLinkedin: liInp ? liInp.value.trim() : s.socialLinkedin,
+                        socialInstagram: igInp ? igInp.value.trim() : s.socialInstagram,
+                        socialFacebook: fbInp ? fbInp.value.trim() : s.socialFacebook,
+                        copyrightNotice: copyInp ? copyInp.value.trim() : s.copyrightNotice
+                    };
+
+                    this.saveSettings(updatedSettings);
+                    this.showToast('Global Settings Saved!', 'Brand details, contact info, and footers updated across all pages.');
+                });
+            }
+
+            // 10. Bind Owner Profile & Password Form
+            this.initAdminOwnerPanel();
+
+            // 11. Initial Render of Pages & Nav Tables
+            this.renderAdminPagesTable();
+            this.renderAdminNavManager();
+
+            // 12. Update Dashboard KPI Badges
             this.updateAdminDashboardCounters();
+        },
+
+        initAdminOwnerPanel: function () {
+            const owner = window.edAuth && window.edAuth.getOwnerCreds ? window.edAuth.getOwnerCreds() : null;
+            if (!owner) return;
+
+            const nameInput = document.getElementById('ownerNameInput');
+            const emailInput = document.getElementById('ownerEmailInput');
+            const avatarInput = document.getElementById('ownerAvatarInput');
+            const previewAvatar = document.getElementById('ownerAvatarPreview');
+
+            if (nameInput) nameInput.value = owner.name || 'The Edu Consultants Owner';
+            if (emailInput) emailInput.value = owner.email || 'admin@theeduconsultants.org';
+            if (avatarInput) avatarInput.value = owner.avatar || '';
+            if (previewAvatar && owner.avatar) previewAvatar.src = owner.avatar;
+
+            // Avatar preset buttons
+            document.querySelectorAll('.owner-avatar-preset-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const url = btn.getAttribute('data-url');
+                    if (url && avatarInput) {
+                        avatarInput.value = url;
+                        if (previewAvatar) previewAvatar.src = url;
+                    }
+                });
+            });
+
+            if (avatarInput && previewAvatar) {
+                avatarInput.addEventListener('input', () => {
+                    previewAvatar.src = avatarInput.value;
+                });
+            }
+
+            // Owner Profile Form submit
+            const profileForm = document.getElementById('adminOwnerProfileForm');
+            if (profileForm) {
+                profileForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const newName = nameInput ? nameInput.value : '';
+                    const newEmail = emailInput ? emailInput.value : '';
+                    const newAvatar = avatarInput ? avatarInput.value : '';
+
+                    if (window.edAuth && window.edAuth.updateOwnerProfile) {
+                        window.edAuth.updateOwnerProfile(newName, newEmail, newAvatar);
+                        document.querySelectorAll('.dashboard-admin-name').forEach(el => el.textContent = newName);
+                        document.querySelectorAll('.dashboard-admin-avatar').forEach(el => {
+                            if (newAvatar) el.src = newAvatar;
+                        });
+                        const topLabel = document.getElementById('topRoleSwitcherLabel');
+                        if (topLabel) topLabel.textContent = newName;
+                    }
+                });
+            }
+
+            // Owner Password Form submit
+            const passForm = document.getElementById('adminOwnerPasswordForm');
+            if (passForm) {
+                passForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const currentPass = document.getElementById('ownerCurrentPassInput') ? document.getElementById('ownerCurrentPassInput').value : '';
+                    const newPass = document.getElementById('ownerNewPassInput') ? document.getElementById('ownerNewPassInput').value : '';
+                    const confirmPass = document.getElementById('ownerConfirmPassInput') ? document.getElementById('ownerConfirmPassInput').value : '';
+
+                    if (newPass !== confirmPass) {
+                        this.showToast('Password Mismatch', 'New password and confirmation do not match.', 'danger');
+                        return;
+                    }
+
+                    if (window.edAuth && window.edAuth.changeOwnerPassword) {
+                        const success = window.edAuth.changeOwnerPassword(currentPass, newPass);
+                        if (success) {
+                            passForm.reset();
+                        }
+                    }
+                });
+            }
+
+            // Danger Zone: Reset to Factory Defaults
+            const resetBtn = document.getElementById('adminResetOwnerBtn');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    if (confirm('Are you sure you want to restore the Master Owner credentials back to factory defaults (admin@theeduconsultants.org / AdminMaster2026!)?')) {
+                        if (window.edAuth && window.edAuth.resetOwnerAccount) {
+                            window.edAuth.resetOwnerAccount();
+                        }
+                    }
+                });
+            }
+
+            // Danger Zone: Delete Session
+            const deleteBtn = document.getElementById('adminDeleteOwnerBtn');
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', () => {
+                    if (confirm('Are you sure you want to delete and wipe your owner admin session from this browser? You will need to log back in with master credentials.')) {
+                        if (window.edAuth && window.edAuth.deleteOwnerAccount) {
+                            window.edAuth.deleteOwnerAccount();
+                        }
+                    }
+                });
+            }
         },
 
         renderAdminBlogTable: function () {
@@ -1055,12 +1815,159 @@ Our pre-departure webinars connect incoming scholars with current university stu
             }).join('');
         },
 
+        renderAdminPagesTable: function () {
+            const tableBody = document.getElementById('adminPagesTableBody');
+            if (!tableBody) return;
+
+            const allPages = this.getPages();
+            if (allPages.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No custom pages yet. Use the Page Builder Studio to create your first page!</td></tr>`;
+                return;
+            }
+
+            tableBody.innerHTML = allPages.map(p => {
+                const badgeClass = p.status === 'published' ? 'bg-success-subtle text-success' : 'bg-secondary-subtle text-muted';
+                const customLabel = p.isCustom ? `<span class="badge bg-primary text-white ms-1" style="font-size: 10px;">Custom</span>` : `<span class="badge bg-light text-muted ms-1" style="font-size: 10px;">Curated</span>`;
+
+                return `
+                    <tr>
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="${p.coverImage || 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=100&q=80'}" width="44" height="44" class="rounded-3 object-fit-cover shadow-xs" alt="thumb"/>
+                                <div>
+                                    <div class="fw-bold text-dark text-truncate" style="max-width: 260px;">${p.title} ${customLabel}</div>
+                                    <div class="text-muted fs-12 font-monospace">page.html?slug=${p.slug}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-warning-subtle text-dark fw-bold">${p.category || 'General'}</span></td>
+                        <td><div class="fs-13 fw-semibold text-dark">${p.author || 'Editorial'}</div></td>
+                        <td><span class="badge ${badgeClass} text-capitalize">${p.status}</span></td>
+                        <td class="pe-4 text-end">
+                            <div class="btn-group btn-group-sm">
+                                <a href="page.html?slug=${p.slug}" target="_blank" class="btn btn-outline-secondary" title="View Live Webpage">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                                ${p.isCustom ? `
+                                    <button type="button" class="btn btn-outline-danger" onclick="if(confirm('Delete page: \\'${p.title}\\'?')){ window.EduCMS.deletePage('${p.id}'); window.EduCMS.renderAdminPagesTable(); window.EduCMS.renderAdminNavManager(); window.EduCMS.updateAdminDashboardCounters(); window.EduCMS.showToast('Page Deleted', 'Page removed successfully.'); }" title="Delete Page">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                ` : `
+                                    <button type="button" class="btn btn-outline-secondary opacity-50" disabled title="Curated system pages are protected">
+                                        <i class="fa-solid fa-lock"></i>
+                                    </button>
+                                `}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        },
+
+        renderAdminNavManager: function () {
+            const container = document.getElementById('adminNavItemsContainer');
+            const selectEl = document.getElementById('adminSublinkDropdownSelect');
+            const pagePresetSelect = document.getElementById('adminSublinkPagePresetSelect');
+
+            const allNav = this.getNavItems();
+
+            // Populate dropdown select options
+            if (selectEl) {
+                selectEl.innerHTML = '<option value="">-- Choose Dropdown Menu --</option>' + 
+                    allNav.filter(n => n.type === 'dropdown').map(n => `<option value="${n.id}">${n.label} ${n.isCustom ? '(Custom)' : '(Default)'}</option>`).join('');
+            }
+
+            // Populate page preset options
+            if (pagePresetSelect) {
+                const pages = this.getPages();
+                let html = '<option value="">-- Or Select Created Webpage --</option>';
+                html += '<optgroup label="Custom & Curated Pages">';
+                pages.forEach(p => {
+                    html += `<option value="page.html?slug=${p.slug}" data-title="${p.title}">📄 ${p.title} (${p.slug})</option>`;
+                });
+                html += '</optgroup>';
+                html += '<optgroup label="Main Site Portals">';
+                html += '<option value="universities-list.html" data-title="Universities Directory">🏛 Universities Directory</option>';
+                html += '<option value="blog-list.html" data-title="Admissions Blogs">📰 Admissions Blogs</option>';
+                html += '<option value="scholarship-list.html" data-title="Scholarships">🎓 Scholarships Directory</option>';
+                html += '<option value="subject-list.html" data-title="Explore Subjects">📚 Subject Pathways</option>';
+                html += '<option value="courses-programs-IELTS.html" data-title="IELTS Coaching">🗣 IELTS Preparation</option>';
+                html += '<option value="contact-us.html" data-title="Book Consultation">📅 Book Consultation</option>';
+                html += '</optgroup>';
+                pagePresetSelect.innerHTML = html;
+            }
+
+            if (!container) return;
+
+            if (allNav.length === 0) {
+                container.innerHTML = `<div class="p-4 text-center text-muted">No custom navbar dropdowns configured yet.</div>`;
+                return;
+            }
+
+            container.innerHTML = allNav.map(nav => {
+                const sublinks = nav.items || [];
+                const sublinksHtml = sublinks.length === 0 
+                    ? `<div class="text-muted fs-13 py-2 italic ps-4">No sub-links added yet. Use "Add Link to Dropdown" below.</div>`
+                    : sublinks.map((sub, idx) => `
+                        <div class="d-flex align-items-center justify-content-between p-2 rounded bg-white border mb-2 fs-13">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-arrow-turn-down-right text-warning ms-2"></i>
+                                <span class="fw-bold text-dark">${sub.label}</span>
+                                <span class="text-muted fs-12 font-monospace">(${sub.url})</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <a href="${sub.url}" target="_blank" class="btn btn-sm btn-outline-secondary py-0 px-2" title="Test link">
+                                    <i class="fa-solid fa-arrow-up-right-from-square fs-11"></i>
+                                </a>
+                                ${nav.isCustom ? `
+                                    <button type="button" class="btn btn-sm btn-outline-danger py-0 px-2" onclick="window.EduCMS.deleteNavSubLink('${nav.id}', ${idx}); window.EduCMS.renderAdminNavManager(); window.EduCMS.renderCustomNavbar(); window.EduCMS.showToast('Link Removed', 'Sub-link removed from dropdown.');">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `).join('');
+
+                return `
+                    <div class="card border rounded-3 p-3 mb-3 shadow-xs">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="rounded bg-primary-subtle text-primary p-2 fs-14">
+                                    <i class="fa-solid ${nav.icon || 'fa-folder-open'}"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-0">${nav.label} ${nav.isCustom ? '<span class="badge bg-primary text-white ms-1" style="font-size:10px;">Custom Dropdown</span>' : '<span class="badge bg-light text-muted ms-1" style="font-size:10px;">Default</span>'}</h6>
+                                    <span class="fs-12 text-muted">${sublinks.length} destination link(s) active</span>
+                                </div>
+                            </div>
+                            <div>
+                                ${nav.isCustom ? `
+                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="if(confirm('Delete dropdown menu \\'${nav.label}\\' and all its child links?')){ window.EduCMS.deleteNavItem('${nav.id}'); window.EduCMS.renderAdminNavManager(); window.EduCMS.renderCustomNavbar(); window.EduCMS.showToast('Dropdown Deleted', 'Dropdown menu removed.'); }">
+                                        <i class="fa-solid fa-trash-can me-1"></i> Delete Menu
+                                    </button>
+                                ` : `
+                                    <span class="badge bg-secondary-subtle text-muted fs-11">System Protected</span>
+                                `}
+                            </div>
+                        </div>
+                        <div class="bg-light p-2 rounded-2 mt-2">
+                            ${sublinksHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        },
+
         updateAdminDashboardCounters: function () {
             const blogCountEl = document.getElementById('adminTotalBlogsCounter');
             const uniCountEl = document.getElementById('adminTotalUnisCounter');
+            const pageCountEl = document.getElementById('adminTotalPagesCounter');
+            const navCountEl = document.getElementById('adminTotalNavCounter');
             
             if (blogCountEl) blogCountEl.textContent = this.getAllBlogs().length;
             if (uniCountEl) uniCountEl.textContent = this.getAllUnis().length;
+            if (pageCountEl) pageCountEl.textContent = this.getPages().length;
+            if (navCountEl) navCountEl.textContent = this.getNavItems().length;
         }
     };
 
@@ -1072,7 +1979,13 @@ Our pre-departure webinars connect incoming scholars with current university stu
         // 2. Render Top Announcement Banner on public pages
         EduCMS.renderAnnouncementBanner();
 
-        // 3. Auto-detect page type
+        // 3. Render Dynamic Navbar Menus across all pages
+        EduCMS.renderCustomNavbar();
+
+        // 4. Apply Global Site Settings across all pages
+        EduCMS.applyGlobalSettings();
+
+        // 5. Auto-detect page type
         const path = window.location.pathname.toLowerCase();
         if (path.includes('blog-list') || document.getElementById('dynamicBlogGrid')) {
             EduCMS.initBlogListPage();

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="pageMetaTitle">Custom Page | The Edu Consultants</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/edconsultants.css">
+</head>
+<body class="bg-white">
+
+    <!-- Top Announcement Bar (dynamic via cms.js) -->
+
+    <!-- Header Section -->
+    <header class="header-section">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between py-2">
+                <!-- Brand Logo -->
+                <a href="index.html" class="d-flex align-items-center text-decoration-none">
+                    <span class="fs-4 fw-800 text-brand-primary" style="color: #000064; font-weight: 800; letter-spacing: -0.5px;">The Edu Consultants</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="navbar navbar-expand-lg p-0">
+                    <div class="collapse navbar-collapse d-none d-lg-block">
+                        <ul class="navbar-nav align-items-center gap-1">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about-us-details.html">About Us</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Discover
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="universities-list.html">Universities</a></li>
+                                    <li><a class="dropdown-item" href="subject-list.html">Subjects</a></li>
+                                    <li><a class="dropdown-item" href="scholarship-list.html">Scholarships</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Courses
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="courses-programs-IELTS.html">IELTS</a></li>
+                                    <li><a class="dropdown-item" href="courses-programs-GRE.html">GRE</a></li>
+                                    <li><a class="dropdown-item" href="courses-programs-GMAT.html">GMAT</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="blog-list.html">Blogs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="event-list.html">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact-us.html">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Auth & Mobile Toggler -->
+                <div class="d-flex align-items-center gap-2">
+                    <div class="header-auth-slot d-none d-lg-flex align-items-center gap-2">
+                        <!-- Populated dynamically by auth.js -->
+                    </div>
+                    <button class="navbar-toggler menu-navbar-toggler d-lg-none shadow-none border-0" type="button"
+                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                        <i class="fa-solid fa-bars fs-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Offcanvas Menu -->
+    <div class="offcanvas offcanvas-start border-0" tabindex="-1" id="offcanvasNavbar">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title fw-bold" style="color: #000064;">The Edu Consultants</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav menu-navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="about-us-details.html">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="universities-list.html">Universities</a></li>
+                <li class="nav-item"><a class="nav-link" href="subject-list.html">Subjects</a></li>
+                <li class="nav-item"><a class="nav-link" href="scholarship-list.html">Scholarships</a></li>
+                <li class="nav-item"><a class="nav-link" href="blog-list.html">Blogs</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Inner Breadcrumb Section -->
+    <section class="inner-breadcrumb-section">
+        <div class="container">
+            <div class="inner-breadcrumb-wrap">
+                <span class="badge bg-warning text-dark fw-bold px-3 py-1.5 rounded-pill mb-2" id="pageCategoryBadge">Platform Guide</span>
+                <h4 class="inner-breadcrumb-title" id="pageBreadcrumbTitle">Custom Page</h4>
+                <ol class="breadcrumb inner-breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active text-white-50" id="pageBreadcrumbActive">Page Details</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="section-gap bg-white">
+        <div class="container">
+            <div class="row g-5">
+                <!-- Main Body -->
+                <div class="col-lg-8" id="pageMainCol">
+                    <div id="pageContentContainer">
+                        <div class="text-center py-5">
+                            <i class="fa-solid fa-spinner fa-spin fs-1 text-primary mb-3"></i>
+                            <p class="text-muted">Loading page content...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Consultation CTA Box -->
+                    <div class="p-4 rounded-4 border bg-secondary mb-4 shadow-sm">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 52px; height: 52px; background: #000064; color: #f5dc3c;">
+                                <i class="fa-solid fa-graduation-cap fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold text-dark mb-0">Need Expert Guidance?</h5>
+                                <span class="fs-12 text-muted">Study Abroad Advising</span>
+                            </div>
+                        </div>
+                        <p class="fs-14 text-muted mb-4">
+                            Connect with our licensed education counselors for 1-on-1 personalized profile evaluation, university selection, and scholarship filing.
+                        </p>
+                        <a href="contact-us.html" class="btn btn-warning w-100 py-3 rounded-pill fw-bold text-dark shadow-sm d-flex align-items-center justify-content-center gap-2">
+                            <span>Book Free 1-on-1 Consultation</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <!-- Quick Navigation Card -->
+                    <div class="p-4 rounded-4 border bg-white shadow-sm mb-4">
+                        <h6 class="fw-bold text-dark mb-3 text-uppercase fs-12 letter-spacing-1">Popular Portals</h6>
+                        <ul class="list-unstyled d-flex flex-column gap-2 mb-0 fs-14">
+                            <li><a href="universities-list.html" class="text-decoration-none text-dark d-flex align-items-center justify-content-between py-1 border-bottom"><span class="text-truncate">Partner Universities</span> <i class="fa-solid fa-chevron-right fs-11 text-muted"></i></a></li>
+                            <li><a href="scholarship-list.html" class="text-decoration-none text-dark d-flex align-items-center justify-content-between py-1 border-bottom"><span class="text-truncate">Scholarships & Grants</span> <i class="fa-solid fa-chevron-right fs-11 text-muted"></i></a></li>
+                            <li><a href="courses-programs-IELTS.html" class="text-decoration-none text-dark d-flex align-items-center justify-content-between py-1 border-bottom"><span class="text-truncate">IELTS Preparation</span> <i class="fa-solid fa-chevron-right fs-11 text-muted"></i></a></li>
+                            <li><a href="blog-list.html" class="text-decoration-none text-dark d-flex align-items-center justify-content-between py-1"><span class="text-truncate">Admissions Articles</span> <i class="fa-solid fa-chevron-right fs-11 text-muted"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Live Helpline Box -->
+                    <div class="p-4 rounded-4 border bg-primary text-white shadow-sm" style="background: linear-gradient(135deg, #000064, #06093b) !important;">
+                        <h6 class="fw-bold text-warning text-uppercase fs-12 mb-2">Direct Counselor Helpline</h6>
+                        <h4 class="fw-bold text-white mb-2" id="sidebarPhoneDisplay">+1 (800) 456-7890</h4>
+                        <p class="fs-13 text-white-50 mb-3" id="sidebarEmailDisplay">admissions@theeduconsultants.org</p>
+                        <a href="contact-us.html" class="btn btn-sm btn-outline-light rounded-pill px-3 py-2 fw-bold fs-12">
+                            <i class="fa-solid fa-envelope me-1"></i> Send Direct Inquiry
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row g-4 justify-content-between">
+                <div class="col-lg-3 col-md-4">
+                    <h4 class="footer-title">About The Edu Consultants</h4>
+                    <p class="footer-info">The Edu Consultants offers personalized support for students starting their study abroad journeys with top universities.</p>
+                </div>
+                <div class="col-lg-6 col-md-8">
+                    <div class="row g-4">
+                        <div class="col-sm-4 col-6">
+                            <h4 class="footer-title">Useful Links</h4>
+                            <ul class="footer-menu">
+                                <li><a href="about-us-details.html">About Us</a></li>
+                                <li><a href="contact-us.html">Contact Us</a></li>
+                                <li><a href="universities-list.html">Universities</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-6">
+                            <h4 class="footer-title">Explore</h4>
+                            <ul class="footer-menu">
+                                <li><a href="blog-list.html">Blog</a></li>
+                                <li><a href="subject-list.html">Discover a Subject</a></li>
+                                <li><a href="scholarship-list.html">Scholarship</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-6">
+                            <h4 class="footer-title">Programs</h4>
+                            <ul class="footer-menu">
+                                <li><a href="courses-programs-IELTS.html">IELTS</a></li>
+                                <li><a href="courses-programs-GRE.html">GRE</a></li>
+                                <li><a href="courses-programs-GMAT.html">GMAT</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="footer-title">Contact</h4>
+                    <p class="footer-contact-info"><i class="fa-solid fa-phone me-2"></i> <span class="global-phone-val">+1 (800) 456-7890</span></p>
+                    <p class="footer-contact-info"><i class="fa-solid fa-envelope me-2"></i> <span class="global-email-val">admissions@theeduconsultants.org</span></p>
+                    <p class="footer-contact-info"><i class="fa-solid fa-location-dot me-2"></i> <span class="global-address-val">Suite 400, Global Education Plaza, London & New York</span></p>
+                </div>
+            </div>
+            <div class="copyright-wrap mt-4 pt-3 border-top border-white-10 text-center">
+                <p class="copyright-text fs-13 text-white-50">© 2026 The Edu Consultants. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cms.js"></script>
+    <script src="js/edconsultants.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+
+            if (!slug) {
+                renderNotFound('No page slug was specified.');
+                return;
+            }
+
+            // Retrieve from custom pages
+            const pages = window.EduCMS ? window.EduCMS.getPages() : [];
+            const page = pages.find(p => p.slug === slug);
+
+            if (!page) {
+                renderNotFound(`The requested page "${slug}" could not be found.`);
+                return;
+            }
+
+            // Populate Content
+            document.title = `${page.title} | The Edu Consultants`;
+            const metaTitle = document.getElementById('pageMetaTitle');
+            if (metaTitle) metaTitle.textContent = `${page.title} | The Edu Consultants`;
+
+            document.getElementById('pageBreadcrumbTitle').textContent = page.title;
+            document.getElementById('pageBreadcrumbActive').textContent = page.title;
+            if (page.category) {
+                document.getElementById('pageCategoryBadge').textContent = page.category;
+            }
+
+            const container = document.getElementById('pageContentContainer');
+            container.innerHTML = `
+                <div class="mb-4">
+                    <h2 class="fw-800 text-dark mb-3" style="font-size: 2.2rem; line-height: 1.25;">${page.heroTitle || page.title}</h2>
+                    ${page.heroSubtitle ? `<p class="fs-17 text-muted leading-relaxed mb-4">${page.heroSubtitle}</p>` : ''}
+                    
+                    <div class="d-flex align-items-center gap-3 pb-4 mb-4 border-bottom text-muted fs-13 flex-wrap">
+                        <span><i class="fa-solid fa-user-pen text-primary me-1"></i> Author: <b>${page.author || 'The Edu Consultants Editorial'}</b></span>
+                        <span><i class="fa-regular fa-calendar-check text-success me-1"></i> Updated: <b>${page.updatedAt || 'Recently'}</b></span>
+                        <span class="badge bg-success-subtle text-success fw-bold">Verified Advisory</span>
+                    </div>
+
+                    ${page.coverImage ? `
+                        <div class="rounded-4 overflow-hidden mb-4 shadow-sm" style="max-height: 380px;">
+                            <img src="${page.coverImage}" class="w-100 h-100 object-fit-cover" alt="${page.title}"/>
+                        </div>
+                    ` : ''}
+
+                    <div class="page-rendered-body fs-16 text-dark" style="line-height: 1.85;">
+                        ${formatPageBody(page.content)}
+                    </div>
+                </div>
+            `;
+        });
+
+        function formatPageBody(raw) {
+            if (!raw) return '<p class="text-muted">No content provided for this page.</p>';
+            // If already HTML
+            if (raw.includes('<p>') || raw.includes('<div>') || raw.includes('<h3>')) {
+                return window.EduSecurity ? window.EduSecurity.sanitizeHTML(raw) : raw;
+            }
+            // Markdown-like paragraph conversion
+            return raw.split('\n\n').map(block => {
+                const trimmed = block.trim();
+                if (trimmed.startsWith('### ')) {
+                    return `<h4 class="fw-bold text-dark mt-4 mb-2">${trimmed.replace('### ', '')}</h4>`;
+                } else if (trimmed.startsWith('## ')) {
+                    return `<h3 class="fw-bold text-dark mt-4 mb-2">${trimmed.replace('## ', '')}</h3>`;
+                } else if (trimmed.startsWith('# ')) {
+                    return `<h2 class="fw-bold text-dark mt-4 mb-3">${trimmed.replace('# ', '')}</h2>`;
+                } else if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    const items = trimmed.split('\n').map(li => `<li>${li.replace(/^[-*]\s*/, '')}</li>`).join('');
+                    return `<ul class="my-3 ps-3">${items}</ul>`;
+                }
+                return `<p class="mb-3">${trimmed}</p>`;
+            }).join('');
+        }
+
+        function renderNotFound(msg) {
+            const container = document.getElementById('pageContentContainer');
+            container.innerHTML = `
+                <div class="p-5 text-center bg-light rounded-4 border">
+                    <div class="rounded-circle bg-warning-subtle text-warning mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                        <i class="fa-solid fa-file-circle-question fs-2"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-2">Page Not Found</h3>
+                    <p class="text-muted fs-14 mb-4">${msg}</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="index.html" class="btn btn-primary rounded-pill px-4 fw-bold">Return Home</a>
+                        <a href="universities-list.html" class="btn btn-outline-dark rounded-pill px-4 fw-bold">Explore Universities</a>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

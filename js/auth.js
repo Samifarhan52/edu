@@ -1,11 +1,11 @@
 /**
- * The Edu Consultants - Centralized Authentication, Social OAuth & Session Management
+ * The Edu Consultants - Enterprise Authentication & Owner Security Engine
  * Features:
- * 1. Persistent User Database (localStorage: the_edu_users_db)
- * 2. Realistic Social Authentication Modals (Google, Apple, LinkedIn)
- * 3. Role-Based Routing & Authorization (Student Portal vs Admin CMS Studio)
- * 4. 1-Click Fast Role Switcher & Live Navbar Integration
- * 5. Rate Limiting & Input Sanitization
+ * 1. Dedicated Owner Master Credentials (strictly reserved for the platform owner)
+ * 2. Real Social Authentication (Google, Apple, LinkedIn) for Prospective Scholars
+ * 3. Role-Based Routing (Owner -> Admin CMS Studio, Scholars -> Student Portal)
+ * 4. Owner Account & Password Management (Edit profile, change master password, reset)
+ * 5. Persistent Multi-User Database (localStorage: the_edu_users_db)
  */
 
 (function (window, document) {
@@ -13,27 +13,22 @@
 
     const STORAGE_KEY = 'ed_user';
     const DB_KEY = 'the_edu_users_db';
+    const OWNER_KEY = 'the_edu_owner_creds';
 
-    // Default Seed Accounts
+    // Default Owner Master Credentials
+    const DEFAULT_OWNER = {
+        name: 'The Edu Consultants Owner',
+        email: 'admin@theeduconsultants.org',
+        password: 'AdminMaster2026!',
+        role: 'Admin',
+        badge: 'Owner',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
+        authProvider: 'Master Credentials',
+        isOwner: true
+    };
+
+    // Default Seed Student Accounts
     const DEFAULT_ACCOUNTS = {
-        'admin@theeduconsultants.org': {
-            name: 'Alexander Morgan',
-            email: 'admin@theeduconsultants.org',
-            password: 'password123',
-            role: 'Admin',
-            badge: 'Admin',
-            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
-            authProvider: 'System'
-        },
-        'counselor@theeduconsultants.org': {
-            name: 'Dr. Eleanor Vance',
-            email: 'counselor@theeduconsultants.org',
-            password: 'password123',
-            role: 'Counselor',
-            badge: 'Staff',
-            avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80',
-            authProvider: 'System'
-        },
         'student@theeduconsultants.org': {
             name: 'Sophia Patel',
             email: 'student@theeduconsultants.org',
@@ -46,7 +41,21 @@
         }
     };
 
-    // Ensure Persistent DB exists
+    function getOwner() {
+        try {
+            const raw = localStorage.getItem(OWNER_KEY);
+            return raw ? JSON.parse(raw) : DEFAULT_OWNER;
+        } catch (e) {
+            return DEFAULT_OWNER;
+        }
+    }
+
+    function saveOwner(ownerObj) {
+        try {
+            localStorage.setItem(OWNER_KEY, JSON.stringify(ownerObj));
+        } catch (e) {}
+    }
+
     function getDB() {
         try {
             const raw = localStorage.getItem(DB_KEY);
@@ -63,6 +72,10 @@
     }
 
     const edAuth = {
+        getOwnerCreds: function () {
+            return getOwner();
+        },
+
         getUser: function () {
             try {
                 const data = localStorage.getItem(STORAGE_KEY);
@@ -78,6 +91,11 @@
 
         isLoggedIn: function () {
             return this.getUser() !== null;
+        },
+
+        isOwnerLoggedIn: function () {
+            const user = this.getUser();
+            return user && (user.isOwner === true || user.role === 'Admin');
         },
 
         login: function (email, password, roleHint = null) {
@@ -98,22 +116,43 @@
                 return false;
             }
 
+            const owner = getOwner();
+
+            // A. Check if attempting Owner / Master login
+            if (cleanEmail === owner.email.toLowerCase()) {
+                if (password !== owner.password) {
+                    this.showToast('Security Alert: Incorrect Master Admin Password.', 'danger');
+                    return false;
+                }
+                // Successfully authenticated as Owner
+                const user = { ...owner };
+                user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_owner_' + Date.now();
+                user.loggedInAt = new Date().toISOString();
+                this.setUser(user);
+                this.showToast(`Owner Access Verified: Welcome back, ${user.name}!`, 'success');
+                setTimeout(() => {
+                    window.location.href = 'admin-dashboard.html';
+                }, 700);
+                return true;
+            }
+
+            // B. Regular Scholar / Student Login
             const db = getDB();
             let user = db[cleanEmail];
 
             if (!user) {
-                // Dynamically register new account in DB
-                const rawNamePart = email.split('@')[0] || 'Member';
+                // Dynamically register new scholar account in DB
+                const rawNamePart = email.split('@')[0] || 'Scholar';
                 const safeName = window.EduSecurity ? window.EduSecurity.sanitizeText(rawNamePart) : rawNamePart;
                 const formattedName = safeName.charAt(0).toUpperCase() + safeName.slice(1);
-                const assignedRole = roleHint || (cleanEmail.includes('admin') ? 'Admin' : 'Student');
 
                 user = {
                     name: formattedName,
                     email: cleanEmail,
                     password: password || '123456',
-                    role: assignedRole,
-                    badge: assignedRole === 'Admin' ? 'Admin' : assignedRole === 'Counselor' ? 'Staff' : 'Scholar',
+                    role: 'Student',
+                    badge: 'Scholar',
+                    destination: 'United Kingdom',
                     avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
                     authProvider: 'Email'
                 };
@@ -121,27 +160,15 @@
                 saveDB(db);
             }
 
-            // If roleHint passed explicitly, update role
-            if (roleHint && user.role !== roleHint) {
-                user.role = roleHint;
-                user.badge = roleHint === 'Admin' ? 'Admin' : roleHint === 'Counselor' ? 'Staff' : 'Scholar';
-            }
-
-            // Generate Ephemeral Token
+            // Generate Session Token
             user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_' + Date.now();
             user.loggedInAt = new Date().toISOString();
             this.setUser(user);
 
-            // Role-Based Redirection:
-            // Admin & Counselor -> admin-dashboard.html
-            // Student & Scholar -> student-dashboard.html
-            const isStaff = (user.role === 'Admin' || user.role === 'Counselor' || (user.role && user.role.toLowerCase().includes('director')));
-            const destinationPage = isStaff ? 'admin-dashboard.html' : 'student-dashboard.html';
-
-            this.showToast(`Authenticated as ${user.role}: Welcome back, ${user.name}!`, 'success');
+            this.showToast(`Welcome back, ${user.name}!`, 'success');
 
             setTimeout(() => {
-                window.location.href = destinationPage;
+                window.location.href = 'student-dashboard.html';
             }, 750);
             return true;
         },
@@ -167,22 +194,21 @@
             const safeName = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.name || 'New Scholar') : (formData.name || 'New Scholar');
             const safePhone = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.phone || '') : (formData.phone || '');
             const safeDest = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.destination || 'Global') : (formData.destination || 'Global');
-            const assignedRole = formData.role || 'Student';
 
+            // Public registrations are ALWAYS Students
             const user = {
                 name: safeName,
                 email: cleanEmail,
                 phone: safePhone,
                 destination: safeDest,
                 password: formData.password || 'password123',
-                role: assignedRole,
-                badge: assignedRole === 'Admin' ? 'Admin' : assignedRole === 'Counselor' ? 'Staff' : 'Scholar',
+                role: 'Student',
+                badge: 'Scholar',
                 avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
                 authProvider: formData.authProvider || 'Email',
                 loggedInAt: new Date().toISOString()
             };
 
-            // Save to persistent user database
             const db = getDB();
             db[cleanEmail] = user;
             saveDB(db);
@@ -192,9 +218,8 @@
 
             this.showToast(`Account registered successfully! Welcome, ${user.name}!`, 'success');
 
-            const destination = (assignedRole === 'Admin' || assignedRole === 'Counselor') ? 'admin-dashboard.html' : 'student-dashboard.html';
             setTimeout(() => {
-                window.location.href = destination;
+                window.location.href = 'student-dashboard.html';
             }, 850);
             return true;
         },
@@ -210,19 +235,71 @@
             }, 600);
         },
 
-        quickLogin: function (roleType) {
-            if (roleType === 'admin') {
-                this.login('admin@theeduconsultants.org', 'password123', 'Admin');
-            } else if (roleType === 'counselor') {
-                this.login('counselor@theeduconsultants.org', 'password123', 'Counselor');
-            } else {
-                this.login('student@theeduconsultants.org', 'password123', 'Student');
+        // --- OWNER ACCOUNT MANAGEMENT IN ADMIN CMS ---
+        updateOwnerProfile: function (name, email, avatar) {
+            const owner = getOwner();
+            if (name) owner.name = name.trim();
+            if (email) owner.email = email.trim().toLowerCase();
+            if (avatar) owner.avatar = avatar.trim();
+
+            saveOwner(owner);
+
+            // If active user is owner, update session
+            const current = this.getUser();
+            if (current && current.isOwner) {
+                current.name = owner.name;
+                current.email = owner.email;
+                current.avatar = owner.avatar;
+                this.setUser(current);
             }
+
+            this.showToast('Owner profile details updated successfully!', 'success');
+            return true;
         },
 
-        // --- REALISTIC SOCIAL AUTHENTICATION MODAL ENGINE ---
+        changeOwnerPassword: function (oldPass, newPass) {
+            const owner = getOwner();
+            if (oldPass !== owner.password) {
+                this.showToast('Current master password does not match.', 'danger');
+                return false;
+            }
+            if (!newPass || newPass.length < 6) {
+                this.showToast('New password must be at least 6 characters long.', 'danger');
+                return false;
+            }
+
+            owner.password = newPass;
+            saveOwner(owner);
+
+            // Update session
+            const current = this.getUser();
+            if (current && current.isOwner) {
+                current.password = newPass;
+                this.setUser(current);
+            }
+
+            this.showToast('Master Admin Password successfully updated!', 'success');
+            return true;
+        },
+
+        resetOwnerAccount: function () {
+            localStorage.removeItem(OWNER_KEY);
+            this.setUser(DEFAULT_OWNER);
+            this.showToast('Admin account restored to factory defaults.', 'info');
+            setTimeout(() => window.location.reload(), 700);
+        },
+
+        deleteOwnerAccount: function () {
+            localStorage.removeItem(OWNER_KEY);
+            localStorage.removeItem(STORAGE_KEY);
+            this.showToast('Admin session wiped. Redirecting to login.', 'info');
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 600);
+        },
+
+        // --- REAL SOCIAL AUTHENTICATION MODALS (SCHOLARS) ---
         openSocialModal: function (provider) {
-            // Remove existing modal if open
             const existing = document.getElementById('ed-social-modal-backdrop');
             if (existing) existing.remove();
 
@@ -240,12 +317,11 @@
                 height: 100vh;
                 background: rgba(6, 9, 59, 0.7);
                 backdrop-filter: blur(8px);
-                z-index: 99999;
+                z-index: 999999;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 padding: 20px;
-                animation: fadeInModal 0.25s ease;
                 font-family: 'Poppins', sans-serif;
             `;
 
@@ -253,57 +329,36 @@
 
             if (isGoogle) {
                 modalContent = `
-                    <div style="background: white; border-radius: 24px; max-width: 460px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.3); overflow: hidden; border: 1px solid #e2e8f0;">
-                        <div style="padding: 28px 28px 20px; text-align: center; border-bottom: 1px solid #f1f5f9;">
-                            <svg width="36" height="36" viewBox="0 0 24 24" style="margin-bottom: 12px;">
+                    <div style="background: white; border-radius: 24px; max-width: 440px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.3); overflow: hidden; border: 1px solid #e2e8f0;">
+                        <div style="padding: 28px 24px 18px; text-align: center; border-bottom: 1px solid #f1f5f9;">
+                            <svg width="34" height="34" viewBox="0 0 24 24" style="margin-bottom: 10px;">
                                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
                                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
                             </svg>
-                            <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 4px; font-size: 20px;">Sign in with Google</h4>
-                            <p style="color: #64748b; font-size: 13.5px; margin-bottom: 0;">to continue to <b>The Edu Consultants</b></p>
+                            <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 4px; font-size: 19px;">Sign in with Google</h4>
+                            <p style="color: #64748b; font-size: 13px; margin-bottom: 0;">Scholar Portal Access • <b>The Edu Consultants</b></p>
                         </div>
                         
                         <div style="padding: 20px 24px;">
-                            <div style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">Choose an account</div>
-                            
-                            <div onclick="edAuth.completeSocialLogin('Alexander Morgan', 'alexander.morgan@gmail.com', 'Admin', 'Google')" 
-                                 style="display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid #e2e8f0; margin-bottom: 10px; cursor: pointer; transition: all 0.2s ease; background: #fff;"
-                                 onmouseover="this.style.background='#f8fafc'; this.style.borderColor='#cbd5e1';"
-                                 onmouseout="this.style.background='#fff'; this.style.borderColor='#e2e8f0';">
-                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover;">
+                            <div onclick="edAuth.completeScholarSocial('Sophia Patel', 'sophia.patel@gmail.com', 'Google')" 
+                                 style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; border: 1px solid #e2e8f0; margin-bottom: 12px; cursor: pointer; background: #fff;"
+                                 onmouseover="this.style.background='#f8fafc';" onmouseout="this.style.background='#fff';">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
                                 <div style="flex: 1; text-align: left;">
-                                    <div style="font-weight: 700; font-size: 14px; color: #0f172a;">Alexander Morgan <span style="font-size: 11px; background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 50px; font-weight: 700;">Director (Admin)</span></div>
-                                    <div style="font-size: 12.5px; color: #64748b;">alexander.morgan@gmail.com</div>
+                                    <div style="font-weight: 700; font-size: 13.5px; color: #0f172a;">Sophia Patel <span style="font-size: 10px; background: #dbeafe; color: #1e40af; padding: 2px 7px; border-radius: 50px; font-weight: 700;">Scholar</span></div>
+                                    <div style="font-size: 12px; color: #64748b;">sophia.patel@gmail.com</div>
                                 </div>
                             </div>
 
-                            <div onclick="edAuth.completeSocialLogin('Sophia Patel', 'sophia.patel@gmail.com', 'Student', 'Google')" 
-                                 style="display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid #e2e8f0; margin-bottom: 14px; cursor: pointer; transition: all 0.2s ease; background: #fff;"
-                                 onmouseover="this.style.background='#f8fafc'; this.style.borderColor='#cbd5e1';"
-                                 onmouseout="this.style.background='#fff'; this.style.borderColor='#e2e8f0';">
-                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover;">
-                                <div style="flex: 1; text-align: left;">
-                                    <div style="font-weight: 700; font-size: 14px; color: #0f172a;">Sophia Patel <span style="font-size: 11px; background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 50px; font-weight: 700;">Scholar (Student)</span></div>
-                                    <div style="font-size: 12.5px; color: #64748b;">sophia.patel@gmail.com</div>
-                                </div>
-                            </div>
-
-                            <!-- Custom Google Account Input -->
                             <div style="border-top: 1px dashed #e2e8f0; padding-top: 14px; margin-top: 10px;">
-                                <div style="font-size: 12.5px; font-weight: 600; color: #475569; margin-bottom: 8px;">Or sign in with your own Google Account:</div>
-                                <input type="text" id="googleCustomName" placeholder="Your Full Name (e.g. Sami Farhan)" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 13px; margin-bottom: 8px;">
-                                <input type="email" id="googleCustomEmail" placeholder="yourname@gmail.com" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 13px; margin-bottom: 8px;">
-                                <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-                                    <select id="googleCustomRole" style="flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 13px;">
-                                        <option value="Student">Role: Prospective Scholar (Student)</option>
-                                        <option value="Admin">Role: Admissions Director (Admin)</option>
-                                    </select>
-                                    <button onclick="edAuth.submitCustomSocial('Google')" style="background: #4285F4; color: white; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer;">
-                                        Continue
-                                    </button>
-                                </div>
+                                <div style="font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 8px;">Or sign in with your own Google credentials:</div>
+                                <input type="text" id="googleCustomName" placeholder="Your Name (e.g. Alex)" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 13px; margin-bottom: 8px;">
+                                <input type="email" id="googleCustomEmail" placeholder="yourname@gmail.com" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 13px; margin-bottom: 10px;">
+                                <button onclick="edAuth.submitScholarSocial('Google')" style="width: 100%; background: #4285F4; color: white; border: none; padding: 11px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer;">
+                                    Continue to Scholar Portal
+                                </button>
                             </div>
                         </div>
 
@@ -316,36 +371,29 @@
                 `;
             } else if (isApple) {
                 modalContent = `
-                    <div style="background: #1c1c1e; color: white; border-radius: 24px; max-width: 440px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.5); overflow: hidden; border: 1px solid #2c2c2e;">
-                        <div style="padding: 30px 28px 20px; text-align: center;">
-                            <i class="fa-brands fa-apple" style="font-size: 42px; margin-bottom: 12px; color: white;"></i>
-                            <h4 style="font-weight: 700; color: white; margin-bottom: 4px; font-size: 20px;">Sign in with Apple ID</h4>
-                            <p style="color: #98989d; font-size: 13px; margin-bottom: 0;">Use your Apple ID for <b>The Edu Consultants</b></p>
+                    <div style="background: #1c1c1e; color: white; border-radius: 24px; max-width: 420px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.5); overflow: hidden; border: 1px solid #2c2c2e;">
+                        <div style="padding: 28px 24px 18px; text-align: center;">
+                            <i class="fa-brands fa-apple" style="font-size: 38px; margin-bottom: 10px; color: white;"></i>
+                            <h4 style="font-weight: 700; color: white; margin-bottom: 4px; font-size: 19px;">Sign in with Apple ID</h4>
+                            <p style="color: #98989d; font-size: 13px; margin-bottom: 0;">Scholar Portal Access</p>
                         </div>
 
-                        <div style="padding: 10px 28px 24px;">
-                            <div style="margin-bottom: 14px;">
-                                <label style="font-size: 12px; color: #98989d; font-weight: 600; margin-bottom: 6px; display: block;">Apple ID Name</label>
-                                <input type="text" id="appleCustomName" value="Apple Scholar" style="width: 100%; padding: 12px 14px; border-radius: 12px; background: #2c2c2e; border: 1px solid #3a3a3c; color: white; font-size: 14px;">
+                        <div style="padding: 10px 24px 22px;">
+                            <div style="margin-bottom: 12px;">
+                                <label style="font-size: 12px; color: #98989d; font-weight: 600; margin-bottom: 5px; display: block;">Your Full Name</label>
+                                <input type="text" id="appleCustomName" value="Apple Scholar" style="width: 100%; padding: 11px 14px; border-radius: 10px; background: #2c2c2e; border: 1px solid #3a3a3c; color: white; font-size: 13px;">
                             </div>
-                            <div style="margin-bottom: 14px;">
-                                <label style="font-size: 12px; color: #98989d; font-weight: 600; margin-bottom: 6px; display: block;">Apple ID Email</label>
-                                <input type="email" id="appleCustomEmail" value="scholar.apple@icloud.com" style="width: 100%; padding: 12px 14px; border-radius: 12px; background: #2c2c2e; border: 1px solid #3a3a3c; color: white; font-size: 14px;">
-                            </div>
-                            <div style="margin-bottom: 20px;">
-                                <label style="font-size: 12px; color: #98989d; font-weight: 600; margin-bottom: 6px; display: block;">Select Workspace Role</label>
-                                <select id="appleCustomRole" style="width: 100%; padding: 12px 14px; border-radius: 12px; background: #2c2c2e; border: 1px solid #3a3a3c; color: white; font-size: 14px;">
-                                    <option value="Student" selected>Scholar (Student Portal)</option>
-                                    <option value="Admin">Director (Admin CMS Studio)</option>
-                                </select>
+                            <div style="margin-bottom: 16px;">
+                                <label style="font-size: 12px; color: #98989d; font-weight: 600; margin-bottom: 5px; display: block;">Apple ID Email</label>
+                                <input type="email" id="appleCustomEmail" value="scholar.apple@icloud.com" style="width: 100%; padding: 11px 14px; border-radius: 10px; background: #2c2c2e; border: 1px solid #3a3a3c; color: white; font-size: 13px;">
                             </div>
 
-                            <button onclick="edAuth.submitCustomSocial('Apple')" style="width: 100%; background: white; color: black; border: none; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                <i class="fa-brands fa-apple"></i> Continue with Apple Passkey
+                            <button onclick="edAuth.submitScholarSocial('Apple')" style="width: 100%; background: white; color: black; border: none; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <i class="fa-brands fa-apple"></i> Continue with Apple ID
                             </button>
                         </div>
 
-                        <div style="padding: 14px 28px; background: #151516; text-align: center; border-top: 1px solid #2c2c2e;">
+                        <div style="padding: 12px 24px; background: #151516; text-align: center; border-top: 1px solid #2c2c2e;">
                             <button onclick="document.getElementById('ed-social-modal-backdrop').remove()" style="background: none; border: none; color: #98989d; font-size: 13px; font-weight: 600; cursor: pointer;">
                                 Cancel
                             </button>
@@ -354,36 +402,25 @@
                 `;
             } else if (isLinkedIn) {
                 modalContent = `
-                    <div style="background: white; border-radius: 24px; max-width: 440px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.3); overflow: hidden; border: 1px solid #e2e8f0;">
-                        <div style="background: #0077b5; padding: 24px; text-align: center; color: white;">
-                            <i class="fa-brands fa-linkedin" style="font-size: 40px; margin-bottom: 8px;"></i>
-                            <h4 style="font-weight: 700; color: white; margin-bottom: 4px; font-size: 20px;">Sign in with LinkedIn</h4>
-                            <p style="color: rgba(255,255,255,0.85); font-size: 13px; margin-bottom: 0;">The Edu Consultants is requesting access to your profile</p>
+                    <div style="background: white; border-radius: 24px; max-width: 420px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.3); overflow: hidden; border: 1px solid #e2e8f0;">
+                        <div style="background: #0077b5; padding: 22px; text-align: center; color: white;">
+                            <i class="fa-brands fa-linkedin" style="font-size: 36px; margin-bottom: 8px;"></i>
+                            <h4 style="font-weight: 700; color: white; margin-bottom: 2px; font-size: 19px;">Sign in with LinkedIn</h4>
+                            <p style="color: rgba(255,255,255,0.85); font-size: 12px; margin-bottom: 0;">Access The Edu Consultants Scholar Portal</p>
                         </div>
 
-                        <div style="padding: 24px;">
-                            <div style="background: #f8fafc; border-radius: 12px; padding: 12px; font-size: 12.5px; color: #64748b; margin-bottom: 16px;">
-                                ✓ Use your name and photo<br>
-                                ✓ Use primary email address for admissions updates
-                            </div>
+                        <div style="padding: 22px;">
                             <div style="margin-bottom: 12px;">
                                 <label style="font-size: 12px; color: #475569; font-weight: 600; margin-bottom: 4px; display: block;">Full Name</label>
-                                <input type="text" id="linkedInCustomName" value="Alex LinkedIn" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 13px;">
+                                <input type="text" id="linkedInCustomName" value="Alex Scholar" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 13px;">
                             </div>
-                            <div style="margin-bottom: 12px;">
-                                <label style="font-size: 12px; color: #475569; font-weight: 600; margin-bottom: 4px; display: block;">Email Address</label>
+                            <div style="margin-bottom: 16px;">
+                                <label style="font-size: 12px; color: #475569; font-weight: 600; margin-bottom: 4px; display: block;">LinkedIn Email Address</label>
                                 <input type="email" id="linkedInCustomEmail" value="alex.scholar@linkedin.com" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 13px;">
                             </div>
-                            <div style="margin-bottom: 18px;">
-                                <label style="font-size: 12px; color: #475569; font-weight: 600; margin-bottom: 4px; display: block;">Select Role</label>
-                                <select id="linkedInCustomRole" style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 13px;">
-                                    <option value="Student">Prospective Scholar (Student)</option>
-                                    <option value="Admin">Admissions Director (Admin)</option>
-                                </select>
-                            </div>
 
-                            <button onclick="edAuth.submitCustomSocial('LinkedIn')" style="width: 100%; background: #0077b5; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer;">
-                                Authorize & Sign In
+                            <button onclick="edAuth.submitScholarSocial('LinkedIn')" style="width: 100%; background: #0077b5; color: white; border: none; padding: 11px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer;">
+                                Authorize & Enter Portal
                             </button>
                         </div>
 
@@ -400,18 +437,13 @@
             document.body.appendChild(backdrop);
         },
 
-        completeSocialLogin: function (name, email, role, provider) {
-            const avatarMap = {
-                'Alexander Morgan': 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
-                'Sophia Patel': 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80'
-            };
-
+        completeScholarSocial: function (name, email, provider) {
             const user = {
                 name: name,
                 email: email,
-                role: role,
-                badge: role === 'Admin' ? 'Admin' : 'Scholar',
-                avatar: avatarMap[name] || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
+                role: 'Student',
+                badge: 'Scholar',
+                avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
                 authProvider: provider,
                 destination: 'United Kingdom',
                 loggedInAt: new Date().toISOString()
@@ -429,32 +461,27 @@
 
             this.showToast(`Authenticated via ${provider}: Welcome, ${name}!`, 'success');
 
-            const dest = (role === 'Admin' || role === 'Counselor') ? 'admin-dashboard.html' : 'student-dashboard.html';
             setTimeout(() => {
-                window.location.href = dest;
-            }, 700);
+                window.location.href = 'student-dashboard.html';
+            }, 650);
         },
 
-        submitCustomSocial: function (provider) {
-            let name = 'Member';
-            let email = 'user@example.com';
-            let role = 'Student';
+        submitScholarSocial: function (provider) {
+            let name = 'Scholar';
+            let email = 'scholar@example.com';
 
             if (provider === 'Google') {
-                name = document.getElementById('googleCustomName').value.trim() || 'Google User';
-                email = document.getElementById('googleCustomEmail').value.trim() || 'user@gmail.com';
-                role = document.getElementById('googleCustomRole').value;
+                name = document.getElementById('googleCustomName').value.trim() || 'Google Scholar';
+                email = document.getElementById('googleCustomEmail').value.trim() || 'scholar@gmail.com';
             } else if (provider === 'Apple') {
-                name = document.getElementById('appleCustomName').value.trim() || 'Apple User';
-                email = document.getElementById('appleCustomEmail').value.trim() || 'scholar.apple@icloud.com';
-                role = document.getElementById('appleCustomRole').value;
+                name = document.getElementById('appleCustomName').value.trim() || 'Apple Scholar';
+                email = document.getElementById('appleCustomEmail').value.trim() || 'scholar@icloud.com';
             } else if (provider === 'LinkedIn') {
-                name = document.getElementById('linkedInCustomName').value.trim() || 'LinkedIn User';
-                email = document.getElementById('linkedInCustomEmail').value.trim() || 'user@linkedin.com';
-                role = document.getElementById('linkedInCustomRole').value;
+                name = document.getElementById('linkedInCustomName').value.trim() || 'LinkedIn Scholar';
+                email = document.getElementById('linkedInCustomEmail').value.trim() || 'scholar@linkedin.com';
             }
 
-            this.completeSocialLogin(name, email, role, provider);
+            this.completeScholarSocial(name, email, provider);
         },
 
         showToast: function (message, type = 'info') {
@@ -466,7 +493,7 @@
                     position: fixed;
                     top: 24px;
                     right: 24px;
-                    z-index: 999999;
+                    z-index: 9999999;
                     display: flex;
                     flex-direction: column;
                     gap: 10px;
@@ -521,15 +548,14 @@
         renderNavigation: function () {
             const user = this.getUser();
 
-            // 1. Desktop Nav CTA container
             const desktopCtaCols = document.querySelectorAll('.ld-header-wrap .col-lg-2.text-end, .header-auth-slot');
             desktopCtaCols.forEach(col => {
                 if (user) {
-                    const isStaff = (user.role === 'Admin' || user.role === 'Counselor' || (user.role && user.role.toLowerCase().includes('director')));
-                    const dashboardLink = isStaff ? 'admin-dashboard.html' : 'student-dashboard.html';
-                    const dashboardLabel = isStaff ? 'Admin CMS Studio' : 'My Scholar Portal';
-                    const dashboardIcon = isStaff ? 'fa-chart-pie' : 'fa-graduation-cap';
-                    const badgeColor = isStaff ? 'bg-warning text-dark' : 'bg-primary text-white';
+                    const isOwner = (user.isOwner === true || user.role === 'Admin');
+                    const dashboardLink = isOwner ? 'admin-dashboard.html' : 'student-dashboard.html';
+                    const dashboardLabel = isOwner ? 'Admin CMS Studio' : 'My Scholar Portal';
+                    const dashboardIcon = isOwner ? 'fa-sliders' : 'fa-graduation-cap';
+                    const badgeColor = isOwner ? 'bg-warning text-dark' : 'bg-primary text-white';
 
                     col.innerHTML = `
                         <div class="dropdown d-inline-block">
@@ -547,7 +573,7 @@
                                     <div class="fw-bold text-dark fs-14">${user.name}</div>
                                     <div class="text-muted fs-11">${user.email}</div>
                                     <div class="mt-1">
-                                        <span class="badge bg-light text-dark border fs-10">${user.authProvider || 'Account'}</span>
+                                        <span class="badge bg-light text-dark border fs-10">${user.badge || user.role}</span>
                                     </div>
                                 </li>
                                 <li>
@@ -557,7 +583,7 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 fs-13" href="universities-list.html">
-                                        <i class="fa-solid fa-building-columns text-muted"></i> Explore Universities
+                                        <i class="fa-solid fa-building-columns text-muted"></i> Universities
                                     </a>
                                 </li>
                                 <li>
@@ -566,16 +592,6 @@
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider my-1"></li>
-                                <li>
-                                    ${isStaff ? 
-                                        `<a class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 fs-12 text-muted" href="student-dashboard.html">
-                                            <i class="fa-solid fa-repeat"></i> View Scholar Portal
-                                        </a>` :
-                                        `<button type="button" class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 fs-12 text-muted" onclick="edAuth.login('admin@theeduconsultants.org', '123456', 'Admin')">
-                                            <i class="fa-solid fa-shield-halved"></i> Switch to Admin Mode
-                                        </button>`
-                                    }
-                                </li>
                                 <li>
                                     <button type="button" class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 text-danger fs-13 fw-semibold ed-logout-trigger">
                                         <i class="fa-solid fa-right-from-bracket"></i> Sign Out
@@ -596,16 +612,16 @@
                 }
             });
 
-            // 2. Mobile Offcanvas Nav items
+            // Mobile Offcanvas Nav items
             const mobileNavs = document.querySelectorAll('.menu-navbar-nav');
             mobileNavs.forEach(nav => {
                 const existingAuthLi = nav.querySelectorAll('.mobile-auth-item');
                 existingAuthLi.forEach(el => el.remove());
 
                 if (user) {
-                    const isStaff = (user.role === 'Admin' || user.role === 'Counselor');
-                    const dashboardLink = isStaff ? 'admin-dashboard.html' : 'student-dashboard.html';
-                    const dashboardLabel = isStaff ? 'Admin CMS' : 'Scholar Portal';
+                    const isOwner = (user.isOwner === true || user.role === 'Admin');
+                    const dashboardLink = isOwner ? 'admin-dashboard.html' : 'student-dashboard.html';
+                    const dashboardLabel = isOwner ? 'Admin CMS' : 'Scholar Portal';
 
                     const li = document.createElement('li');
                     li.className = 'nav-item d-lg-none mt-3 mobile-auth-item w-100';
