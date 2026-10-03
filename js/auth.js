@@ -158,7 +158,7 @@
                 this.showToast(`Owner Access Verified: Welcome back, ${user.name}!`, 'success');
                 setTimeout(() => {
                     window.location.href = 'admin-dashboard.html';
-                }, 700);
+                }, 150);
                 return true;
             }
 
@@ -187,7 +187,7 @@
 
             setTimeout(() => {
                 window.location.href = 'student-dashboard.html';
-            }, 750);
+            }, 150);
             return true;
         },
 
@@ -251,7 +251,7 @@
 
             setTimeout(() => {
                 window.location.href = 'student-dashboard.html';
-            }, 850);
+            }, 150);
             return true;
         },
 

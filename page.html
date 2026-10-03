@@ -244,7 +244,7 @@
                         </p>
                         <div class="footer-map-frame rounded-3 overflow-hidden shadow-sm border mb-2">
                             <iframe 
-                                src="https://maps.google.com/maps?q=Shanthala+Nagar,+Ashok+Nagar,+Bengaluru,+Karnataka+560025&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed" 
+                                src="" data-src="https://maps.google.com/maps?q=Shanthala+Nagar,+Ashok+Nagar,+Bengaluru,+Karnataka+560025&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed" 
                                 width="100%" 
                                 height="125" 
                                 style="border:0; display:block;" 
@@ -327,7 +327,7 @@
 
                     ${page.coverImage ? `
                         <div class="rounded-4 overflow-hidden mb-4 shadow-sm" style="max-height: 380px;">
-                            <img src="${page.coverImage}" class="w-100 h-100 object-fit-cover" alt="${page.title}"/>
+                            <img src="${page.coverImage}" class="w-100 h-100 object-fit-cover" alt="${page.title}" loading="lazy" decoding="async">
                         </div>
                     ` : ''}
 

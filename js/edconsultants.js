@@ -104,11 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     }
 
-    // 7. Video Modal Clean Lifecycle Management
+    // 7. Video Modal Clean Lifecycle Management (Lazy Loaded on Demand)
     const videoModal = document.getElementById('campusVideoModal');
     if (videoModal) {
         const iframe = videoModal.querySelector('iframe');
-        const defaultSrc = iframe ? iframe.getAttribute('src') || '' : '';
+        const defaultSrc = iframe ? (iframe.getAttribute('data-src') || iframe.getAttribute('src') || '') : '';
         videoModal.addEventListener('hidden.bs.modal', () => {
             if (iframe) iframe.setAttribute('src', '');
         });
@@ -117,6 +117,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 iframe.setAttribute('src', defaultSrc);
             }
         });
+    }
+
+    // 8. Deferred Lazy-Loading for Footer Google Maps (Zero initial page load impact)
+    const mapFrames = document.querySelectorAll('.footer-map-frame iframe');
+    if (mapFrames.length > 0) {
+        if ('IntersectionObserver' in window) {
+            const mapObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const iframe = entry.target;
+                        const dataSrc = iframe.getAttribute('data-src');
+                        if (dataSrc && !iframe.getAttribute('src')) {
+                            iframe.setAttribute('src', dataSrc);
+                        }
+                        obs.unobserve(iframe);
+                    }
+                });
+            }, { rootMargin: '300px 0px' });
+            mapFrames.forEach(iframe => {
+                if (iframe.getAttribute('data-src')) {
+                    mapObserver.observe(iframe);
+                }
+            });
+        } else {
+            mapFrames.forEach(iframe => {
+                const dataSrc = iframe.getAttribute('data-src');
+                if (dataSrc) iframe.setAttribute('src', dataSrc);
+            });
+        }
     }
 });
 
