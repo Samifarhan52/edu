@@ -1,5 +1,5 @@
 /**
- * The Edu Consultants - Mobile Scroll Journey Flow Controller
+ * The Edu Consultant - Mobile Scroll Journey Flow Controller
  * Controls the smartphone simulator, 3D zoom in/out, stage transitions and audio feedback
  */
 
@@ -89,7 +89,7 @@ class MobileJourneyEngine {
 
         // Update Dynamic Island
         if (this.islandStatus) {
-            this.islandStatus.textContent = stageTitles[index] || "The Edu Consultants Flow";
+            this.islandStatus.textContent = stageTitles[index] || "The Edu Consultant Flow";
         }
 
         // Update Bullets

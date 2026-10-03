@@ -1,6 +1,6 @@
 /* ==========================================================================
-   The Edu Consultants - Authentic Design System & Styles
-   Matching The Edu Consultants Colors, Typography, Buttons, Entry Reveals & Components
+   The Edu Consultant - Authentic Design System & Styles
+   Matching The Edu Consultant Colors, Typography, Buttons, Entry Reveals & Components
    ========================================================================== */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap");
@@ -1379,9 +1379,13 @@ a {
 
 /* Mobile Screens (< 768px) */
 @media (max-width: 767px) {
-    body, html {
-        overflow-x: hidden !important;
+    html {
+        overflow-x: hidden;
+    }
+    body {
+        overflow-x: hidden;
         max-width: 100vw;
+        position: relative;
     }
 
     .container, .container-fluid {
@@ -1893,11 +1897,14 @@ a {
    Dual Connect Widget (Direct Call vs WhatsApp Options)
    ========================================================================== */
 .edu-connect-wrapper {
-    position: fixed;
+    position: fixed !important;
     bottom: 25px;
     left: 25px;
-    z-index: 9980;
+    z-index: 99999 !important;
     font-family: "Nunito Sans", "Inter", sans-serif;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .edu-connect-pill-btn {
@@ -2103,13 +2110,23 @@ a {
 @media (max-width: 768px) {
     .edu-connect-wrapper {
         position: fixed !important;
-        bottom: 84px !important;
-        right: 16px !important;
+        bottom: calc(86px + env(safe-area-inset-bottom, 0px)) !important;
+        right: 14px !important;
         left: auto !important;
-        z-index: 10000 !important;
+        z-index: 99999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: translateZ(0) !important;
+        -webkit-transform: translateZ(0) !important;
     }
 
     .edu-connect-pill-btn {
+        display: inline-flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
         padding: 9px 15px 9px 12px !important;
         font-size: 13px !important;
         box-shadow: 0 8px 24px rgba(0, 0, 100, 0.45) !important;
@@ -2120,10 +2137,10 @@ a {
         right: 0 !important;
         left: auto !important;
         bottom: 54px !important;
-        width: min(340px, calc(100vw - 32px)) !important;
-        max-width: calc(100vw - 32px) !important;
+        width: min(340px, calc(100vw - 28px)) !important;
+        max-width: calc(100vw - 28px) !important;
         border-radius: 18px !important;
-        z-index: 10001 !important;
+        z-index: 100000 !important;
     }
 }
 

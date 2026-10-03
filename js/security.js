@@ -1,5 +1,5 @@
 /**
- * The Edu Consultants - Enterprise Security & Reliability Module
+ * The Edu Consultant - Enterprise Security & Reliability Module
  * Implements:
  * 1. Client-Side & Action Rate Limiting (Brute force & spam defense)
  * 2. Strict Input Validation & XSS Sanitization

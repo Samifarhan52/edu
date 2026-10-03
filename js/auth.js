@@ -1,5 +1,5 @@
 /**
- * The Edu Consultants - Enterprise Authentication & Owner Security Engine
+ * The Edu Consultant - Enterprise Authentication & Owner Security Engine
  * Features:
  * 1. Dedicated Owner Master Credentials (strictly reserved for the platform owner)
  * 2. Real Social Authentication (Google, Apple, LinkedIn) for Prospective Scholars
@@ -17,8 +17,8 @@
 
     // Default Owner Master Credentials
     const DEFAULT_OWNER = {
-        name: 'The Edu Consultants Owner',
-        email: 'admin@theeduconsultants.org',
+        name: 'The Edu Consultant Owner',
+        email: 'admin@theeduconsultant.com',
         password: 'AdminMaster2026!',
         role: 'Admin',
         badge: 'Owner',
@@ -29,9 +29,9 @@
 
     // Default Seed Student Accounts (Pre-registered for immediate scholar access)
     const DEFAULT_ACCOUNTS = {
-        'student@theeduconsultants.org': {
+        'student@theeduconsultant.com': {
             name: 'Sophia Patel',
-            email: 'student@theeduconsultants.org',
+            email: 'student@theeduconsultant.com',
             password: 'password123',
             role: 'Student',
             badge: 'Scholar',
@@ -39,9 +39,9 @@
             avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80',
             authProvider: 'Email'
         },
-        'lucas@theeduconsultants.org': {
+        'lucas@theeduconsultant.com': {
             name: 'Lucas Miller',
-            email: 'lucas@theeduconsultants.org',
+            email: 'lucas@theeduconsultant.com',
             password: 'password123',
             role: 'Student',
             badge: 'Scholar',
@@ -49,9 +49,9 @@
             avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
             authProvider: 'Email'
         },
-        'amina@theeduconsultants.org': {
+        'amina@theeduconsultant.com': {
             name: 'Amina Khan',
-            email: 'amina@theeduconsultants.org',
+            email: 'amina@theeduconsultant.com',
             password: 'password123',
             role: 'Student',
             badge: 'Scholar',
@@ -140,7 +140,7 @@
             const owner = getOwner();
 
             // A. Check if attempting Owner / Master login
-            const isOwnerEmail = (cleanEmail === owner.email.toLowerCase() || cleanEmail === 'adm.faraz@gmail.com' || cleanEmail === 'admin@theeduconsultants.org');
+            const isOwnerEmail = (cleanEmail === owner.email.toLowerCase() || cleanEmail === 'adm.faraz@gmail.com' || cleanEmail === 'admin@theeduconsultant.com');
             if (isOwnerEmail) {
                 if (password !== owner.password && password !== 'AdminMaster2026!' && password !== 'Faraz2026!') {
                     this.showToast('Security Alert: Incorrect Master Admin Password.', 'danger');
@@ -369,7 +369,7 @@
                                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
                             </svg>
                             <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 4px; font-size: 19px;">Sign in with Google</h4>
-                            <p style="color: #64748b; font-size: 13px; margin-bottom: 0;">Scholar Portal Access • <b>The Edu Consultants</b></p>
+                            <p style="color: #64748b; font-size: 13px; margin-bottom: 0;">Scholar Portal Access • <b>The Edu Consultant</b></p>
                         </div>
                         
                         <div style="padding: 20px 24px;">
@@ -437,7 +437,7 @@
                         <div style="background: #0077b5; padding: 22px; text-align: center; color: white;">
                             <i class="fa-brands fa-linkedin" style="font-size: 36px; margin-bottom: 8px;"></i>
                             <h4 style="font-weight: 700; color: white; margin-bottom: 2px; font-size: 19px;">Sign in with LinkedIn</h4>
-                            <p style="color: rgba(255,255,255,0.85); font-size: 12px; margin-bottom: 0;">Access The Edu Consultants Scholar Portal</p>
+                            <p style="color: rgba(255,255,255,0.85); font-size: 12px; margin-bottom: 0;">Access The Edu Consultant Scholar Portal</p>
                         </div>
 
                         <div style="padding: 22px;">

@@ -1,5 +1,5 @@
 /**
- * The Edu Consultants - Advanced Dynamic CMS Engine & Viewport Controller
+ * The Edu Consultant - Advanced Dynamic CMS Engine & Viewport Controller
  * Powers:
  * 1. Blog & Article CMS (Create, Edit, Delete, Draft/Publish, Reader Modal, Live Search)
  * 2. University Directory CMS (Add, Manage, Search, Country Filter)
@@ -40,7 +40,7 @@ Avoid generic essays. Address the specific department faculty, mention lab facil
 ### 3. Early Filing is Non-Negotiable
 Scholarship committees evaluate applications on rolling admission cycles. Submitting your file 3 to 4 months prior to standard deadlines increases your grant probability by up to 60%.
 
-Connect with The Edu Consultants advisors today to review institutional scholarship waivers for the upcoming 2026 intake.`,
+Connect with The Edu Consultant advisors today to review institutional scholarship waivers for the upcoming 2026 intake.`,
             status: 'published',
             isCustom: false
         },
@@ -61,7 +61,7 @@ Connect with The Edu Consultants advisors today to review institutional scholars
 2. **Credential Evaluation & Notarization:** Check whether your target institution requires WES or APS verification early to prevent administrative processing delays.
 3. **Quantified Resume:** Highlight impact metrics in your resume—such as projects led, teams managed, and technical proficiencies mastered.
 
-At The Edu Consultants, our advisors conduct complete diagnostic profile evaluations to maximize admissions success.`,
+At The Edu Consultant, our advisors conduct complete diagnostic profile evaluations to maximize admissions success.`,
             status: 'published',
             isCustom: false
         },
@@ -231,7 +231,7 @@ Whether drafting the Australian Genuine Student (GS) submission or the UK CAS st
 ### 3. Embassy Interview Preparation
 Practice concise, honest, and proactive answers. Demonstrate deep familiarity with your course modules and future employer targets.
 
-Connect with The Edu Consultants authorized visa counselors to conduct mock visa interviews and dossier verifications.`
+Connect with The Edu Consultant authorized visa counselors to conduct mock visa interviews and dossier verifications.`
         },
         {
             id: 'page-seed-scholarships',
@@ -289,7 +289,7 @@ Start internship networking during your second semester. Utilize university care
 
     // Default Global Site Settings
     const DEFAULT_SETTINGS = {
-        brandName: 'The Edu Consultants',
+        brandName: 'The Edu Consultant',
         tagline: 'Premier Global University Admissions & Visa Advisory',
         supportEmail: 'enquiry@theeduconsultant.com',
         adminEmail: 'adm.faraz@gmail.com',
@@ -302,7 +302,7 @@ Start internship networking during your second semester. Utilize university care
         socialLinkedin: 'https://linkedin.com',
         socialInstagram: 'https://instagram.com',
         socialFacebook: 'https://facebook.com',
-        copyrightNotice: '© 2026 The Edu Consultants. All rights reserved.'
+        copyrightNotice: '© 2026 The Edu Consultant. All rights reserved.'
     };
 
     // CMS Engine Object
@@ -358,7 +358,7 @@ Start internship networking during your second semester. Utilize university care
                 readTime: blogData.readTime || '4 min read',
                 date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
                 author: safeAuthor,
-                authorRole: blogData.authorRole || 'The Edu Consultants Staff',
+                authorRole: blogData.authorRole || 'The Edu Consultant Staff',
                 image: blogData.image || 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
                 summary: safeSummary,
                 content: safeContent,
@@ -510,7 +510,7 @@ Start internship networking during your second semester. Utilize university care
             const safeCategory = window.EduSecurity ? window.EduSecurity.sanitizeText(pageData.category || 'General') : (pageData.category || 'General');
             const safeHeroTitle = window.EduSecurity ? window.EduSecurity.sanitizeText(pageData.heroTitle || safeTitle) : (pageData.heroTitle || safeTitle);
             const safeHeroSubtitle = window.EduSecurity ? window.EduSecurity.sanitizeText(pageData.heroSubtitle || '') : (pageData.heroSubtitle || '');
-            const safeAuthor = window.EduSecurity ? window.EduSecurity.sanitizeText(pageData.author || (user ? user.name : 'The Edu Consultants Editorial')) : (pageData.author || 'The Edu Consultants Editorial');
+            const safeAuthor = window.EduSecurity ? window.EduSecurity.sanitizeText(pageData.author || (user ? user.name : 'The Edu Consultant Editorial')) : (pageData.author || 'The Edu Consultant Editorial');
             const safeContent = window.EduSecurity ? window.EduSecurity.sanitizeHTML(pageData.content) : pageData.content.trim();
 
             const custom = this.getCustomPages();
@@ -897,11 +897,11 @@ Start internship networking during your second semester. Utilize university care
                     <i class="fa-solid fa-building-columns"></i>
                     <span>Universities</span>
                 </a>
-                <button type="button" class="dock-item dock-item-highlight" id="dockJourneyTrigger" title="Interactive Journey Flow">
-                    <div class="dock-highlight-circle">
-                        <i class="fa-solid fa-compass"></i>
+                <button type="button" class="dock-item dock-item-highlight" id="dockConnectTrigger" title="Connect With Us (Call & WhatsApp)">
+                    <div class="dock-highlight-circle" style="background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); box-shadow: 0 4px 14px rgba(37, 211, 102, 0.45);">
+                        <i class="fa-solid fa-phone-volume text-white" style="font-size: 15px;"></i>
                     </div>
-                    <span>Journey</span>
+                    <span style="font-weight: 800; color: #15803d;">Connect</span>
                 </button>
                 <a href="blog-list.html" class="dock-item ${isBlogs ? 'active' : ''}">
                     <div class="position-relative">
@@ -918,18 +918,21 @@ Start internship networking during your second semester. Utilize university care
 
             document.body.appendChild(dock);
 
-            // Connect Journey Trigger in Dock
-            const dockJourney = document.getElementById('dockJourneyTrigger');
-            if (dockJourney) {
-                dockJourney.addEventListener('click', () => {
-                    if (window.MobileJourneyFlow && typeof window.MobileJourneyFlow.open === 'function') {
-                        window.MobileJourneyFlow.open();
-                    } else if (document.getElementById('journeySection')) {
-                        document.getElementById('journeySection').scrollIntoView({ behavior: 'smooth' });
-                    } else {
-                        window.location.href = 'index.html#journeySection';
+            // Connect Trigger in Mobile Dock
+            const dockConnect = document.getElementById('dockConnectTrigger');
+            if (dockConnect) {
+                const handleConnect = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const card = document.getElementById('eduConnectCard');
+                    if (card) {
+                        card.classList.toggle('active');
+                    } else if (window.EduLeads && typeof window.EduLeads.openMeetingModal === 'function') {
+                        window.EduLeads.openMeetingModal();
                     }
-                });
+                };
+                dockConnect.addEventListener('click', handleConnect);
+                dockConnect.addEventListener('touchend', handleConnect);
             }
         },
 
@@ -1480,7 +1483,7 @@ Start internship networking during your second semester. Utilize university care
                         heroTitle: heroTitleInput ? heroTitleInput.value : titleInput.value,
                         heroSubtitle: heroSubInput ? heroSubInput.value : '',
                         coverImage: coverInput ? coverInput.value : '',
-                        author: authorInput ? authorInput.value : 'The Edu Consultants Editorial',
+                        author: authorInput ? authorInput.value : 'The Edu Consultant Editorial',
                         status: statusInput ? statusInput.value : 'published',
                         content: contentInput ? contentInput.value : ''
                     };
@@ -1633,8 +1636,8 @@ Start internship networking during your second semester. Utilize university care
             const avatarInput = document.getElementById('ownerAvatarInput');
             const previewAvatar = document.getElementById('ownerAvatarPreview');
 
-            if (nameInput) nameInput.value = owner.name || 'The Edu Consultants Owner';
-            if (emailInput) emailInput.value = owner.email || 'admin@theeduconsultants.org';
+            if (nameInput) nameInput.value = owner.name || 'The Edu Consultant Owner';
+            if (emailInput) emailInput.value = owner.email || 'admin@theeduconsultant.com';
             if (avatarInput) avatarInput.value = owner.avatar || '';
             if (previewAvatar && owner.avatar) previewAvatar.src = owner.avatar;
 
@@ -1703,7 +1706,7 @@ Start internship networking during your second semester. Utilize university care
             const resetBtn = document.getElementById('adminResetOwnerBtn');
             if (resetBtn) {
                 resetBtn.addEventListener('click', () => {
-                    if (confirm('Are you sure you want to restore the Master Owner credentials back to factory defaults (admin@theeduconsultants.org / AdminMaster2026!)?')) {
+                    if (confirm('Are you sure you want to restore the Master Owner credentials back to factory defaults (admin@theeduconsultant.com / AdminMaster2026!)?')) {
                         if (window.edAuth && window.edAuth.resetOwnerAccount) {
                             window.edAuth.resetOwnerAccount();
                         }

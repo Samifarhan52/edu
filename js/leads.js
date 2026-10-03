@@ -1,5 +1,5 @@
 /**
- * The Edu Consultants - Communications, Leads, WhatsApp & Meetings Engine
+ * The Edu Consultant - Communications, Leads, WhatsApp & Meetings Engine
  * Features:
  * 1. Dual Connect Widget (Direct Call vs WhatsApp vs Schedule Meeting)
  * 2. Schedule Meeting Interactive Modal & Form Booking
@@ -20,7 +20,7 @@
         adminEmail: 'adm.faraz@gmail.com',
         enquiryEmail: 'enquiry@theeduconsultant.com',
         noreplyEmail: 'noreply@theeduconsultant.com',
-        brandName: 'The Edu Consultants',
+        brandName: 'The Edu Consultant',
         storageKey: 'theeduconsultants_leads',
         meetingsStorageKey: 'theeduconsultants_meetings',
         emailsStorageKey: 'theeduconsultants_email_logs',
@@ -215,7 +215,7 @@
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement('a');
             link.setAttribute('href', encodedUri);
-            link.setAttribute('download', `the-edu-consultants-leads-${new Date().toISOString().slice(0, 10)}.csv`);
+            link.setAttribute('download', `the-edu-consultant-leads-${new Date().toISOString().slice(0, 10)}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -223,13 +223,13 @@
 
         getWhatsAppUrl: function (lead) {
             const lines = [
-                `*New Student Inquiry - The Edu Consultants*`,
+                `*New Student Inquiry - The Edu Consultant*`,
                 `👤 *Name:* ${lead.name || 'Student'}`,
                 `📞 *Phone:* ${lead.phone || 'N/A'}`,
                 `✉️ *Email:* ${lead.email || 'N/A'}`,
                 `🎯 *Program / Country:* ${lead.destination || 'Study Abroad Counseling'}`,
                 `💬 *Query:* ${lead.message || 'I would like to speak with a senior admissions counselor.'}`,
-                `\n_Sent via The Edu Consultants Portal (${lead.source || 'Website'})_`
+                `\n_Sent via The Edu Consultant Portal (${lead.source || 'Website'})_`
             ];
             const msg = encodeURIComponent(lines.join('\n'));
             return `https://wa.me/${CONFIG.whatsappInternational}?text=${msg}`;
@@ -417,7 +417,7 @@ Message: ${lead.message}`, 'color: #000064; font-weight: bold;', 'color: #333;')
 
             const waTextLines = [
                 `🗓️ *NEW MEETING SCHEDULE REQUEST*`,
-                `*The Edu Consultants - Senior Advisory Booking*`,
+                `*The Edu Consultant - Senior Advisory Booking*`,
                 `----------------------------------------`,
                 `📌 *Booking ID:* ${newMeeting.id}`,
                 `👤 *Student Name:* ${newMeeting.name}`,
@@ -435,7 +435,7 @@ Message: ${lead.message}`, 'color: #000064; font-weight: bold;', 'color: #333;')
                 `👉 *CLICK TO RE-SCHEDULE MEETING:*`,
                 `${rescheduleUrl}`,
                 `----------------------------------------`,
-                `_Auto-generated from The Edu Consultants Portal_`
+                `_Auto-generated from The Edu Consultant Portal_`
             ];
 
             const waEncoded = encodeURIComponent(waTextLines.join('\n'));
@@ -487,12 +487,12 @@ Message: ${lead.message}`, 'color: #000064; font-weight: bold;', 'color: #333;')
                 from: CONFIG.noreplyEmail,
                 to: meeting.email,
                 cc: `${CONFIG.adminEmail}, ${CONFIG.enquiryEmail}`,
-                subject: `Confirmed: Your 1-on-1 Advisory Session with The Edu Consultants [${meeting.id}]`,
+                subject: `Confirmed: Your 1-on-1 Advisory Session with The Edu Consultant [${meeting.id}]`,
                 date: new Date().toISOString(),
                 dateFormatted: formatDateTime(),
                 body: `Dear ${meeting.name},
 
-We are pleased to confirm that your 1-on-1 Study Abroad Advisory Consultation with The Edu Consultants has been officially CONFIRMED!
+We are pleased to confirm that your 1-on-1 Study Abroad Advisory Consultation with The Edu Consultant has been officially CONFIRMED!
 
 BOOKING CONFIRMATION SUMMARY:
 ==================================================
@@ -513,7 +513,7 @@ If you need any adjustments prior to your consultation, please reply directly to
 
 Warm regards,
 Senior Admissions Advisory Board
-The Edu Consultants
+The Edu Consultant
 Official Mail: noreply@theeduconsultant.com | enquiry@theeduconsultant.com
 Hotline: +91 9845371459
 Office: ${CONFIG.address}`
@@ -550,7 +550,7 @@ Office: ${CONFIG.address}`
                 from: CONFIG.noreplyEmail,
                 to: meeting.email,
                 cc: `${CONFIG.adminEmail}, ${CONFIG.enquiryEmail}`,
-                subject: `Rescheduled: Your Study Abroad Advisory Session with The Edu Consultants [${meeting.id}]`,
+                subject: `Rescheduled: Your Study Abroad Advisory Session with The Edu Consultant [${meeting.id}]`,
                 date: new Date().toISOString(),
                 dateFormatted: formatDateTime(),
                 body: `Dear ${meeting.name},
@@ -566,7 +566,7 @@ NEW SCHEDULE DETAILS:
 If this new timing works for you, no further action is required. If you wish to propose a different time, please reply to this email or reach us at ${CONFIG.enquiryEmail}.
 
 Warm regards,
-The Edu Consultants Admissions Team
+The Edu Consultant Admissions Team
 noreply@theeduconsultant.com`
             };
 
@@ -682,7 +682,7 @@ noreply@theeduconsultant.com`
                                 <button type="button" class="btn btn-outline-primary rounded-pill w-50 py-2 fs-13 fw-bold" onclick="document.getElementById('eduMeetingConfirmSuccessModal').remove(); window.EduLeads.viewEmailLog('${meeting.id}');">
                                     <i class="fa-solid fa-eye me-1"></i> View Sent Email
                                 </button>
-                                <a href="https://wa.me/${(meeting.phone || '').replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hello ${meeting.name}, your meeting with The Edu Consultants on ${meeting.date} at ${meeting.time} is CONFIRMED!`)}" target="_blank" class="btn btn-success rounded-pill w-50 py-2 fs-13 fw-bold">
+                                <a href="https://wa.me/${(meeting.phone || '').replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hello ${meeting.name}, your meeting with The Edu Consultant on ${meeting.date} at ${meeting.time} is CONFIRMED!`)}" target="_blank" class="btn btn-success rounded-pill w-50 py-2 fs-13 fw-bold">
                                     <i class="fa-brands fa-whatsapp me-1"></i> WhatsApp Student
                                 </a>
                             </div>
@@ -996,7 +996,7 @@ noreply@theeduconsultant.com`
             let existing = document.getElementById('eduStudentMeetingSuccessModal');
             if (existing) existing.remove();
 
-            const waLink = meeting.waLink || `https://wa.me/${CONFIG.whatsappInternational}?text=${encodeURIComponent(`Hello The Edu Consultants, I booked meeting ID ${meeting.id} for ${meeting.date} at ${meeting.time}.`)}`;
+            const waLink = meeting.waLink || `https://wa.me/${CONFIG.whatsappInternational}?text=${encodeURIComponent(`Hello The Edu Consultant, I booked meeting ID ${meeting.id} for ${meeting.date} at ${meeting.time}.`)}`;
 
             const html = `
             <div class="modal fade show" id="eduStudentMeetingSuccessModal" tabindex="-1" style="display: block; background: rgba(0,0,100,0.6); z-index: 9999;" aria-modal="true" role="dialog">
@@ -1076,7 +1076,7 @@ noreply@theeduconsultant.com`
                 const badgeClass = m.status === 'Confirmed' ? 'bg-success text-white' : (m.status === 'Rescheduled' ? 'bg-info text-dark' : 'bg-warning text-dark');
                 const badgeIcon = m.status === 'Confirmed' ? 'fa-check' : (m.status === 'Rescheduled' ? 'fa-clock-rotate-left' : 'fa-hourglass-half');
 
-                const waStudentUrl = `https://wa.me/${(m.phone || '').replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hello ${m.name}, regarding your advisory meeting scheduled on ${m.date} at ${m.time} with The Edu Consultants...`)}`;
+                const waStudentUrl = `https://wa.me/${(m.phone || '').replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hello ${m.name}, regarding your advisory meeting scheduled on ${m.date} at ${m.time} with The Edu Consultant...`)}`;
 
                 return `
                 <tr class="align-middle">
@@ -1206,8 +1206,54 @@ noreply@theeduconsultant.com`
         // ======================================================================
         // 6. INJECT DUAL CONNECT WIDGET (DIRECT CALL VS WHATSAPP VS SCHEDULE)
         // ======================================================================
+        bindConnectEvents: function () {
+            const toggleBtn = document.getElementById('toggleConnectCardBtn');
+            const closeBtn = document.getElementById('closeConnectCardBtn');
+            const card = document.getElementById('eduConnectCard');
+
+            this.toggleConnectCard = function () {
+                const c = document.getElementById('eduConnectCard');
+                if (c) c.classList.toggle('active');
+            };
+
+            if (toggleBtn && card && !toggleBtn._hasBoundConnect) {
+                toggleBtn._hasBoundConnect = true;
+                const handleToggle = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    card.classList.toggle('active');
+                };
+                toggleBtn.addEventListener('click', handleToggle);
+            }
+            if (closeBtn && card && !closeBtn._hasBoundConnect) {
+                closeBtn._hasBoundConnect = true;
+                const handleClose = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    card.classList.remove('active');
+                };
+                closeBtn.addEventListener('click', handleClose);
+            }
+            if (!document._hasBoundConnectDismiss) {
+                document._hasBoundConnectDismiss = true;
+                document.addEventListener('click', (e) => {
+                    const c = document.getElementById('eduConnectCard');
+                    const tb = document.getElementById('toggleConnectCardBtn');
+                    const dt = document.getElementById('dockConnectTrigger');
+                    if (c && c.classList.contains('active') && !c.contains(e.target) && (!tb || !tb.contains(e.target)) && (!dt || !dt.contains(e.target))) {
+                        c.classList.remove('active');
+                    }
+                });
+            }
+        },
+
         injectConnectWidget: function () {
-            if (document.getElementById('eduConnectFloat')) return;
+            // If already present in static HTML, just bind event listeners
+            if (document.getElementById('eduConnectFloat')) {
+                this.bindConnectEvents();
+                return;
+            }
+
             // Don't inject on admin dashboard or login page
             if (window.location.pathname.includes('admin') || window.location.pathname.includes('login') || window.location.pathname.includes('signup')) {
                 return;
@@ -1225,7 +1271,7 @@ noreply@theeduconsultant.com`
                                     <i class="fa-solid fa-graduation-cap"></i>
                                 </div>
                                 <div>
-                                    <h6 class="fw-bold mb-0 text-white fs-14">The Edu Consultants</h6>
+                                    <h6 class="fw-bold mb-0 text-white fs-14">The Edu Consultant</h6>
                                     <span class="fs-11 text-white-50">Admissions & Visa Advisory</span>
                                 </div>
                             </div>
@@ -1251,7 +1297,7 @@ noreply@theeduconsultant.com`
                         </a>
 
                         <!-- Option 2: WhatsApp Chat (Number hidden in UI) -->
-                        <a href="https://wa.me/919845371459?text=Hello%20The%20Edu%20Consultants!%20I%20would%20like%20to%20speak%20with%20a%20study%20abroad%20advising%20expert." target="_blank" rel="noopener noreferrer" class="edu-connect-option-item wa-action">
+                        <a href="https://wa.me/919845371459?text=Hello%20The%20Edu%20Consultant!%20I%20would%20like%20to%20speak%20with%20a%20study%20abroad%20advising%20expert." target="_blank" rel="noopener noreferrer" class="edu-connect-option-item wa-action">
                             <div class="option-icon-box bg-success text-white">
                                 <i class="fa-brands fa-whatsapp"></i>
                             </div>
@@ -1297,28 +1343,7 @@ noreply@theeduconsultant.com`
             </div>`;
 
             document.body.insertAdjacentHTML('beforeend', widgetHtml);
-
-            // Bind toggle
-            const toggleBtn = document.getElementById('toggleConnectCardBtn');
-            const closeBtn = document.getElementById('closeConnectCardBtn');
-            const card = document.getElementById('eduConnectCard');
-
-            if (toggleBtn && card) {
-                toggleBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    card.classList.toggle('active');
-                });
-            }
-            if (closeBtn && card) {
-                closeBtn.addEventListener('click', () => {
-                    card.classList.remove('active');
-                });
-            }
-            document.addEventListener('click', (e) => {
-                if (card && !card.contains(e.target) && e.target !== toggleBtn) {
-                    card.classList.remove('active');
-                }
-            });
+            this.bindConnectEvents();
         },
 
         // ======================================================================

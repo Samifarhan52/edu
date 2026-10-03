@@ -1,5 +1,5 @@
 /**
- * The Edu Consultants - 3D Depth Scroll Journey Controller
+ * The Edu Consultant - 3D Depth Scroll Journey Controller
  * Drives spatial camera Z-axis dolly, card transitions & interactive telemetry HUD
  */
 

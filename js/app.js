@@ -1,5 +1,5 @@
 /**
- * The Edu Consultants - Core Application & Interactive Systems
+ * The Edu Consultant - Core Application & Interactive Systems
  * Handles forms, modals, search filtering, accordions, counters, and responsive UI
  */
 
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p class="text-xs text-slate-400">${country} • Intake: Fall 2026 & Spring 2027</p>
                             </div>
                         </div>
-                        <p class="text-xs text-slate-300 mb-3">Accepting international applications now with accelerated The Edu Consultants fast-track evaluation and application fee waivers.</p>
+                        <p class="text-xs text-slate-300 mb-3">Accepting international applications now with accelerated The Edu Consultant fast-track evaluation and application fee waivers.</p>
                         <div class="flex items-center justify-between">
                             <span class="text-xs text-emerald-400 font-medium">98% Visa Clear Rate</span>
                             <button onclick="window.EduApp.openConsultationModalWithContext('${country}')" class="text-xs bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-3 py-1.5 rounded-lg transition">Apply With Advisor</button>
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="text-xs uppercase tracking-widest text-emerald-400 font-mono font-bold">Booking Confirmed</span>
                     <h3 class="text-2xl font-bold text-white mt-1">Thank You, ${firstName} ${lastName}!</h3>
                     <p class="text-sm text-slate-300 mt-2 max-w-md mx-auto">
-                        Your free 1-on-1 strategy session with a Senior Admissions Director from The Edu Consultants has been scheduled.
+                        Your free 1-on-1 strategy session with a Senior Admissions Director from The Edu Consultant has been scheduled.
                     </p>
                 </div>
                 <div class="glass-card p-4 rounded-xl text-left max-w-md mx-auto border border-white/10 space-y-2 text-xs text-slate-300">
@@ -292,11 +292,11 @@ document.addEventListener('DOMContentLoaded', () => {
             modalContent.innerHTML = `
                 <div class="space-y-4">
                     <div class="flex items-center justify-between pb-2 border-b border-white/10">
-                        <h4 class="text-lg font-bold text-white">The Edu Consultants — Student Journey Documentary</h4>
+                        <h4 class="text-lg font-bold text-white">The Edu Consultant — Student Journey Documentary</h4>
                         <span class="text-xs text-amber-400 font-mono">HD 1080P</span>
                     </div>
                     <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-950 border border-white/10 flex items-center justify-center">
-                        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=0" title="The Edu Consultants Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=0" title="The Edu Consultant Overview" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <p class="text-xs text-slate-400 text-center">
                         Discover how our five-step milestone journey empowers students worldwide to secure top offers and navigate visa clearance with complete confidence.
@@ -451,7 +451,7 @@ window.EduApp = {
         modalContent.innerHTML = `
             <div class="space-y-4">
                 <div class="pb-3 border-b border-white/10">
-                    <span class="text-xs uppercase font-mono tracking-wider text-amber-400">The Edu Consultants Core Service</span>
+                    <span class="text-xs uppercase font-mono tracking-wider text-amber-400">The Edu Consultant Core Service</span>
                     <h3 class="text-xl font-bold text-white mt-1">${s.title}</h3>
                 </div>
                 <p class="text-sm text-slate-300 leading-relaxed">${s.desc}</p>
@@ -643,10 +643,10 @@ window.EduApp = {
         modalContent.innerHTML = `
             <div class="space-y-4 max-w-sm mx-auto">
                 <div class="text-center pb-2 border-b border-white/10">
-                    <span class="text-xs uppercase font-mono tracking-wider text-amber-400">The Edu Consultants Portal</span>
+                    <span class="text-xs uppercase font-mono tracking-wider text-amber-400">The Edu Consultant Portal</span>
                     <h3 class="text-xl font-bold text-white mt-1">Student Account Sign In</h3>
                 </div>
-                <form onsubmit="event.preventDefault(); alert('Authentication demo: Welcome to The Edu Consultants portal!'); window.EduApp.closeModal();" class="space-y-3">
+                <form onsubmit="event.preventDefault(); alert('Authentication demo: Welcome to The Edu Consultant portal!'); window.EduApp.closeModal();" class="space-y-3">
                     <div>
                         <label class="block text-xs text-slate-300 mb-1">Email or Student ID</label>
                         <input type="email" required placeholder="student@example.com" class="form-input-luxury">
@@ -680,7 +680,7 @@ window.EduApp = {
         if (!modal || !modalContent) return;
 
         let title = "Terms & Conditions";
-        let body = "The Edu Consultants is committed to total transparency, data security, and ethical counseling standards.";
+        let body = "The Edu Consultant is committed to total transparency, data security, and ethical counseling standards.";
 
         if (policyType === 'privacy') {
             title = "Privacy Policy";
@@ -693,12 +693,12 @@ window.EduApp = {
         modalContent.innerHTML = `
             <div class="space-y-4">
                 <div class="pb-2 border-b border-white/10">
-                    <span class="text-xs uppercase font-mono tracking-wider text-amber-400">The Edu Consultants Legal</span>
+                    <span class="text-xs uppercase font-mono tracking-wider text-amber-400">The Edu Consultant Legal</span>
                     <h3 class="text-xl font-bold text-white mt-1">${title}</h3>
                 </div>
                 <div class="text-xs text-slate-300 leading-relaxed max-h-56 overflow-y-auto space-y-2 pr-2">
                     <p>${body}</p>
-                    <p>For inquiries regarding our policies or data management, contact legal@theeduconsultants.org or visit our central office.</p>
+                    <p>For inquiries regarding our policies or data management, contact legal@theeduconsultant.com or visit our central office.</p>
                 </div>
                 <div class="pt-3 border-t border-white/10 text-right">
                     <button onclick="window.EduApp.closeModal()" class="btn-primary-glow text-xs py-2 px-5">
