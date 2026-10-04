@@ -25,8 +25,8 @@
             category: 'Scholarships',
             readTime: '4 min read',
             date: 'Nov 15th 2026',
-            author: 'Alexander Morgan',
-            authorRole: 'Admissions Director',
+            author: 'Faraz Ahamed',
+            authorRole: 'Founder & Principal Consultant',
             image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80',
             summary: 'Strategic insights on demonstrating academic merit, writing persuasive statement of purpose letters, and meeting early grant deadlines.',
             content: `Securing an international scholarship is one of the highest-leverage steps in your global education pathway. Top universities in the US, UK, Australia, Canada, and Europe allocate millions in dedicated endowment and diversity funds each intake.
@@ -50,8 +50,8 @@ Connect with The Edu Consultant advisors today to review institutional scholarsh
             category: 'Admissions',
             readTime: '6 min read',
             date: 'Nov 18th 2026',
-            author: 'Dr. Eleanor Vance',
-            authorRole: 'Senior Academic Counselor',
+            author: 'Faraz Ahamed',
+            authorRole: 'Founder & Principal Consultant',
             image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80',
             summary: 'A step-by-step masterclass on avoiding critical SOP errors, securing compelling letters of recommendation, and transcript notarization.',
             content: `Admissions committees at competitive institutions review thousands of international files. Standing out requires an airtight, compelling dossier that highlights your trajectory.
@@ -71,8 +71,8 @@ At The Edu Consultant, our advisors conduct complete diagnostic profile evaluati
             category: 'Pre-Departure',
             readTime: '5 min read',
             date: 'Nov 22nd 2026',
-            author: 'Sophia Patel',
-            authorRole: 'Student Welfare Lead',
+            author: 'Faraz Ahamed',
+            authorRole: 'Founder & Principal Consultant',
             image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80',
             summary: 'Crucial packing checklists, setting up international student bank accounts, foreign SIM activation, and health coverage registration.',
             content: `Stepping onto campus abroad is exhilarating, but initial logistics can feel daunting without proper preparation.
@@ -92,8 +92,8 @@ Our pre-departure webinars connect incoming scholars with current university stu
             category: 'Culture',
             readTime: '4 min read',
             date: 'Dec 1st 2026',
-            author: 'Marcus Chen',
-            authorRole: 'Global Alumni Mentor',
+            author: 'Faraz Ahamed',
+            authorRole: 'Founder & Principal Consultant',
             image: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=800&q=80',
             summary: 'Navigating the cultural adaptation curve, joining campus societies, building global professional networks, and securing part-time roles.',
             content: `The international student experience extends far beyond the lecture hall. Cultivating cultural intelligence is a vital asset for global careers.
@@ -210,8 +210,8 @@ Our pre-departure webinars connect incoming scholars with current university stu
             heroTitle: 'Comprehensive Student Visa Documentation & Embassy Masterclass',
             heroSubtitle: 'A definitive roadmap for navigating financial sponsorship, statement of purpose for embassy interviews, and biometric protocols for USA, UK, Canada, Australia, and Germany.',
             coverImage: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80',
-            author: 'Alexander Morgan',
-            authorRole: 'Admissions Director',
+            author: 'Faraz Ahamed',
+            authorRole: 'Founder & Principal Consultant',
             updatedAt: 'October 2026',
             status: 'published',
             isCustom: false,
@@ -241,8 +241,8 @@ Connect with The Edu Consultant authorized visa counselors to conduct mock visa 
             heroTitle: 'Institutional Waivers & Full-Ride Scholarship Directory',
             heroSubtitle: 'Unlock fully-funded government awards, university endowment stipends, and graduate assistantships across leading world universities.',
             coverImage: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80',
-            author: 'Dr. Eleanor Vance',
-            authorRole: 'Senior Academic Counselor',
+            author: 'Faraz Ahamed',
+            authorRole: 'Founder & Principal Consultant',
             updatedAt: 'October 2026',
             status: 'published',
             isCustom: false,
@@ -266,8 +266,8 @@ Our advisory team assists students in mapping and submitting eligible institutio
             heroTitle: 'Post-Study Work Rights, STEM Extensions & Global Employment',
             heroSubtitle: 'Comparative analysis of post-study graduate employment visas, STEM extensions, and permanent residency options across Australia, the UK, Canada, and the United States.',
             coverImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
-            author: 'Marcus Chen',
-            authorRole: 'Global Career Strategist',
+            author: 'Faraz Ahamed',
+            authorRole: 'Founder & Principal Consultant',
             updatedAt: 'October 2026',
             status: 'published',
             isCustom: false,
@@ -323,7 +323,26 @@ Start internship networking during your second semester. Utilize university care
 
         getAllBlogs: function () {
             const custom = this.getCustomBlogs();
-            return [...custom, ...DEFAULT_BLOGS];
+            const all = [...custom, ...DEFAULT_BLOGS];
+            const legacyMockAuthors = [
+                'alexander morgan',
+                'dr. eleanor vance',
+                'eleanor vance',
+                'sophia patel',
+                'marcus chen',
+                'marcus sterling',
+                'sophia chen',
+                'david o\'connor',
+                'advisor',
+                'editorial'
+            ];
+            all.forEach(b => {
+                if (!b.author || legacyMockAuthors.includes(b.author.toLowerCase().trim())) {
+                    b.author = 'Faraz Ahamed';
+                    b.authorRole = 'Founder & Principal Consultant';
+                }
+            });
+            return all;
         },
 
         saveBlog: function (blogData) {
@@ -348,7 +367,7 @@ Start internship networking during your second semester. Utilize university care
             const safeCategory = window.EduSecurity ? window.EduSecurity.sanitizeText(blogData.category) : (blogData.category || 'General');
             const safeSummary = window.EduSecurity ? window.EduSecurity.sanitizeText(blogData.summary) : blogData.summary.trim();
             const safeContent = window.EduSecurity ? window.EduSecurity.sanitizeHTML(blogData.content) : blogData.content.trim();
-            const safeAuthor = window.EduSecurity ? window.EduSecurity.sanitizeText(blogData.author) : (blogData.author || 'Advisor');
+            const safeAuthor = window.EduSecurity ? window.EduSecurity.sanitizeText(blogData.author) : (blogData.author || 'Faraz Ahamed');
 
             const custom = this.getCustomBlogs();
             const newBlog = {
@@ -358,7 +377,7 @@ Start internship networking during your second semester. Utilize university care
                 readTime: blogData.readTime || '4 min read',
                 date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
                 author: safeAuthor,
-                authorRole: blogData.authorRole || 'The Edu Consultant Staff',
+                authorRole: blogData.authorRole || 'Founder & Principal Consultant',
                 image: blogData.image || 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
                 summary: safeSummary,
                 content: safeContent,
@@ -478,7 +497,15 @@ Start internship networking during your second semester. Utilize university care
 
         getPages: function () {
             const custom = this.getCustomPages();
-            return [...custom, ...DEFAULT_PAGES];
+            const all = [...custom, ...DEFAULT_PAGES];
+            const legacyMockAuthors = ['alexander morgan', 'dr. eleanor vance', 'eleanor vance', 'sophia patel', 'marcus chen', 'advisor', 'editorial'];
+            all.forEach(p => {
+                if (!p.author || legacyMockAuthors.includes(p.author.toLowerCase().trim())) {
+                    p.author = 'Faraz Ahamed';
+                    p.authorRole = 'Founder & Principal Consultant';
+                }
+            });
+            return all;
         },
 
         savePage: function (pageData) {
@@ -981,6 +1008,8 @@ Start internship networking during your second semester. Utilize university care
 
                 container.innerHTML = filtered.map(blog => {
                     const isNewBadge = blog.isCustom ? `<span class="badge bg-danger text-white fw-bold me-1 animate-pulse"><i class="fa-solid fa-sparkles me-1"></i>NEW POST</span>` : '';
+                    const authorName = blog.author || 'Faraz Ahamed';
+                    const authorInitials = authorName.split(' ').map(n => n[0]).filter(Boolean).join('').substring(0, 2).toUpperCase() || 'FA';
                     return `
                         <div class="col-lg-4 col-md-6" data-aos="fade-up">
                             <article class="card h-100 border rounded-4 overflow-hidden shadow-sm blog-item-card transition-hover">
@@ -1005,9 +1034,9 @@ Start internship networking during your second semester. Utilize university care
                                     <div class="pt-3 border-top mt-2 d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center gap-2">
                                             <div class="rounded-circle bg-primary-subtle text-brand-primary fw-bold d-flex align-items-center justify-content-center" style="width: 30px; height: 30px; font-size: 12px;">
-                                                ${(blog.author || 'AD').substring(0, 2).toUpperCase()}
+                                                ${authorInitials}
                                             </div>
-                                            <span class="fs-13 fw-semibold text-dark">${blog.author}</span>
+                                            <span class="fs-13 fw-semibold text-dark">${authorName}</span>
                                         </div>
                                         <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none fw-bold text-brand-primary read-article-btn" data-id="${blog.id}">
                                             Read Article <i class="fa-solid fa-arrow-right ms-1"></i>
@@ -1336,8 +1365,8 @@ Start internship networking during your second semester. Utilize university care
                     const newPost = {
                         title: titleInput.value,
                         category: categoryInput.value,
-                        author: document.getElementById('blogAuthorInput').value || 'Alexander Morgan',
-                        authorRole: document.getElementById('blogAuthorRoleInput').value || 'Admissions Director',
+                        author: (document.getElementById('blogAuthorInput') && document.getElementById('blogAuthorInput').value.trim()) || 'Faraz Ahamed',
+                        authorRole: (document.getElementById('blogAuthorRoleInput') && document.getElementById('blogAuthorRoleInput').value.trim()) || 'Founder & Principal Consultant',
                         readTime: document.getElementById('blogReadTimeInput').value || '5 min read',
                         image: imageInput.value || 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
                         summary: summaryInput.value,

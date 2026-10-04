@@ -279,7 +279,7 @@ window.EduData = {
         {
             id: "blog-scholarships",
             title: "How to Secure Scholarships for International Students",
-            author: "Dr. Eleanor Vance, Senior Admissions Director",
+            author: "Faraz Ahamed, Founder & Principal Consultant",
             date: "Nov 15, 2026",
             readTime: "6 min read",
             category: "Financial Aid",
@@ -290,7 +290,7 @@ window.EduData = {
         {
             id: "blog-application-workshop",
             title: "Application Workshop: Ace Your Study Abroad Application",
-            author: "Marcus Sterling, Head of Counseling",
+            author: "Faraz Ahamed, Founder & Principal Consultant",
             date: "Nov 18, 2026",
             readTime: "8 min read",
             category: "Admissions Strategy",
@@ -301,7 +301,7 @@ window.EduData = {
         {
             id: "blog-pre-departure",
             title: "Pre-Departure Orientation: Get Ready for Life Abroad",
-            author: "Sophia Chen, Student Welfare Specialist",
+            author: "Faraz Ahamed, Founder & Principal Consultant",
             date: "Nov 22, 2026",
             readTime: "5 min read",
             category: "Student Life",
@@ -312,7 +312,7 @@ window.EduData = {
         {
             id: "blog-cultural-adjustment",
             title: "Cultural Adjustment: How to Thrive in a New Country",
-            author: "David O'Connor, Alumni Mentorship Lead",
+            author: "Faraz Ahamed, Founder & Principal Consultant",
             date: "Dec 01, 2026",
             readTime: "7 min read",
             category: "Student Wellness",
