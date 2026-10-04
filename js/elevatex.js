@@ -1,25 +1,25 @@
 /**
- * ElevateX - Official Developer Signature & Digital Engineering Modal
+ * ElavateX - Official Developer Signature & Digital Engineering Modal
  * Powers:
- * 1. Global "Developer: ElevateX" interactive footer trigger (Light-mode executive styling)
+ * 1. Global "Developer: ElavateX" interactive footer trigger (Light-mode executive styling)
  * 2. Enterprise Developer Showcase & Direct Client Ingestion Modal
  * 3. Direct WhatsApp routing to Farhan (+91 7676808068)
- * 4. Official Agency Portal integration (elevatex.com) & Post-Submission Visit Site Pop-up
+ * 4. Official Agency Portal integration (elavatex.com) & Post-Submission Visit Site Pop-up
  */
 
 (function (window, document) {
     'use strict';
 
     const ELEVATEX_CONFIG = {
-        name: 'ElevateX',
+        name: 'ElavateX',
         tagline: 'Architecting High-Speed Websites, Apps & Software Platforms',
         leadName: 'Farhan',
         phone: '7676808068',
         phoneFormatted: '+91 7676808068',
         whatsappInternational: '917676808068',
-        website: 'https://elevatex.com',
-        websiteDisplay: 'elevatex.com',
-        email: 'contact@elevatex.com',
+        website: 'https://elavatex.com',
+        websiteDisplay: 'ElavateX.com',
+        email: 'contact@elavatex.com',
         services: [
             { icon: 'fa-globe', title: 'Custom Websites', desc: 'High-speed, SEO-first & Responsive' },
             { icon: 'fa-mobile-screen-button', title: 'Mobile & Web Apps', desc: 'iOS, Android, SaaS & Portals' },
@@ -28,7 +28,7 @@
     };
 
     // Inject self-contained, cache-immune styles directly to ensure instant executive rendering
-    function injectElevateXStyles() {
+    function injectElavateXStyles() {
         if (document.getElementById('elevatexCoreStyles')) return;
         const style = document.createElement('style');
         style.id = 'elevatexCoreStyles';
@@ -507,15 +507,15 @@
         document.head.appendChild(style);
     }
 
-    const EduElevateX = {
+    const EduElavateX = {
         config: ELEVATEX_CONFIG,
 
         init: function () {
-            injectElevateXStyles();
+            injectElavateXStyles();
         },
 
         openModal: function () {
-            injectElevateXStyles();
+            injectElavateXStyles();
             let modal = document.getElementById('elevatexDevModal');
             if (!modal) {
                 this.renderModal();
@@ -540,7 +540,7 @@
             if (existing) existing.remove();
 
             const modalHtml = `
-            <div id="elevatexDevModal" class="elevatex-modal-backdrop" onclick="if(event.target === this) window.EduElevateX.closeModal();">
+            <div id="elevatexDevModal" class="elevatex-modal-backdrop" onclick="if(event.target === this) window.EduElavateX.closeModal();">
                 <div class="elevatex-modal-card" role="dialog" aria-modal="true" aria-labelledby="elevatexTitle">
                     <!-- Tech Header Bar -->
                     <div class="elevatex-card-header">
@@ -552,14 +552,14 @@
                                 <div class="d-flex align-items-center gap-2 flex-wrap">
                                     <h4 class="fw-bold mb-0 text-white" id="elevatexTitle">${ELEVATEX_CONFIG.name}</h4>
                                     <span class="elevatex-verified-pill"><i class="fa-solid fa-circle-check"></i> Official Developer</span>
-                                    <a href="${ELEVATEX_CONFIG.website}" target="_blank" rel="noopener noreferrer" class="elevatex-header-site-btn" title="Visit ElevateX Official Website">
+                                    <a href="${ELEVATEX_CONFIG.website}" target="_blank" rel="noopener noreferrer" class="elevatex-header-site-btn" title="Visit ElavateX Official Website">
                                         <i class="fa-solid fa-globe"></i> ${ELEVATEX_CONFIG.websiteDisplay} <i class="fa-solid fa-arrow-up-right-from-square fs-10"></i>
                                     </a>
                                 </div>
                                 <span class="elevatex-header-tagline">${ELEVATEX_CONFIG.tagline}</span>
                             </div>
                         </div>
-                        <button type="button" class="elevatex-close-btn" onclick="window.EduElevateX.closeModal();" aria-label="Close Modal">
+                        <button type="button" class="elevatex-close-btn" onclick="window.EduElavateX.closeModal();" aria-label="Close Modal">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </div>
@@ -569,7 +569,7 @@
                         <!-- Pitch & Overview -->
                         <div class="elevatex-intro-box">
                             <p class="mb-0 fs-14 text-slate-300">
-                                Looking to build a world-class website, custom mobile app, or need comprehensive technical management like <strong>The Edu Consultant</strong>? ElevateX builds reliable, lightning-fast digital solutions tailored for your business.
+                                Looking to build a world-class website, custom mobile app, or need comprehensive technical management like <strong>The Edu Consultant</strong>? ElavateX builds reliable, lightning-fast digital solutions tailored for your business.
                             </p>
                         </div>
 
@@ -607,7 +607,7 @@
                         <!-- Quick Action Contacts -->
                         <div class="elevatex-quick-actions mb-4">
                             <!-- Action 1: Instant WhatsApp to Farhan -->
-                            <a href="https://wa.me/${ELEVATEX_CONFIG.whatsappInternational}?text=${encodeURIComponent('Hello Farhan! I saw ElevateX on The Edu Consultant website. I would like to discuss building a website / mobile app / platform management.')}" 
+                            <a href="https://wa.me/${ELEVATEX_CONFIG.whatsappInternational}?text=${encodeURIComponent('Hello Farhan! I saw ElavateX on The Edu Consultant website. I would like to discuss building a website / mobile app / platform management.')}" 
                                target="_blank" rel="noopener noreferrer" class="btn-elevatex-contact wa-glow" title="Chat directly with Farhan on WhatsApp">
                                 <i class="fa-brands fa-whatsapp fs-4"></i>
                                 <div class="text-start">
@@ -626,7 +626,7 @@
                             </a>
 
                             <!-- Action 3: Official Agency Website -->
-                            <a href="${ELEVATEX_CONFIG.website}" target="_blank" rel="noopener noreferrer" class="btn-elevatex-contact web-glow" title="Visit ElevateX Official Website">
+                            <a href="${ELEVATEX_CONFIG.website}" target="_blank" rel="noopener noreferrer" class="btn-elevatex-contact web-glow" title="Visit ElavateX Official Website">
                                 <i class="fa-solid fa-arrow-up-right-from-square fs-5"></i>
                                 <div class="text-start">
                                     <span class="d-block fs-10 text-uppercase tracking-wider">Official Agency</span>
@@ -652,7 +652,7 @@
                                 Fill out your project requirements below. On submit, this will connect directly to Farhan's WhatsApp for an immediate quote and timeline.
                             </p>
 
-                            <form id="elevatexInquiryForm" onsubmit="window.EduElevateX.handleInquirySubmit(event); return false;">
+                            <form id="elevatexInquiryForm" onsubmit="window.EduElavateX.handleInquirySubmit(event); return false;">
                                 <div class="row g-2 mb-2">
                                     <div class="col-md-6">
                                         <input type="text" id="exClientName" class="form-control elevatex-input" placeholder="Your Name or Business *" required/>
@@ -684,7 +684,7 @@
                                     <div class="fs-12 text-slate-400">
                                         <i class="fa-solid fa-lock me-1 text-emerald"></i> Confidential • Direct response from Farhan
                                     </div>
-                                    <button type="submit" id="btnSubmitElevateX" class="btn-elevatex-submit">
+                                    <button type="submit" id="btnSubmitElavateX" class="btn-elevatex-submit">
                                         <span>Submit to Developer</span>
                                         <i class="fa-brands fa-whatsapp fs-5"></i>
                                     </button>
@@ -696,7 +696,7 @@
                     <!-- Footer Note -->
                     <div class="elevatex-card-footer">
                         <span class="fs-11 text-slate-400">
-                            © 2026 ElevateX Digital Systems. Crafted for high-growth enterprises worldwide.
+                            © 2026 ElavateX Digital Systems. Crafted for high-growth enterprises worldwide.
                         </span>
                         <a href="${ELEVATEX_CONFIG.website}" target="_blank" rel="noopener noreferrer" class="fs-12 text-cyan fw-semibold text-decoration-none">
                             Visit ${ELEVATEX_CONFIG.websiteDisplay} <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
@@ -716,7 +716,7 @@
             const emailEl = document.getElementById('exClientEmail');
             const typeEl = document.getElementById('exProjectType');
             const notesEl = document.getElementById('exProjectNotes');
-            const btn = document.getElementById('btnSubmitElevateX');
+            const btn = document.getElementById('btnSubmitElavateX');
 
             const name = nameEl ? nameEl.value.trim() : '';
             const phone = phoneEl ? phoneEl.value.trim() : '';
@@ -738,9 +738,9 @@
                 name: name,
                 phone: phone,
                 email: email || 'Not provided',
-                source: 'ElevateX Developer Signature Ingestion',
+                source: 'ElavateX Developer Signature Ingestion',
                 destination: `Service: ${type}`,
-                message: `ElevateX Project Inquiry for [${type}]. Notes: ${notes || 'No notes provided'}`,
+                message: `ElavateX Project Inquiry for [${type}]. Notes: ${notes || 'No notes provided'}`,
                 whatsappOptIn: true
             };
 
@@ -784,7 +784,7 @@
                 window.location.href = waUrl;
             }
 
-            // 5. Display Dedicated "Visit Site ElevateX.com" Completion Pop-up Dialog
+            // 5. Display Dedicated "Visit Site ElavateX.com" Completion Pop-up Dialog
             const container = document.getElementById('elevatexFormContainer');
             if (container) {
                 container.innerHTML = `
@@ -797,18 +797,18 @@
                             Your project requirements have been prepared and sent directly to Farhan's WhatsApp (<strong>${ELEVATEX_CONFIG.phoneFormatted}</strong>).
                         </p>
 
-                        <!-- High-Visibility ElevateX.com Visit Site Card -->
+                        <!-- High-Visibility ElavateX.com Visit Site Card -->
                         <div class="elevatex-site-promo-card">
                             <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
                                 <span class="badge bg-primary text-white px-2 py-1 fs-11">Official Agency</span>
-                                <strong class="text-white fs-15">ElevateX Digital Systems</strong>
+                                <strong class="text-white fs-15">ElavateX Digital Systems</strong>
                             </div>
                             <p class="text-slate-400 fs-12 mb-3">
                                 Explore our live portfolios, custom apps, platform management and full software architecture services.
                             </p>
                             <a href="${ELEVATEX_CONFIG.website}" target="_blank" rel="noopener noreferrer" class="btn-elevatex-visit-site">
                                 <i class="fa-solid fa-globe"></i>
-                                <span>Visit ElevateX Official Site (${ELEVATEX_CONFIG.websiteDisplay})</span>
+                                <span>Visit ElavateX Official Site (${ELEVATEX_CONFIG.websiteDisplay})</span>
                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                             </a>
                         </div>
@@ -817,7 +817,7 @@
                             <a href="${waUrl}" target="_blank" class="btn-elevatex-wa-reopen">
                                 <i class="fa-brands fa-whatsapp"></i> Re-open WhatsApp
                             </a>
-                            <button type="button" class="btn-elevatex-modal-close" onclick="window.EduElevateX.closeModal();">
+                            <button type="button" class="btn-elevatex-modal-close" onclick="window.EduElavateX.closeModal();">
                                 Close Window
                             </button>
                         </div>
@@ -830,17 +830,18 @@
     // Close on Escape key
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
-            EduElevateX.closeModal();
+            EduElavateX.closeModal();
         }
     });
 
     // Auto-inject styles on DOMContentLoaded or immediately
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', EduElevateX.init);
+        document.addEventListener('DOMContentLoaded', EduElavateX.init);
     } else {
-        EduElevateX.init();
+        EduElavateX.init();
     }
 
-    window.EduElevateX = EduElevateX;
+    window.EduElavateX = EduElavateX;
+    window.EduElevateX = EduElavateX;
 
 })(window, document);
