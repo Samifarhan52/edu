@@ -2204,3 +2204,529 @@ a {
     white-space: pre-wrap;
     color: #1e293b;
 }
+
+/* ==============================================================================
+   ENTRY REVEAL COMPONENT (Homepage Website Opening Intro - 3 to 4 Seconds)
+   Sequence: 1. Animated Logo Glow -> 2. "The Edu Consultant" Typography -> 3. Smooth Landing Reveal
+   ============================================================================== */
+.edu-entry-reveal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999999;
+    background: radial-gradient(circle at center, #000064 0%, #000032 60%, #000014 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+    will-change: opacity, transform;
+}
+
+.edu-entry-reveal-overlay.dismissed {
+    opacity: 0 !important;
+    transform: scale(1.05) !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+.reveal-ambient-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245, 220, 60, 0.15) 0%, rgba(251, 84, 33, 0.08) 40%, transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+    animation: revealPulseAmbient 3s infinite alternate ease-in-out;
+}
+
+.reveal-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    pointer-events: none;
+}
+.reveal-ring-1 {
+    width: 320px;
+    height: 320px;
+    border-color: rgba(245, 220, 60, 0.12);
+    animation: revealSpinRing 20s linear infinite;
+}
+.reveal-ring-2 {
+    width: 480px;
+    height: 480px;
+    border-style: dashed;
+    border-color: rgba(255, 255, 255, 0.05);
+    animation: revealSpinRing 30s linear infinite reverse;
+}
+
+.btn-reveal-skip {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 50px;
+    padding: 6px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
+}
+.btn-reveal-skip:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-1px);
+}
+
+.reveal-stage {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 640px;
+    padding: 24px;
+}
+
+.reveal-logo-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    animation: revealLogoZoom 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.reveal-logo-halo {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245, 220, 60, 0.4) 0%, transparent 70%);
+    filter: blur(12px);
+    animation: revealHaloPulse 2s infinite alternate;
+}
+
+.reveal-logo-circle {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f5dc3c 0%, #fb5421 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000064;
+    font-size: 40px;
+    box-shadow: 0 0 35px rgba(245, 220, 60, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+    position: relative;
+    z-index: 1;
+}
+
+.reveal-brand-text {
+    animation: revealTextSlide 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+
+.reveal-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.reveal-title .reveal-highlight {
+    color: #f5dc3c;
+    text-shadow: 0 0 20px rgba(245, 220, 60, 0.5);
+}
+
+.reveal-subtitle {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.3px;
+    margin-bottom: 18px;
+}
+
+.reveal-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 26px;
+}
+
+.reveal-pill {
+    padding: 5px 14px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e2e8f0;
+    font-size: 12px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+
+.reveal-progress-container {
+    width: 220px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.reveal-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #f5dc3c, #fb5421);
+    border-radius: 10px;
+    animation: revealFillBar 3.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes revealLogoZoom {
+    0% { transform: scale(0.2); opacity: 0; }
+    70% { transform: scale(1.08); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes revealTextSlide {
+    0% { transform: translateY(22px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes revealFillBar {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+@keyframes revealHaloPulse {
+    0% { transform: scale(0.9); opacity: 0.4; }
+    100% { transform: scale(1.15); opacity: 0.75; }
+}
+
+@keyframes revealPulseAmbient {
+    0% { transform: scale(0.9); opacity: 0.3; }
+    100% { transform: scale(1.1); opacity: 0.6; }
+}
+
+@keyframes revealSpinRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 576px) {
+    .reveal-title { font-size: 27px; }
+    .reveal-subtitle { font-size: 13px; }
+    .reveal-logo-circle { width: 72px; height: 72px; font-size: 32px; }
+    .reveal-badge-row { display: none; }
+}
+
+/* ==============================================================================
+   ELEVATEX DEVELOPER SIGNATURE & MODAL COMPONENT
+   ============================================================================== */
+.btn-elevatex-developer {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 16px;
+    border-radius: 50px;
+    background: #0b1329;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #f8fafc;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    outline: none;
+}
+
+.btn-elevatex-developer:hover {
+    background: linear-gradient(135deg, #0f172a, #1e1b4b);
+    border-color: #6366f1;
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(99, 102, 241, 0.5);
+    transform: translateY(-2px);
+}
+
+.elevatex-pulse-indicator {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    animation: elevatexPulseDot 2s infinite ease-in-out;
+}
+
+.elevatex-dev-label {
+    color: #94a3b8;
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.elevatex-brand-title {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+}
+
+.elevatex-dev-arrow {
+    color: #6366f1;
+    font-size: 11px;
+    transition: transform 0.2s ease;
+}
+
+.btn-elevatex-developer:hover .elevatex-dev-arrow {
+    transform: translate(2px, -2px);
+    color: #00f0ff;
+}
+
+@keyframes elevatexPulseDot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+/* ElevateX Showcase & Inquiry Modal */
+.elevatex-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(3, 7, 18, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 99999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.elevatex-modal-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.elevatex-modal-card {
+    background: #0b1120;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 640px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 35px rgba(99, 102, 241, 0.25);
+    color: #f1f5f9;
+    transform: scale(0.95) translateY(10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.elevatex-modal-backdrop.active .elevatex-modal-card {
+    transform: scale(1) translateY(0);
+}
+
+.elevatex-card-header {
+    background: linear-gradient(135deg, #070d19 0%, #111827 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.elevatex-logo-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #00f0ff);
+    color: #0b1120;
+    font-weight: 900;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px rgba(99, 102, 241, 0.5);
+    letter-spacing: -0.5px;
+}
+
+.elevatex-verified-pill {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 50px;
+}
+
+.elevatex-header-tagline {
+    font-size: 12px;
+    color: #94a3b8;
+    display: block;
+}
+
+.elevatex-close-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.elevatex-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.elevatex-card-body {
+    padding: 24px;
+}
+
+.elevatex-intro-box {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid #6366f1;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+}
+
+.elevatex-capability-pill {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 100%;
+}
+
+.elevatex-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+@media (max-width: 576px) {
+    .elevatex-quick-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+.btn-elevatex-contact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.btn-elevatex-contact.wa-glow {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.25);
+    color: #34d399;
+}
+.btn-elevatex-contact.wa-glow:hover {
+    background: #10b981;
+    color: #0b1120;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 18px rgba(16, 185, 129, 0.4);
+}
+.btn-elevatex-contact.call-glow {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.25);
+    color: #fbbf24;
+}
+.btn-elevatex-contact.call-glow:hover {
+    background: #f59e0b;
+    color: #0b1120;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 18px rgba(245, 158, 11, 0.4);
+}
+.btn-elevatex-contact.mail-glow {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.25);
+    color: #818cf8;
+}
+.btn-elevatex-contact.mail-glow:hover {
+    background: #6366f1;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 18px rgba(99, 102, 241, 0.4);
+}
+
+.elevatex-form-wrapper {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.elevatex-input {
+    background: rgba(15, 23, 42, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    color: #ffffff !important;
+    font-size: 13.5px !important;
+    border-radius: 10px !important;
+    padding: 10px 14px !important;
+}
+.elevatex-input:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3) !important;
+}
+.elevatex-input::placeholder {
+    color: #64748b !important;
+}
+
+.btn-elevatex-submit {
+    background: linear-gradient(135deg, #6366f1, #00f0ff);
+    color: #0b1120;
+    font-weight: 800;
+    font-size: 13.5px;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 22px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+.btn-elevatex-submit:hover {
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.elevatex-card-footer {
+    background: #070d19;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}

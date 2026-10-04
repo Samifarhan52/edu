@@ -26,6 +26,53 @@
 
 <body class="direction-ltr">
 
+    <!-- ==============================================================================
+         CINEMATIC ENTRY REVEAL (Website Opening Intro - 3 to 4 Seconds)
+         Sequence: 1. Logo Glow -> 2. The Edu Consultant Brand Title -> 3. Smooth Landing Reveal
+         ============================================================================== -->
+    <div id="eduEntryReveal" class="edu-entry-reveal-overlay" role="dialog" aria-modal="true" aria-label="Welcome to The Edu Consultant">
+        <!-- Ambient Glowing Particle Rings -->
+        <div class="reveal-ambient-glow"></div>
+        <div class="reveal-ring reveal-ring-1"></div>
+        <div class="reveal-ring reveal-ring-2"></div>
+
+        <!-- Skip Intro Button (Top Right) -->
+        <button type="button" class="btn-reveal-skip" id="btnSkipReveal" onclick="window.EduReveal && window.EduReveal.dismiss();" aria-label="Skip Intro Animation">
+            <span>Skip</span>
+            <i class="fa-solid fa-forward-step ms-1 fs-11"></i>
+        </button>
+
+        <div class="reveal-stage">
+            <!-- Step 1: Animated Graduation Emblem -->
+            <div class="reveal-logo-wrapper">
+                <div class="reveal-logo-halo"></div>
+                <div class="reveal-logo-circle">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+            </div>
+
+            <!-- Step 2: "The Edu Consultant" Title & Tagline -->
+            <div class="reveal-brand-text">
+                <h1 class="reveal-title">
+                    The Edu <span class="reveal-highlight">Consultant</span>
+                </h1>
+                <p class="reveal-subtitle">
+                    Premier Global Education & Admissions Advisory
+                </p>
+                <div class="reveal-badge-row">
+                    <span class="reveal-pill"><i class="fa-solid fa-globe me-1 text-warning"></i> Top 500 Universities</span>
+                    <span class="reveal-pill"><i class="fa-solid fa-award me-1 text-warning"></i> 100% Scholarship Mentorship</span>
+                    <span class="reveal-pill"><i class="fa-solid fa-passport me-1 text-warning"></i> 99.4% Visa Success</span>
+                </div>
+            </div>
+
+            <!-- Progress Shimmer Bar -->
+            <div class="reveal-progress-container">
+                <div class="reveal-progress-bar" id="revealProgressBar"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="ld-header-section">
         <div class="container-fluid px-xl-5 px-lg-4 px-3" style="max-width: 1540px; margin: 0 auto;">
@@ -938,9 +985,20 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-bottomArea d-flex flex-wrap justify-content-between align-items-center">
+            <div class="footer-bottomArea d-flex flex-wrap justify-content-between align-items-center gap-3">
                 <p class="footer-copywrite mb-0">© 2026 The Edu Consultant. All Rights Reserved By The Edu Consultant</p>
-                <div class="d-flex gap-3">
+
+                <!-- ElevateX Developer Signature -->
+                <div class="developer-signature-wrap d-flex align-items-center">
+                    <button type="button" class="btn-elevatex-developer" onclick="window.EduElevateX && window.EduElevateX.openModal();" title="Crafted by ElevateX - Web, Mobile App & Management Services">
+                        <span class="elevatex-pulse-indicator"></span>
+                        <span class="elevatex-dev-label">Developer:</span>
+                        <span class="elevatex-brand-title">ElevateX</span>
+                        <span class="elevatex-dev-arrow"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </button>
+                </div>
+
+                <div class="d-flex gap-3 align-items-center">
                     <a href="#" class="text-muted"><i class="fa-brands fa-facebook"></i></a>
                     <a href="#" class="text-muted"><i class="fa-brands fa-twitter"></i></a>
                     <a href="#" class="text-muted"><i class="fa-brands fa-linkedin"></i></a>
@@ -1073,5 +1131,40 @@
     <script src="js/leads.js?v=4.0"></script>
     <script src="js/edconsultants.js?v=4.0"></script>
     <script src="js/mobile-journey.js?v=4.0"></script>
+    <script src="js/elevatex.js?v=4.0"></script>
+
+    <!-- Entry Reveal Controller (Only for Website Opening on Homepage) -->
+    <script>
+        (function() {
+            var overlay = document.getElementById('eduEntryReveal');
+            if (!overlay) return;
+
+            window.EduReveal = {
+                dismissed: false,
+                dismiss: function() {
+                    if (this.dismissed) return;
+                    this.dismissed = true;
+                    if (overlay) {
+                        overlay.classList.add('dismissed');
+                        setTimeout(function() {
+                            if (overlay && overlay.parentNode) {
+                                overlay.parentNode.removeChild(overlay);
+                            }
+                        }, 800);
+                    }
+                }
+            };
+
+            // Auto-transition to landing page after 3.2 seconds
+            setTimeout(function() {
+                window.EduReveal.dismiss();
+            }, 3200);
+
+            // Hard safety fallback
+            setTimeout(function() {
+                window.EduReveal.dismiss();
+            }, 4000);
+        })();
+    </script>
 </body>
 </html>
