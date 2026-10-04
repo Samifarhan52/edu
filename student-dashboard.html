@@ -268,61 +268,17 @@
 
                     <!-- Digital Document Locker -->
                     <div class="portal-card p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="fw-bold text-dark mb-0">Digital Document Locker</h5>
-                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fs-12 fw-bold" onclick="alert('Please select your PDF transcript or passport copy to upload securely.');">
+                        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                            <div>
+                                <h5 class="fw-bold text-dark mb-0">Digital Document Locker</h5>
+                                <span class="text-muted fs-12">Encrypted document storage verified by admissions board.</span>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fs-12 fw-bold" data-bs-toggle="modal" data-bs-target="#uploadDocumentModal">
                                 <i class="fa-solid fa-cloud-arrow-up me-1"></i> Upload Document
                             </button>
                         </div>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="p-3 border rounded-3 bg-light d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <i class="fa-solid fa-passport fs-3 text-primary"></i>
-                                        <div>
-                                            <div class="fw-bold fs-13 text-dark">International Passport</div>
-                                            <span class="fs-11 text-success fw-bold"><i class="fa-solid fa-circle-check"></i> Verified (Expires 2031)</span>
-                                        </div>
-                                    </div>
-                                    <span class="badge bg-success-subtle text-success">Valid</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="p-3 border rounded-3 bg-light d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <i class="fa-solid fa-file-certificate fs-3 text-primary"></i>
-                                        <div>
-                                            <div class="fw-bold fs-13 text-dark">University Degree Transcripts</div>
-                                            <span class="fs-11 text-success fw-bold"><i class="fa-solid fa-circle-check"></i> Verified (GPA 3.84)</span>
-                                        </div>
-                                    </div>
-                                    <span class="badge bg-success-subtle text-success">Verified</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="p-3 border rounded-3 bg-light d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <i class="fa-solid fa-file-pen fs-3 text-warning"></i>
-                                        <div>
-                                            <div class="fw-bold fs-13 text-dark">Statement of Purpose (SOP)</div>
-                                            <span class="fs-11 text-danger fw-bold"><i class="fa-solid fa-clock"></i> Draft v2 (Counselor Editing)</span>
-                                        </div>
-                                    </div>
-                                    <span class="badge bg-warning-subtle text-warning-emphasis">In Review</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="p-3 border rounded-3 bg-light d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <i class="fa-solid fa-graduation-cap fs-3 text-muted"></i>
-                                        <div>
-                                            <div class="fw-bold fs-13 text-dark">IELTS / English Scorecard</div>
-                                            <span class="fs-11 text-muted">Target Score: 8.0</span>
-                                        </div>
-                                    </div>
-                                    <a href="courses-programs-IELTS.html" class="btn btn-sm btn-outline-warning rounded-pill fs-11 py-1 px-2.5 fw-bold">Prep Batch</a>
-                                </div>
-                            </div>
+                        <div id="documentsLockerWrapper">
+                            <!-- Rendered dynamically by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -340,25 +296,8 @@
                             <h5 class="fw-bold text-dark mb-0">Matched Scholarships</h5>
                             <a href="scholarship-list.html" class="text-brand-primary fs-12 fw-bold text-decoration-none">View All 48</a>
                         </div>
-                        <div class="d-flex flex-column gap-3">
-                            <div class="p-3 rounded-3 border bg-light">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="badge bg-success text-white fw-bold fs-11">100% Tuition Waiver</span>
-                                    <span class="fs-11 text-muted">🇦🇺 Australia</span>
-                                </div>
-                                <div class="fw-bold text-dark fs-13">Global Melbourne Award</div>
-                                <div class="fs-12 text-success fw-bold">Up to AUD $100,000</div>
-                                <div class="fs-11 text-muted mt-1">Status: Eligible based on GPA 3.8</div>
-                            </div>
-                            <div class="p-3 rounded-3 border bg-light">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="badge bg-warning text-dark fw-bold fs-11">Dean's Bursary</span>
-                                    <span class="fs-11 text-muted">🇬🇧 UK</span>
-                                </div>
-                                <div class="fw-bold text-dark fs-13">British Council GREAT Award</div>
-                                <div class="fs-12 text-success fw-bold">GBP £10,000 Waiver</div>
-                                <div class="fs-11 text-muted mt-1">Status: File Pre-Approved</div>
-                            </div>
+                        <div id="matchedScholarshipsWrapper" class="d-flex flex-column gap-3">
+                            <!-- Rendered dynamically by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -474,6 +413,63 @@
                             <button type="button" class="btn btn-light rounded-pill px-4 py-2.5 fs-14 fw-bold" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-warning rounded-pill px-4 py-2.5 fs-14 fw-bold text-dark shadow-sm" style="background-color: var(--button); border: none;">
                                 <i class="fa-solid fa-paper-plane me-1"></i> Submit Application Dossier
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Document Modal -->
+    <div class="modal fade" id="uploadDocumentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-bottom p-4">
+                    <div>
+                        <h5 class="modal-title fw-bold text-dark mb-1">
+                            <i class="fa-solid fa-cloud-arrow-up text-primary me-2"></i> Upload Verification Document
+                        </h5>
+                        <p class="text-muted fs-13 mb-0">Securely submit credentials for counselor verification and university dossiers.</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="uploadDocForm" onsubmit="handleUploadDocumentSubmit(event)">
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-dark">Document Category <span class="text-danger">*</span></label>
+                            <select id="docCategorySelect" class="form-select rounded-3 py-2.5 px-3 fs-14" required onchange="handleDocCategoryChange()">
+                                <option value="Passport">📘 International Passport / Identification</option>
+                                <option value="Transcripts">🎓 University Degree Transcripts & Marksheets</option>
+                                <option value="SOP">✍️ Statement of Purpose (SOP) / Personal Essay</option>
+                                <option value="English Test">🗣️ IELTS / TOEFL / PTE English Scorecard</option>
+                                <option value="LOR">📑 Letters of Recommendation (LOR)</option>
+                                <option value="Resume">📄 Resume / Curriculum Vitae (CV)</option>
+                                <option value="Financial">💰 Bank Solvency & Financial Affidavit</option>
+                                <option value="Other">📁 Other Supporting Credential</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-dark">Document Title / Label <span class="text-danger">*</span></label>
+                            <input type="text" id="docTitleInput" class="form-control rounded-3 py-2.5 px-3 fs-14" value="International Passport" placeholder="e.g., International Passport (Biometric)" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-dark">Select Document File <span class="text-danger">*</span></label>
+                            <input type="file" id="docFileInput" class="form-control rounded-3 py-2 px-3 fs-13" accept=".pdf,.jpg,.jpeg,.png,.docx" required>
+                            <span class="fs-11 text-muted">Supports PDF, JPG, PNG, DOCX (Max 15MB). Encrypted with SSL.</span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fs-13 fw-bold text-dark">Document Details / Notes (Optional)</label>
+                            <input type="text" id="docDetailInput" class="form-control rounded-3 py-2 px-3 fs-13" placeholder="e.g., Expires 2031, GPA 3.84, or Target Band 8.0">
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+                            <button type="button" class="btn btn-light rounded-pill px-4 py-2.5 fs-14 fw-bold" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-4 py-2.5 fs-14 fw-bold text-white shadow-sm" style="background-color: var(--brand-primary); border: none;">
+                                <i class="fa-solid fa-lock me-1"></i> Upload & Encrypt Document
                             </button>
                         </div>
                     </form>
@@ -746,11 +742,196 @@
                     `;
                 }
             }
+
+            // 6. Digital Document Locker
+            const docsWrapper = document.getElementById('documentsLockerWrapper');
+            if (docsWrapper) {
+                const docs = Array.isArray(user.documents) ? user.documents : [];
+                if (docs.length === 0) {
+                    docsWrapper.innerHTML = `
+                        <div class="text-center py-4 px-3 bg-light rounded-3 border">
+                            <div class="rounded-circle bg-white d-inline-flex align-items-center justify-content-center mb-3 shadow-xs" style="width: 58px; height: 58px;">
+                                <i class="fa-solid fa-folder-open text-primary fs-3"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1">No Documents Uploaded Yet</h6>
+                            <p class="text-muted fs-12 mx-auto mb-3" style="max-width: 440px;">
+                                Securely upload your International Passport, Degree Transcripts, English Test Score (IELTS/PTE), or SOP for document verification.
+                            </p>
+                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1.5 fw-bold fs-12" data-bs-toggle="modal" data-bs-target="#uploadDocumentModal">
+                                <i class="fa-solid fa-cloud-arrow-up me-1"></i> Upload Your First Document
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    const docsGrid = docs.map(doc => {
+                        let icon = 'fa-file-lines text-primary';
+                        if (doc.type === 'Passport') icon = 'fa-passport text-primary';
+                        else if (doc.type === 'Transcripts') icon = 'fa-file-certificate text-primary';
+                        else if (doc.type === 'SOP') icon = 'fa-file-pen text-warning';
+                        else if (doc.type === 'English Test') icon = 'fa-graduation-cap text-info';
+                        else if (doc.type === 'LOR') icon = 'fa-envelope-open-text text-success';
+                        else if (doc.type === 'Resume') icon = 'fa-file-user text-secondary';
+                        else if (doc.type === 'Financial') icon = 'fa-file-invoice-dollar text-success';
+
+                        let badgeClass = 'bg-secondary-subtle text-secondary';
+                        const st = (doc.status || '').toLowerCase();
+                        if (st.includes('valid') || st.includes('verified')) badgeClass = 'bg-success-subtle text-success';
+                        else if (st.includes('review')) badgeClass = 'bg-warning-subtle text-warning-emphasis';
+                        else if (st.includes('prep')) badgeClass = 'bg-info-subtle text-info';
+                        else if (st.includes('re-upload') || st.includes('action') || st.includes('rejected')) badgeClass = 'bg-danger-subtle text-danger';
+
+                        const formattedDate = doc.uploadedAt ? new Date(doc.uploadedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'On file';
+
+                        return `
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3 bg-light d-flex align-items-center justify-content-between h-100">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <i class="fa-solid ${icon} fs-3"></i>
+                                        <div>
+                                            <div class="fw-bold fs-13 text-dark">${doc.title}</div>
+                                            <span class="fs-11 text-muted d-block">${doc.detail || doc.fileName || formattedDate}</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="badge ${badgeClass}">${doc.status || 'Verified'}</span>
+                                        <button type="button" class="btn btn-sm btn-link text-danger p-0 ms-1" title="Delete Document" onclick="handleDeleteDocument('${doc.id}')">
+                                            <i class="fa-regular fa-trash-can fs-12"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    docsWrapper.innerHTML = `<div class="row g-3">${docsGrid}</div>`;
+                }
+            }
+
+            // 7. Matched Scholarships Card
+            const scholarshipsWrapper = document.getElementById('matchedScholarshipsWrapper');
+            if (scholarshipsWrapper) {
+                const userGrants = Array.isArray(user.grants) ? user.grants : [];
+                if (userGrants.length === 0) {
+                    scholarshipsWrapper.innerHTML = `
+                        <div class="p-3 rounded-3 border bg-light text-center">
+                            <div class="p-2 rounded-circle bg-white d-inline-flex align-items-center justify-content-center mb-2 shadow-xs" style="width: 48px; height: 48px;">
+                                <i class="fa-solid fa-award text-warning fs-4"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark fs-13 mb-1">No Matched Scholarships Yet</h6>
+                            <p class="text-muted fs-11 mb-2">
+                                Once your academic profile is evaluated, eligible tuition bursaries and merit grants will be listed here.
+                            </p>
+                            <a href="scholarship-list.html" class="btn btn-sm btn-outline-warning rounded-pill px-3 py-1 fs-11 fw-bold text-dark">
+                                <i class="fa-solid fa-magnifying-glass me-1"></i> Browse 48+ Scholarships
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    scholarshipsWrapper.innerHTML = userGrants.map(grant => {
+                        const name = grant.name || grant.title || (typeof grant === 'string' ? grant : 'Merit Scholarship');
+                        const amount = grant.amount || 'Merit Waiver';
+                        const country = grant.country || 'Global';
+                        const flag = grant.flag || '🌐';
+                        const tag = grant.tag || 'Tuition Waiver';
+                        const tagClass = grant.tagClass || 'bg-success text-white';
+                        const status = grant.status || 'Eligible based on academic profile';
+
+                        return `
+                            <div class="p-3 rounded-3 border bg-light">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="badge ${tagClass} fw-bold fs-11">${tag}</span>
+                                    <span class="fs-11 text-muted">${flag} ${country}</span>
+                                </div>
+                                <div class="fw-bold text-dark fs-13">${name}</div>
+                                <div class="fs-12 text-success fw-bold">${amount}</div>
+                                <div class="fs-11 text-muted mt-1">Status: ${status}</div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             renderStudentPortal();
         });
+
+        function handleDocCategoryChange() {
+            const cat = document.getElementById('docCategorySelect').value;
+            const titleInput = document.getElementById('docTitleInput');
+            const detailInput = document.getElementById('docDetailInput');
+            if (!titleInput) return;
+
+            if (cat === 'Passport') {
+                titleInput.value = 'International Passport';
+                if (detailInput) detailInput.placeholder = 'e.g. Expires 2031';
+            } else if (cat === 'Transcripts') {
+                titleInput.value = 'University Degree Transcripts';
+                if (detailInput) detailInput.placeholder = 'e.g. GPA 3.84 / First Class Honours';
+            } else if (cat === 'SOP') {
+                titleInput.value = 'Statement of Purpose (SOP)';
+                if (detailInput) detailInput.placeholder = 'e.g. Draft v1 (For Advisor Review)';
+            } else if (cat === 'English Test') {
+                titleInput.value = 'IELTS / English Scorecard';
+                if (detailInput) detailInput.placeholder = 'e.g. Overall 7.5 (L:8, R:7.5, W:7, S:7)';
+            } else if (cat === 'LOR') {
+                titleInput.value = 'Letter of Recommendation (Professor/Employer)';
+                if (detailInput) detailInput.placeholder = 'e.g. From Dept. Head / Senior Manager';
+            } else if (cat === 'Resume') {
+                titleInput.value = 'Curriculum Vitae (CV)';
+                if (detailInput) detailInput.placeholder = 'e.g. Updated 2026 Academic CV';
+            } else if (cat === 'Financial') {
+                titleInput.value = 'Bank Solvency & Financial Proof';
+                if (detailInput) detailInput.placeholder = 'e.g. Bank statement covering £25,000 tuition';
+            } else {
+                titleInput.value = 'Supporting Academic Credential';
+                if (detailInput) detailInput.placeholder = 'e.g. Certificate or publication copy';
+            }
+        }
+
+        function handleUploadDocumentSubmit(e) {
+            e.preventDefault();
+            const user = edAuth.getUser();
+            if (!user) return;
+
+            const cat = document.getElementById('docCategorySelect').value;
+            const title = document.getElementById('docTitleInput').value.trim();
+            const detail = document.getElementById('docDetailInput').value.trim();
+            const fileInput = document.getElementById('docFileInput');
+            const fileName = fileInput.files && fileInput.files[0] ? fileInput.files[0].name : 'Document.pdf';
+
+            if (!title) {
+                alert('Please enter a document title.');
+                return;
+            }
+
+            edAuth.addDocumentToUser(user.email, {
+                title: title,
+                type: cat,
+                fileName: fileName,
+                detail: detail || 'Pending Verification',
+                status: 'Pending Verification'
+            });
+
+            edAuth.showToast(`Document "${title}" uploaded successfully!`, 'success');
+
+            const modalEl = document.getElementById('uploadDocumentModal');
+            const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            if (modal) modal.hide();
+
+            document.getElementById('uploadDocForm').reset();
+            renderStudentPortal();
+        }
+
+        function handleDeleteDocument(docId) {
+            if (!confirm('Are you sure you want to remove this document from your locker?')) return;
+            const user = edAuth.getUser();
+            if (!user) return;
+
+            edAuth.deleteUserDocument(user.email, docId);
+            edAuth.showToast('Document removed from locker.', 'info');
+            renderStudentPortal();
+        }
 
         function handleNewApplicationSubmit(e) {
             e.preventDefault();

@@ -82,7 +82,66 @@
                 }
             ],
             savedUniversities: ['University of Manchester', 'University of Melbourne', 'University of British Columbia', 'University of Oxford', 'University of Toronto', 'Imperial College London'],
-            grants: ['Global Excellence Award', 'STEM Future Leaders Grant', 'Commonwealth Shared Scholarship', 'Vice-Chancellor Waiver'],
+            documents: [
+                {
+                    id: 'DOC-101',
+                    title: 'International Passport',
+                    type: 'Passport',
+                    status: 'Valid',
+                    detail: 'Verified (Expires 2031)',
+                    badgeClass: 'bg-success-subtle text-success',
+                    uploadedAt: '2026-01-16T10:00:00.000Z'
+                },
+                {
+                    id: 'DOC-102',
+                    title: 'University Degree Transcripts',
+                    type: 'Transcripts',
+                    status: 'Verified',
+                    detail: 'Verified (GPA 3.84)',
+                    badgeClass: 'bg-success-subtle text-success',
+                    uploadedAt: '2026-01-18T10:00:00.000Z'
+                },
+                {
+                    id: 'DOC-103',
+                    title: 'Statement of Purpose (SOP)',
+                    type: 'SOP',
+                    status: 'In Review',
+                    detail: 'Draft v2 (Counselor Editing)',
+                    badgeClass: 'bg-warning-subtle text-warning-emphasis',
+                    uploadedAt: '2026-01-25T10:00:00.000Z'
+                },
+                {
+                    id: 'DOC-104',
+                    title: 'IELTS / English Scorecard',
+                    type: 'English Test',
+                    status: 'Prep Batch',
+                    detail: 'Target Score: 8.0',
+                    badgeClass: 'bg-info-subtle text-info',
+                    uploadedAt: '2026-02-01T10:00:00.000Z'
+                }
+            ],
+            grants: [
+                {
+                    id: 'GR-101',
+                    name: 'Global Melbourne Award',
+                    amount: 'Up to AUD $100,000',
+                    country: 'Australia',
+                    flag: '🇦🇺',
+                    tag: '100% Tuition Waiver',
+                    tagClass: 'bg-success text-white',
+                    status: 'Eligible based on GPA 3.8'
+                },
+                {
+                    id: 'GR-102',
+                    name: 'British Council GREAT Award',
+                    amount: 'GBP £10,000 Waiver',
+                    country: 'United Kingdom',
+                    flag: '🇬🇧',
+                    tag: "Dean's Bursary",
+                    tagClass: 'bg-warning text-dark',
+                    status: 'File Pre-Approved'
+                }
+            ],
             counseling: {
                 date: 'Nov 20th',
                 time: '4:00 PM GMT',
@@ -118,7 +177,8 @@
                 }
             ],
             savedUniversities: ['Columbia University', 'NYU'],
-            grants: ['Fulbright Scholar Nominee'],
+            documents: [],
+            grants: [],
             counseling: null
         },
         'amina@theeduconsultant.com': {
@@ -138,6 +198,7 @@
             authProvider: 'Email',
             applications: [],
             savedUniversities: [],
+            documents: [],
             grants: [],
             counseling: null
         }
@@ -149,7 +210,16 @@
         if (!user.email) user.email = email;
         if (!Array.isArray(user.applications)) user.applications = [];
         if (!Array.isArray(user.savedUniversities)) user.savedUniversities = [];
+        if (!Array.isArray(user.documents)) user.documents = [];
         if (!Array.isArray(user.grants)) user.grants = [];
+
+        // If a real non-seed user had legacy string-only grants, reset to clean array
+        if (email !== 'student@theeduconsultant.com') {
+            if (user.grants.length > 0 && typeof user.grants[0] === 'string') {
+                user.grants = [];
+            }
+        }
+
         if (typeof user.milestonePhase === 'undefined') user.milestonePhase = 1;
         if (!user.status) user.status = 'Active';
         if (!user.mentor) user.mentor = 'Dr. Eleanor Vance';
@@ -376,7 +446,8 @@
                 milestonePhase: 1,
                 applications: [],        // Initialized clean: no fake mock applications
                 savedUniversities: [],   // Clean state
-                grants: [],              // Clean state
+                documents: [],           // Clean state: no fake mock documents
+                grants: [],              // Clean state: no fake mock scholarships
                 counseling: null,        // None scheduled initially
                 avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
                 authProvider: formData.authProvider || 'Email',
@@ -600,6 +671,129 @@
             return true;
         },
 
+        // --- SCHOLAR DIGITAL DOCUMENT LOCKER METHODS ---
+        addDocumentToUser: function (email, docData) {
+            if (!email) return null;
+            const cleanEmail = email.trim().toLowerCase();
+            const db = getDB();
+            const user = db[cleanEmail];
+            if (!user) return null;
+
+            if (!Array.isArray(user.documents)) user.documents = [];
+
+            const newDoc = {
+                id: 'DOC-' + Math.floor(1000 + Math.random() * 9000),
+                title: docData.title || 'Official Academic Credential',
+                type: docData.type || 'Passport',
+                status: docData.status || 'Pending Verification',
+                detail: docData.detail || (docData.status === 'Verified' ? 'Verified by Admissions' : 'Under Counselor Review'),
+                fileName: docData.fileName || '',
+                fileSize: docData.fileSize || '',
+                notes: docData.notes || '',
+                uploadedAt: new Date().toISOString()
+            };
+
+            user.documents.unshift(newDoc);
+            saveDB(db);
+
+            const current = this.getUser();
+            if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                current.documents = user.documents;
+                this.setUser(current);
+            }
+            return newDoc;
+        },
+
+        updateUserDocument: function (email, docId, updates) {
+            if (!email || !docId) return false;
+            const cleanEmail = email.trim().toLowerCase();
+            const db = getDB();
+            const user = db[cleanEmail];
+            if (!user || !Array.isArray(user.documents)) return false;
+
+            const idx = user.documents.findIndex(d => d.id === docId);
+            if (idx === -1) return false;
+
+            user.documents[idx] = Object.assign({}, user.documents[idx], updates);
+            saveDB(db);
+
+            const current = this.getUser();
+            if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                current.documents = user.documents;
+                this.setUser(current);
+            }
+            return true;
+        },
+
+        deleteUserDocument: function (email, docId) {
+            if (!email || !docId) return false;
+            const cleanEmail = email.trim().toLowerCase();
+            const db = getDB();
+            const user = db[cleanEmail];
+            if (!user || !Array.isArray(user.documents)) return false;
+
+            user.documents = user.documents.filter(d => d.id !== docId);
+            saveDB(db);
+
+            const current = this.getUser();
+            if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                current.documents = user.documents;
+                this.setUser(current);
+            }
+            return true;
+        },
+
+        // --- SCHOLAR MATCHED SCHOLARSHIPS / GRANTS METHODS ---
+        addGrantToUser: function (email, grantData) {
+            if (!email) return null;
+            const cleanEmail = email.trim().toLowerCase();
+            const db = getDB();
+            const user = db[cleanEmail];
+            if (!user) return null;
+
+            if (!Array.isArray(user.grants)) user.grants = [];
+
+            const newGrant = {
+                id: 'GR-' + Math.floor(1000 + Math.random() * 9000),
+                name: grantData.name || 'International Merit Bursary',
+                amount: grantData.amount || 'Tuition Fee Waiver',
+                country: grantData.country || user.destination || 'Global',
+                flag: grantData.flag || '🌐',
+                tag: grantData.tag || 'Merit Bursary',
+                status: grantData.status || 'Eligible - Pre-Approved',
+                notes: grantData.notes || '',
+                addedAt: new Date().toISOString()
+            };
+
+            user.grants.unshift(newGrant);
+            saveDB(db);
+
+            const current = this.getUser();
+            if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                current.grants = user.grants;
+                this.setUser(current);
+            }
+            return newGrant;
+        },
+
+        deleteUserGrant: function (email, grantId) {
+            if (!email || !grantId) return false;
+            const cleanEmail = email.trim().toLowerCase();
+            const db = getDB();
+            const user = db[cleanEmail];
+            if (!user || !Array.isArray(user.grants)) return false;
+
+            user.grants = user.grants.filter(g => (g.id !== grantId && g.name !== grantId));
+            saveDB(db);
+
+            const current = this.getUser();
+            if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                current.grants = user.grants;
+                this.setUser(current);
+            }
+            return true;
+        },
+
         deleteUserAccount: function (email) {
             if (!email) return false;
             const cleanEmail = email.trim().toLowerCase();
@@ -637,6 +831,7 @@
                 milestonePhase: 1,
                 applications: [],
                 savedUniversities: [],
+                documents: [],
                 grants: [],
                 counseling: null,
                 avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
@@ -805,6 +1000,7 @@
                     milestonePhase: 1,
                     applications: [],
                     savedUniversities: [],
+                    documents: [],
                     grants: [],
                     counseling: null,
                     password: 'SocialAuthUser2026!',

@@ -1647,6 +1647,8 @@
                 </div>
             </section>
         </main>
+    </div>
+
     <!-- ============================================================== -->
     <!-- MODAL: ADMIN MANAGE SCHOLAR PROFILE & APPLICATIONS             -->
     <!-- ============================================================== -->
@@ -1683,6 +1685,16 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link rounded-pill px-3 py-2 fs-13 fw-bold" id="tab-manage-milestone-btn" data-bs-toggle="pill" data-bs-target="#tab-manage-milestone" type="button" role="tab">
                                 <i class="fa-solid fa-timeline me-1"></i> Admissions Journey Milestone
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded-pill px-3 py-2 fs-13 fw-bold" id="tab-manage-docs-btn" data-bs-toggle="pill" data-bs-target="#tab-manage-docs" type="button" role="tab">
+                                <i class="fa-solid fa-folder-open me-1"></i> Document Locker <span class="badge bg-primary text-white ms-1" id="manageModalDocsCountBadge">0</span>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded-pill px-3 py-2 fs-13 fw-bold" id="tab-manage-grants-btn" data-bs-toggle="pill" data-bs-target="#tab-manage-grants" type="button" role="tab">
+                                <i class="fa-solid fa-award me-1"></i> Scholarships & Grants <span class="badge bg-success text-white ms-1" id="manageModalGrantsCountBadge">0</span>
                             </button>
                         </li>
                     </ul>
@@ -1881,6 +1893,107 @@
                                     <i class="fa-solid fa-check me-1"></i> Update Milestone Phase for Scholar
                                 </button>
                             </form>
+                        </div>
+
+                        <!-- TAB 4: DOCUMENT LOCKER -->
+                        <div class="tab-pane fade" id="tab-manage-docs" role="tabpanel">
+                            <div class="mb-4">
+                                <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-folder-open text-primary me-2"></i>Scholar's Uploaded Verification Credentials</h6>
+                                <div id="manageUserDocsContainer">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+
+                            <!-- Attach / Upload Document for Scholar -->
+                            <div class="card border rounded-3 p-3 bg-light">
+                                <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-cloud-arrow-up text-success me-2"></i>Attach Verified Document on Scholar's Behalf</h6>
+                                <form id="adminAddUserDocForm" onsubmit="window.EduCMS.addDocToUserFromAdmin(event)">
+                                    <div class="row g-2 mb-2">
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-13" id="adminAddDocTitleInput" placeholder="Document Title (e.g., International Passport)" required>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <select class="form-select rounded-3 py-2 px-3 fs-13" id="adminAddDocTypeSelect" required>
+                                                <option value="Passport">📘 Passport / Biometric ID</option>
+                                                <option value="Transcripts">🎓 Academic Transcripts</option>
+                                                <option value="SOP">✍️ Statement of Purpose</option>
+                                                <option value="English Test">🗣️ English Scorecard (IELTS)</option>
+                                                <option value="LOR">📑 Recommendation Letters</option>
+                                                <option value="Resume">📄 Resume / CV</option>
+                                                <option value="Financial">💰 Financial Proof / Solvency</option>
+                                                <option value="Other">📁 Other Credential</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-13" id="adminAddDocDetailInput" placeholder="Notes / Details (e.g. Verified GPA 3.84, Valid to 2031)">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <select class="form-select rounded-3 py-2 px-3 fs-13" id="adminAddDocStatusSelect">
+                                                <option value="Verified">Verified ✓</option>
+                                                <option value="Under Review">Under Review 🟡</option>
+                                                <option value="Pending Verification">Pending Verification ⏳</option>
+                                                <option value="Needs Re-upload">Needs Re-upload ❌</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 fs-13 fw-bold">
+                                        <i class="fa-solid fa-plus me-1"></i> Attach Document to Scholar Record
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- TAB 5: SCHOLARSHIPS & GRANTS -->
+                        <div class="tab-pane fade" id="tab-manage-grants" role="tabpanel">
+                            <div class="mb-4">
+                                <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-award text-success me-2"></i>Matched Scholarships & Tuition Waivers on File</h6>
+                                <div id="manageUserGrantsContainer">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+
+                            <!-- Assign Scholarship Form -->
+                            <div class="card border rounded-3 p-3 bg-light">
+                                <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-circle-plus text-primary me-2"></i>Assign Matched Scholarship to Scholar</h6>
+                                <form id="adminAddUserGrantForm" onsubmit="window.EduCMS.addGrantToUserFromAdmin(event)">
+                                    <div class="row g-2 mb-2">
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-13" id="adminAddGrantNameInput" placeholder="Scholarship Name (e.g., Global Excellence Award)" required>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-13" id="adminAddGrantAmountInput" placeholder="Award Amount (e.g., £10,000 Waiver)" required>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-md-4">
+                                            <select class="form-select rounded-3 py-2 px-3 fs-13" id="adminAddGrantCountrySelect">
+                                                <option value="United Kingdom">🇬🇧 UK</option>
+                                                <option value="United States">🇺🇸 USA</option>
+                                                <option value="Canada">🇨🇦 Canada</option>
+                                                <option value="Australia">🇦🇺 Australia</option>
+                                                <option value="Germany">🇩🇪 Germany</option>
+                                                <option value="Ireland">🇮🇪 Ireland</option>
+                                                <option value="Global">🌐 Global</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-13" id="adminAddGrantTagInput" placeholder="Tag (e.g., 100% Tuition Waiver, Dean's Bursary)">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-select rounded-3 py-2 px-3 fs-13" id="adminAddGrantStatusSelect">
+                                                <option value="Eligible - Application Pre-Approved">Eligible - Pre-Approved</option>
+                                                <option value="Granted - Official Award Letter Issued">Award Letter Issued 🎉</option>
+                                                <option value="Application Under Review">Under Review</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success rounded-pill px-4 py-2 fs-13 fw-bold">
+                                        <i class="fa-solid fa-plus me-1"></i> Assign Scholarship to Scholar
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

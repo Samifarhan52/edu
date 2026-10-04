@@ -2125,6 +2125,8 @@ Start internship networking during your second semester. Utilize university care
             if (passInput) passInput.value = user.password || '';
 
             this.renderManageUserApps(user);
+            this.renderManageUserDocs(user);
+            this.renderManageUserGrants(user);
 
             const phase = user.milestonePhase || 1;
             const radios = document.querySelectorAll('input[name="milestonePhaseRadio"]');
@@ -2203,6 +2205,199 @@ Start internship networking during your second semester. Utilize university care
                     </div>
                 `;
             }).join('');
+        },
+
+        renderManageUserDocs: function (user) {
+            const container = document.getElementById('manageUserDocsContainer');
+            const countBadge = document.getElementById('manageModalDocsCountBadge');
+            const docs = Array.isArray(user.documents) ? user.documents : [];
+
+            if (countBadge) countBadge.textContent = docs.length;
+            if (!container) return;
+
+            if (docs.length === 0) {
+                container.innerHTML = `
+                    <div class="p-4 rounded-3 border bg-light text-center text-muted">
+                        <i class="fa-solid fa-folder-open fs-3 d-block mb-2 text-secondary"></i>
+                        <b class="text-dark d-block mb-1">No Verification Documents Uploaded Yet</b>
+                        <span class="fs-12">The scholar has not uploaded any credentials yet. You can attach a document on their behalf below.</span>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = docs.map(doc => {
+                const uploadedDate = doc.uploadedAt ? new Date(doc.uploadedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'On file';
+                
+                return `
+                    <div class="card border rounded-3 p-3 mb-3 shadow-xs bg-white">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2 pb-2 border-bottom">
+                            <div>
+                                <h6 class="fw-bold text-dark mb-0">${doc.title}</h6>
+                                <span class="fs-12 text-muted">Category: ${doc.type || 'Document'} • Uploaded: ${uploadedDate}</span>
+                            </div>
+                            <span class="badge bg-light text-muted font-monospace fs-11">Doc ID: ${doc.id}</span>
+                        </div>
+                        <div class="row align-items-center g-2 mb-2">
+                            <div class="col-md-5">
+                                <input type="text" class="form-control form-control-sm fs-12 py-1" id="docDetailInput_${doc.id}" value="${doc.detail || doc.fileName || ''}" placeholder="Counselor verification notes">
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select form-select-sm fs-12 py-1" id="docStatusSelect_${doc.id}">
+                                    <option value="Verified" ${doc.status === 'Verified' || doc.status === 'Valid' ? 'selected' : ''}>Verified ✓</option>
+                                    <option value="Under Review" ${doc.status === 'Under Review' || doc.status === 'In Review' ? 'selected' : ''}>Under Review 🟡</option>
+                                    <option value="Pending Verification" ${doc.status === 'Pending Verification' ? 'selected' : ''}>Pending Verification ⏳</option>
+                                    <option value="Needs Re-upload" ${doc.status === 'Needs Re-upload' ? 'selected' : ''}>Needs Re-upload ❌</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 text-end">
+                                <button type="button" class="btn btn-sm btn-primary rounded-pill px-2.5 py-1 fs-12 fw-bold" onclick="window.EduCMS.updateDocStatusFromAdmin('${user.email}', '${doc.id}')">
+                                    <i class="fa-solid fa-check me-1"></i> Save
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-circle p-1 ms-1" title="Delete document" onclick="window.EduCMS.deleteDocFromAdmin('${user.email}', '${doc.id}')">
+                                    <i class="fa-solid fa-trash-can" style="font-size: 11px;"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        },
+
+        updateDocStatusFromAdmin: function (email, docId) {
+            const selectEl = document.getElementById(`docStatusSelect_${docId}`);
+            const detailEl = document.getElementById(`docDetailInput_${docId}`);
+            if (!selectEl) return;
+
+            const newStatus = selectEl.value;
+            const newDetail = detailEl ? detailEl.value.trim() : '';
+
+            window.edAuth.updateUserDocument(email, docId, { status: newStatus, detail: newDetail });
+            this.showToast('Document Status Updated', `Document marked as "${newStatus}".`);
+
+            const updatedUser = window.edAuth.getUserByEmail(email);
+            this.renderManageUserDocs(updatedUser);
+        },
+
+        deleteDocFromAdmin: function (email, docId) {
+            if (!confirm('Are you sure you want to delete this document from the scholar locker?')) return;
+
+            window.edAuth.deleteUserDocument(email, docId);
+            this.showToast('Document Removed', 'Document deleted from scholar locker.');
+
+            const updatedUser = window.edAuth.getUserByEmail(email);
+            this.renderManageUserDocs(updatedUser);
+        },
+
+        addDocToUserFromAdmin: function (e) {
+            if (e) e.preventDefault();
+            const email = document.getElementById('manageUserOriginalEmail').value;
+            const title = document.getElementById('adminAddDocTitleInput').value.trim();
+            const type = document.getElementById('adminAddDocTypeSelect').value;
+            const detail = document.getElementById('adminAddDocDetailInput').value.trim();
+            const status = document.getElementById('adminAddDocStatusSelect').value;
+
+            if (!title) {
+                alert('Please enter a document title.');
+                return;
+            }
+
+            window.edAuth.addDocumentToUser(email, {
+                title,
+                type,
+                detail: detail || (status === 'Verified' ? 'Verified by Counselor' : 'Under Review'),
+                status
+            });
+
+            this.showToast('Document Attached', `Added "${title}" to scholar locker.`);
+            document.getElementById('adminAddUserDocForm').reset();
+
+            const updatedUser = window.edAuth.getUserByEmail(email);
+            this.renderManageUserDocs(updatedUser);
+        },
+
+        renderManageUserGrants: function (user) {
+            const container = document.getElementById('manageUserGrantsContainer');
+            const countBadge = document.getElementById('manageModalGrantsCountBadge');
+            const grants = Array.isArray(user.grants) ? user.grants : [];
+
+            if (countBadge) countBadge.textContent = grants.length;
+            if (!container) return;
+
+            if (grants.length === 0) {
+                container.innerHTML = `
+                    <div class="p-4 rounded-3 border bg-light text-center text-muted">
+                        <i class="fa-solid fa-award fs-3 d-block mb-2 text-warning"></i>
+                        <b class="text-dark d-block mb-1">No Matched Scholarships Assigned</b>
+                        <span class="fs-12">This scholar currently has no scholarships on file. You can assign eligible grants below.</span>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = grants.map(grant => {
+                const name = grant.name || grant.title || grant;
+                const amount = grant.amount || 'Tuition Waiver';
+                const country = grant.country || 'Global';
+                const tag = grant.tag || 'Merit Bursary';
+                const status = grant.status || 'Eligible - Pre-Approved';
+                const gid = grant.id || name;
+
+                return `
+                    <div class="card border rounded-3 p-3 mb-2 shadow-xs bg-white">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                            <div>
+                                <span class="badge bg-warning-subtle text-warning-emphasis fw-bold fs-11">${tag}</span>
+                                <h6 class="fw-bold text-dark mb-0 mt-1">${name}</h6>
+                                <span class="fs-12 text-success fw-bold">${amount}</span>
+                                <span class="fs-12 text-muted ms-2">• ${country} • ${status}</span>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-1 fs-12 fw-bold" onclick="window.EduCMS.deleteGrantFromAdmin('${user.email}', '${gid}')">
+                                <i class="fa-solid fa-trash-can me-1"></i> Remove Grant
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        },
+
+        deleteGrantFromAdmin: function (email, grantId) {
+            if (!confirm('Are you sure you want to remove this scholarship from the scholar record?')) return;
+
+            window.edAuth.deleteUserGrant(email, grantId);
+            this.showToast('Scholarship Removed', 'Scholarship removed from scholar profile.');
+
+            const updatedUser = window.edAuth.getUserByEmail(email);
+            this.renderManageUserGrants(updatedUser);
+        },
+
+        addGrantToUserFromAdmin: function (e) {
+            if (e) e.preventDefault();
+            const email = document.getElementById('manageUserOriginalEmail').value;
+            const name = document.getElementById('adminAddGrantNameInput').value.trim();
+            const amount = document.getElementById('adminAddGrantAmountInput').value.trim();
+            const country = document.getElementById('adminAddGrantCountrySelect').value;
+            const tag = document.getElementById('adminAddGrantTagInput').value.trim() || 'Merit Bursary';
+            const status = document.getElementById('adminAddGrantStatusSelect').value;
+
+            if (!name || !amount) {
+                alert('Please enter Scholarship Name and Award Amount.');
+                return;
+            }
+
+            window.edAuth.addGrantToUser(email, {
+                name,
+                amount,
+                country,
+                tag,
+                status
+            });
+
+            this.showToast('Scholarship Assigned', `Assigned "${name}" to scholar.`);
+            document.getElementById('adminAddUserGrantForm').reset();
+
+            const updatedUser = window.edAuth.getUserByEmail(email);
+            this.renderManageUserGrants(updatedUser);
         },
 
         saveUserManageProfile: function (e) {
