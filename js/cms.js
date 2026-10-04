@@ -323,21 +323,23 @@ Start internship networking during your second semester. Utilize university care
 
         getAllBlogs: function () {
             const custom = this.getCustomBlogs();
+            let needsResave = false;
+            custom.forEach(b => {
+                const a = (b.author || '').toLowerCase();
+                if (!a.includes('faraz')) {
+                    b.author = 'Faraz Ahamed';
+                    b.authorRole = 'Founder & Principal Consultant';
+                    needsResave = true;
+                }
+            });
+            if (needsResave) {
+                this.saveCustomBlogs(custom);
+            }
+
             const all = [...custom, ...DEFAULT_BLOGS];
-            const legacyMockAuthors = [
-                'alexander morgan',
-                'dr. eleanor vance',
-                'eleanor vance',
-                'sophia patel',
-                'marcus chen',
-                'marcus sterling',
-                'sophia chen',
-                'david o\'connor',
-                'advisor',
-                'editorial'
-            ];
             all.forEach(b => {
-                if (!b.author || legacyMockAuthors.includes(b.author.toLowerCase().trim())) {
+                const a = (b.author || '').toLowerCase();
+                if (!a.includes('faraz')) {
                     b.author = 'Faraz Ahamed';
                     b.authorRole = 'Founder & Principal Consultant';
                 }
@@ -497,10 +499,23 @@ Start internship networking during your second semester. Utilize university care
 
         getPages: function () {
             const custom = this.getCustomPages();
+            let needsResave = false;
+            custom.forEach(p => {
+                const a = (p.author || '').toLowerCase();
+                if (!a.includes('faraz')) {
+                    p.author = 'Faraz Ahamed';
+                    p.authorRole = 'Founder & Principal Consultant';
+                    needsResave = true;
+                }
+            });
+            if (needsResave) {
+                this.saveCustomPages(custom);
+            }
+
             const all = [...custom, ...DEFAULT_PAGES];
-            const legacyMockAuthors = ['alexander morgan', 'dr. eleanor vance', 'eleanor vance', 'sophia patel', 'marcus chen', 'advisor', 'editorial'];
             all.forEach(p => {
-                if (!p.author || legacyMockAuthors.includes(p.author.toLowerCase().trim())) {
+                const a = (p.author || '').toLowerCase();
+                if (!a.includes('faraz')) {
                     p.author = 'Faraz Ahamed';
                     p.authorRole = 'Founder & Principal Consultant';
                 }
@@ -1008,8 +1023,8 @@ Start internship networking during your second semester. Utilize university care
 
                 container.innerHTML = filtered.map(blog => {
                     const isNewBadge = blog.isCustom ? `<span class="badge bg-danger text-white fw-bold me-1 animate-pulse"><i class="fa-solid fa-sparkles me-1"></i>NEW POST</span>` : '';
-                    const authorName = blog.author || 'Faraz Ahamed';
-                    const authorInitials = authorName.split(' ').map(n => n[0]).filter(Boolean).join('').substring(0, 2).toUpperCase() || 'FA';
+                    const authorName = 'Faraz Ahamed';
+                    const authorInitials = 'FA';
                     return `
                         <div class="col-lg-4 col-md-6" data-aos="fade-up">
                             <article class="card h-100 border rounded-4 overflow-hidden shadow-sm blog-item-card transition-hover">
@@ -1047,18 +1062,20 @@ Start internship networking during your second semester. Utilize university care
                         </div>
                     `;
                 }).join('');
-
-                // Attach modal reader handlers
-                container.querySelectorAll('.read-article-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const id = btn.getAttribute('data-id');
-                        const item = allBlogs.find(b => b.id === id);
-                        if (item) {
-                            EduCMS.openBlogReaderModal(item);
-                        }
-                    });
-                });
             };
+
+            // Event delegation for opening articles (works with pre-rendered and dynamic cards)
+            container.addEventListener('click', (e) => {
+                const btn = e.target.closest('.read-article-btn');
+                if (btn) {
+                    const id = btn.getAttribute('data-id');
+                    const allBlogs = this.getAllBlogs();
+                    const item = allBlogs.find(b => b.id === id);
+                    if (item) {
+                        this.openBlogReaderModal(item);
+                    }
+                }
+            });
 
             // Setup Search listener
             if (searchInput) {
@@ -1135,7 +1152,7 @@ Start internship networking during your second semester. Utilize university care
 
             document.getElementById('modalBlogCategory').textContent = blog.category;
             document.getElementById('modalBlogTitle').textContent = blog.title;
-            document.getElementById('modalBlogAuthor').innerHTML = `<i class="fa-regular fa-user me-1"></i> ${blog.author} (${blog.authorRole || 'Advisor'})`;
+            document.getElementById('modalBlogAuthor').innerHTML = `<i class="fa-regular fa-user me-1"></i> Faraz Ahamed (Founder & Principal Consultant)`;
             document.getElementById('modalBlogDate').innerHTML = `<i class="fa-regular fa-calendar me-1"></i> ${blog.date}`;
             document.getElementById('modalBlogReadTime').innerHTML = `<i class="fa-regular fa-clock me-1"></i> ${blog.readTime}`;
             document.getElementById('modalBlogImage').src = blog.image;
