@@ -167,6 +167,18 @@
             }
 
             this.updateBadge();
+
+            // Background sync to Hostinger PHP & MySQL backend if available
+            try {
+                if (typeof fetch === 'function') {
+                    fetch('api/lead-handler.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(Object.assign({ type: 'lead' }, newLead))
+                    }).catch(function () {});
+                }
+            } catch (syncErr) {}
+
             return newLead;
         },
 
@@ -464,6 +476,17 @@ Message: ${lead.message}`, 'color: #000064; font-weight: bold;', 'color: #333;')
             if (document.getElementById('adminMeetingsTableBody')) {
                 this.renderAdminMeetingsTable();
             }
+
+            // Background sync to Hostinger PHP & MySQL backend if available
+            try {
+                if (typeof fetch === 'function') {
+                    fetch('api/lead-handler.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(Object.assign({ type: 'meeting' }, newMeeting))
+                    }).catch(function () {});
+                }
+            } catch (syncErr) {}
 
             return newMeeting;
         },

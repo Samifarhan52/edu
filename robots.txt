@@ -1,0 +1,14 @@
+# robots.txt - The Edu Consultant
+# Crawler Instructions for Search Engines (Googlebot, Bingbot, etc.)
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /admin-dashboard.html
+Disallow: /student-dashboard.html
+Disallow: /api/
+Disallow: /*.jsonl$
+Disallow: /*.sql$
+
+# Host Sitemap
+Sitemap: https://edu-two-eta.vercel.app/sitemap.xml
