@@ -960,21 +960,24 @@ Start internship networking during your second semester. Utilize university care
 
             document.body.appendChild(dock);
 
-            // Connect Trigger in Mobile Dock
+            // Connect Trigger in Mobile Dock (Toggles native bottom sheet action drawer)
             const dockConnect = document.getElementById('dockConnectTrigger');
             if (dockConnect) {
                 const handleConnect = (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    const card = document.getElementById('eduConnectCard');
-                    if (card) {
-                        card.classList.toggle('active');
-                    } else if (window.EduLeads && typeof window.EduLeads.openMeetingModal === 'function') {
-                        window.EduLeads.openMeetingModal();
+                    if (window.EduLeads && typeof window.EduLeads.toggleConnectCard === 'function') {
+                        window.EduLeads.toggleConnectCard();
+                    } else {
+                        const card = document.getElementById('eduConnectCard');
+                        if (card) {
+                            card.classList.toggle('active');
+                        } else if (window.EduLeads && typeof window.EduLeads.openMeetingModal === 'function') {
+                            window.EduLeads.openMeetingModal();
+                        }
                     }
                 };
                 dockConnect.addEventListener('click', handleConnect);
-                dockConnect.addEventListener('touchend', handleConnect);
             }
         },
 

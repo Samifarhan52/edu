@@ -1234,9 +1234,28 @@ noreply@theeduconsultant.com`
             const closeBtn = document.getElementById('closeConnectCardBtn');
             const card = document.getElementById('eduConnectCard');
 
-            this.toggleConnectCard = function () {
+            this.toggleConnectCard = function (forceState) {
                 const c = document.getElementById('eduConnectCard');
-                if (c) c.classList.toggle('active');
+                let bd = document.getElementById('eduConnectBackdrop');
+                if (!bd) {
+                    bd = document.createElement('div');
+                    bd.id = 'eduConnectBackdrop';
+                    bd.className = 'edu-connect-backdrop';
+                    document.body.appendChild(bd);
+                    bd.addEventListener('click', () => {
+                        if (c) c.classList.remove('active');
+                        bd.classList.remove('active');
+                    });
+                }
+                if (!c) return;
+                const shouldOpen = typeof forceState === 'boolean' ? forceState : !c.classList.contains('active');
+                if (shouldOpen) {
+                    c.classList.add('active');
+                    bd.classList.add('active');
+                } else {
+                    c.classList.remove('active');
+                    bd.classList.remove('active');
+                }
             };
 
             if (toggleBtn && card && !toggleBtn._hasBoundConnect) {
@@ -1244,7 +1263,7 @@ noreply@theeduconsultant.com`
                 const handleToggle = (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    card.classList.toggle('active');
+                    this.toggleConnectCard();
                 };
                 toggleBtn.addEventListener('click', handleToggle);
             }
@@ -1254,6 +1273,8 @@ noreply@theeduconsultant.com`
                     e.preventDefault();
                     e.stopPropagation();
                     card.classList.remove('active');
+                    const bd = document.getElementById('eduConnectBackdrop');
+                    if (bd) bd.classList.remove('active');
                 };
                 closeBtn.addEventListener('click', handleClose);
             }
@@ -1263,8 +1284,10 @@ noreply@theeduconsultant.com`
                     const c = document.getElementById('eduConnectCard');
                     const tb = document.getElementById('toggleConnectCardBtn');
                     const dt = document.getElementById('dockConnectTrigger');
+                    const bd = document.getElementById('eduConnectBackdrop');
                     if (c && c.classList.contains('active') && !c.contains(e.target) && (!tb || !tb.contains(e.target)) && (!dt || !dt.contains(e.target))) {
                         c.classList.remove('active');
+                        if (bd) bd.classList.remove('active');
                     }
                 });
             }

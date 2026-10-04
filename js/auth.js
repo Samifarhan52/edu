@@ -1205,6 +1205,28 @@
                         </div>
                     `;
                     nav.appendChild(li);
+                } else {
+                    const li = document.createElement('li');
+                    li.className = 'nav-item d-lg-none mt-3 mobile-auth-item w-100';
+                    li.innerHTML = `
+                        <div class="pt-3 border-top w-100">
+                            <div class="d-flex gap-2 mb-2">
+                                <a href="login.html" class="btn btn-outline-primary rounded-pill w-50 fw-bold py-2 fs-13" style="border-color: var(--brand-primary); color: var(--brand-primary);">
+                                    <i class="fa-solid fa-arrow-right-to-bracket me-1"></i> Sign In
+                                </a>
+                                <a href="signup.html" class="btn btn-primary rounded-pill w-50 fw-bold py-2 fs-13 text-white" style="background-color: var(--brand-primary); border-color: var(--brand-primary);">
+                                    <i class="fa-solid fa-user-plus me-1"></i> Sign Up
+                                </a>
+                            </div>
+                            <div class="p-2.5 rounded-3 bg-light text-center">
+                                <span class="fs-11 text-muted d-block mb-1">Direct Admissions Hotline</span>
+                                <a href="tel:+919845371459" class="text-decoration-none fw-bold text-dark fs-13">
+                                    <i class="fa-solid fa-phone text-success me-1"></i> +91 9845371459
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    nav.appendChild(li);
                 }
             });
 
