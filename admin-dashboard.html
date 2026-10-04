@@ -274,7 +274,8 @@
                     </li>
                     <li>
                         <button type="button" class="admin-nav-tab" data-target="panel-applications">
-                            <i class="fa-solid fa-user-graduate"></i> Student Pipeline
+                            <i class="fa-solid fa-user-graduate"></i> Student & User Accounts
+                            <span class="badge bg-primary rounded-pill ms-auto" id="sidebarUsersCountBadge">3</span>
                         </button>
                     </li>
                     <li>
@@ -431,23 +432,23 @@
                         </div>
                     </div>
                     <div class="col-xl-2 col-md-4 col-6">
-                        <div class="metric-card h-100">
+                        <div class="metric-card h-100 cursor-pointer" onclick="document.querySelector('[data-target=panel-applications]').click();">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fs-12 text-muted fw-bold text-uppercase">Applications</span>
-                                <div class="p-2 rounded-3 bg-info-subtle text-info"><i class="fa-solid fa-file-signature"></i></div>
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Registered Scholars</span>
+                                <div class="p-2 rounded-3 bg-info-subtle text-info"><i class="fa-solid fa-users"></i></div>
                             </div>
-                            <h3 class="fw-800 text-dark mb-1">142</h3>
-                            <span class="text-muted fs-11">Review Stage</span>
+                            <h3 class="fw-800 text-dark mb-1" id="adminTotalScholarsCounter">0</h3>
+                            <span class="text-primary fs-11 fw-bold"><i class="fa-solid fa-id-badge me-1"></i> Active Profiles</span>
                         </div>
                     </div>
                     <div class="col-xl-2 col-md-4 col-6">
-                        <div class="metric-card h-100">
+                        <div class="metric-card h-100 cursor-pointer" onclick="document.querySelector('[data-target=panel-applications]').click();">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fs-12 text-muted fw-bold text-uppercase">Total Placed</span>
-                                <div class="p-2 rounded-3 bg-primary-subtle text-primary"><i class="fa-solid fa-user-graduate"></i></div>
+                                <span class="fs-12 text-muted fw-bold text-uppercase">Total Applications</span>
+                                <div class="p-2 rounded-3 bg-primary-subtle text-primary"><i class="fa-solid fa-file-signature"></i></div>
                             </div>
-                            <h3 class="fw-800 text-dark mb-1">1,280</h3>
-                            <span class="text-success fs-11 fw-bold">+14% Growth</span>
+                            <h3 class="fw-800 text-dark mb-1" id="adminTotalAppsCounter">0</h3>
+                            <span class="text-success fs-11 fw-bold"><i class="fa-solid fa-file-circle-check me-1"></i> Real Filings</span>
                         </div>
                     </div>
                 </div>
@@ -1101,93 +1102,73 @@
             </section>
 
             <!-- ============================================================== -->
-            <!-- PANEL 5: STUDENT PIPELINE                                      -->
+            <!-- ============================================================== -->
+            <!-- PANEL 5: STUDENT & SCHOLAR ACCOUNTS HUB                        -->
             <!-- ============================================================== -->
             <section id="panel-applications" class="admin-view-panel">
-                <div class="card border rounded-4 shadow-sm overflow-hidden mb-4 bg-white">
-                    <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center">
-                        <h5 class="fw-bold text-dark mb-0">Candidate Intake Pipeline (2026/2027)</h5>
-                        <div class="d-flex gap-2">
-                            <span class="badge bg-primary text-white p-2">Total: 142 Active</span>
+                <div class="card border rounded-4 shadow-sm p-4 bg-white mb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2 border-bottom pb-3">
+                        <div>
+                            <h4 class="fw-bold text-dark mb-1">
+                                <i class="fa-solid fa-user-graduate text-primary me-2"></i>Student & Scholar Accounts Hub
+                            </h4>
+                            <p class="text-muted fs-13 mb-0">Search registered scholars by Unique Scholar ID or Email, reset passwords, and manage live application pipelines.</p>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-primary text-white py-2 px-3 rounded-pill fw-bold" id="adminUsersCountBadge">Total: 3 Scholars</span>
+                            <button type="button" class="btn btn-warning btn-sm rounded-pill px-3 py-2 fw-bold text-dark shadow-sm" data-bs-toggle="modal" data-bs-target="#adminCreateScholarModal" style="background-color: var(--button); border: none;">
+                                <i class="fa-solid fa-user-plus me-1"></i> Onboard New Scholar
+                            </button>
                         </div>
                     </div>
+
+                    <!-- Live Scholar Search & Filtering Toolbar -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-lg-6">
+                            <div class="input-group shadow-xs">
+                                <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-solid fa-magnifying-glass"></i></span>
+                                <input type="text" class="form-control border-start-0 py-2.5 ps-0 fs-14" id="adminUserSearchInput" placeholder="Search by Unique Scholar ID (e.g. EDU-2026-9842), Email, or Name..." oninput="window.EduCMS.filterAdminUsers()">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <select class="form-select py-2.5 fs-14" id="adminUserDestFilter" onchange="window.EduCMS.filterAdminUsers()">
+                                <option value="">All Destinations</option>
+                                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                                <option value="United States">🇺🇸 United States</option>
+                                <option value="Canada">🇨🇦 Canada</option>
+                                <option value="Australia">🇦🇺 Australia</option>
+                                <option value="Germany">🇩🇪 Germany</option>
+                                <option value="Ireland">🇮🇪 Ireland</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <select class="form-select py-2.5 fs-14" id="adminUserMilestoneFilter" onchange="window.EduCMS.filterAdminUsers()">
+                                <option value="">All Journey Phases</option>
+                                <option value="1">Phase 1: Profile Diagnostic</option>
+                                <option value="2">Phase 2: University Shortlist</option>
+                                <option value="3">Phase 3: Applications Filed</option>
+                                <option value="4">Phase 4: Offer Letters</option>
+                                <option value="5">Phase 5: Student Visa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Scholars Table -->
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
                             <thead class="table-light fs-13 text-uppercase text-muted">
                                 <tr>
-                                    <th class="ps-4">Candidate Name</th>
-                                    <th>Target Destination</th>
-                                    <th>University & Course</th>
+                                    <th class="ps-4">Scholar ID</th>
+                                    <th>Scholar Name & Email</th>
+                                    <th>Contact & Target</th>
+                                    <th>Applications</th>
+                                    <th>Journey Phase</th>
                                     <th>Status</th>
-                                    <th>Counselor</th>
-                                    <th class="pe-4 text-end">Action</th>
+                                    <th class="pe-4 text-end">Manage Profile</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="ps-4">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">SP</div>
-                                            <div>
-                                                <b>Sophia Patel</b><br>
-                                                <span class="text-muted fs-12">sophia.p@example.com</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>🇬🇧 United Kingdom</td>
-                                    <td>Univ of Manchester • MSc AI</td>
-                                    <td><span class="badge bg-warning-subtle text-warning">CAS Issued</span></td>
-                                    <td>Dr. Eleanor Vance</td>
-                                    <td class="pe-4 text-end"><a href="contact-us.html" class="btn btn-sm btn-light border">Details</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <div class="rounded-circle bg-success-subtle text-success fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">LR</div>
-                                            <div>
-                                                <b>Lucas Rodriguez</b><br>
-                                                <span class="text-muted fs-12">lucas.r@example.com</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>🇦🇺 Australia</td>
-                                    <td>Univ of Melbourne • Master of Finance</td>
-                                    <td><span class="badge bg-info-subtle text-info">Offer Letter Sent</span></td>
-                                    <td>Alexander Morgan</td>
-                                    <td class="pe-4 text-end"><a href="contact-us.html" class="btn btn-sm btn-light border">Details</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <div class="rounded-circle bg-danger-subtle text-danger fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">AY</div>
-                                            <div>
-                                                <b>Amina Yusuf</b><br>
-                                                <span class="text-muted fs-12">amina.y@example.com</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>🇨🇦 Canada</td>
-                                    <td>UBC • Master of Data Science</td>
-                                    <td><span class="badge bg-primary-subtle text-primary">Biometrics Booked</span></td>
-                                    <td>Sophia Patel</td>
-                                    <td class="pe-4 text-end"><a href="contact-us.html" class="btn btn-sm btn-light border">Details</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <div class="rounded-circle bg-success-subtle text-success fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">ET</div>
-                                            <div>
-                                                <b>Emma Thomas</b><br>
-                                                <span class="text-muted fs-12">emma.t@example.com</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>🇩🇪 Germany</td>
-                                    <td>TU Munich • MS Computer Science</td>
-                                    <td><span class="badge bg-success-subtle text-success">Visa Granted ✓</span></td>
-                                    <td>David O'Connor</td>
-                                    <td class="pe-4 text-end"><a href="contact-us.html" class="btn btn-sm btn-light border">Details</a></td>
-                                </tr>
+                            <tbody id="adminUsersTableBody" class="fs-14">
+                                <!-- Populated dynamically by cms.js -->
                             </tbody>
                         </table>
                     </div>
@@ -1666,6 +1647,300 @@
                 </div>
             </section>
         </main>
+    <!-- ============================================================== -->
+    <!-- MODAL: ADMIN MANAGE SCHOLAR PROFILE & APPLICATIONS             -->
+    <!-- ============================================================== -->
+    <div class="modal fade" id="adminManageUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-bottom p-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" id="manageUserModalAvatar" class="rounded-circle border" width="48" height="48" alt="Avatar" style="object-fit: cover;">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <h5 class="modal-title fw-bold text-dark mb-0" id="manageUserModalName">Manage Scholar</h5>
+                                <span class="badge bg-dark text-warning font-monospace px-2.5 py-1 fs-12" id="manageUserModalId">EDU-2026-9842</span>
+                            </div>
+                            <span class="text-muted fs-13" id="manageUserModalEmail">email@domain.com</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-4">
+                    <!-- Navigation Tabs -->
+                    <ul class="nav nav-pills mb-4 gap-2 border-bottom pb-3" id="manageUserTabNav" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active rounded-pill px-3 py-2 fs-13 fw-bold" id="tab-manage-profile-btn" data-bs-toggle="pill" data-bs-target="#tab-manage-profile" type="button" role="tab">
+                                <i class="fa-solid fa-user-pen me-1"></i> Profile & Password
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded-pill px-3 py-2 fs-13 fw-bold" id="tab-manage-apps-btn" data-bs-toggle="pill" data-bs-target="#tab-manage-apps" type="button" role="tab">
+                                <i class="fa-solid fa-file-signature me-1"></i> Applications Manager <span class="badge bg-warning text-dark ms-1" id="manageModalAppsCountBadge">0</span>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded-pill px-3 py-2 fs-13 fw-bold" id="tab-manage-milestone-btn" data-bs-toggle="pill" data-bs-target="#tab-manage-milestone" type="button" role="tab">
+                                <i class="fa-solid fa-timeline me-1"></i> Admissions Journey Milestone
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="manageUserTabContent">
+                        <!-- TAB 1: PROFILE & PASSWORD -->
+                        <div class="tab-pane fade show active" id="tab-manage-profile" role="tabpanel">
+                            <form id="adminManageUserForm" onsubmit="window.EduCMS.saveUserManageProfile(event)">
+                                <input type="hidden" id="manageUserOriginalEmail">
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-13 fw-bold text-dark">Scholar Full Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="manageUserNameInput" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-13 fw-bold text-dark">Email Address (Account Identifier)</label>
+                                        <input type="email" class="form-control rounded-3 py-2 px-3 fs-14 bg-light" id="manageUserEmailInput" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label fs-13 fw-bold text-dark">Phone Number</label>
+                                        <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="manageUserPhoneInput" placeholder="+1 ... or +91 ...">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label fs-13 fw-bold text-dark">Target Destination</label>
+                                        <select class="form-select rounded-3 py-2 px-3 fs-14" id="manageUserDestSelect">
+                                            <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                                            <option value="United States">🇺🇸 United States</option>
+                                            <option value="Canada">🇨🇦 Canada</option>
+                                            <option value="Australia">🇦🇺 Australia</option>
+                                            <option value="Germany">🇩🇪 Germany</option>
+                                            <option value="Ireland">🇮🇪 Ireland</option>
+                                            <option value="Global">🌐 Global / Multi-Destination</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label fs-13 fw-bold text-dark">Assigned Counselor Mentor</label>
+                                        <select class="form-select rounded-3 py-2 px-3 fs-14" id="manageUserMentorSelect">
+                                            <option value="Dr. Eleanor Vance">Dr. Eleanor Vance (Senior Advisor)</option>
+                                            <option value="Alexander Morgan">Alexander Morgan (Admissions Lead)</option>
+                                            <option value="Sophia Patel">Sophia Patel (Scholarships Specialist)</option>
+                                            <option value="David O'Connor">David O'Connor (Visa Advisory)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-13 fw-bold text-dark">Account Status</label>
+                                        <select class="form-select rounded-3 py-2 px-3 fs-14" id="manageUserStatusSelect">
+                                            <option value="Active">Active (Full Portal Access)</option>
+                                            <option value="Suspended">Suspended (Access Temporarily Disabled)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fs-13 fw-bold text-dark">Unique Scholar ID</label>
+                                        <input type="text" class="form-control rounded-3 py-2 px-3 fs-14 font-monospace bg-light" id="manageUserIdInput" readonly>
+                                    </div>
+                                </div>
+
+                                <!-- Password Management & Reset Box -->
+                                <div class="card border border-warning-subtle bg-warning-subtle rounded-3 p-3 mb-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <h6 class="fw-bold text-dark mb-0">
+                                            <i class="fa-solid fa-key text-warning me-2"></i>Scholar Account Password Management
+                                        </h6>
+                                        <button type="button" class="btn btn-sm btn-outline-dark rounded-pill fs-11 py-1 px-2.5 fw-bold" onclick="window.EduCMS.generateUserRandomPass()">
+                                            <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Generate New Password
+                                        </button>
+                                    </div>
+                                    <p class="text-muted fs-12 mb-2">View or reset this scholar's portal password. When updated, the scholar can immediately sign into their dashboard with this password.</p>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control rounded-start-3 font-monospace fs-14 bg-white" id="manageUserPasswordInput" placeholder="Password (e.g. password123)" required>
+                                        <button type="button" class="btn btn-secondary px-3" onclick="navigator.clipboard.writeText(document.getElementById('manageUserPasswordInput').value); window.EduCMS.showToast('Copied', 'Password copied to clipboard.');">
+                                            <i class="fa-solid fa-copy me-1"></i> Copy
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                                    <button type="button" class="btn btn-outline-danger rounded-pill px-3 py-2 fs-13 fw-bold" onclick="window.EduCMS.deleteUserFromAdmin()">
+                                        <i class="fa-solid fa-trash-can me-1"></i> Delete Scholar Account
+                                    </button>
+                                    <button type="submit" class="btn btn-warning rounded-pill px-4 py-2.5 fs-14 fw-bold text-dark shadow-sm" style="background-color: var(--button); border: none;">
+                                        <i class="fa-solid fa-floppy-disk me-1"></i> Save Scholar Profile & Password
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- TAB 2: APPLICATIONS MANAGER -->
+                        <div class="tab-pane fade" id="tab-manage-apps" role="tabpanel">
+                            <!-- Existing applications list -->
+                            <div class="mb-4">
+                                <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-list-check text-primary me-2"></i>Active Applications on File</h6>
+                                <div id="manageUserAppsContainer">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+
+                            <!-- Add new application form -->
+                            <div class="card border rounded-3 p-3 bg-light">
+                                <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-plus-circle text-success me-2"></i>Add New Application on Scholar's Behalf</h6>
+                                <form id="adminAddUserAppForm" onsubmit="window.EduCMS.addAppToUserFromAdmin(event)">
+                                    <div class="row g-2 mb-2">
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-13" id="adminAddAppInstInput" placeholder="Target Institution (e.g., University of Oxford)" required>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <select class="form-select rounded-3 py-2 px-3 fs-13" id="adminAddAppCountrySelect" required>
+                                                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                                                <option value="United States">🇺🇸 United States</option>
+                                                <option value="Canada">🇨🇦 Canada</option>
+                                                <option value="Australia">🇦🇺 Australia</option>
+                                                <option value="Germany">🇩🇪 Germany</option>
+                                                <option value="Ireland">🇮🇪 Ireland</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-13" id="adminAddAppProgInput" placeholder="Program (e.g., MSc Computer Science)" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-select rounded-3 py-2 px-3 fs-13" id="adminAddAppIntakeSelect">
+                                                <option value="Fall 2026">Fall 2026</option>
+                                                <option value="Spring 2027">Spring 2027</option>
+                                                <option value="Fall 2027">Fall 2027</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <select class="form-select rounded-3 py-2 px-3 fs-13" id="adminAddAppStatusSelect">
+                                                <option value="Under Review">Under Review</option>
+                                                <option value="Conditional Offer">Conditional Offer</option>
+                                                <option value="Offer Letter Issued">Offer Letter Issued 🎉</option>
+                                                <option value="CAS / I-20 Issued">CAS / I-20 Issued</option>
+                                                <option value="Visa Approved">Visa Approved ✓</option>
+                                                <option value="Rejected">Rejected</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 fs-13 fw-bold">
+                                        <i class="fa-solid fa-plus me-1"></i> Add Application to Scholar Record
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- TAB 3: JOURNEY MILESTONE -->
+                        <div class="tab-pane fade" id="tab-manage-milestone" role="tabpanel">
+                            <form id="adminManageMilestoneForm" onsubmit="window.EduCMS.saveUserMilestoneFromAdmin(event)">
+                                <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-route text-primary me-2"></i>Set Current Admissions Journey Milestone</h6>
+                                <p class="text-muted fs-13 mb-4">Adjusting this phase directly moves the student's progress indicator on their live Scholar Portal.</p>
+
+                                <div class="d-flex flex-column gap-3 mb-4">
+                                    <label class="p-3 border rounded-3 bg-light d-flex align-items-center gap-3 cursor-pointer">
+                                        <input type="radio" name="milestonePhaseRadio" value="1" class="form-check-input mt-0 fs-5">
+                                        <div>
+                                            <b class="text-dark d-block">Phase 1: Profile Diagnostic & Evaluation</b>
+                                            <span class="text-muted fs-12">Initial academic credential evaluation and destination eligibility assessment.</span>
+                                        </div>
+                                    </label>
+                                    <label class="p-3 border rounded-3 bg-light d-flex align-items-center gap-3 cursor-pointer">
+                                        <input type="radio" name="milestonePhaseRadio" value="2" class="form-check-input mt-0 fs-5">
+                                        <div>
+                                            <b class="text-dark d-block">Phase 2: University Selection & Shortlisting</b>
+                                            <span class="text-muted fs-12">Curating reach, match, and safety university options with advisor recommendations.</span>
+                                        </div>
+                                    </label>
+                                    <label class="p-3 border rounded-3 bg-light d-flex align-items-center gap-3 cursor-pointer">
+                                        <input type="radio" name="milestonePhaseRadio" value="3" class="form-check-input mt-0 fs-5">
+                                        <div>
+                                            <b class="text-dark d-block">Phase 3: SOP & LOR Dossier / Applications Filed</b>
+                                            <span class="text-muted fs-12">Essay polishing, document verification, and formal application submissions to universities.</span>
+                                        </div>
+                                    </label>
+                                    <label class="p-3 border rounded-3 bg-light d-flex align-items-center gap-3 cursor-pointer">
+                                        <input type="radio" name="milestonePhaseRadio" value="4" class="form-check-input mt-0 fs-5">
+                                        <div>
+                                            <b class="text-dark d-block">Phase 4: Offer Letters & Admissions Acceptance</b>
+                                            <span class="text-muted fs-12">Receiving conditional or unconditional offers, scholarship negotiation, and deposit payment.</span>
+                                        </div>
+                                    </label>
+                                    <label class="p-3 border rounded-3 bg-light d-flex align-items-center gap-3 cursor-pointer">
+                                        <input type="radio" name="milestonePhaseRadio" value="5" class="form-check-input mt-0 fs-5">
+                                        <div>
+                                            <b class="text-dark d-block">Phase 5: Student Visa & Pre-Departure</b>
+                                            <span class="text-muted fs-12">CAS/I-20 issuance, visa biometric filing, flight booking, and accommodation pre-departure orientation.</span>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn btn-warning rounded-pill px-4 py-2.5 fs-14 fw-bold text-dark shadow-sm" style="background-color: var(--button); border: none;">
+                                    <i class="fa-solid fa-check me-1"></i> Update Milestone Phase for Scholar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: ADMIN ONBOARD NEW SCHOLAR                               -->
+    <!-- ============================================================== -->
+    <div class="modal fade" id="adminCreateScholarModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-bottom p-4">
+                    <h5 class="modal-title fw-bold text-dark mb-0">
+                        <i class="fa-solid fa-user-plus text-primary me-2"></i> Onboard New Scholar Profile
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="adminCreateScholarForm" onsubmit="window.EduCMS.createScholarFromAdmin(event)">
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-dark">Scholar Full Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="newScholarNameInput" placeholder="e.g. Farhan Shaik" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-dark">Email Address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control rounded-3 py-2 px-3 fs-14" id="newScholarEmailInput" placeholder="student@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-dark">Phone Number</label>
+                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="newScholarPhoneInput" placeholder="+91 ... or +44 ...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-dark">Temporary Initial Password <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control rounded-start-3 fs-14 font-monospace" id="newScholarPassInput" value="Scholar2026!" required>
+                                <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('newScholarPassInput').value = 'Pass' + Math.floor(1000 + Math.random() * 9000) + '!';">
+                                    <i class="fa-solid fa-shuffle"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fs-13 fw-bold text-dark">Preferred Study Destination</label>
+                            <select class="form-select rounded-3 py-2 px-3 fs-14" id="newScholarDestSelect">
+                                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                                <option value="United States">🇺🇸 United States</option>
+                                <option value="Canada">🇨🇦 Canada</option>
+                                <option value="Australia">🇦🇺 Australia</option>
+                                <option value="Germany">🇩🇪 Germany</option>
+                                <option value="Ireland">🇮🇪 Ireland</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100 py-2.5 rounded-pill fw-bold text-dark shadow-sm fs-14" style="background-color: var(--button); border: none;">
+                            <i class="fa-solid fa-check me-1"></i> Register Scholar & Generate Unique ID
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->

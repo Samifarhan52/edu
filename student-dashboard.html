@@ -161,9 +161,9 @@
                             </div>
                             <p class="text-white-50 fs-13 mb-2" id="portalUserEmail">student@theeduconsultant.com</p>
                             <div class="d-flex align-items-center gap-3 fs-12 text-white-50 flex-wrap">
-                                <span><i class="fa-solid fa-id-badge text-warning me-1"></i> ID: <b class="text-white">EDU-2026-9842</b></span>
+                                <span><i class="fa-solid fa-id-badge text-warning me-1"></i> Scholar ID: <b class="text-white" id="portalScholarId">EDU-2026-9842</b></span>
                                 <span><i class="fa-solid fa-plane-departure text-warning me-1"></i> Target: <b class="text-white" id="portalUserDestination">United Kingdom</b></span>
-                                <span><i class="fa-solid fa-user-tie text-warning me-1"></i> Mentor: <b class="text-white">Dr. Eleanor Vance</b></span>
+                                <span><i class="fa-solid fa-user-tie text-warning me-1"></i> Mentor: <b class="text-white" id="portalUserMentor">Dr. Eleanor Vance</b></span>
                             </div>
                         </div>
                     </div>
@@ -194,8 +194,8 @@
                             <span class="fs-13 text-muted fw-bold">Active Applications</span>
                             <div class="p-2 rounded-3 bg-primary-subtle text-primary fs-5"><i class="fa-solid fa-file-signature"></i></div>
                         </div>
-                        <h3 class="fw-800 text-dark mb-0">3</h3>
-                        <span class="fs-12 text-success fw-bold"><i class="fa-solid fa-arrow-up"></i> 1 Conditional Offer</span>
+                        <h3 class="fw-800 text-dark mb-0" id="statActiveApps">0</h3>
+                        <span class="fs-12 text-success fw-bold" id="statActiveAppsSub">0 In Review</span>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
@@ -204,8 +204,8 @@
                             <span class="fs-13 text-muted fw-bold">Saved Universities</span>
                             <div class="p-2 rounded-3 bg-warning-subtle text-warning-emphasis fs-5"><i class="fa-solid fa-building-columns"></i></div>
                         </div>
-                        <h3 class="fw-800 text-dark mb-0">6</h3>
-                        <span class="fs-12 text-muted">Across 3 Countries</span>
+                        <h3 class="fw-800 text-dark mb-0" id="statSavedUnis">0</h3>
+                        <span class="fs-12 text-muted" id="statSavedUnisSub">0 Shortlisted</span>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
@@ -214,8 +214,8 @@
                             <span class="fs-13 text-muted fw-bold">Eligible Grants</span>
                             <div class="p-2 rounded-3 bg-success-subtle text-success fs-5"><i class="fa-solid fa-award"></i></div>
                         </div>
-                        <h3 class="fw-800 text-dark mb-0">4</h3>
-                        <span class="fs-12 text-success fw-bold">Up to $100K Waivers</span>
+                        <h3 class="fw-800 text-dark mb-0" id="statGrants">0</h3>
+                        <span class="fs-12 text-success fw-bold" id="statGrantsSub">Evaluation Pending</span>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3">
@@ -224,8 +224,8 @@
                             <span class="fs-13 text-muted fw-bold">Next Counseling</span>
                             <div class="p-2 rounded-3 bg-danger-subtle text-danger fs-5"><i class="fa-solid fa-video"></i></div>
                         </div>
-                        <h4 class="fw-bold text-dark mb-0 fs-16">Nov 20th</h4>
-                        <span class="fs-12 text-primary fw-bold">4:00 PM GMT • Video Call</span>
+                        <h4 class="fw-bold text-dark mb-0 fs-16" id="statNextCounseling">None Scheduled</h4>
+                        <span class="fs-12 text-primary fw-bold" id="statNextCounselingSub"><a href="contact-us.html" class="text-primary text-decoration-none">Book 1-on-1 Session</a></span>
                     </div>
                 </div>
             </div>
@@ -237,37 +237,13 @@
                         <h5 class="fw-bold text-dark mb-1">Your Study Abroad Admissions Journey</h5>
                         <p class="text-muted fs-13 mb-0">Live milestone tracker managed in coordination with your assigned counselor.</p>
                     </div>
-                    <span class="badge bg-success-subtle text-success fw-bold px-3 py-2 rounded-pill fs-12">
-                        <i class="fa-solid fa-circle-check me-1"></i> Phase 3 of 5 In Progress
+                    <span class="badge bg-success-subtle text-success fw-bold px-3 py-2 rounded-pill fs-12" id="milestonePhaseBadge">
+                        <i class="fa-solid fa-circle-check me-1"></i> Phase 1 of 5 In Progress
                     </span>
                 </div>
 
-                <div class="row g-3 text-center position-relative">
-                    <div class="col">
-                        <div class="journey-step-circle journey-step-completed"><i class="fa-solid fa-check"></i></div>
-                        <h6 class="fw-bold fs-13 mb-1">1. Profile Diagnostic</h6>
-                        <span class="fs-11 text-success fw-semibold">Completed ✓</span>
-                    </div>
-                    <div class="col">
-                        <div class="journey-step-circle journey-step-completed"><i class="fa-solid fa-check"></i></div>
-                        <h6 class="fw-bold fs-13 mb-1">2. University Selection</h6>
-                        <span class="fs-11 text-success fw-semibold">3 Shortlisted ✓</span>
-                    </div>
-                    <div class="col">
-                        <div class="journey-step-circle journey-step-active"><i class="fa-solid fa-pen-fancy"></i></div>
-                        <h6 class="fw-bold fs-13 mb-1 text-danger">3. SOP & LOR Dossier</h6>
-                        <span class="fs-11 text-danger fw-bold">Under Review 🟡</span>
-                    </div>
-                    <div class="col">
-                        <div class="journey-step-circle journey-step-completed"><i class="fa-solid fa-award"></i></div>
-                        <h6 class="fw-bold fs-13 mb-1">4. Offer Letters</h6>
-                        <span class="fs-11 text-success fw-semibold">1 Offer Received 🎉</span>
-                    </div>
-                    <div class="col">
-                        <div class="journey-step-circle journey-step-pending"><i class="fa-solid fa-passport"></i></div>
-                        <h6 class="fw-bold fs-13 mb-1 text-muted">5. Student Visa</h6>
-                        <span class="fs-11 text-muted">Next Step</span>
-                    </div>
+                <div class="row g-3 text-center position-relative" id="milestonesContainer">
+                    <!-- Populated dynamically based on user.milestonePhase -->
                 </div>
             </div>
 
@@ -276,83 +252,17 @@
                 <div class="col-lg-8">
                     <!-- Applications Card -->
                     <div class="portal-card mb-4">
-                        <div class="p-3 px-4 border-bottom d-flex justify-content-between align-items-center">
-                            <h5 class="fw-bold text-dark mb-0">Active University Applications</h5>
-                            <a href="universities-list.html" class="btn btn-sm btn-outline-primary rounded-pill px-3 fs-12 fw-bold">
-                                <i class="fa-solid fa-plus me-1"></i> Apply to Another Institution
-                            </a>
+                        <div class="p-3 px-4 border-bottom d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <div>
+                                <h5 class="fw-bold text-dark mb-0">Active University Applications</h5>
+                                <span class="text-muted fs-12">Original real-time file submissions and offer status.</span>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-warning rounded-pill px-3 fs-12 fw-bold text-dark shadow-sm" data-bs-toggle="modal" data-bs-target="#newApplicationModal" style="background-color: var(--button); border: none;">
+                                <i class="fa-solid fa-plus me-1"></i> Submit New Application
+                            </button>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table portal-table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Institution</th>
-                                        <th>Program</th>
-                                        <th>Status</th>
-                                        <th>Intake</th>
-                                        <th class="text-end">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="rounded-3 bg-primary-subtle text-primary fw-bold p-2"><i class="fa-solid fa-building-columns"></i></div>
-                                                <div>
-                                                    <b class="text-dark">Univ. of Manchester</b><br>
-                                                    <span class="fs-12 text-muted">🇬🇧 United Kingdom</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>MSc Finance & Data Analysis</td>
-                                        <td><span class="badge bg-success text-white fw-bold px-2.5 py-1 rounded-pill">Offer Letter Issued 🎉</span></td>
-                                        <td>Fall 2026</td>
-                                        <td class="text-end">
-                                            <button class="btn btn-sm btn-outline-success rounded-pill px-2.5 py-1 fs-12" onclick="alert('Offer Letter PDF ready for download! Contact Dr. Eleanor Vance to accept before Dec 30th.');">
-                                                <i class="fa-solid fa-download me-1"></i> View Offer
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="rounded-3 bg-warning-subtle text-warning-emphasis fw-bold p-2"><i class="fa-solid fa-building-columns"></i></div>
-                                                <div>
-                                                    <b class="text-dark">Univ. of Melbourne</b><br>
-                                                    <span class="fs-12 text-muted">🇦🇺 Australia</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>Master of Computer Science</td>
-                                        <td><span class="badge bg-primary text-white fw-bold px-2.5 py-1 rounded-pill">Under Faculty Review</span></td>
-                                        <td>Spring 2027</td>
-                                        <td class="text-end">
-                                            <button class="btn btn-sm btn-light border rounded-pill px-2.5 py-1 fs-12" onclick="alert('Your file is currently with the admissions board.');">
-                                                Track File
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="rounded-3 bg-danger-subtle text-danger fw-bold p-2"><i class="fa-solid fa-building-columns"></i></div>
-                                                <div>
-                                                    <b class="text-dark">Univ. of British Columbia</b><br>
-                                                    <span class="fs-12 text-muted">🇨🇦 Canada</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>Master of Data Science</td>
-                                        <td><span class="badge bg-warning text-dark fw-bold px-2.5 py-1 rounded-pill">Transcripts Verified</span></td>
-                                        <td>Fall 2026</td>
-                                        <td class="text-end">
-                                            <button class="btn btn-sm btn-light border rounded-pill px-2.5 py-1 fs-12" onclick="alert('Verification completed by WES.');">
-                                                Track File
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div id="applicationsTableWrapper">
+                            <!-- Rendered dynamically by JavaScript: Empty state or real applications table -->
                         </div>
                     </div>
 
@@ -420,26 +330,8 @@
                 <!-- Right Column: Counselor Booking & Scholarships -->
                 <div class="col-lg-4">
                     <!-- Counselor Consultation Card -->
-                    <div class="portal-card p-4 mb-4">
-                        <div class="d-flex align-items-center gap-2 mb-3">
-                            <div class="p-2 rounded-circle bg-primary-subtle text-primary fs-5"><i class="fa-solid fa-video"></i></div>
-                            <h5 class="fw-bold text-dark mb-0">Upcoming Counseling</h5>
-                        </div>
-                        <div class="p-3 rounded-3 bg-light border mb-3">
-                            <div class="d-flex align-items-center gap-3 mb-2">
-                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" 
-                                     class="rounded-circle" width="46" height="46" style="object-fit: cover;" alt="Counselor" loading="lazy" decoding="async">
-                                <div>
-                                    <div class="fw-bold fs-14 text-dark">Dr. Eleanor Vance</div>
-                                    <span class="fs-12 text-muted">Senior Academic Advisor</span>
-                                </div>
-                            </div>
-                            <div class="fs-13 text-dark mb-1"><b>Topic:</b> Final SOP Review & Visa Filing</div>
-                            <div class="fs-12 text-danger fw-bold"><i class="fa-regular fa-clock me-1"></i> Friday, Nov 20, 2026 • 4:00 PM GMT</div>
-                        </div>
-                        <a href="contact-us.html" class="btn btn-warning w-100 py-2.5 rounded-pill fw-bold fs-13 text-dark shadow-sm d-flex align-items-center justify-content-center gap-2">
-                            <i class="fa-solid fa-video"></i> Enter Virtual Consultation Room
-                        </a>
+                    <div class="portal-card p-4 mb-4" id="counselingWidgetContainer">
+                        <!-- Populated dynamically: Shows real appointment details or clean booking CTA -->
                     </div>
 
                     <!-- Matched Scholarships Card -->
@@ -521,6 +413,75 @@
         </div>
     </div>
 
+    <!-- Submit New Application Modal -->
+    <div class="modal fade" id="newApplicationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-bottom p-4">
+                    <div>
+                        <h5 class="modal-title fw-bold text-dark mb-1">
+                            <i class="fa-solid fa-file-circle-plus text-primary me-2"></i> Submit University Application
+                        </h5>
+                        <p class="text-muted fs-13 mb-0">File a new admissions dossier directly with The Edu Consultant admissions office.</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="newApplicationForm" onsubmit="handleNewApplicationSubmit(event)">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-7">
+                                <label class="form-label fs-13 fw-bold text-dark">Target Institution / University <span class="text-danger">*</span></label>
+                                <input type="text" id="appInstitutionInput" class="form-control rounded-3 py-2.5 px-3 fs-14" placeholder="e.g., University of Oxford, Univ. of Melbourne, UBC" required>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label fs-13 fw-bold text-dark">Country <span class="text-danger">*</span></label>
+                                <select id="appCountrySelect" class="form-select rounded-3 py-2.5 px-3 fs-14" required>
+                                    <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                                    <option value="United States">🇺🇸 United States</option>
+                                    <option value="Canada">🇨🇦 Canada</option>
+                                    <option value="Australia">🇦🇺 Australia</option>
+                                    <option value="Germany">🇩🇪 Germany</option>
+                                    <option value="Ireland">🇮🇪 Ireland</option>
+                                    <option value="New Zealand">🇳🇿 New Zealand</option>
+                                    <option value="Singapore">🇸🇬 Singapore</option>
+                                    <option value="France">🇫🇷 France</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-7">
+                                <label class="form-label fs-13 fw-bold text-dark">Degree & Course / Program <span class="text-danger">*</span></label>
+                                <input type="text" id="appProgramInput" class="form-control rounded-3 py-2.5 px-3 fs-14" placeholder="e.g., MSc Artificial Intelligence, MBA, BSc Computer Science" required>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label fs-13 fw-bold text-dark">Target Intake Season <span class="text-danger">*</span></label>
+                                <select id="appIntakeSelect" class="form-select rounded-3 py-2.5 px-3 fs-14" required>
+                                    <option value="Fall 2026">Fall 2026 (Sep / Oct)</option>
+                                    <option value="Spring 2027">Spring 2027 (Jan / Feb)</option>
+                                    <option value="Fall 2027">Fall 2027 (Sep / Oct)</option>
+                                    <option value="Spring 2028">Spring 2028 (Jan / Feb)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fs-13 fw-bold text-dark">Application Notes & Academic Specialization (Optional)</label>
+                            <textarea id="appNotesInput" class="form-control rounded-3 p-3 fs-14" rows="3" placeholder="Provide any details regarding test scores (GRE/IELTS), scholarship interests, or departmental labs..."></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+                            <button type="button" class="btn btn-light rounded-pill px-4 py-2.5 fs-14 fw-bold" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-warning rounded-pill px-4 py-2.5 fs-14 fw-bold text-dark shadow-sm" style="background-color: var(--button); border: none;">
+                                <i class="fa-solid fa-paper-plane me-1"></i> Submit Application Dossier
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/security.js"></script>
@@ -529,45 +490,302 @@
     <script src="js/leads.js?v=3.5"></script>
     <script src="js/edconsultants.js?v=3.5"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        function renderStudentPortal() {
             const user = edAuth.getUser();
-            if (user) {
-                // Populate student details
-                const nameEl = document.getElementById('portalUserName');
-                const emailEl = document.getElementById('portalUserEmail');
-                const avatarEl = document.getElementById('portalUserAvatar');
-                const destEl = document.getElementById('portalUserDestination');
-                const roleBadgeEl = document.getElementById('portalRoleBadge');
-                const provBadgeEl = document.getElementById('portalProviderBadge');
+            if (!user) {
+                window.location.href = 'login.html?authReason=unauthenticated';
+                return;
+            }
 
-                if (nameEl) nameEl.textContent = user.name;
-                if (emailEl) emailEl.textContent = user.email;
-                if (avatarEl && user.avatar) avatarEl.src = user.avatar;
-                if (destEl) destEl.textContent = user.destination || 'United Kingdom';
-                if (roleBadgeEl) roleBadgeEl.textContent = user.badge || user.role || 'Prospective Scholar';
+            // 1. Header Profile Elements
+            const nameEl = document.getElementById('portalUserName');
+            const emailEl = document.getElementById('portalUserEmail');
+            const avatarEl = document.getElementById('portalUserAvatar');
+            const destEl = document.getElementById('portalUserDestination');
+            const idEl = document.getElementById('portalScholarId');
+            const mentorEl = document.getElementById('portalUserMentor');
+            const roleBadgeEl = document.getElementById('portalRoleBadge');
+            const provBadgeEl = document.getElementById('portalProviderBadge');
 
-                if (provBadgeEl) {
-                    if (user.authProvider === 'Google') {
-                        provBadgeEl.innerHTML = '<i class="fa-brands fa-google text-danger"></i> Google Account';
-                    } else if (user.authProvider === 'Apple') {
-                        provBadgeEl.innerHTML = '<i class="fa-brands fa-apple text-white"></i> Apple ID';
-                    } else if (user.authProvider === 'LinkedIn') {
-                        provBadgeEl.innerHTML = '<i class="fa-brands fa-linkedin text-info"></i> LinkedIn Verified';
+            if (nameEl) nameEl.textContent = user.name || 'Scholar';
+            if (emailEl) emailEl.textContent = user.email || '';
+            if (avatarEl && user.avatar) avatarEl.src = user.avatar;
+            if (destEl) destEl.textContent = user.destination || 'Global';
+            if (idEl) idEl.textContent = user.id || 'EDU-2026-9842';
+            if (mentorEl) mentorEl.textContent = user.mentor || 'Dr. Eleanor Vance';
+            if (roleBadgeEl) roleBadgeEl.textContent = user.badge || user.role || 'Prospective Scholar';
+
+            if (provBadgeEl) {
+                if (user.authProvider === 'Google') {
+                    provBadgeEl.innerHTML = '<i class="fa-brands fa-google text-danger"></i> Google Account';
+                } else if (user.authProvider === 'Apple') {
+                    provBadgeEl.innerHTML = '<i class="fa-brands fa-apple text-white"></i> Apple ID';
+                } else if (user.authProvider === 'LinkedIn') {
+                    provBadgeEl.innerHTML = '<i class="fa-brands fa-linkedin text-info"></i> LinkedIn Verified';
+                } else {
+                    provBadgeEl.innerHTML = '<i class="fa-solid fa-envelope"></i> Email Verified';
+                }
+            }
+
+            // Prefill modal
+            const prefName = document.getElementById('prefFullName');
+            const prefDest = document.getElementById('prefDestination');
+            if (prefName) prefName.value = user.name || '';
+            if (prefDest && user.destination) prefDest.value = user.destination;
+
+            // 2. 4 Quick Stat Cards
+            const apps = Array.isArray(user.applications) ? user.applications : [];
+            const savedUnis = Array.isArray(user.savedUniversities) ? user.savedUniversities : [];
+            const grants = Array.isArray(user.grants) ? user.grants : [];
+            const counseling = user.counseling;
+
+            const statActiveApps = document.getElementById('statActiveApps');
+            const statActiveAppsSub = document.getElementById('statActiveAppsSub');
+            if (statActiveApps) statActiveApps.textContent = apps.length;
+            if (statActiveAppsSub) {
+                if (apps.length === 0) {
+                    statActiveAppsSub.innerHTML = '<span class="text-muted">0 Active Applications</span>';
+                } else {
+                    const offerCount = apps.filter(a => (a.status || '').toLowerCase().includes('offer')).length;
+                    if (offerCount > 0) {
+                        statActiveAppsSub.innerHTML = `<span class="text-success fw-bold"><i class="fa-solid fa-arrow-up me-1"></i> ${offerCount} Offer(s) Received</span>`;
                     } else {
-                        provBadgeEl.innerHTML = '<i class="fa-solid fa-envelope"></i> Email Verified';
+                        statActiveAppsSub.innerHTML = `<span class="text-primary fw-bold"><i class="fa-solid fa-clock me-1"></i> ${apps.length} In Review</span>`;
                     }
                 }
-
-                // Prefill modal
-                const prefName = document.getElementById('prefFullName');
-                const prefDest = document.getElementById('prefDestination');
-                if (prefName) prefName.value = user.name;
-                if (prefDest && user.destination) prefDest.value = user.destination;
-            } else {
-                // If not logged in, redirect to login page
-                window.location.href = 'login.html?authReason=unauthenticated';
             }
+
+            const statSavedUnis = document.getElementById('statSavedUnis');
+            const statSavedUnisSub = document.getElementById('statSavedUnisSub');
+            if (statSavedUnis) statSavedUnis.textContent = savedUnis.length;
+            if (statSavedUnisSub) {
+                statSavedUnisSub.textContent = savedUnis.length > 0 ? `Across ${savedUnis.length} Institution(s)` : '0 Shortlisted';
+            }
+
+            const statGrants = document.getElementById('statGrants');
+            const statGrantsSub = document.getElementById('statGrantsSub');
+            if (statGrants) statGrants.textContent = grants.length;
+            if (statGrantsSub) {
+                statGrantsSub.textContent = grants.length > 0 ? `${grants.length} Eligible Waiver(s)` : 'Evaluation Pending';
+            }
+
+            const statNextCounseling = document.getElementById('statNextCounseling');
+            const statNextCounselingSub = document.getElementById('statNextCounselingSub');
+            if (statNextCounseling) {
+                statNextCounseling.textContent = counseling && counseling.date ? counseling.date : 'None Scheduled';
+            }
+            if (statNextCounselingSub) {
+                if (counseling && counseling.time) {
+                    statNextCounselingSub.innerHTML = `<span class="text-primary fw-bold">${counseling.time} • ${counseling.mode || 'Video Call'}</span>`;
+                } else {
+                    statNextCounselingSub.innerHTML = '<a href="contact-us.html" class="text-primary fw-bold text-decoration-none"><i class="fa-solid fa-calendar-check me-1"></i> Book 1-on-1 Session</a>';
+                }
+            }
+
+            // 3. Admissions Journey Milestones
+            const phase = parseInt(user.milestonePhase, 10) || 1;
+            const phaseBadge = document.getElementById('milestonePhaseBadge');
+            if (phaseBadge) {
+                phaseBadge.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i> Phase ${phase} of 5 ${phase === 5 ? 'Completed' : 'In Progress'}`;
+            }
+
+            const milestonesContainer = document.getElementById('milestonesContainer');
+            if (milestonesContainer) {
+                const steps = [
+                    { num: 1, name: '1. Profile Diagnostic', icon: 'fa-user-check' },
+                    { num: 2, name: '2. University Shortlist', icon: 'fa-building-columns' },
+                    { num: 3, name: '3. SOP & Applications', icon: 'fa-pen-fancy' },
+                    { num: 4, name: '4. Offer Letters', icon: 'fa-award' },
+                    { num: 5, name: '5. Student Visa', icon: 'fa-passport' }
+                ];
+
+                milestonesContainer.innerHTML = steps.map(s => {
+                    let circleClass = 'journey-step-pending';
+                    let iconHtml = `<i class="fa-solid ${s.icon}"></i>`;
+                    let statusHtml = '<span class="fs-11 text-muted">Upcoming</span>';
+                    let titleClass = 'text-muted';
+
+                    if (s.num < phase) {
+                        circleClass = 'journey-step-completed';
+                        iconHtml = '<i class="fa-solid fa-check"></i>';
+                        statusHtml = '<span class="fs-11 text-success fw-semibold">Completed ✓</span>';
+                        titleClass = 'text-dark';
+                    } else if (s.num === phase) {
+                        circleClass = 'journey-step-active';
+                        statusHtml = '<span class="fs-11 text-danger fw-bold">In Progress 🟡</span>';
+                        titleClass = 'text-danger';
+                    }
+
+                    return `
+                        <div class="col">
+                            <div class="journey-step-circle ${circleClass}">${iconHtml}</div>
+                            <h6 class="fw-bold fs-13 mb-1 ${titleClass}">${s.name}</h6>
+                            ${statusHtml}
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // 4. Active University Applications Table or Clean Empty State
+            const appsWrapper = document.getElementById('applicationsTableWrapper');
+            if (appsWrapper) {
+                if (apps.length === 0) {
+                    appsWrapper.innerHTML = `
+                        <div class="text-center py-5 px-3">
+                            <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3 shadow-xs" style="width: 76px; height: 76px;">
+                                <i class="fa-solid fa-folder-open text-primary fs-2"></i>
+                            </div>
+                            <h5 class="fw-bold text-dark mb-2">No Applications Submitted Yet</h5>
+                            <p class="text-muted fs-13 mx-auto mb-4" style="max-width: 440px;">
+                                You have not submitted any university applications yet. Ready to submit your first application or explore partner universities?
+                            </p>
+                            <div class="d-flex gap-2 justify-content-center flex-wrap">
+                                <button type="button" class="btn btn-warning rounded-pill px-4 py-2.5 fw-bold text-dark shadow-sm fs-13" data-bs-toggle="modal" data-bs-target="#newApplicationModal" style="background-color: var(--button); border: none;">
+                                    <i class="fa-solid fa-plus me-1"></i> Submit New Application
+                                </button>
+                                <a href="universities-list.html" class="btn btn-outline-primary rounded-pill px-4 py-2.5 fw-semibold fs-13">
+                                    <i class="fa-solid fa-building-columns me-1"></i> Browse Universities
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const rowsHtml = apps.map(app => {
+                        let badgeClass = 'bg-primary-subtle text-primary border border-primary';
+                        const st = (app.status || '').toLowerCase();
+                        if (st.includes('offer')) badgeClass = 'bg-success text-white';
+                        else if (st.includes('cas') || st.includes('i-20')) badgeClass = 'bg-warning text-dark border border-warning';
+                        else if (st.includes('visa')) badgeClass = 'bg-success text-white';
+                        else if (st.includes('reject')) badgeClass = 'bg-danger text-white';
+
+                        const formattedDate = app.appliedAt ? new Date(app.appliedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recently';
+
+                        return `
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-3 bg-primary-subtle text-primary fw-bold p-2"><i class="fa-solid fa-building-columns"></i></div>
+                                        <div>
+                                            <b class="text-dark">${app.institution}</b><br>
+                                            <span class="fs-12 text-muted">${app.country || 'Global'}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="fw-semibold text-dark">${app.program}</span>
+                                    <div class="fs-11 text-muted">Applied: ${formattedDate}</div>
+                                </td>
+                                <td><span class="badge ${badgeClass} fw-bold px-2.5 py-1 rounded-pill">${app.status || 'Under Review'}</span></td>
+                                <td><span class="badge bg-light text-dark border">${app.intake || 'Fall 2026'}</span></td>
+                                <td class="text-end">
+                                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-2.5 py-1 fs-12" onclick="alert('Application ID: ${app.id}\\nInstitution: ${app.institution}\\nStatus: ${app.status}\\nAssigned Counselor: Dr. Eleanor Vance\\n\\nOur advisory team is monitoring this application with the university admissions board.')">
+                                        <i class="fa-solid fa-circle-info me-1"></i> View Details
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+
+                    appsWrapper.innerHTML = `
+                        <div class="table-responsive">
+                            <table class="table portal-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Institution</th>
+                                        <th>Program</th>
+                                        <th>Status</th>
+                                        <th>Intake</th>
+                                        <th class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>${rowsHtml}</tbody>
+                            </table>
+                        </div>
+                    `;
+                }
+            }
+
+            // 5. Counseling Widget
+            const counselingWidget = document.getElementById('counselingWidgetContainer');
+            if (counselingWidget) {
+                if (counseling && counseling.date) {
+                    counselingWidget.innerHTML = `
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="p-2 rounded-circle bg-primary-subtle text-primary fs-5"><i class="fa-solid fa-video"></i></div>
+                            <h5 class="fw-bold text-dark mb-0">Upcoming Counseling</h5>
+                        </div>
+                        <div class="p-3 rounded-3 bg-light border mb-3">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" 
+                                     class="rounded-circle" width="46" height="46" style="object-fit: cover;" alt="Counselor">
+                                <div>
+                                    <div class="fw-bold fs-14 text-dark">${counseling.mentor || 'Dr. Eleanor Vance'}</div>
+                                    <span class="fs-12 text-muted">Senior Academic Advisor</span>
+                                </div>
+                            </div>
+                            <div class="fs-13 text-dark mb-1"><b>Topic:</b> ${counseling.topic || 'Admissions Strategy & Visa Filing'}</div>
+                            <div class="fs-12 text-danger fw-bold"><i class="fa-regular fa-clock me-1"></i> ${counseling.date} • ${counseling.time || '10:00 AM GMT'}</div>
+                        </div>
+                        <a href="contact-us.html" class="btn btn-warning w-100 py-2.5 rounded-pill fw-bold fs-13 text-dark shadow-sm d-flex align-items-center justify-content-center gap-2" style="background-color: var(--button); border: none;">
+                            <i class="fa-solid fa-video"></i> Enter Virtual Consultation Room
+                        </a>
+                    `;
+                } else {
+                    counselingWidget.innerHTML = `
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="p-2 rounded-circle bg-primary-subtle text-primary fs-5"><i class="fa-solid fa-calendar-check"></i></div>
+                            <h5 class="fw-bold text-dark mb-0">1-on-1 Counseling</h5>
+                        </div>
+                        <div class="p-3 rounded-3 bg-light border mb-3 text-center">
+                            <div class="fs-14 fw-bold text-dark mb-1">No Session Scheduled Yet</div>
+                            <p class="fs-12 text-muted mb-0">Connect 1-on-1 with an expert international admissions advisor to review university shortlists and visa requirements.</p>
+                        </div>
+                        <a href="contact-us.html" class="btn btn-warning w-100 py-2.5 rounded-pill fw-bold fs-13 text-dark shadow-sm d-flex align-items-center justify-content-center gap-2" style="background-color: var(--button); border: none;">
+                            <i class="fa-solid fa-calendar-plus"></i> Schedule Free 1-on-1 Meeting
+                        </a>
+                    `;
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderStudentPortal();
         });
+
+        function handleNewApplicationSubmit(e) {
+            e.preventDefault();
+            const user = edAuth.getUser();
+            if (!user) return;
+
+            const institution = document.getElementById('appInstitutionInput').value.trim();
+            const country = document.getElementById('appCountrySelect').value;
+            const program = document.getElementById('appProgramInput').value.trim();
+            const intake = document.getElementById('appIntakeSelect').value;
+            const notes = document.getElementById('appNotesInput').value.trim();
+
+            if (!institution || !program) {
+                alert('Please fill in both Institution Name and Program.');
+                return;
+            }
+
+            edAuth.addApplicationToUser(user.email, {
+                institution,
+                country,
+                program,
+                intake,
+                notes,
+                status: 'Under Review'
+            });
+
+            edAuth.showToast(`Application to ${institution} submitted successfully!`, 'success');
+
+            const modalEl = document.getElementById('newApplicationModal');
+            const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            if (modal) modal.hide();
+
+            document.getElementById('newApplicationForm').reset();
+            renderStudentPortal();
+        }
 
         function handleProfileUpdate(e) {
             e.preventDefault();
@@ -578,13 +796,13 @@
             if (newName) user.name = newName;
             if (newDest) user.destination = newDest;
 
-            edAuth.setUser(user);
+            edAuth.updateUser(user.email, { name: user.name, destination: user.destination });
             edAuth.showToast('Profile preferences updated successfully!', 'success');
 
             const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
             if (modal) modal.hide();
 
-            setTimeout(() => window.location.reload(), 600);
+            renderStudentPortal();
         }
     </script>
 </body>

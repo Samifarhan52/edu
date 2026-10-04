@@ -27,39 +27,138 @@
         isOwner: true
     };
 
+    // Generate Unique Scholar ID (e.g. EDU-2026-4819)
+    function generateScholarId() {
+        return 'EDU-2026-' + Math.floor(1000 + Math.random() * 9000);
+    }
+
     // Default Seed Student Accounts (Pre-registered for immediate scholar access)
     const DEFAULT_ACCOUNTS = {
         'student@theeduconsultant.com': {
+            id: 'EDU-2026-9842',
             name: 'Sophia Patel',
             email: 'student@theeduconsultant.com',
+            phone: '+44 7700 900077',
             password: 'password123',
             role: 'Student',
             badge: 'Scholar',
             destination: 'United Kingdom',
+            mentor: 'Dr. Eleanor Vance',
+            status: 'Active',
+            registeredAt: '2026-01-15T10:00:00.000Z',
+            milestonePhase: 3,
             avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80',
-            authProvider: 'Email'
+            authProvider: 'Email',
+            applications: [
+                {
+                    id: 'APP-1001',
+                    institution: 'Univ. of Manchester',
+                    country: 'United Kingdom',
+                    program: 'MSc Finance & Data Analysis',
+                    intake: 'Fall 2026',
+                    status: 'Offer Letter Issued',
+                    appliedAt: '2026-01-20T10:00:00.000Z',
+                    notes: 'Conditional offer letter received.'
+                },
+                {
+                    id: 'APP-1002',
+                    institution: 'Univ. of Melbourne',
+                    country: 'Australia',
+                    program: 'Master of Computer Science',
+                    intake: 'Spring 2027',
+                    status: 'Under Review',
+                    appliedAt: '2026-02-05T10:00:00.000Z',
+                    notes: 'Faculty review in progress.'
+                },
+                {
+                    id: 'APP-1003',
+                    institution: 'Univ. of British Columbia',
+                    country: 'Canada',
+                    program: 'Master of Data Science',
+                    intake: 'Fall 2026',
+                    status: 'Under Review',
+                    appliedAt: '2026-02-18T10:00:00.000Z',
+                    notes: 'Transcripts verified.'
+                }
+            ],
+            savedUniversities: ['University of Manchester', 'University of Melbourne', 'University of British Columbia', 'University of Oxford', 'University of Toronto', 'Imperial College London'],
+            grants: ['Global Excellence Award', 'STEM Future Leaders Grant', 'Commonwealth Shared Scholarship', 'Vice-Chancellor Waiver'],
+            counseling: {
+                date: 'Nov 20th',
+                time: '4:00 PM GMT',
+                mode: 'Video Call',
+                mentor: 'Dr. Eleanor Vance'
+            }
         },
         'lucas@theeduconsultant.com': {
+            id: 'EDU-2026-7310',
             name: 'Lucas Miller',
             email: 'lucas@theeduconsultant.com',
+            phone: '+1 617 555 0199',
             password: 'password123',
             role: 'Student',
             badge: 'Scholar',
             destination: 'United States',
+            mentor: 'Alexander Morgan',
+            status: 'Active',
+            registeredAt: '2026-02-01T11:00:00.000Z',
+            milestonePhase: 2,
             avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
-            authProvider: 'Email'
+            authProvider: 'Email',
+            applications: [
+                {
+                    id: 'APP-2001',
+                    institution: 'Columbia University',
+                    country: 'United States',
+                    program: 'MS Financial Engineering',
+                    intake: 'Fall 2026',
+                    status: 'Under Review',
+                    appliedAt: '2026-02-10T11:00:00.000Z',
+                    notes: 'Awaiting GRE score official upload.'
+                }
+            ],
+            savedUniversities: ['Columbia University', 'NYU'],
+            grants: ['Fulbright Scholar Nominee'],
+            counseling: null
         },
         'amina@theeduconsultant.com': {
+            id: 'EDU-2026-6194',
             name: 'Amina Khan',
             email: 'amina@theeduconsultant.com',
+            phone: '+1 416 555 0188',
             password: 'password123',
             role: 'Student',
             badge: 'Scholar',
             destination: 'Canada',
+            mentor: 'Sophia Patel',
+            status: 'Active',
+            registeredAt: '2026-02-15T09:30:00.000Z',
+            milestonePhase: 1,
             avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80',
-            authProvider: 'Email'
+            authProvider: 'Email',
+            applications: [],
+            savedUniversities: [],
+            grants: [],
+            counseling: null
         }
     };
+
+    function normalizeUserRecord(user, email) {
+        if (!user) return user;
+        if (!user.id) user.id = generateScholarId();
+        if (!user.email) user.email = email;
+        if (!Array.isArray(user.applications)) user.applications = [];
+        if (!Array.isArray(user.savedUniversities)) user.savedUniversities = [];
+        if (!Array.isArray(user.grants)) user.grants = [];
+        if (typeof user.milestonePhase === 'undefined') user.milestonePhase = 1;
+        if (!user.status) user.status = 'Active';
+        if (!user.mentor) user.mentor = 'Dr. Eleanor Vance';
+        if (!user.phone) user.phone = '';
+        if (!user.destination) user.destination = 'Global';
+        if (!user.registeredAt) user.registeredAt = new Date().toISOString();
+        if (typeof user.counseling === 'undefined') user.counseling = null;
+        return user;
+    }
 
     function getOwner() {
         try {
@@ -80,7 +179,22 @@
         try {
             const raw = localStorage.getItem(DB_KEY);
             const parsed = raw ? JSON.parse(raw) : {};
-            return Object.assign({}, DEFAULT_ACCOUNTS, parsed);
+            const combined = Object.assign({}, DEFAULT_ACCOUNTS, parsed);
+            // Ensure every user record is normalized
+            let hasChanges = false;
+            for (const key in combined) {
+                if (Object.prototype.hasOwnProperty.call(combined, key)) {
+                    const norm = normalizeUserRecord(combined[key], key);
+                    if (combined[key] !== norm) {
+                        combined[key] = norm;
+                        hasChanges = true;
+                    }
+                }
+            }
+            if (hasChanges && raw) {
+                saveDB(combined);
+            }
+            return combined;
         } catch (e) {
             return Object.assign({}, DEFAULT_ACCOUNTS);
         }
@@ -99,8 +213,27 @@
 
         getUser: function () {
             try {
-                const data = localStorage.getItem(STORAGE_KEY);
-                return data ? JSON.parse(data) : null;
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return null;
+                let sessionUser = JSON.parse(raw);
+                if (!sessionUser) return null;
+
+                // If regular student, sync latest profile state from database
+                if (!sessionUser.isOwner && sessionUser.role !== 'Admin' && sessionUser.email) {
+                    const db = getDB();
+                    const cleanEmail = sessionUser.email.toLowerCase();
+                    const dbUser = db[cleanEmail];
+                    if (dbUser) {
+                        sessionUser = Object.assign({}, dbUser, {
+                            token: sessionUser.token,
+                            loggedInAt: sessionUser.loggedInAt
+                        });
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(sessionUser));
+                    } else {
+                        sessionUser = normalizeUserRecord(sessionUser, cleanEmail);
+                    }
+                }
+                return sessionUser;
             } catch (e) {
                 return null;
             }
@@ -227,8 +360,9 @@
             const safePhone = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.phone || '') : (formData.phone || '');
             const safeDest = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.destination || 'Global') : (formData.destination || 'Global');
 
-            // Public registrations are ALWAYS Students
+            // Public registrations are ALWAYS Students with 100% clean, real original state
             const user = {
+                id: generateScholarId(),
                 name: safeName,
                 email: cleanEmail,
                 phone: safePhone,
@@ -236,6 +370,14 @@
                 password: formData.password,
                 role: 'Student',
                 badge: 'Scholar',
+                mentor: 'Dr. Eleanor Vance',
+                status: 'Active',
+                registeredAt: new Date().toISOString(),
+                milestonePhase: 1,
+                applications: [],        // Initialized clean: no fake mock applications
+                savedUniversities: [],   // Clean state
+                grants: [],              // Clean state
+                counseling: null,        // None scheduled initially
                 avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
                 authProvider: formData.authProvider || 'Email',
                 loggedInAt: new Date().toISOString()
@@ -327,6 +469,182 @@
             setTimeout(() => {
                 window.location.href = 'login.html';
             }, 600);
+        },
+
+        // --- STUDENT ACCOUNTS & SCHOLAR MANAGEMENT (ADMIN CMS & PORTAL) ---
+        getAllUsers: function () {
+            const db = getDB();
+            const list = [];
+            for (const email in db) {
+                if (Object.prototype.hasOwnProperty.call(db, email)) {
+                    const u = db[email];
+                    if (u && u.role !== 'Admin' && !u.isOwner) {
+                        list.push(normalizeUserRecord(u, email));
+                    }
+                }
+            }
+            // Sort by registeredAt descending
+            return list.sort((a, b) => new Date(b.registeredAt || 0) - new Date(a.registeredAt || 0));
+        },
+
+        getUserById: function (id) {
+            if (!id) return null;
+            const cleanId = id.trim().toLowerCase();
+            const users = this.getAllUsers();
+            return users.find(u => u.id && u.id.toLowerCase() === cleanId) || null;
+        },
+
+        getUserByEmail: function (email) {
+            if (!email) return null;
+            const cleanEmail = email.trim().toLowerCase();
+            const db = getDB();
+            const u = db[cleanEmail];
+            return u ? normalizeUserRecord(u, cleanEmail) : null;
+        },
+
+        updateUser: function (email, updates) {
+            if (!email) return false;
+            const cleanEmail = email.trim().toLowerCase();
+            const db = getDB();
+            if (!db[cleanEmail]) return false;
+
+            db[cleanEmail] = Object.assign({}, db[cleanEmail], updates);
+            saveDB(db);
+
+            // If current session is this user, update session
+            const current = this.getUser();
+            if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                this.setUser(Object.assign({}, current, updates));
+            }
+            return true;
+        },
+
+        updateUserPassword: function (email, newPassword) {
+            if (!email || !newPassword) return false;
+            return this.updateUser(email, { password: newPassword });
+        },
+
+        addApplicationToUser: function (email, appData) {
+            if (!email) return null;
+            const cleanEmail = email.trim().toLowerCase();
+            const db = getDB();
+            const user = db[cleanEmail];
+            if (!user) return null;
+
+            if (!Array.isArray(user.applications)) user.applications = [];
+
+            const newApp = {
+                id: 'APP-' + Math.floor(1000 + Math.random() * 9000),
+                institution: appData.institution || 'University Partner',
+                country: appData.country || 'Global',
+                program: appData.program || 'Undergraduate / Postgraduate Program',
+                intake: appData.intake || 'Fall 2026',
+                status: appData.status || 'Under Review',
+                appliedAt: new Date().toISOString(),
+                notes: appData.notes || 'Submitted via Scholar Portal'
+            };
+
+            user.applications.unshift(newApp);
+            // If user's milestonePhase is 1, advance it to 2 or 3
+            if ((user.milestonePhase || 1) < 2) {
+                user.milestonePhase = 2;
+            }
+            saveDB(db);
+
+            // If current session is this user, update session
+            const current = this.getUser();
+            if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                current.applications = user.applications;
+                current.milestonePhase = user.milestonePhase;
+                this.setUser(current);
+            }
+            return newApp;
+        },
+
+        updateUserApplication: function (email, appId, updates) {
+            if (!email || !appId) return false;
+            const cleanEmail = email.trim().toLowerCase();
+            const db = getDB();
+            const user = db[cleanEmail];
+            if (!user || !Array.isArray(user.applications)) return false;
+
+            const idx = user.applications.findIndex(a => a.id === appId);
+            if (idx === -1) return false;
+
+            user.applications[idx] = Object.assign({}, user.applications[idx], updates);
+            saveDB(db);
+
+            const current = this.getUser();
+            if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                current.applications = user.applications;
+                this.setUser(current);
+            }
+            return true;
+        },
+
+        deleteUserApplication: function (email, appId) {
+            if (!email || !appId) return false;
+            const cleanEmail = email.trim().toLowerCase();
+            const db = getDB();
+            const user = db[cleanEmail];
+            if (!user || !Array.isArray(user.applications)) return false;
+
+            user.applications = user.applications.filter(a => a.id !== appId);
+            saveDB(db);
+
+            const current = this.getUser();
+            if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                current.applications = user.applications;
+                this.setUser(current);
+            }
+            return true;
+        },
+
+        deleteUserAccount: function (email) {
+            if (!email) return false;
+            const cleanEmail = email.trim().toLowerCase();
+            const db = getDB();
+            if (!db[cleanEmail]) return false;
+
+            delete db[cleanEmail];
+            saveDB(db);
+
+            // If currently logged in user is deleted, clear session
+            const current = this.getUser();
+            if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                localStorage.removeItem(STORAGE_KEY);
+            }
+            return true;
+        },
+
+        adminCreateUser: function (data) {
+            const cleanEmail = (data.email || '').trim().toLowerCase();
+            const db = getDB();
+            if (db[cleanEmail]) return { success: false, message: 'Account already exists' };
+
+            const newUser = {
+                id: generateScholarId(),
+                name: data.name || 'Scholar',
+                email: cleanEmail,
+                phone: data.phone || '',
+                destination: data.destination || 'Global',
+                password: data.password || 'Scholar2026!',
+                role: 'Student',
+                badge: 'Scholar',
+                mentor: data.mentor || 'Dr. Eleanor Vance',
+                status: 'Active',
+                registeredAt: new Date().toISOString(),
+                milestonePhase: 1,
+                applications: [],
+                savedUniversities: [],
+                grants: [],
+                counseling: null,
+                avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
+                authProvider: 'Admin Created'
+            };
+            db[cleanEmail] = newUser;
+            saveDB(db);
+            return { success: true, user: newUser };
         },
 
         // --- REAL SOCIAL AUTHENTICATION MODALS (SCHOLARS) ---
@@ -469,32 +787,46 @@
         },
 
         completeScholarSocial: function (name, email, provider) {
-            const user = {
-                name: name,
-                email: email,
-                role: 'Student',
-                badge: 'Scholar',
-                avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
-                authProvider: provider,
-                destination: 'United Kingdom',
-                loggedInAt: new Date().toISOString()
-            };
+            const cleanEmail = (email || '').trim().toLowerCase();
+            const db = getDB();
+            let user = db[cleanEmail];
+            if (!user) {
+                user = {
+                    id: generateScholarId(),
+                    name: name || 'Scholar',
+                    email: cleanEmail,
+                    phone: '',
+                    role: 'Student',
+                    badge: 'Scholar',
+                    destination: 'United Kingdom',
+                    mentor: 'Dr. Eleanor Vance',
+                    status: 'Active',
+                    registeredAt: new Date().toISOString(),
+                    milestonePhase: 1,
+                    applications: [],
+                    savedUniversities: [],
+                    grants: [],
+                    counseling: null,
+                    password: 'SocialAuthUser2026!',
+                    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
+                    authProvider: provider,
+                    loggedInAt: new Date().toISOString()
+                };
+                db[cleanEmail] = user;
+                saveDB(db);
+            }
 
             user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_' + Date.now();
             this.setUser(user);
 
-            const db = getDB();
-            db[email] = user;
-            saveDB(db);
-
             const backdrop = document.getElementById('ed-social-modal-backdrop');
             if (backdrop) backdrop.remove();
 
-            this.showToast(`Authenticated via ${provider}: Welcome, ${name}!`, 'success');
+            this.showToast(`Authenticated via ${provider}: Welcome, ${user.name}!`, 'success');
 
             setTimeout(() => {
                 window.location.href = 'student-dashboard.html';
-            }, 650);
+            }, 450);
         },
 
         submitScholarSocial: function (provider) {

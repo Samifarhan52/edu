@@ -1291,7 +1291,11 @@ Start internship networking during your second semester. Utilize university care
             // 3. Render Admin Universities Table
             this.renderAdminUniTable();
 
-            // 4. Bind "Create New Blog" Form
+            // 4. Render Admin Student & Scholar Accounts Hub Table
+            this.renderAdminUsersTable();
+            this.updateAdminDashboardCounters();
+
+            // 5. Bind "Create New Blog" Form
             const blogForm = document.getElementById('adminNewBlogForm');
             if (blogForm) {
                 // Live preview updates
@@ -1964,16 +1968,429 @@ Start internship networking during your second semester. Utilize university care
             }).join('');
         },
 
+        // --- STUDENT & SCHOLAR ACCOUNTS MANAGEMENT HUB ---
+        renderAdminUsersTable: function (customList = null) {
+            const tableBody = document.getElementById('adminUsersTableBody');
+            const totalScholarsBadge = document.getElementById('adminUsersCountBadge');
+            const sidebarBadge = document.getElementById('sidebarUsersCountBadge');
+            const overviewScholarsCount = document.getElementById('adminTotalScholarsCounter');
+            const overviewAppsCount = document.getElementById('adminTotalAppsCounter');
+
+            if (!window.edAuth) return;
+
+            const allUsers = window.edAuth.getAllUsers();
+            const list = customList !== null ? customList : allUsers;
+
+            // Update counter badges
+            if (totalScholarsBadge) totalScholarsBadge.textContent = `Total: ${allUsers.length} Scholar${allUsers.length === 1 ? '' : 's'}`;
+            if (sidebarBadge) sidebarBadge.textContent = allUsers.length;
+            if (overviewScholarsCount) overviewScholarsCount.textContent = allUsers.length;
+
+            const totalApps = allUsers.reduce((sum, u) => sum + (Array.isArray(u.applications) ? u.applications.length : 0), 0);
+            if (overviewAppsCount) overviewAppsCount.textContent = totalApps;
+
+            if (!tableBody) return;
+
+            if (list.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-user-xmark fs-2 d-block mb-2 text-secondary"></i>
+                            <div class="fw-bold fs-14 text-dark mb-1">No Scholar Accounts Found</div>
+                            <span class="fs-12">No profiles matched your filter criteria or search query.</span>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tableBody.innerHTML = list.map(user => {
+                const appsCount = Array.isArray(user.applications) ? user.applications.length : 0;
+                const phase = parseInt(user.milestonePhase, 10) || 1;
+                const statusBadge = user.status === 'Suspended' ? 'bg-danger text-white' : 'bg-success text-white';
+                
+                const phoneDisplay = user.phone ? `<span class="font-monospace fs-12 text-muted">${user.phone}</span>` : '<span class="text-muted fs-11 italic">No phone</span>';
+                const appBadgeColor = appsCount > 0 ? 'bg-primary-subtle text-primary border border-primary' : 'bg-light text-muted border';
+
+                return `
+                    <tr>
+                        <td class="ps-4">
+                            <span class="badge bg-dark text-warning font-monospace px-2.5 py-1.5 fs-12 fw-bold">
+                                ${user.id || 'EDU-2026-9842'}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2.5">
+                                <img src="${user.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80'}" 
+                                     class="rounded-circle border" width="36" height="36" style="object-fit: cover;" alt="${user.name}">
+                                <div>
+                                    <div class="fw-bold text-dark fs-14">${user.name}</div>
+                                    <div class="text-muted fs-12">${user.email}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <span class="badge bg-light text-dark border mb-1 fs-11">${user.destination || 'Global'}</span>
+                                <div>${phoneDisplay}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge ${appBadgeColor} fw-bold px-2.5 py-1 fs-11 rounded-pill">
+                                ${appsCount} File${appsCount === 1 ? '' : 's'}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-info-subtle text-info fw-bold px-2.5 py-1 fs-11 rounded-pill">
+                                Phase ${phase} of 5
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge ${statusBadge} px-2 py-1 fs-11 rounded-pill">
+                                ${user.status || 'Active'}
+                            </span>
+                        </td>
+                        <td class="pe-4 text-end">
+                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold fs-12" onclick="window.EduCMS.openManageUserModal('${user.email}')">
+                                <i class="fa-solid fa-user-gear me-1"></i> Manage Scholar
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        },
+
+        filterAdminUsers: function () {
+            if (!window.edAuth) return;
+            const searchInput = document.getElementById('adminUserSearchInput');
+            const destFilter = document.getElementById('adminUserDestFilter');
+            const phaseFilter = document.getElementById('adminUserMilestoneFilter');
+
+            const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
+            const dest = (destFilter ? destFilter.value : '').trim();
+            const phase = (phaseFilter ? phaseFilter.value : '').trim();
+
+            const allUsers = window.edAuth.getAllUsers();
+            const filtered = allUsers.filter(u => {
+                const idMatch = (u.id || '').toLowerCase().includes(query);
+                const emailMatch = (u.email || '').toLowerCase().includes(query);
+                const nameMatch = (u.name || '').toLowerCase().includes(query);
+                const matchesQuery = !query || idMatch || emailMatch || nameMatch;
+
+                const matchesDest = !dest || (u.destination || '').toLowerCase() === dest.toLowerCase();
+                const matchesPhase = !phase || String(u.milestonePhase || 1) === phase;
+
+                return matchesQuery && matchesDest && matchesPhase;
+            });
+
+            this.renderAdminUsersTable(filtered);
+        },
+
+        openManageUserModal: function (email) {
+            if (!window.edAuth) return;
+            const user = window.edAuth.getUserByEmail(email);
+            if (!user) {
+                alert(`Scholar profile not found for email: ${email}`);
+                return;
+            }
+
+            const modalName = document.getElementById('manageUserModalName');
+            const modalId = document.getElementById('manageUserModalId');
+            const modalEmail = document.getElementById('manageUserModalEmail');
+            const modalAvatar = document.getElementById('manageUserModalAvatar');
+
+            if (modalName) modalName.textContent = user.name || 'Scholar';
+            if (modalId) modalId.textContent = user.id || 'EDU-2026-9842';
+            if (modalEmail) modalEmail.textContent = user.email || '';
+            if (modalAvatar) modalAvatar.src = user.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80';
+
+            const origEmail = document.getElementById('manageUserOriginalEmail');
+            const nameInput = document.getElementById('manageUserNameInput');
+            const emailInput = document.getElementById('manageUserEmailInput');
+            const phoneInput = document.getElementById('manageUserPhoneInput');
+            const destSelect = document.getElementById('manageUserDestSelect');
+            const mentorSelect = document.getElementById('manageUserMentorSelect');
+            const statusSelect = document.getElementById('manageUserStatusSelect');
+            const idInput = document.getElementById('manageUserIdInput');
+            const passInput = document.getElementById('manageUserPasswordInput');
+
+            if (origEmail) origEmail.value = user.email;
+            if (nameInput) nameInput.value = user.name || '';
+            if (emailInput) emailInput.value = user.email || '';
+            if (phoneInput) phoneInput.value = user.phone || '';
+            if (destSelect) destSelect.value = user.destination || 'United Kingdom';
+            if (mentorSelect) mentorSelect.value = user.mentor || 'Dr. Eleanor Vance';
+            if (statusSelect) statusSelect.value = user.status || 'Active';
+            if (idInput) idInput.value = user.id || 'EDU-2026-9842';
+            if (passInput) passInput.value = user.password || '';
+
+            this.renderManageUserApps(user);
+
+            const phase = user.milestonePhase || 1;
+            const radios = document.querySelectorAll('input[name="milestonePhaseRadio"]');
+            radios.forEach(r => {
+                r.checked = (r.value === String(phase));
+            });
+
+            const tab1Btn = document.getElementById('tab-manage-profile-btn');
+            if (tab1Btn) {
+                const tab1 = new bootstrap.Tab(tab1Btn);
+                tab1.show();
+            }
+
+            const modalEl = document.getElementById('adminManageUserModal');
+            if (modalEl) {
+                const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                modal.show();
+            }
+        },
+
+        renderManageUserApps: function (user) {
+            const container = document.getElementById('manageUserAppsContainer');
+            const countBadge = document.getElementById('manageModalAppsCountBadge');
+            const apps = Array.isArray(user.applications) ? user.applications : [];
+
+            if (countBadge) countBadge.textContent = apps.length;
+            if (!container) return;
+
+            if (apps.length === 0) {
+                container.innerHTML = `
+                    <div class="p-4 rounded-3 border bg-light text-center text-muted">
+                        <i class="fa-solid fa-folder-open fs-3 d-block mb-2 text-secondary"></i>
+                        <b class="text-dark d-block mb-1">No Applications Filed Yet</b>
+                        <span class="fs-12">This scholar currently has no university applications. You can add one below on their behalf.</span>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = apps.map(app => {
+                const appliedDate = app.appliedAt ? new Date(app.appliedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recently';
+                
+                return `
+                    <div class="card border rounded-3 p-3 mb-3 shadow-xs bg-white">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2 pb-2 border-bottom">
+                            <div>
+                                <h6 class="fw-bold text-dark mb-0">${app.institution}</h6>
+                                <span class="fs-12 text-muted">${app.country || 'Global'} • ${app.intake || 'Fall 2026'}</span>
+                            </div>
+                            <span class="badge bg-light text-muted font-monospace fs-11">App ID: ${app.id}</span>
+                        </div>
+                        <div class="row align-items-center g-2 mb-2">
+                            <div class="col-md-5">
+                                <span class="fs-13 fw-semibold text-dark d-block text-truncate">${app.program}</span>
+                                <span class="fs-11 text-muted">Date Filed: ${appliedDate}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select form-select-sm fs-12 py-1" id="appStatusSelect_${app.id}">
+                                    <option value="Under Review" ${app.status === 'Under Review' ? 'selected' : ''}>Under Review</option>
+                                    <option value="Conditional Offer" ${app.status === 'Conditional Offer' ? 'selected' : ''}>Conditional Offer</option>
+                                    <option value="Offer Letter Issued" ${app.status === 'Offer Letter Issued' ? 'selected' : ''}>Offer Letter Issued 🎉</option>
+                                    <option value="CAS / I-20 Issued" ${app.status === 'CAS / I-20 Issued' ? 'selected' : ''}>CAS / I-20 Issued</option>
+                                    <option value="Visa Approved" ${app.status === 'Visa Approved' ? 'selected' : ''}>Visa Approved ✓</option>
+                                    <option value="Rejected" ${app.status === 'Rejected' ? 'selected' : ''}>Application Rejected</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 text-end">
+                                <button type="button" class="btn btn-sm btn-primary rounded-pill px-2.5 py-1 fs-12 fw-bold" onclick="window.EduCMS.updateAppStatusFromAdmin('${user.email}', '${app.id}')">
+                                    <i class="fa-solid fa-floppy-disk me-1"></i> Update Status
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-circle p-1 ms-1" title="Delete application" onclick="window.EduCMS.deleteAppFromAdmin('${user.email}', '${app.id}')">
+                                    <i class="fa-solid fa-trash-can" style="font-size: 11px;"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        },
+
+        saveUserManageProfile: function (e) {
+            if (e) e.preventDefault();
+            const email = document.getElementById('manageUserOriginalEmail').value;
+            const name = document.getElementById('manageUserNameInput').value.trim();
+            const phone = document.getElementById('manageUserPhoneInput').value.trim();
+            const destination = document.getElementById('manageUserDestSelect').value;
+            const mentor = document.getElementById('manageUserMentorSelect').value;
+            const status = document.getElementById('manageUserStatusSelect').value;
+            const password = document.getElementById('manageUserPasswordInput').value.trim();
+
+            if (!name || !password) {
+                alert('Scholar name and password cannot be empty.');
+                return;
+            }
+
+            window.edAuth.updateUser(email, {
+                name,
+                phone,
+                destination,
+                mentor,
+                status,
+                password
+            });
+
+            this.showToast('Scholar Profile Saved', `Profile and password for ${name} updated successfully!`);
+            this.renderAdminUsersTable();
+            this.openManageUserModal(email);
+        },
+
+        generateUserRandomPass: function () {
+            const passInput = document.getElementById('manageUserPasswordInput');
+            if (passInput) {
+                passInput.value = 'ScholarPass' + Math.floor(1000 + Math.random() * 9000) + '!';
+                this.showToast('Generated', 'New temporary password generated.');
+            }
+        },
+
+        addAppToUserFromAdmin: function (e) {
+            if (e) e.preventDefault();
+            const email = document.getElementById('manageUserOriginalEmail').value;
+            const institution = document.getElementById('adminAddAppInstInput').value.trim();
+            const country = document.getElementById('adminAddAppCountrySelect').value;
+            const program = document.getElementById('adminAddAppProgInput').value.trim();
+            const intake = document.getElementById('adminAddAppIntakeSelect').value;
+            const status = document.getElementById('adminAddAppStatusSelect').value;
+
+            if (!institution || !program) {
+                alert('Please enter Institution and Program.');
+                return;
+            }
+
+            window.edAuth.addApplicationToUser(email, {
+                institution,
+                country,
+                program,
+                intake,
+                status
+            });
+
+            this.showToast('Application Added', `Added ${institution} application to scholar record.`);
+            document.getElementById('adminAddUserAppForm').reset();
+
+            const updatedUser = window.edAuth.getUserByEmail(email);
+            this.renderManageUserApps(updatedUser);
+            this.renderAdminUsersTable();
+        },
+
+        updateAppStatusFromAdmin: function (email, appId) {
+            const selectEl = document.getElementById(`appStatusSelect_${appId}`);
+            if (!selectEl) return;
+            const newStatus = selectEl.value;
+
+            window.edAuth.updateUserApplication(email, appId, { status: newStatus });
+            this.showToast('Status Updated', `Application status changed to "${newStatus}".`);
+
+            const updatedUser = window.edAuth.getUserByEmail(email);
+            this.renderManageUserApps(updatedUser);
+            this.renderAdminUsersTable();
+        },
+
+        deleteAppFromAdmin: function (email, appId) {
+            if (!confirm('Are you sure you want to delete this application record?')) return;
+
+            window.edAuth.deleteUserApplication(email, appId);
+            this.showToast('Application Removed', 'Application record was deleted.');
+
+            const updatedUser = window.edAuth.getUserByEmail(email);
+            this.renderManageUserApps(updatedUser);
+            this.renderAdminUsersTable();
+        },
+
+        saveUserMilestoneFromAdmin: function (e) {
+            if (e) e.preventDefault();
+            const email = document.getElementById('manageUserOriginalEmail').value;
+            const selectedRadio = document.querySelector('input[name="milestonePhaseRadio"]:checked');
+            if (!selectedRadio) return;
+
+            const newPhase = parseInt(selectedRadio.value, 10);
+            window.edAuth.updateUser(email, { milestonePhase: newPhase });
+
+            this.showToast('Milestone Updated', `Journey milestone set to Phase ${newPhase} of 5.`);
+            this.renderAdminUsersTable();
+        },
+
+        deleteUserFromAdmin: function () {
+            const email = document.getElementById('manageUserOriginalEmail').value;
+            if (!confirm(`Warning: Are you sure you want to permanently delete account: "${email}"? This action cannot be undone.`)) return;
+
+            window.edAuth.deleteUserAccount(email);
+            this.showToast('Account Deleted', 'Scholar profile removed from database.');
+
+            const modalEl = document.getElementById('adminManageUserModal');
+            if (modalEl) {
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                if (modal) modal.hide();
+            }
+
+            this.renderAdminUsersTable();
+        },
+
+        createScholarFromAdmin: function (e) {
+            if (e) e.preventDefault();
+            const name = document.getElementById('newScholarNameInput').value.trim();
+            const email = document.getElementById('newScholarEmailInput').value.trim().toLowerCase();
+            const phone = document.getElementById('newScholarPhoneInput').value.trim();
+            const password = document.getElementById('newScholarPassInput').value.trim();
+            const destination = document.getElementById('newScholarDestSelect').value;
+
+            if (!name || !email || !password) {
+                alert('Please fill in Name, Email, and Password.');
+                return;
+            }
+
+            const existing = window.edAuth.getUserByEmail(email);
+            if (existing) {
+                alert(`An account already exists with email: ${email}`);
+                return;
+            }
+
+            const res = window.edAuth.adminCreateUser({
+                name,
+                email,
+                phone,
+                password,
+                destination,
+                mentor: 'Dr. Eleanor Vance'
+            });
+
+            if (res && res.success) {
+                this.showToast('Scholar Onboarded', `Account created for ${name} (${res.user.id}).`);
+                const modalEl = document.getElementById('adminCreateScholarModal');
+                if (modalEl) {
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    if (modal) modal.hide();
+                }
+                document.getElementById('adminCreateScholarForm').reset();
+                this.renderAdminUsersTable();
+            } else {
+                alert((res && res.message) || 'Error creating account.');
+            }
+        },
+
         updateAdminDashboardCounters: function () {
             const blogCountEl = document.getElementById('adminTotalBlogsCounter');
             const uniCountEl = document.getElementById('adminTotalUnisCounter');
             const pageCountEl = document.getElementById('adminTotalPagesCounter');
             const navCountEl = document.getElementById('adminTotalNavCounter');
+            const scholarCountEl = document.getElementById('adminTotalScholarsCounter');
+            const appCountEl = document.getElementById('adminTotalAppsCounter');
+            const sidebarBadge = document.getElementById('sidebarUsersCountBadge');
+            const usersBadge = document.getElementById('adminUsersCountBadge');
             
             if (blogCountEl) blogCountEl.textContent = this.getAllBlogs().length;
             if (uniCountEl) uniCountEl.textContent = this.getAllUnis().length;
             if (pageCountEl) pageCountEl.textContent = this.getPages().length;
             if (navCountEl) navCountEl.textContent = this.getNavItems().length;
+
+            if (window.edAuth) {
+                const users = window.edAuth.getAllUsers();
+                if (scholarCountEl) scholarCountEl.textContent = users.length;
+                if (sidebarBadge) sidebarBadge.textContent = users.length;
+                if (usersBadge) usersBadge.textContent = `Total: ${users.length} Scholar${users.length === 1 ? '' : 's'}`;
+
+                const totalApps = users.reduce((sum, u) => sum + (Array.isArray(u.applications) ? u.applications.length : 0), 0);
+                if (appCountEl) appCountEl.textContent = totalApps;
+            }
         }
     };
 
