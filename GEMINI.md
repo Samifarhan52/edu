@@ -4,7 +4,7 @@ This repository is configured with the standard **Agent Plugins & Skills** archi
 
 ---
 
-## 1. Active Plugins Overview
+## 1. Active Plugins Overview (Automatic by Default)
 
 ### 🧘 Ponytail (`.agents/plugins/ponytail`)
 Channels a minimalist senior developer: "The best code is the code you never wrote."
@@ -33,7 +33,26 @@ Local AI Gateway & Multi-Provider Router:
 
 ---
 
-## 2. Coding Standards for The Edu Consultant & ElavateX
+## 2. Dynamic Control Toggle: "Quit" & "Dequit" Commands
+The user can toggle plugin enforcement at any time using simple control keywords:
+
+### 🔴 The "Quit" Command (Deactivation):
+- **Trigger**: When the user says **`Quit`** (or `quit`, `stop plugins`, `deactivate plugins`).
+- **Action**: Immediately deactivate/pause all automated plugin enforcement (Ponytail ladder, Superpowers planning gates).
+- **Feedback**: Acknowledge with:
+  `[Plugins Deactivated via 'Quit'. Standard direct mode is now active.]`
+- **Behavior**: Switch to plain direct execution without enforcing decision ladders, formal plan approvals, or methodology gates until told otherwise.
+
+### 🟢 The "Dequit" Command (Reactivation):
+- **Trigger**: When the user says **`Dequit`** (or `dequit`, `resume plugins`, `reactivate plugins`).
+- **Action**: Immediately re-enable and resume full automatic enforcement of all plugins (**Ponytail**, **Superpowers**, **OmniRoute**).
+- **Feedback**: Acknowledge with:
+  `[Plugins Reactivated via 'Dequit'. Ponytail, Superpowers & OmniRoute are fully active.]`
+- **Behavior**: Return to the default mode where all engineering disciplines are continuously and automatically applied.
+
+---
+
+## 3. Coding Standards for The Edu Consultant & ElavateX
 - **Branding**: Website name is strictly **The Edu Consultant**. Developer signature and agency portal is **ElavateX** (`ElavateX.com`).
 - **Contacts**: Developer lead is **Farhan** (`+91 7676808068`). Admissions consultancy hotline is `+91 9845371459`.
 - **Zero-FOUC & Speed**: Avoid rendering flickers; keep critical entry animations inline and self-contained.
