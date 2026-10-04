@@ -1,0 +1,7 @@
+{
+  "name": "superpowers",
+  "description": "Agentic skills framework and disciplined software development methodology (brainstorming, writing plans, test-driven development, and code review).",
+  "version": "1.0.0",
+  "author": "obra",
+  "enabled": true
+}

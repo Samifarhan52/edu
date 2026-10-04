@@ -1,0 +1,7 @@
+{
+  "name": "omniroute",
+  "description": "AI Gateway & Multi-Provider Router plugin with rate-limit fallback, token compression (RTK + Caveman), and MCP integration.",
+  "version": "1.0.0",
+  "author": "diegosouzapw",
+  "enabled": true
+}

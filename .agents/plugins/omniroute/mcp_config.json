@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "omniroute-gateway": {
+      "command": "curl",
+      "args": ["-s", "http://127.0.0.1:20128/health"],
+      "description": "Checks the live health and active routing providers for the local OmniRoute AI gateway."
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "path": ".agents/plugins/ponytail/skills"
+    },
+    {
+      "path": ".agents/plugins/superpowers/skills"
+    },
+    {
+      "path": ".agents/plugins/omniroute/skills"
+    }
+  ]
+}

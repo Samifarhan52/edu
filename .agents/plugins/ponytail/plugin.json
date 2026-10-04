@@ -1,0 +1,7 @@
+{
+  "name": "ponytail",
+  "description": "Minimalist 'Lazy Senior Dev' engineering plugin. Enforces YAGNI, standard library first, native platform features, zero bloat, and radical token reduction.",
+  "version": "1.0.0",
+  "author": "DietrichGebert",
+  "enabled": true
+}
