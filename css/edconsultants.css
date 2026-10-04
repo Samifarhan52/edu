@@ -2209,226 +2209,221 @@ a {
    ENTRY REVEAL COMPONENT (Homepage Website Opening Intro - 3 to 4 Seconds)
    Sequence: 1. Animated Logo Glow -> 2. "The Edu Consultant" Typography -> 3. Smooth Landing Reveal
    ============================================================================== */
-.edu-entry-reveal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9999999;
-    background: radial-gradient(circle at center, #000064 0%, #000032 60%, #000014 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
-    will-change: opacity, transform;
+body.reveal-active {
+    overflow: hidden !important;
+    height: 100vh !important;
 }
 
+#eduEntryReveal,
+.edu-entry-reveal-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 2147483647 !important;
+    background: radial-gradient(circle at 50% 45%, #000064 0%, #000038 55%, #000018 100%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    pointer-events: all !important;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease !important;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+#eduEntryReveal.reveal-dismissed,
 .edu-entry-reveal-overlay.dismissed {
     opacity: 0 !important;
     transform: scale(1.05) !important;
+    filter: blur(8px) !important;
     pointer-events: none !important;
     visibility: hidden !important;
 }
 
+.edu-reveal-backdrop-glow,
 .reveal-ambient-glow {
     position: absolute;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(245, 220, 60, 0.15) 0%, rgba(251, 84, 33, 0.08) 40%, transparent 70%);
-    filter: blur(40px);
-    pointer-events: none;
-    animation: revealPulseAmbient 3s infinite alternate ease-in-out;
-}
-
-.reveal-ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    pointer-events: none;
-}
-.reveal-ring-1 {
-    width: 320px;
-    height: 320px;
-    border-color: rgba(245, 220, 60, 0.12);
-    animation: revealSpinRing 20s linear infinite;
-}
-.reveal-ring-2 {
     width: 480px;
     height: 480px;
-    border-style: dashed;
-    border-color: rgba(255, 255, 255, 0.05);
-    animation: revealSpinRing 30s linear infinite reverse;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245, 220, 60, 0.22) 0%, rgba(251, 84, 33, 0.1) 40%, transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+    animation: revealGlowPulse 2.8s infinite alternate ease-in-out;
 }
 
+.edu-reveal-skip-btn,
 .btn-reveal-skip {
-    position: absolute;
-    top: 24px;
-    right: 28px;
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: rgba(255, 255, 255, 0.8);
-    border-radius: 50px;
-    padding: 6px 18px;
-    font-size: 12px;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-    transition: all 0.2s ease;
+    position: absolute !important;
+    top: 24px !important;
+    right: 28px !important;
+    z-index: 10 !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+    border-radius: 50px !important;
+    padding: 7px 18px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    cursor: pointer !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    transition: all 0.2s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    line-height: 1 !important;
+    outline: none !important;
 }
+.edu-reveal-skip-btn:hover,
 .btn-reveal-skip:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.35);
-    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    transform: translateY(-1px) !important;
 }
 
+.edu-reveal-stage,
 .reveal-stage {
+    text-align: center;
     position: relative;
     z-index: 2;
-    text-align: center;
-    max-width: 640px;
+    max-width: 580px;
     padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Step 1: Animated Graduation Emblem */
+.edu-reveal-emblem-wrap,
 .reveal-logo-wrapper {
     position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    animation: revealLogoZoom 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    margin-bottom: 22px;
+    animation: revealEmblemEntrance 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
+.edu-reveal-halo,
 .reveal-logo-halo {
     position: absolute;
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(245, 220, 60, 0.4) 0%, transparent 70%);
-    filter: blur(12px);
-    animation: revealHaloPulse 2s infinite alternate;
+    background: radial-gradient(circle, rgba(245, 220, 60, 0.45) 0%, transparent 70%);
+    filter: blur(14px);
+    animation: revealHaloBreath 2s infinite alternate;
 }
 
+.edu-reveal-emblem,
 .reveal-logo-circle {
-    width: 86px;
-    height: 86px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
     background: linear-gradient(135deg, #f5dc3c 0%, #fb5421 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     color: #000064;
-    font-size: 40px;
-    box-shadow: 0 0 35px rgba(245, 220, 60, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+    font-size: 44px;
+    box-shadow: 0 0 45px rgba(245, 220, 60, 0.65), inset 0 2px 4px rgba(255, 255, 255, 0.85);
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
+/* Step 2: "The Edu Consultant" Name Reveal */
+.edu-reveal-content,
 .reveal-brand-text {
-    animation: revealTextSlide 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: revealContentEntrance 1.1s cubic-bezier(0.16, 1, 0.3, 1) 1.1s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+.edu-reveal-title,
 .reveal-title {
-    font-size: 36px;
+    font-size: 38px;
     font-weight: 800;
     color: #ffffff;
     letter-spacing: -0.5px;
-    margin-bottom: 8px;
-    line-height: 1.2;
+    margin: 0 0 6px 0;
+    line-height: 1.15;
 }
 
+.edu-reveal-title span,
 .reveal-title .reveal-highlight {
     color: #f5dc3c;
-    text-shadow: 0 0 20px rgba(245, 220, 60, 0.5);
+    text-shadow: 0 0 24px rgba(245, 220, 60, 0.6);
 }
 
+.edu-reveal-tagline,
 .reveal-subtitle {
-    font-size: 14.5px;
+    font-size: 15px;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.85);
     letter-spacing: 0.3px;
-    margin-bottom: 18px;
+    margin: 0 0 22px 0;
 }
 
-.reveal-badge-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 26px;
-}
-
-.reveal-pill {
-    padding: 5px 14px;
-    border-radius: 50px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #e2e8f0;
-    font-size: 12px;
-    font-weight: 600;
-    backdrop-filter: blur(4px);
-}
-
+.edu-reveal-bar-track,
 .reveal-progress-container {
     width: 220px;
     height: 3px;
-    background: rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 50px;
     margin: 0 auto;
     overflow: hidden;
 }
 
+.edu-reveal-bar-fill,
 .reveal-progress-bar {
     height: 100%;
     width: 0%;
     background: linear-gradient(90deg, #f5dc3c, #fb5421);
-    border-radius: 10px;
-    animation: revealFillBar 3.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    border-radius: 50px;
+    animation: revealBarProgress 3.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-@keyframes revealLogoZoom {
-    0% { transform: scale(0.2); opacity: 0; }
+@keyframes revealEmblemEntrance {
+    0% { transform: scale(0.15); opacity: 0; }
     70% { transform: scale(1.08); opacity: 1; }
     100% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes revealTextSlide {
-    0% { transform: translateY(22px); opacity: 0; }
+@keyframes revealContentEntrance {
+    0% { transform: translateY(18px); opacity: 0; }
     100% { transform: translateY(0); opacity: 1; }
 }
 
-@keyframes revealFillBar {
+@keyframes revealBarProgress {
     0% { width: 0%; }
     100% { width: 100%; }
 }
 
-@keyframes revealHaloPulse {
-    0% { transform: scale(0.9); opacity: 0.4; }
-    100% { transform: scale(1.15); opacity: 0.75; }
+@keyframes revealHaloBreath {
+    0% { transform: scale(0.9); opacity: 0.35; }
+    100% { transform: scale(1.2); opacity: 0.75; }
 }
 
-@keyframes revealPulseAmbient {
-    0% { transform: scale(0.9); opacity: 0.3; }
-    100% { transform: scale(1.1); opacity: 0.6; }
-}
-
-@keyframes revealSpinRing {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+@keyframes revealGlowPulse {
+    0% { transform: scale(0.85); opacity: 0.25; }
+    100% { transform: scale(1.15); opacity: 0.55; }
 }
 
 @media (max-width: 576px) {
-    .reveal-title { font-size: 27px; }
-    .reveal-subtitle { font-size: 13px; }
-    .reveal-logo-circle { width: 72px; height: 72px; font-size: 32px; }
-    .reveal-badge-row { display: none; }
+    .edu-reveal-title, .reveal-title { font-size: 28px !important; }
+    .edu-reveal-tagline, .reveal-subtitle { font-size: 13px !important; }
+    .edu-reveal-emblem, .reveal-logo-circle { width: 74px !important; height: 74px !important; font-size: 34px !important; }
+    .edu-reveal-skip-btn, .btn-reveal-skip { top: 16px !important; right: 16px !important; padding: 6px 14px !important; font-size: 11px !important; }
 }
 
 /* ==============================================================================
