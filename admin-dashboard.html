@@ -2375,7 +2375,7 @@ function doPost(e) {
     }
     sheet.autoResizeColumns(1, 12);
     try {
-      MailApp.sendEmail("enquiry@theeduconsultant.com", "[Live Lead Alert] " + (data.name || 'New Student'), "New lead added to your Google Sheet: " + data.name + " (" + data.phone + ")\nOpen Sheet: " + ss.getUrl());
+      MailApp.sendEmail("enquiry@theeduconsultant.com, adm.faraz@gmail.com", "[Live Lead Alert] " + (data.name || 'New Student'), "New lead added to your Google Sheet: " + data.name + " (" + data.phone + ")\nOpen Sheet: " + ss.getUrl());
     } catch(m) {}
     return ContentService.createTextOutput(JSON.stringify({status: "success"})).setMimeType(ContentService.MimeType.JSON);
   } catch(err) {

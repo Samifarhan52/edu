@@ -95,7 +95,7 @@ function doPost(e) {
     // Auto-fit columns for clean Excel presentation
     sheet.autoResizeColumns(1, 12);
 
-    // Optional: Send instant email alert to enquiry@theeduconsultant.com
+    // Send instant email alert to official admissions mailboxes
     try {
       var emailSubject = "[Live Lead Alert] " + (data.name || 'New Student') + " - " + (data.destination || 'Study Abroad');
       var emailBody = "New lead successfully added to your Live Excel / Google Sheet!\n\n" +
@@ -108,7 +108,7 @@ function doPost(e) {
                       "Date: " + dateFormatted + "\n\n" +
                       "Open Sheet: " + ss.getUrl();
       
-      MailApp.sendEmail("enquiry@theeduconsultant.com", emailSubject, emailBody);
+      MailApp.sendEmail("enquiry@theeduconsultant.com, adm.faraz@gmail.com", emailSubject, emailBody);
     } catch (mailErr) {
       // Continue even if MailApp quota is exceeded
     }
