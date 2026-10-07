@@ -296,7 +296,7 @@
                 await fetch(webhookUrl, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payload)
                 });
                 console.log(`[EduFirebase] Record ${payload.id} streamed to Live Google Sheet / Excel.`);

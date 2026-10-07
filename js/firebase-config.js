@@ -16,6 +16,6 @@
         messagingSenderId: "",
         appId: "",
         // Live Google Sheets / Excel Webhook URL
-        sheetsWebhookUrl: ""
+        sheetsWebhookUrl: "https://script.google.com/macros/s/AKfycbxgUoEMiYVQIPi-LE0rqW2Mho63s1JV6WbbPNnOsGwdgoDDP6VQAYf1ImfulmWRb1bn/exec"
     };
 })(window);
