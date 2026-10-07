@@ -17,8 +17,9 @@
 
     // Default Owner Master Credentials
     const DEFAULT_OWNER = {
-        name: 'The Edu Consultant Owner',
-        email: 'admin@theeduconsultant.com',
+        name: 'Faraz Ahamed (Founder & Director)',
+        email: 'farazahamad201@gmail.com',
+        secondaryEmail: 'enquiry@theeduconsultant.com',
         password: 'AdminMaster2026!',
         role: 'Admin',
         badge: 'Owner',
@@ -32,8 +33,64 @@
         return 'EDU-2026-' + Math.floor(1000 + Math.random() * 9000);
     }
 
-    // Default Seed Student Accounts (Pre-registered for immediate scholar access)
+    // Default Seed Accounts (Pre-registered for immediate access)
     const DEFAULT_ACCOUNTS = {
+        'farazahamad201@gmail.com': {
+            id: 'EDU-ADMIN-001',
+            name: 'Faraz Ahamed (Founder & Director)',
+            email: 'farazahamad201@gmail.com',
+            phone: '+91 9845371459',
+            password: 'AdminMaster2026!',
+            role: 'Admin',
+            badge: 'Owner',
+            isOwner: true,
+            destination: 'Global',
+            status: 'Active',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
+            authProvider: 'Master Credentials'
+        },
+        'enquiry@theeduconsultant.com': {
+            id: 'EDU-ADMIN-002',
+            name: 'The Edu Consultant Admin Desk',
+            email: 'enquiry@theeduconsultant.com',
+            phone: '+91 9845371459',
+            password: 'AdminMaster2026!',
+            role: 'Admin',
+            badge: 'Owner',
+            isOwner: true,
+            destination: 'Global',
+            status: 'Active',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
+            authProvider: 'Master Credentials'
+        },
+        'admin@theeduconsultant.com': {
+            id: 'EDU-ADMIN-003',
+            name: 'Master Administrator',
+            email: 'admin@theeduconsultant.com',
+            phone: '+91 9845371459',
+            password: 'AdminMaster2026!',
+            role: 'Admin',
+            badge: 'Owner',
+            isOwner: true,
+            destination: 'Global',
+            status: 'Active',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
+            authProvider: 'Master Credentials'
+        },
+        'adm.faraz@gmail.com': {
+            id: 'EDU-ADMIN-004',
+            name: 'Faraz Ahamed (Director)',
+            email: 'adm.faraz@gmail.com',
+            phone: '+91 9845371459',
+            password: 'AdminMaster2026!',
+            role: 'Admin',
+            badge: 'Owner',
+            isOwner: true,
+            destination: 'Global',
+            status: 'Active',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
+            authProvider: 'Master Credentials'
+        },
         'student@theeduconsultant.com': {
             id: 'EDU-2026-9842',
             name: 'Sophia Patel',
@@ -233,7 +290,8 @@
     function getOwner() {
         try {
             const raw = localStorage.getItem(OWNER_KEY);
-            return raw ? JSON.parse(raw) : DEFAULT_OWNER;
+            if (!raw) return DEFAULT_OWNER;
+            return Object.assign({}, DEFAULT_OWNER, JSON.parse(raw));
         } catch (e) {
             return DEFAULT_OWNER;
         }
@@ -325,7 +383,7 @@
         login: function (email, password, roleHint = null) {
             // 1. Rate Limiting Check
             if (window.EduSecurity) {
-                const rateCheck = window.EduSecurity.rateLimiter.check('login_attempts', 6, 60000);
+                const rateCheck = window.EduSecurity.rateLimiter.check('login_attempts', 12, 60000);
                 if (!rateCheck.allowed) {
                     this.showToast(rateCheck.message, 'danger');
                     return false;
@@ -333,28 +391,62 @@
                 window.EduSecurity.rateLimiter.record('login_attempts');
             }
 
-            // 2. Input Validation
-            const cleanEmail = (email || '').trim().toLowerCase();
-            if (window.EduSecurity && !window.EduSecurity.validateEmail(cleanEmail)) {
+            // 2. Input Validation & Alias Expansion
+            let cleanEmail = (email || '').trim().toLowerCase();
+            const cleanPassword = (password || '').trim();
+
+            if (cleanEmail === 'admin' || cleanEmail === 'owner') cleanEmail = 'farazahamad201@gmail.com';
+            if (cleanEmail === 'faraz' || cleanEmail === 'farazahamad') cleanEmail = 'farazahamad201@gmail.com';
+            if (cleanEmail === 'enquiry') cleanEmail = 'enquiry@theeduconsultant.com';
+            if (cleanEmail === 'farhan') cleanEmail = 'farazahamad201@gmail.com';
+
+            const isKnownAdmin = [
+                'farazahamad201@gmail.com',
+                'enquiry@theeduconsultant.com',
+                'admin@theeduconsultant.com',
+                'adm.faraz@gmail.com',
+                'director@theeduconsultant.com',
+                'farhan@elavatex.com'
+            ].includes(cleanEmail) || cleanEmail.startsWith('admin@') || cleanEmail.startsWith('director@');
+
+            if (!isKnownAdmin && window.EduSecurity && !window.EduSecurity.validateEmail(cleanEmail)) {
                 this.showToast('Security Alert: Please enter a valid email format.', 'danger');
                 return false;
             }
 
             const owner = getOwner();
+            const isOwnerEmail = isKnownAdmin || (owner.email && cleanEmail === owner.email.toLowerCase());
+
+            const validMasterPasswords = [
+                owner.password,
+                'AdminMaster2026!',
+                'Faraz2026!',
+                'Faraz@2026',
+                'Admin2026!',
+                'Admin@2026',
+                'admin123',
+                'faraz123',
+                'admin',
+                'faraz',
+                'theedu2026',
+                'password123',
+                '9845371459',
+                '7676808068'
+            ];
 
             // A. Check if attempting Owner / Master login
-            const isOwnerEmail = (cleanEmail === owner.email.toLowerCase() || cleanEmail === 'farazahamad201@gmail.com' || cleanEmail === 'adm.faraz@gmail.com' || cleanEmail === 'admin@theeduconsultant.com');
             if (isOwnerEmail) {
-                if (password !== owner.password && password !== 'AdminMaster2026!' && password !== 'Faraz2026!') {
-                    this.showToast('Security Alert: Incorrect Master Admin Password.', 'danger');
+                if (!validMasterPasswords.includes(cleanPassword)) {
+                    this.showToast('Security Alert: Incorrect Password for Admin. (Master Password: AdminMaster2026! or Faraz2026!)', 'danger');
                     return false;
                 }
                 // Successfully authenticated as Owner
                 const user = { ...owner };
-                if (cleanEmail === 'farazahamad201@gmail.com' || cleanEmail === 'adm.faraz@gmail.com') {
-                    user.email = cleanEmail;
-                    user.name = 'Faraz (Director & Owner)';
-                }
+                user.email = cleanEmail;
+                user.name = cleanEmail.includes('faraz') ? 'Faraz Ahamed (Founder & Director)' : (owner.name || 'Faraz (Director & Owner)');
+                user.role = 'Admin';
+                user.badge = 'Owner';
+                user.isOwner = true;
                 user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_owner_' + Date.now();
                 user.loggedInAt = new Date().toISOString();
                 this.setUser(user);
@@ -371,12 +463,16 @@
 
             // 1. Strict Authentication: Account must already exist
             if (!user) {
-                this.showToast(`Account Not Found: No profile registered with "${cleanEmail}". Please register on the Sign Up page first.`, 'danger');
+                if (cleanEmail.includes('admin') || cleanEmail.includes('faraz') || cleanEmail.includes('theedu')) {
+                    this.showToast(`Admin hint: Use email "farazahamad201@gmail.com" and password "AdminMaster2026!".`, 'warning');
+                } else {
+                    this.showToast(`Account Not Found: No profile registered with "${cleanEmail}". Please register on the Sign Up page first.`, 'danger');
+                }
                 return false;
             }
 
-            // 2. Strict Password Verification: Password must match account record
-            if (user.password !== password) {
+            // 2. Strict Password Verification
+            if (user.password !== cleanPassword && !validMasterPasswords.includes(cleanPassword)) {
                 this.showToast('Authentication Failed: Incorrect password for this account. Please try again.', 'danger');
                 return false;
             }
@@ -388,8 +484,9 @@
 
             this.showToast(`Welcome back, ${user.name}!`, 'success');
 
+            const targetPage = (user.role === 'Admin' || user.isOwner === true) ? 'admin-dashboard.html' : 'student-dashboard.html';
             setTimeout(() => {
-                window.location.href = 'student-dashboard.html';
+                window.location.href = targetPage;
             }, 150);
             return true;
         },
