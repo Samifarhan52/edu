@@ -1,16 +1,16 @@
 /**
  * The Edu Consultant - Google Sheets & Excel Live Leads Automation Webhook
- * Configured for domain account: enquiry@theeduconsultant.com
+ * Configured for Google account: farazahamad201@gmail.com (Admissions Lead Desk)
  * 
  * Instructions:
- * 1. Open Google Drive (drive.google.com) with enquiry@theeduconsultant.com
+ * 1. Open Google Drive (drive.google.com) with farazahamad201@gmail.com
  * 2. Create a new Google Spreadsheet named: "The Edu Consultant - Live Leads & Inquiries"
  * 3. Go to Extensions > Apps Script
  * 4. Replace everything in Code.gs with this code and click Save (Ctrl+S / Cmd+S)
  * 5. Click "Deploy" > "New deployment"
  *    - Select type: "Web app"
  *    - Description: "Live Leads Webhook v1"
- *    - Execute as: "Me (enquiry@theeduconsultant.com)"
+ *    - Execute as: "Me (farazahamad201@gmail.com)"
  *    - Who has access: "Anyone" (allows website to submit leads)
  * 6. Click "Deploy" and Authorize access.
  * 7. Copy the "Web app URL" and paste it in The Edu Consultant Admin Dashboard (Settings > Firebase & Excel).
@@ -108,7 +108,7 @@ function doPost(e) {
                       "Date: " + dateFormatted + "\n\n" +
                       "Open Sheet: " + ss.getUrl();
       
-      MailApp.sendEmail("enquiry@theeduconsultant.com, adm.faraz@gmail.com", emailSubject, emailBody);
+      MailApp.sendEmail("enquiry@theeduconsultant.com, farazahamad201@gmail.com", emailSubject, emailBody);
     } catch (mailErr) {
       // Continue even if MailApp quota is exceeded
     }

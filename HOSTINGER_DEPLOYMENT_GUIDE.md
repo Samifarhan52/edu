@@ -47,7 +47,7 @@ Your project is now fully configured for Hostinger LiteSpeed / Apache hosting:
 4. **`api/lead-handler.php` & `api/config.php`**:
    - Secure REST API that receives leads, contact submissions, and meeting bookings.
    - Automatically saves them to Hostinger's MySQL database.
-   - Sends notification emails to **adm.faraz@gmail.com** and **enquiry@theeduconsultant.com** from **noreply@theeduconsultant.com**.
+   - Sends notification emails to **farazahamad201@gmail.com** and **enquiry@theeduconsultant.com** from **noreply@theeduconsultant.com**.
    - Sends an automatic confirmation email to the student.
 
 5. **`api/db-setup.sql`**:
@@ -106,7 +106,7 @@ Hostinger provides free email accounts for your domain:
    - `enquiry@theeduconsultant.com`
    - `noreply@theeduconsultant.com`
 3. Any inquiry submitted on the website or meeting scheduled will automatically route through Hostinger's mail system to:
-   - **adm.faraz@gmail.com** (Lead alert)
+   - **farazahamad201@gmail.com** (Lead alert)
    - **enquiry@theeduconsultant.com** (Office inbox)
    - **noreply@theeduconsultant.com** (System outgoing sender)
 

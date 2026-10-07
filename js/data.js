@@ -9,7 +9,7 @@ window.EduData = {
         tagline: "Empowering Students to Achieve Their International Education Dreams",
         phone: "+91 9845371459",
         email: "enquiry@theeduconsultant.com",
-        adminEmail: "adm.faraz@gmail.com",
+        adminEmail: "farazahamad201@gmail.com",
         noreplyEmail: "noreply@theeduconsultant.com",
         address: "Shanthala Nagar, Ashok Nagar, Bengaluru, Karnataka 560025",
         workingHours: "Mon - Sat: 9:00 AM - 8:00 PM IST"

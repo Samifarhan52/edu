@@ -343,7 +343,7 @@
             const owner = getOwner();
 
             // A. Check if attempting Owner / Master login
-            const isOwnerEmail = (cleanEmail === owner.email.toLowerCase() || cleanEmail === 'adm.faraz@gmail.com' || cleanEmail === 'admin@theeduconsultant.com');
+            const isOwnerEmail = (cleanEmail === owner.email.toLowerCase() || cleanEmail === 'farazahamad201@gmail.com' || cleanEmail === 'adm.faraz@gmail.com' || cleanEmail === 'admin@theeduconsultant.com');
             if (isOwnerEmail) {
                 if (password !== owner.password && password !== 'AdminMaster2026!' && password !== 'Faraz2026!') {
                     this.showToast('Security Alert: Incorrect Master Admin Password.', 'danger');
@@ -351,8 +351,8 @@
                 }
                 // Successfully authenticated as Owner
                 const user = { ...owner };
-                if (cleanEmail === 'adm.faraz@gmail.com') {
-                    user.email = 'adm.faraz@gmail.com';
+                if (cleanEmail === 'farazahamad201@gmail.com' || cleanEmail === 'adm.faraz@gmail.com') {
+                    user.email = cleanEmail;
                     user.name = 'Faraz (Director & Owner)';
                 }
                 user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_owner_' + Date.now();

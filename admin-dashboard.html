@@ -604,7 +604,7 @@
                             <i class="fa-solid fa-address-book text-danger me-2"></i>Leads & Inquiries Management Hub
                         </h4>
                         <p class="text-muted fs-14 mb-0">
-                            Real-time inquiries from website forms & WhatsApp. Routed to <span class="badge bg-primary text-white">enquiry@theeduconsultant.com</span> & <span class="badge bg-danger text-white">adm.faraz@gmail.com</span>.
+                            Real-time inquiries from website forms & WhatsApp. Routed to <span class="badge bg-primary text-white">enquiry@theeduconsultant.com</span> & <span class="badge bg-danger text-white">farazahamad201@gmail.com</span>.
                         </p>
                     </div>
                     <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -1495,7 +1495,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label fw-bold text-dark fs-13">Lead Notification Email (Admin)</label>
-                                        <input type="email" class="form-control rounded-3 py-2 px-3 fs-14" id="settingAdminEmailInput" value="adm.faraz@gmail.com"/>
+                                        <input type="email" class="form-control rounded-3 py-2 px-3 fs-14" id="settingAdminEmailInput" value="farazahamad201@gmail.com"/>
                                     </div>
                                     <div class="mb-0">
                                         <label class="form-label fw-bold text-dark fs-13">Automated System Email (Noreply)</label>
@@ -1563,7 +1563,7 @@
                         <div>
                             <div class="d-flex align-items-center gap-2">
                                 <h4 class="fw-bold text-dark mb-0"><i class="fa-solid fa-cloud-bolt text-warning me-1"></i> Firebase Cloud Database & Live Excel Integration</h4>
-                                <span class="badge bg-primary text-white fs-11">enquiry@theeduconsultant.com</span>
+                                <span class="badge bg-danger text-white fs-11">farazahamad201@gmail.com</span>
                             </div>
                             <p class="text-muted fs-13 mb-0 mt-1">Connect your Google Firebase Firestore database and stream leads live into an online Excel / Google Sheet.</p>
                         </div>
@@ -1588,7 +1588,7 @@
                                     </a>
                                 </div>
                                 <p class="text-muted fs-12 mb-3">
-                                    Sign in at <code>console.firebase.google.com</code> using <strong>enquiry@theeduconsultant.com</strong>, create a project, enable Cloud Firestore, and paste your web app config below:
+                                    Sign in at <code>console.firebase.google.com</code> using <strong>farazahamad201@gmail.com</strong>, create a project, enable Cloud Firestore, and paste your web app config below:
                                 </p>
 
                                 <form id="firebaseConfigForm">
@@ -1647,7 +1647,7 @@
                                         <span class="badge bg-success-subtle text-success fs-11">Auto-Stream</span>
                                     </div>
                                     <p class="text-muted fs-12 mb-3">
-                                        Stream all leads live into your Google Drive spreadsheet under <strong>enquiry@theeduconsultant.com</strong>.
+                                        Stream all leads live into your Google Drive spreadsheet under <strong>farazahamad201@gmail.com</strong>.
                                     </p>
 
                                     <div class="mb-3">
@@ -2342,7 +2342,7 @@
 
                     if (sBox) {
                         sBox.className = 'mb-2 alert alert-success py-2 px-3 fs-12 mb-0';
-                        sBox.innerHTML = '<i class="fa-solid fa-check me-1"></i> Test row sent! Check your Google Sheet under <strong>enquiry@theeduconsultant.com</strong>.';
+                        sBox.innerHTML = '<i class="fa-solid fa-check me-1"></i> Test row sent! Check your Google Sheet under <strong>farazahamad201@gmail.com</strong>.';
                     }
                 };
             }
@@ -2351,7 +2351,7 @@
             const btnCopy = document.getElementById('btnCopyAppsScriptCode');
             if (btnCopy) {
                 btnCopy.onclick = () => {
-                    const scriptCode = `// The Edu Consultant - Google Sheets Webhook (enquiry@theeduconsultant.com)
+                    const scriptCode = `// The Edu Consultant - Google Sheets Webhook (farazahamad201@gmail.com)
 function setupSheet(sheet, headers) {
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(headers);
@@ -2375,7 +2375,7 @@ function doPost(e) {
     }
     sheet.autoResizeColumns(1, 12);
     try {
-      MailApp.sendEmail("enquiry@theeduconsultant.com, adm.faraz@gmail.com", "[Live Lead Alert] " + (data.name || 'New Student'), "New lead added to your Google Sheet: " + data.name + " (" + data.phone + ")\nOpen Sheet: " + ss.getUrl());
+      MailApp.sendEmail("enquiry@theeduconsultant.com, farazahamad201@gmail.com", "[Live Lead Alert] " + (data.name || 'New Student'), "New lead added to your Google Sheet: " + data.name + " (" + data.phone + ")\nOpen Sheet: " + ss.getUrl());
     } catch(m) {}
     return ContentService.createTextOutput(JSON.stringify({status: "success"})).setMimeType(ContentService.MimeType.JSON);
   } catch(err) {

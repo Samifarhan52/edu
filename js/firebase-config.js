@@ -1,6 +1,6 @@
 /**
  * The Edu Consultant - Firebase Cloud Configuration
- * Configured for domain account: enquiry@theeduconsultant.com
+ * Configured for Google Account: farazahamad201@gmail.com & enquiry@theeduconsultant.com
  * 
  * Note: You can paste your credentials directly into the Admin Dashboard 
  * (Settings -> Firebase Cloud Database) or configure them below.

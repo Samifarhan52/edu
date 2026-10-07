@@ -7,7 +7,7 @@
  * 2. Input validation & XSS sanitization
  * 3. Rate limiting per client IP
  * 4. Storage into Hostinger MySQL (with JSON persistence fallback)
- * 5. Automatic email dispatch to adm.faraz@gmail.com, enquiry@theeduconsultant.com, and confirmation to student
+ * 5. Automatic email dispatch to farazahamad201@gmail.com, enquiry@theeduconsultant.com, and confirmation to student
  */
 
 define('EDU_APP_SECURE', true);
@@ -178,14 +178,14 @@ $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-// Send to adm.faraz@gmail.com and enquiry@theeduconsultant.com
+// Send to farazahamad201@gmail.com and enquiry@theeduconsultant.com
 @mail(ADMIN_EMAIL, $mailSubject, $mailBody, $headers);
 @mail(ENQUIRY_EMAIL, $mailSubject, $mailBody, $headers);
 
 // Send Auto-Confirmation to Student if valid email provided
 if (!empty($email)) {
     $studentSubject = "We received your inquiry - The Edu Consultant";
-    $studentBody = "Dear $name,\n\nThank you for reaching out to The Edu Consultant.\n\nWe have received your " . ($type === 'meeting' ? "meeting request for $date at $time" : "admissions inquiry") . ".\nOur senior advisory team will review your requirements and reach out to you directly on WhatsApp ($phone) or via phone shortly.\n\nKey Office Contacts:\nPhone / WhatsApp: +91 9845371459\nDirect Email: adm.faraz@gmail.com / enquiry@theeduconsultant.com\nAddress: Shanthala Nagar, Ashok Nagar, Bengaluru, Karnataka 560025\n\nWarm regards,\nFaraz Ahamed\nFounder & Principal Consultant\nThe Edu Consultant\nhttps://theeduconsultant.com\n";
+    $studentBody = "Dear $name,\n\nThank you for reaching out to The Edu Consultant.\n\nWe have received your " . ($type === 'meeting' ? "meeting request for $date at $time" : "admissions inquiry") . ".\nOur senior advisory team will review your requirements and reach out to you directly on WhatsApp ($phone) or via phone shortly.\n\nKey Office Contacts:\nPhone / WhatsApp: +91 9845371459\nDirect Email: farazahamad201@gmail.com / enquiry@theeduconsultant.com\nAddress: Shanthala Nagar, Ashok Nagar, Bengaluru, Karnataka 560025\n\nWarm regards,\nFaraz Ahamed\nFounder & Principal Consultant\nThe Edu Consultant\nhttps://theeduconsultant.com\n";
     
     $studentHeaders = "From: " . NOREPLY_EMAIL . "\r\n";
     $studentHeaders .= "Reply-To: " . ENQUIRY_EMAIL . "\r\n";

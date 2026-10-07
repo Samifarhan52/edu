@@ -1,5 +1,6 @@
 # The Edu Consultant — Firebase & Live Excel Lead Setup Guide
 **Official Domain Account:** `enquiry@theeduconsultant.com`  
+**Lead Generation & Google Cloud Account:** `farazahamad201@gmail.com`  
 **Hotline:** `+91 9845371459` | **Agency Portal:** [ElavateX.com](https://elavatex.com)
 
 ---
@@ -7,8 +8,8 @@
 ## Overview
 
 This guide walks you through:
-1. **Part 1:** Creating an automated **Live Excel / Google Sheet** under `enquiry@theeduconsultant.com` so every website inquiry automatically appears in real-time.
-2. **Part 2:** Setting up **Firebase Cloud Firestore** with `enquiry@theeduconsultant.com` and connecting it to the website for permanent, permanent cloud database synchronization.
+1. **Part 1:** Creating an automated **Live Excel / Google Sheet** under `farazahamad201@gmail.com` so every website inquiry automatically appears in real-time.
+2. **Part 2:** Setting up **Firebase Cloud Firestore** with `farazahamad201@gmail.com` and connecting it to the website for permanent cloud database synchronization.
 
 ---
 
@@ -18,7 +19,7 @@ Every time a student submits a form, schedules a meeting, or clicks WhatsApp, a 
 
 ### Step 1: Open Google Drive
 1. Go to [Google Drive](https://drive.google.com).
-2. Sign in with your Google Account associated with `enquiry@theeduconsultant.com` (or create a free Google account using your current email address).
+2. Sign in with your Google Account: **`farazahamad201@gmail.com`**.
 3. Click **+ New** > **Google Sheets** > **Blank spreadsheet**.
 4. Name the spreadsheet:  
    `The Edu Consultant - Live Leads & Inquiries`
@@ -38,12 +39,12 @@ Every time a student submits a form, schedules a meeting, or clicks WhatsApp, a 
 2. Click the gear icon next to "Select type" and choose **Web app**.
 3. Fill in the fields:
    - **Description:** `The Edu Consultant Lead Webhook`
-   - **Execute as:** `Me (enquiry@theeduconsultant.com)`
+   - **Execute as:** `Me (farazahamad201@gmail.com)`
    - **Who has access:** `Anyone` *(Crucial: allows the website forms to stream leads into the sheet)*
 4. Click **Deploy**.
 5. Google will ask you to **Authorize access**:
    - Click *Review permissions*
-   - Select `enquiry@theeduconsultant.com`
+   - Select `farazahamad201@gmail.com`
    - Click *Advanced* > *Go to Untitled project (unsafe)*
    - Click *Allow*
 6. Copy the **Web app URL** (looks like `https://script.google.com/macros/s/AKfycbx.../exec`).
@@ -63,7 +64,7 @@ Connecting Firebase ensures your leads, meetings, student profiles, and CMS data
 
 ### Step 1: Sign in to Firebase Console
 1. Open [Firebase Console](https://console.firebase.google.com).
-2. Sign in with `enquiry@theeduconsultant.com`.
+2. Sign in with **`farazahamad201@gmail.com`**.
 3. Click **Add project** (or **Create a project**).
 4. Project Name: `the-edu-consultant-db`
 5. Enable or disable Google Analytics (optional, default is fine) and click **Create project**.
@@ -116,7 +117,7 @@ When a student submits a form:
          ├──► 1. Browser saves to localStorage (Instant, zero lag)
          ├──► 2. Firebase Cloud Firestore creates document in 'leads' (Permanent Cloud DB)
          ├──► 3. Webhook streams row to Google Sheets / Live Excel (Instant spreadsheet update)
-         ├──► 4. Hostinger Backend sends confirmation emails to enquiry@theeduconsultant.com & adm.faraz@gmail.com
+         ├──► 4. Hostinger Backend sends confirmation emails to enquiry@theeduconsultant.com & farazahamad201@gmail.com
          └──► 5. Student gets WhatsApp notification with counselor direct link
 ```
 

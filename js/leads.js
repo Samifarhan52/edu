@@ -17,7 +17,7 @@
         phoneFormatted: '+91 9845371459',
         phoneTel: 'tel:+919845371459',
         whatsappInternational: '919845371459',
-        adminEmail: 'adm.faraz@gmail.com',
+        adminEmail: 'farazahamad201@gmail.com',
         enquiryEmail: 'enquiry@theeduconsultant.com',
         noreplyEmail: 'noreply@theeduconsultant.com',
         brandName: 'The Edu Consultant',
@@ -1566,7 +1566,7 @@ noreply@theeduconsultant.com`
                         <div class="edu-connect-footer">
                             <div class="d-flex align-items-center justify-content-between fs-11 text-muted">
                                 <span><i class="fa-solid fa-envelope me-1 text-primary"></i> enquiry@theeduconsultant.com</span>
-                                <span><i class="fa-solid fa-envelope me-1 text-danger"></i> adm.faraz@gmail.com</span>
+                                <span><i class="fa-solid fa-envelope me-1 text-danger"></i> farazahamad201@gmail.com</span>
                             </div>
                         </div>
                     </div>

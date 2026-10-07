@@ -292,7 +292,7 @@ Start internship networking during your second semester. Utilize university care
         brandName: 'The Edu Consultant',
         tagline: 'Premier Global University Admissions & Visa Advisory',
         supportEmail: 'enquiry@theeduconsultant.com',
-        adminEmail: 'adm.faraz@gmail.com',
+        adminEmail: 'farazahamad201@gmail.com',
         noreplyEmail: 'noreply@theeduconsultant.com',
         supportPhone: '+91 9845371459',
         whatsappNumber: '+91 9845371459',
