@@ -196,7 +196,37 @@ if (!empty($email)) {
     @mail($email, $studentSubject, $studentBody, $studentHeaders);
 }
 
-// 6. Return Clean Success JSON Response
+// 6. Optional: Forward to Live Google Sheets / Excel Webhook
+if (defined('SHEETS_WEBHOOK_URL') && !empty(SHEETS_WEBHOOK_URL)) {
+    try {
+        $ch = curl_init(SHEETS_WEBHOOK_URL);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            'type' => $type,
+            'id' => $recordId,
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'destination' => $destination,
+            'service' => $service,
+            'message' => $message,
+            'preferredDate' => $date,
+            'preferredTime' => $time,
+            'whatsappOptIn' => $whatsappOpt ? 'YES' : 'NO',
+            'source' => $source,
+            'status' => 'New',
+            'account' => ENQUIRY_EMAIL
+        ]));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 4);
+        @curl_exec($ch);
+        curl_close($ch);
+    } catch (Exception $chErr) {}
+}
+
+// 7. Return Clean Success JSON Response
 http_response_code(200);
 echo json_encode([
     'status' => 'success',

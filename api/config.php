@@ -28,6 +28,7 @@ define('ENQUIRY_EMAIL', 'enquiry@theeduconsultant.com');
 define('NOREPLY_EMAIL', 'noreply@theeduconsultant.com');
 define('ADMIN_PHONE', '9845371459');
 define('BRAND_NAME', 'The Edu Consultant');
+define('SHEETS_WEBHOOK_URL', ''); // Paste Google Apps Script Web App URL here if desired
 
 // ==============================================================================
 // 3. DATABASE CONNECTION HELPER (PDO WITH FALLBACK)

@@ -168,6 +168,15 @@
 
             this.updateBadge();
 
+            // Background sync to Firebase Cloud Firestore & Live Google Sheets / Excel
+            try {
+                if (window.EduFirebase && typeof window.EduFirebase.saveLead === 'function') {
+                    window.EduFirebase.saveLead(newLead);
+                }
+            } catch (fbErr) {
+                console.warn('[EduLeads] Firebase sync notice:', fbErr);
+            }
+
             // Background sync to Hostinger PHP & MySQL backend if available
             try {
                 if (typeof fetch === 'function') {
@@ -189,6 +198,9 @@
                 leads[idx].status = newStatus;
                 localStorage.setItem(CONFIG.storageKey, JSON.stringify(leads));
                 this.updateBadge();
+                if (window.EduFirebase && window.EduFirebase.isConnected()) {
+                    window.EduFirebase.db.collection('leads').doc(id).set({ status: newStatus }, { merge: true }).catch(function () {});
+                }
                 return true;
             }
             return false;
@@ -199,6 +211,9 @@
             leads = leads.filter(l => l.id !== id);
             localStorage.setItem(CONFIG.storageKey, JSON.stringify(leads));
             this.updateBadge();
+            if (window.EduFirebase && window.EduFirebase.isConnected()) {
+                window.EduFirebase.db.collection('leads').doc(id).delete().catch(function () {});
+            }
             return leads;
         },
 
@@ -228,6 +243,80 @@
             const link = document.createElement('a');
             link.setAttribute('href', encodedUri);
             link.setAttribute('download', `the-edu-consultant-leads-${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        },
+
+        exportExcel: function () {
+            const leads = this.getLeads();
+            if (!leads.length) {
+                alert('No leads available to export.');
+                return;
+            }
+
+            const xmlContent = `
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Leads & Inquiries</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->
+<style>
+    th { background-color: #000064; color: #ffffff; font-weight: bold; border: 1px solid #cccccc; padding: 10px; font-family: Arial, sans-serif; font-size: 13px; }
+    td { border: 1px solid #e2e8f0; padding: 8px 10px; font-family: Arial, sans-serif; font-size: 12px; }
+    .status-new { background-color: #fee2e2; color: #991b1b; font-weight: bold; }
+    .status-review { background-color: #fef3c7; color: #92400e; font-weight: bold; }
+    .status-contacted { background-color: #e0f2fe; color: #075985; font-weight: bold; }
+    .status-converted { background-color: #dcfce7; color: #166534; font-weight: bold; }
+</style>
+</head>
+<body>
+    <h3>The Edu Consultant - Official Leads & Inquiries Database</h3>
+    <p>Domain Lead Receiver: enquiry@theeduconsultant.com | Generated: ${new Date().toLocaleString()}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Lead ID</th>
+                <th>Date & Time</th>
+                <th>Prospective Student</th>
+                <th>Phone Number</th>
+                <th>Email Address</th>
+                <th>Target Destination</th>
+                <th>Service / Course</th>
+                <th>Inquiry Notes</th>
+                <th>WhatsApp Opt-In</th>
+                <th>Source Page</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${leads.map(l => {
+                let statusClass = 'status-new';
+                if (l.status === 'In Review') statusClass = 'status-review';
+                if (l.status === 'Contacted') statusClass = 'status-contacted';
+                if (l.status === 'Converted') statusClass = 'status-converted';
+                return `<tr>
+                    <td>${l.id || ''}</td>
+                    <td>${l.dateFormatted || l.createdAt || ''}</td>
+                    <td>${(l.name || '').replace(/</g, '&lt;')}</td>
+                    <td>${l.phone || ''}</td>
+                    <td>${l.email || ''}</td>
+                    <td>${(l.destination || '').replace(/</g, '&lt;')}</td>
+                    <td>${(l.service || '').replace(/</g, '&lt;')}</td>
+                    <td>${(l.message || '').replace(/</g, '&lt;')}</td>
+                    <td>${l.whatsappOptIn ? 'YES' : 'NO'}</td>
+                    <td>${(l.source || '').replace(/</g, '&lt;')}</td>
+                    <td class="${statusClass}">${l.status || 'New'}</td>
+                </tr>`;
+            }).join('')}
+        </tbody>
+    </table>
+</body>
+</html>`;
+
+            const blob = new Blob([xmlContent], { type: 'application/vnd.ms-excel;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `The_Edu_Consultant_Leads_${new Date().toISOString().slice(0, 10)}.xls`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -475,6 +564,15 @@ Message: ${lead.message}`, 'color: #000064; font-weight: bold;', 'color: #333;')
             this.updateBadge();
             if (document.getElementById('adminMeetingsTableBody')) {
                 this.renderAdminMeetingsTable();
+            }
+
+            // Background sync to Firebase Cloud Firestore & Live Google Sheets / Excel
+            try {
+                if (window.EduFirebase && typeof window.EduFirebase.saveMeeting === 'function') {
+                    window.EduFirebase.saveMeeting(newMeeting);
+                }
+            } catch (fbErr) {
+                console.warn('[EduLeads] Firebase meeting sync notice:', fbErr);
             }
 
             // Background sync to Hostinger PHP & MySQL backend if available
@@ -1071,7 +1169,104 @@ noreply@theeduconsultant.com`
         },
 
         // ======================================================================
-        // 4. ADMIN DASHBOARD SCHEDULED MEETINGS TABLE & KPIS
+        // 4. ADMIN DASHBOARD LEADS & INQUIRIES TABLE & KPIS
+        // ======================================================================
+        renderAdminTable: function (filterStatus) {
+            const tableBody = document.getElementById('adminLeadsTableBody');
+            if (!tableBody) return;
+
+            const filter = filterStatus || 'All';
+            const allLeads = this.getLeads();
+
+            // Update KPI Counters
+            const totalCounter = document.getElementById('adminTotalLeadsCounter');
+            const waCounter = document.getElementById('adminWhatsAppLeadsCounter');
+            const newCounter = document.getElementById('adminNewLeadsCounter');
+
+            if (totalCounter) totalCounter.textContent = allLeads.length;
+            if (waCounter) waCounter.textContent = allLeads.filter(l => l.whatsappOptIn).length;
+            if (newCounter) newCounter.textContent = allLeads.filter(l => l.status === 'New').length;
+
+            const filtered = (filter === 'All') 
+                ? allLeads 
+                : allLeads.filter(l => (l.status || 'New').toLowerCase() === filter.toLowerCase());
+
+            if (!filtered.length) {
+                tableBody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="text-center py-5 text-muted">
+                        <i class="fa-solid fa-folder-open fs-1 d-block mb-2 opacity-50"></i>
+                        <h6 class="fw-bold mb-1">No Leads Found</h6>
+                        <p class="fs-13 mb-0">No records found matching status "<strong>${filter}</strong>".</p>
+                    </td>
+                </tr>`;
+                return;
+            }
+
+            tableBody.innerHTML = filtered.map(lead => {
+                const statusBadges = {
+                    'New': '<span class="badge bg-danger-subtle text-danger border border-danger-subtle fw-bold">New</span>',
+                    'In Review': '<span class="badge bg-warning-subtle text-warning border border-warning-subtle fw-bold">In Review</span>',
+                    'Contacted': '<span class="badge bg-info-subtle text-info border border-info-subtle fw-bold">Contacted</span>',
+                    'Converted': '<span class="badge bg-success-subtle text-success border border-success-subtle fw-bold">Converted</span>'
+                };
+                const badge = statusBadges[lead.status] || `<span class="badge bg-secondary">${lead.status || 'New'}</span>`;
+                const cleanPhone = (lead.phone || '').replace(/[^0-9]/g, '');
+                const waLink = cleanPhone ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hello ${lead.name}, this is regarding your inquiry with The Edu Consultant.`)}` : '#';
+
+                return `
+                <tr>
+                    <td>
+                        <div class="fw-bold text-dark fs-12">${lead.id || 'N/A'}</div>
+                        <span class="text-muted fs-11">${lead.dateFormatted || (lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : '')}</span>
+                    </td>
+                    <td>
+                        <div class="fw-bold text-dark fs-14">${lead.name || 'Anonymous'}</div>
+                        <span class="badge bg-light text-muted border fs-10">${lead.source || 'Website'}</span>
+                    </td>
+                    <td>
+                        <div><i class="fa-solid fa-phone text-muted fs-11 me-1"></i><a href="tel:${lead.phone}" class="text-dark fw-semibold text-decoration-none">${lead.phone || 'N/A'}</a></div>
+                        <div class="text-muted fs-11"><i class="fa-solid fa-envelope text-muted fs-11 me-1"></i>${lead.email || 'N/A'}</div>
+                    </td>
+                    <td>
+                        <div class="fw-semibold text-primary fs-12">${lead.destination || 'Study Abroad'}</div>
+                        <div class="text-muted fs-11 text-truncate" style="max-width: 180px;" title="${lead.message || ''}">${lead.message || 'No additional notes'}</div>
+                    </td>
+                    <td class="text-center">
+                        ${lead.whatsappOptIn 
+                            ? '<span class="badge bg-success text-white"><i class="fa-brands fa-whatsapp me-1"></i>Yes</span>'
+                            : '<span class="badge bg-light text-muted border">No</span>'}
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light border dropdown-toggle py-1 px-2 fs-11 fw-bold" type="button" data-bs-toggle="dropdown">
+                                ${badge}
+                            </button>
+                            <ul class="dropdown-menu shadow border-0 rounded-3 fs-12">
+                                <li><button type="button" class="dropdown-item" onclick="window.EduLeads.updateLeadStatus('${lead.id}', 'New'); window.EduLeads.renderAdminTable('${filter}');">Mark as New</button></li>
+                                <li><button type="button" class="dropdown-item" onclick="window.EduLeads.updateLeadStatus('${lead.id}', 'In Review'); window.EduLeads.renderAdminTable('${filter}');">Mark as In Review</button></li>
+                                <li><button type="button" class="dropdown-item" onclick="window.EduLeads.updateLeadStatus('${lead.id}', 'Contacted'); window.EduLeads.renderAdminTable('${filter}');">Mark as Contacted</button></li>
+                                <li><button type="button" class="dropdown-item" onclick="window.EduLeads.updateLeadStatus('${lead.id}', 'Converted'); window.EduLeads.renderAdminTable('${filter}');">Mark as Converted</button></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td class="text-end">
+                        <div class="d-inline-flex gap-1">
+                            ${cleanPhone ? `
+                            <a href="${waLink}" target="_blank" class="btn btn-sm btn-outline-success rounded-circle" title="WhatsApp Student" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </a>` : ''}
+                            <button type="button" class="btn btn-sm btn-outline-danger rounded-circle" title="Delete Lead" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" onclick="if(confirm('Delete lead ${lead.id}?')) { window.EduLeads.deleteLead('${lead.id}'); window.EduLeads.renderAdminTable('${filter}'); }">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        },
+
+        // ======================================================================
+        // 5. ADMIN DASHBOARD SCHEDULED MEETINGS TABLE & KPIS
         // ======================================================================
         renderAdminMeetingsTable: function (filterStatus) {
             const tableBody = document.getElementById('adminMeetingsTableBody');
