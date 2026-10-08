@@ -2197,14 +2197,14 @@
     <!-- Firebase SDK (Compat Version for Web) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="js/firebase-config.js?v=4.5"></script>
-    <script src="js/firebase-service.js?v=4.5"></script>
+    <script src="js/firebase-config.js?v=6.0"></script>
+    <script src="js/firebase-service.js?v=6.0"></script>
     <script src="js/security.js"></script>
-    <script src="js/auth.js?v=5.0"></script>
-    <script src="js/cms.js?v=4.5"></script>
-    <script src="js/leads.js?v=4.5"></script>
-    <script src="js/edconsultants.js?v=4.5"></script>
-    <script src="js/elevatex.js?v=4.5"></script>
+    <script src="js/auth.js?v=6.0"></script>
+    <script src="js/cms.js?v=6.0"></script>
+    <script src="js/leads.js?v=6.0"></script>
+    <script src="js/edconsultants.js?v=6.0"></script>
+    <script src="js/elevatex.js?v=6.0"></script>
     <script>
         const toggleBtn = document.getElementById('sidebarToggleBtn');
         const sidebar = document.getElementById('dashboardSidebar');
@@ -2218,8 +2218,8 @@
         function initFirebaseSettingsUi() {
             if (!window.EduFirebase) return;
 
-            const cfg = window.EduFirebase.getConfig();
-            const sheetsUrl = window.EduFirebase.getSheetsWebhookUrl();
+            const cfg = (window.EduFirebase && window.EduFirebase.getConfig()) || {};
+            const sheetsUrl = (window.EduFirebase && window.EduFirebase.getSheetsWebhookUrl()) || (window.EduLeads && window.EduLeads.getSheetsWebhookUrl()) || '';
 
             const pId = document.getElementById('fbProjectIdInput');
             const aKey = document.getElementById('fbApiKeyInput');
@@ -2237,7 +2237,9 @@
             if (appId && cfg.appId) appId.value = cfg.appId;
             if (sheetsIn && sheetsUrl) sheetsIn.value = sheetsUrl;
 
-            window.EduFirebase.updateUiBadges();
+            if (window.EduFirebase && window.EduFirebase.updateUiBadges) {
+                window.EduFirebase.updateUiBadges();
+            }
 
             // Test & Save Firebase
             const btnTestFb = document.getElementById('btnTestSaveFirebase');
@@ -2302,8 +2304,12 @@
             if (btnSaveSheets) {
                 btnSaveSheets.onclick = () => {
                     const url = sheetsIn ? sheetsIn.value.trim() : '';
-                    window.EduFirebase.setSheetsWebhookUrl(url);
-                    window.EduFirebase.updateUiBadges();
+                    if (window.EduFirebase) window.EduFirebase.setSheetsWebhookUrl(url);
+                    try {
+                        localStorage.setItem('theedu_sheets_webhook_url', url);
+                        localStorage.setItem('the_edu_sheets_webhook_url', url);
+                    } catch (e) {}
+                    if (window.EduFirebase) window.EduFirebase.updateUiBadges();
                     alert(url ? 'Google Sheets / Live Excel Webhook saved successfully!' : 'Webhook URL cleared.');
                 };
             }
@@ -2317,7 +2323,11 @@
                         alert('Please enter a Google Sheet Webhook URL first.');
                         return;
                     }
-                    window.EduFirebase.setSheetsWebhookUrl(url);
+                    if (window.EduFirebase) window.EduFirebase.setSheetsWebhookUrl(url);
+                    try {
+                        localStorage.setItem('theedu_sheets_webhook_url', url);
+                        localStorage.setItem('the_edu_sheets_webhook_url', url);
+                    } catch (e) {}
                     const sBox = document.getElementById('sheetsTestResultBox');
                     if (sBox) {
                         sBox.className = 'mb-2 alert alert-info py-2 px-3 fs-12 mb-0';
@@ -2338,7 +2348,11 @@
                         createdAt: new Date().toISOString()
                     };
 
-                    await window.EduFirebase.syncToGoogleSheet(testLead, 'lead');
+                    if (window.EduLeads && typeof window.EduLeads.streamToGoogleSheets === 'function') {
+                        window.EduLeads.streamToGoogleSheets(testLead, 'lead');
+                    } else if (window.EduFirebase && typeof window.EduFirebase.syncToGoogleSheet === 'function') {
+                        await window.EduFirebase.syncToGoogleSheet(testLead, 'lead');
+                    }
 
                     if (sBox) {
                         sBox.className = 'mb-2 alert alert-success py-2 px-3 fs-12 mb-0';

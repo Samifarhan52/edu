@@ -25,7 +25,9 @@
         meetingsStorageKey: 'theeduconsultants_meetings',
         emailsStorageKey: 'theeduconsultants_email_logs',
         address: 'Shanthala Nagar, Ashok Nagar, Bengaluru, Karnataka 560025',
-        baseUrl: 'https://edu-two-eta.vercel.app'
+        baseUrl: 'https://edu-two-eta.vercel.app',
+        sheetsWebhookUrl: 'https://script.google.com/macros/s/AKfycbxgUoEMiYVQIPi-LE0rqW2Mho63s1JV6WbbPNnOsGwdgoDDP6VQAYf1ImfulmWRb1bn/exec',
+        sheetsStorageKey: 'the_edu_sheets_webhook_url'
     };
 
     // Robust, cross-browser date/time formatter (safe against Intl option errors)
@@ -150,6 +152,72 @@
             }
         },
 
+        getSheetsWebhookUrl: function () {
+            try {
+                const stored = localStorage.getItem('theedu_sheets_webhook_url') || localStorage.getItem(CONFIG.sheetsStorageKey);
+                if (stored && stored.trim()) return stored.trim();
+            } catch (e) {}
+            if (window.EDU_FIREBASE_CONFIG && window.EDU_FIREBASE_CONFIG.sheetsWebhookUrl) {
+                return window.EDU_FIREBASE_CONFIG.sheetsWebhookUrl.trim();
+            }
+            return CONFIG.sheetsWebhookUrl;
+        },
+
+        streamToGoogleSheets: function (record, type) {
+            const url = this.getSheetsWebhookUrl();
+            if (!url) return;
+
+            const payload = {
+                type: type || 'lead',
+                id: record.id || ('lead-' + Date.now()),
+                timestamp: record.createdAt || new Date().toISOString(),
+                dateFormatted: record.dateFormatted || formatDateTime(),
+                name: record.name || '',
+                phone: record.phone || '',
+                email: record.email || '',
+                destination: record.destination || record.country || 'Study Abroad',
+                service: record.service || record.mode || record.topic || 'General Advisory',
+                message: record.message || record.notes || '',
+                preferredDate: record.date || record.preferredDate || '',
+                preferredTime: record.time || record.preferredTime || '',
+                whatsappOptIn: record.whatsappOptIn ? 'YES' : 'NO',
+                source: record.source || 'Website Form',
+                status: record.status || 'New',
+                account: 'enquiry@theeduconsultant.com & farazahamad201@gmail.com'
+            };
+
+            const jsonStr = JSON.stringify(payload);
+
+            try {
+                if (typeof fetch === 'function') {
+                    fetch(url, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        keepalive: true,
+                        cache: 'no-cache',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: jsonStr
+                    }).then(() => {
+                        console.log(`[EduLeads] Live Excel / Google Sheet row streamed: ${payload.id}`);
+                    }).catch((err) => {
+                        console.warn('[EduLeads] Fetch stream error, trying fallback:', err);
+                        try {
+                            if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+                                navigator.sendBeacon(url, new Blob([jsonStr], { type: 'text/plain;charset=utf-8' }));
+                            }
+                        } catch (bErr) {}
+                    });
+                    return;
+                }
+            } catch (fErr) {}
+
+            try {
+                if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+                    navigator.sendBeacon(url, new Blob([jsonStr], { type: 'text/plain;charset=utf-8' }));
+                }
+            } catch (bErr) {}
+        },
+
         saveLead: function (lead) {
             const leads = this.getLeads();
             const newLead = Object.assign({
@@ -168,7 +236,14 @@
 
             this.updateBadge();
 
-            // Background sync to Firebase Cloud Firestore & Live Google Sheets / Excel
+            // Direct stream to Google Sheets / Live Excel (Instant & Reliable)
+            try {
+                this.streamToGoogleSheets(newLead, 'lead');
+            } catch (sheetErr) {
+                console.warn('[EduLeads] Sheet stream notice:', sheetErr);
+            }
+
+            // Background sync to Firebase Cloud Firestore
             try {
                 if (window.EduFirebase && typeof window.EduFirebase.saveLead === 'function') {
                     window.EduFirebase.saveLead(newLead);
@@ -338,7 +413,9 @@
 
         handleFormSubmit: function (e, sourceName) {
             if (e && e.preventDefault) e.preventDefault();
-            const form = e.target || e;
+            const rawForm = e ? (e.target || e) : null;
+            const form = (rawForm && rawForm.tagName === 'FORM') ? rawForm : (rawForm && rawForm.closest ? rawForm.closest('form') : rawForm);
+            if (!form) return false;
 
             if (window.EduSecurity && window.EduSecurity.rateLimiter) {
                 const rate = window.EduSecurity.rateLimiter.check('lead_form', 4, 60000);
@@ -350,7 +427,7 @@
             }
 
             const getVal = (selector) => {
-                const el = form.querySelector(selector);
+                const el = form.querySelector ? form.querySelector(selector) : null;
                 return el ? el.value.trim() : '';
             };
 
@@ -566,7 +643,14 @@ Message: ${lead.message}`, 'color: #000064; font-weight: bold;', 'color: #333;')
                 this.renderAdminMeetingsTable();
             }
 
-            // Background sync to Firebase Cloud Firestore & Live Google Sheets / Excel
+            // Direct stream to Google Sheets / Live Excel (Instant & Reliable)
+            try {
+                this.streamToGoogleSheets(newMeeting, 'meeting');
+            } catch (sheetErr) {
+                console.warn('[EduLeads] Meeting sheet stream notice:', sheetErr);
+            }
+
+            // Background sync to Firebase Cloud Firestore
             try {
                 if (window.EduFirebase && typeof window.EduFirebase.saveMeeting === 'function') {
                     window.EduFirebase.saveMeeting(newMeeting);
@@ -1619,10 +1703,32 @@ noreply@theeduconsultant.com`
             }
         },
 
+        // Auto-detect and attach to all lead forms across any page
+        bindAllPageForms: function () {
+            try {
+                const forms = document.querySelectorAll('form:not(#signInForm):not(#signUpForm):not(.searchForm):not(#firebaseConfigForm):not(#adminGlobalSettingsForm):not(#adminOwnerProfileForm):not(#adminOwnerPasswordForm)');
+                forms.forEach(form => {
+                    const onsub = form.getAttribute('onsubmit') || '';
+                    if (onsub.includes('handleFormSubmit') || onsub.includes('handleMeetingSubmit') || onsub.includes('handleInquirySubmit')) return;
+
+                    const hasPhoneOrEmail = form.querySelector('input[type="tel"], input[name="phone"], input[type="email"], input[name="email"], input[name="firstName"]');
+                    if (hasPhoneOrEmail) {
+                        form.addEventListener('submit', (e) => {
+                            if (!e.defaultPrevented) {
+                                const title = form.id || form.getAttribute('name') || document.title || 'Website Form';
+                                EduLeads.handleFormSubmit(e, title);
+                            }
+                        });
+                    }
+                });
+            } catch (bindErr) {}
+        },
+
         // Universal Initializer
         init: function () {
             this.injectConnectWidget();
             this.updateBadge();
+            this.bindAllPageForms();
 
             // If on Admin Dashboard, render tables and listen for URL actions
             if (document.getElementById('adminLeadsTableBody')) {

@@ -145,6 +145,39 @@ $archive[] = [
 ];
 @file_put_contents($archiveFile, json_encode($archive, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
+// 4b. Stream to Google Sheets / Live Excel Webhook
+$sheetsWebhookUrl = 'https://script.google.com/macros/s/AKfycbxgUoEMiYVQIPi-LE0rqW2Mho63s1JV6WbbPNnOsGwdgoDDP6VQAYf1ImfulmWRb1bn/exec';
+if (!empty($sheetsWebhookUrl) && function_exists('curl_init')) {
+    $sheetPayload = json_encode([
+        'type' => $type,
+        'id' => $recordId,
+        'timestamp' => date('c'),
+        'dateFormatted' => date('d M Y, h:i A'),
+        'name' => $name,
+        'phone' => $phone,
+        'email' => $email,
+        'destination' => $destination,
+        'service' => $service,
+        'message' => $message,
+        'preferredDate' => $date,
+        'preferredTime' => $time,
+        'whatsappOptIn' => $whatsappOpt ? 'YES' : 'NO',
+        'source' => $source,
+        'status' => 'New',
+        'account' => 'enquiry@theeduconsultant.com & farazahamad201@gmail.com'
+    ]);
+
+    $ch = curl_init($sheetsWebhookUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $sheetPayload);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: text/plain;charset=utf-8']);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 4);
+    @curl_exec($ch);
+    @curl_close($ch);
+}
+
 // 5. Send Notification Emails via Hostinger Mail
 $mailSubject = ($type === 'meeting') 
     ? "New Scheduled Meeting: $name ($date $time)" 
