@@ -334,6 +334,13 @@
         } catch (e) {}
     }
 
+    function syncUserToCloud(user) {
+        if (!user || !user.email) return;
+        if (window.EduFirebase && typeof window.EduFirebase.saveUser === 'function') {
+            window.EduFirebase.saveUser(user).catch(function () {});
+        }
+    }
+
     const edAuth = {
         getOwnerCreds: function () {
             return getOwner();
@@ -380,7 +387,7 @@
             return user && (user.isOwner === true || user.role === 'Admin');
         },
 
-        login: function (email, password, roleHint = null) {
+        login: async function (email, password, roleHint = null) {
             // 1. Rate Limiting Check
             if (window.EduSecurity) {
                 const rateCheck = window.EduSecurity.rateLimiter.check('login_attempts', 12, 60000);
@@ -459,9 +466,24 @@
 
             // B. Regular Scholar / Student Login
             const db = getDB();
-            const user = db[cleanEmail];
+            let user = db[cleanEmail];
 
-            // 1. Strict Authentication: Account must already exist
+            // 1. If not found in local cache, query Firebase Cloud Firestore
+            if (!user && window.EduFirebase && typeof window.EduFirebase.fetchUser === 'function') {
+                try {
+                    const cloudUser = await window.EduFirebase.fetchUser(cleanEmail);
+                    if (cloudUser && cloudUser.email) {
+                        user = normalizeUserRecord(cloudUser, cleanEmail);
+                        db[cleanEmail] = user;
+                        saveDB(db);
+                        console.log(`[EduAuth] Restored user "${cleanEmail}" from Firebase Firestore.`);
+                    }
+                } catch (fbErr) {
+                    console.warn('[EduAuth] Firestore fetch user error:', fbErr);
+                }
+            }
+
+            // Strict Authentication: Account must already exist
             if (!user) {
                 if (cleanEmail.includes('admin') || cleanEmail.includes('faraz') || cleanEmail.includes('theedu')) {
                     this.showToast(`Admin hint: Use email "farazahamad201@gmail.com" and password "AdminMaster2026!".`, 'warning');
@@ -482,6 +504,11 @@
             user.loggedInAt = new Date().toISOString();
             this.setUser(user);
 
+            // Update user's last login in Firestore asynchronously
+            if (window.EduFirebase && typeof window.EduFirebase.saveUser === 'function') {
+                window.EduFirebase.saveUser(user).catch(() => {});
+            }
+
             this.showToast(`Welcome back, ${user.name}!`, 'success');
 
             const targetPage = (user.role === 'Admin' || user.isOwner === true) ? 'admin-dashboard.html' : 'student-dashboard.html';
@@ -491,7 +518,7 @@
             return true;
         },
 
-        signup: function (formData) {
+        signup: async function (formData) {
             // 1. Rate Limiting Check
             if (window.EduSecurity) {
                 const rateCheck = window.EduSecurity.rateLimiter.check('signup_attempts', 5, 300000);
@@ -517,8 +544,17 @@
             const db = getDB();
             const owner = getOwner();
 
+            // Check if user already exists in Cloud Firestore
+            let existsInCloud = false;
+            if (window.EduFirebase && typeof window.EduFirebase.fetchUser === 'function') {
+                try {
+                    const cloudUser = await window.EduFirebase.fetchUser(cleanEmail);
+                    if (cloudUser) existsInCloud = true;
+                } catch (e) {}
+            }
+
             // 3. Prevent duplicate account creation
-            if (cleanEmail === owner.email.toLowerCase() || db[cleanEmail]) {
+            if (cleanEmail === owner.email.toLowerCase() || db[cleanEmail] || existsInCloud) {
                 this.showToast(`Account Exists: An account is already registered with "${cleanEmail}". Please sign in instead.`, 'warning');
                 return false;
             }
@@ -553,6 +589,15 @@
 
             db[cleanEmail] = user;
             saveDB(db);
+
+            // Persist to Cloud Firestore permanently
+            if (window.EduFirebase && typeof window.EduFirebase.saveUser === 'function') {
+                try {
+                    await window.EduFirebase.saveUser(user);
+                } catch (fbErr) {
+                    console.warn('[EduAuth] Could not persist user to Firestore:', fbErr);
+                }
+            }
 
             user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_' + Date.now();
             this.setUser(user);
@@ -678,6 +723,7 @@
 
             db[cleanEmail] = Object.assign({}, db[cleanEmail], updates);
             saveDB(db);
+            syncUserToCloud(db[cleanEmail]);
 
             // If current session is this user, update session
             const current = this.getUser();
@@ -718,6 +764,7 @@
                 user.milestonePhase = 2;
             }
             saveDB(db);
+            syncUserToCloud(user);
 
             // If current session is this user, update session
             const current = this.getUser();
@@ -741,6 +788,7 @@
 
             user.applications[idx] = Object.assign({}, user.applications[idx], updates);
             saveDB(db);
+            syncUserToCloud(user);
 
             const current = this.getUser();
             if (current && current.email && current.email.toLowerCase() === cleanEmail) {
@@ -759,6 +807,7 @@
 
             user.applications = user.applications.filter(a => a.id !== appId);
             saveDB(db);
+            syncUserToCloud(user);
 
             const current = this.getUser();
             if (current && current.email && current.email.toLowerCase() === cleanEmail) {
@@ -792,6 +841,7 @@
 
             user.documents.unshift(newDoc);
             saveDB(db);
+            syncUserToCloud(user);
 
             const current = this.getUser();
             if (current && current.email && current.email.toLowerCase() === cleanEmail) {
@@ -813,6 +863,7 @@
 
             user.documents[idx] = Object.assign({}, user.documents[idx], updates);
             saveDB(db);
+            syncUserToCloud(user);
 
             const current = this.getUser();
             if (current && current.email && current.email.toLowerCase() === cleanEmail) {
@@ -831,6 +882,7 @@
 
             user.documents = user.documents.filter(d => d.id !== docId);
             saveDB(db);
+            syncUserToCloud(user);
 
             const current = this.getUser();
             if (current && current.email && current.email.toLowerCase() === cleanEmail) {
@@ -864,6 +916,7 @@
 
             user.grants.unshift(newGrant);
             saveDB(db);
+            syncUserToCloud(user);
 
             const current = this.getUser();
             if (current && current.email && current.email.toLowerCase() === cleanEmail) {
@@ -882,6 +935,7 @@
 
             user.grants = user.grants.filter(g => (g.id !== grantId && g.name !== grantId));
             saveDB(db);
+            syncUserToCloud(user);
 
             const current = this.getUser();
             if (current && current.email && current.email.toLowerCase() === cleanEmail) {
@@ -899,6 +953,10 @@
 
             delete db[cleanEmail];
             saveDB(db);
+
+            if (window.EduFirebase && window.EduFirebase.isConnected()) {
+                window.EduFirebase.db.collection('users').doc(cleanEmail).delete().catch(() => {});
+            }
 
             // If currently logged in user is deleted, clear session
             const current = this.getUser();
@@ -936,6 +994,7 @@
             };
             db[cleanEmail] = newUser;
             saveDB(db);
+            syncUserToCloud(newUser);
             return { success: true, user: newUser };
         },
 
@@ -1107,10 +1166,12 @@
                 };
                 db[cleanEmail] = user;
                 saveDB(db);
+                syncUserToCloud(user);
             }
 
             user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_' + Date.now();
             this.setUser(user);
+            syncUserToCloud(user);
 
             const backdrop = document.getElementById('ed-social-modal-backdrop');
             if (backdrop) backdrop.remove();

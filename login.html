@@ -233,6 +233,11 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Firebase SDK (Compat Version for Web) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js?v=6.0"></script>
+    <script src="js/firebase-service.js?v=6.0"></script>
     <script src="js/security.js"></script>
     <script src="js/auth.js?v=6.0"></script>
     <script src="js/leads.js?v=6.0"></script>
@@ -247,7 +252,7 @@
             currentRole = role || 'Student';
         }
 
-        function handleSignInSubmit(event) {
+        async function handleSignInSubmit(event) {
             event.preventDefault();
             const email = document.getElementById('inputEmail').value;
             const password = document.getElementById('inputPassword').value;
@@ -256,8 +261,14 @@
             btn.disabled = true;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
 
-            const success = edAuth.login(email, password);
-            if (!success) {
+            try {
+                const success = await edAuth.login(email, password);
+                if (!success) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>Sign In to Portal</span> <i class="fa-solid fa-arrow-right"></i>';
+                }
+            } catch (err) {
+                console.error('Sign In Error:', err);
                 btn.disabled = false;
                 btn.innerHTML = '<span>Sign In to Portal</span> <i class="fa-solid fa-arrow-right"></i>';
             }

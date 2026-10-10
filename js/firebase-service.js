@@ -90,6 +90,7 @@
                 this.lastError = null;
                 console.log(`%c[Firebase Cloud Connected]%c Project: ${cfg.projectId}`, 'color: #16a34a; font-weight: bold;', 'color: #333;');
                 this.updateUiBadges();
+                this.syncCloudUsersToLocal().catch(() => {});
                 return true;
             } catch (err) {
                 console.error('[EduFirebase] Init Error:', err);
@@ -186,6 +187,103 @@
             }
         },
 
+        // Save a User Profile to Cloud Firestore (Permanent Credentials)
+        saveUser: async function (userData) {
+            if (!userData || !userData.email) return false;
+            const cleanEmail = userData.email.trim().toLowerCase();
+            if (!this.isConnected()) {
+                this.init();
+            }
+            if (this.isConnected()) {
+                try {
+                    const docData = Object.assign({}, userData, {
+                        cloudUpdatedAt: window.firebase.firestore.FieldValue.serverTimestamp(),
+                        domainAccount: 'enquiry@theeduconsultant.com'
+                    });
+                    await this.db.collection('users').doc(cleanEmail).set(docData, { merge: true });
+                    console.log(`[EduFirebase] User ${cleanEmail} saved permanently to Firestore.`);
+                    return true;
+                } catch (e) {
+                    console.warn('[EduFirebase] Could not save user to Firestore:', e);
+                    return false;
+                }
+            }
+            return false;
+        },
+
+        // Fetch a User Profile from Cloud Firestore by email
+        fetchUser: async function (email) {
+            if (!email) return null;
+            const cleanEmail = email.trim().toLowerCase();
+            if (!this.isConnected()) {
+                this.init();
+            }
+            if (this.isConnected()) {
+                try {
+                    const doc = await this.db.collection('users').doc(cleanEmail).get();
+                    if (doc.exists) {
+                        return doc.data();
+                    }
+                } catch (e) {
+                    console.warn('[EduFirebase] Error fetching user from Firestore:', e);
+                }
+            }
+            return null;
+        },
+
+        // Fetch all registered users from Cloud Firestore
+        fetchCloudUsers: async function () {
+            if (!this.isConnected()) {
+                this.init();
+            }
+            if (!this.isConnected()) return null;
+            try {
+                const snapshot = await this.db.collection('users').get();
+                const users = [];
+                snapshot.forEach(doc => {
+                    users.push(doc.data());
+                });
+                return users;
+            } catch (e) {
+                console.warn('[EduFirebase] Error fetching cloud users:', e);
+                return null;
+            }
+        },
+
+        // Sync all Firestore cloud users into local storage cache
+        syncCloudUsersToLocal: async function () {
+            if (!this.isConnected()) return false;
+            try {
+                const cloudUsers = await this.fetchCloudUsers();
+                if (Array.isArray(cloudUsers) && cloudUsers.length > 0) {
+                    const raw = localStorage.getItem('the_edu_users_db');
+                    const db = raw ? JSON.parse(raw) : {};
+                    let updated = false;
+                    cloudUsers.forEach(cu => {
+                        if (cu && cu.email) {
+                            const clean = cu.email.trim().toLowerCase();
+                            if (!db[clean]) {
+                                db[clean] = cu;
+                                updated = true;
+                            } else {
+                                // Merge latest updates
+                                db[clean] = Object.assign({}, db[clean], cu);
+                                updated = true;
+                            }
+                        }
+                    });
+                    if (updated) {
+                        localStorage.setItem('the_edu_users_db', JSON.stringify(db));
+                        console.log(`[EduFirebase] Synchronized ${cloudUsers.length} cloud user(s) into local cache.`);
+                        return true;
+                    }
+                }
+            } catch (e) {
+                console.warn('[EduFirebase] syncCloudUsersToLocal error:', e);
+            }
+            return false;
+        },
+
         // Fetch all leads from Cloud Firestore
         fetchCloudLeads: async function () {
             if (!this.isConnected()) return null;
@@ -255,11 +353,31 @@
                     }
                 });
 
+                let uploadedUsers = 0;
+                try {
+                    const storedUsers = localStorage.getItem('the_edu_users_db');
+                    if (storedUsers) {
+                        const parsedUsers = JSON.parse(storedUsers);
+                        Object.keys(parsedUsers).forEach(uEmail => {
+                            const uRecord = parsedUsers[uEmail];
+                            if (uRecord && uEmail) {
+                                const cleanU = uEmail.trim().toLowerCase();
+                                const ref = this.db.collection('users').doc(cleanU);
+                                batch.set(ref, Object.assign({}, uRecord, {
+                                    domainAccount: 'enquiry@theeduconsultant.com',
+                                    cloudMigratedAt: window.firebase.firestore.FieldValue.serverTimestamp()
+                                }), { merge: true });
+                                uploadedUsers++;
+                            }
+                        });
+                    }
+                } catch(uErr) {}
+
                 await batch.commit();
 
                 return {
                     success: true,
-                    message: `Successfully pushed ${uploadedLeads} leads and ${uploadedMeetings} meetings to Firebase Cloud Database!`
+                    message: `Successfully pushed ${uploadedUsers} users, ${uploadedLeads} leads, and ${uploadedMeetings} meetings to Firebase Cloud Database!`
                 };
             } catch (err) {
                 console.error('[EduFirebase] Batch sync failed:', err);

@@ -1630,7 +1630,7 @@
                                             <i class="fa-solid fa-plug-circle-check me-1"></i> Test & Connect to Firebase
                                         </button>
                                         <button type="button" class="btn btn-outline-primary rounded-pill px-3 py-2 fw-bold fs-13" id="btnSyncLocalToCloud">
-                                            <i class="fa-solid fa-cloud-arrow-up me-1"></i> Push All Local Leads to Cloud
+                                            <i class="fa-solid fa-cloud-arrow-up me-1"></i> Push All Local Users & Leads to Cloud
                                         </button>
                                     </div>
                                     <div id="fbTestResultBox" class="mt-2 fs-12 d-none"></div>
@@ -2295,7 +2295,7 @@
                     const res = await window.EduFirebase.syncLocalToCloud();
                     alert(res.message);
                     btnSync.disabled = false;
-                    btnSync.innerHTML = '<i class="fa-solid fa-cloud-arrow-up me-1"></i> Push All Local Leads to Cloud';
+                    btnSync.innerHTML = '<i class="fa-solid fa-cloud-arrow-up me-1"></i> Push All Local Users & Leads to Cloud';
                 };
             }
 
