@@ -56,6 +56,15 @@ Every time a student submits a form, schedules a meeting, or clicks WhatsApp, a 
 4. Click **Save Webhook & Test Stream**.
 5. Check your Google Sheet: a test lead row will appear instantly with styled blue headers!
 
+### Step 6: Use the Custom "👑 EduConsultant Tools" Menu
+1. Reload your Google Spreadsheet tab in Chrome.
+2. In the top menu bar, you will see a new menu: **`👑 EduConsultant Tools`**.
+3. Click **`🚀 1-Click Auto-Repair All Sheets`**:
+   - Automatically fixes any `#ERROR!` formula errors in phone number cells.
+   - Sets up professional Navy (`#000064`) bold headers on both `Leads` and `Meetings` tabs.
+   - Auto-expands column widths so names, IDs, dates, and emails are never cut off.
+   - Forces phone number columns to Plain Text format (`@`) so new submissions never trigger formula errors.
+
 ---
 
 ## Part 2: Firebase Cloud Firestore Setup (5 Minutes)

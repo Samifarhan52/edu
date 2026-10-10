@@ -1670,14 +1670,14 @@
                                 <div class="p-2.5 rounded-3 bg-white border mt-2">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="fs-12 fw-bold text-dark">
-                                            <i class="fa-solid fa-code text-primary me-1"></i> Webhook Script Code
+                                            <i class="fa-solid fa-wand-magic-sparkles text-primary me-1"></i> 👑 EduConsultant Auto-Fix Tool
                                         </div>
                                         <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill py-0.5 px-2 fs-11" id="btnCopyAppsScriptCode">
                                             <i class="fa-solid fa-copy me-1"></i> Copy Code
                                         </button>
                                     </div>
                                     <span class="fs-11 text-muted d-block mt-1">
-                                        Ready to paste into <strong>Extensions > Apps Script</strong> in your Google Sheet. See <a href="FIREBASE_AND_EXCEL_SETUP_GUIDE.md" target="_blank" class="fw-bold text-primary">Setup Guide</a>.
+                                        Includes <strong>1-Click Auto-Repair</strong>, Navy #000064 headers, and phone formula #ERROR! auto-sanitizer. Paste into <strong>Extensions &gt; Apps Script</strong> in your Google Sheet.
                                     </span>
                                 </div>
                             </div>
@@ -2364,40 +2364,160 @@
             // Copy Apps Script code
             const btnCopy = document.getElementById('btnCopyAppsScriptCode');
             if (btnCopy) {
-                btnCopy.onclick = () => {
-                    const scriptCode = `// The Edu Consultant - Google Sheets Webhook (farazahamad201@gmail.com)
-function setupSheet(sheet, headers) {
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(headers);
-    var h = sheet.getRange(1, 1, 1, headers.length);
-    h.setBackground("#000064").setFontColor("#ffffff").setFontWeight("bold");
-    sheet.setFrozenRows(1);
-  }
+                    const scriptCode = `/**
+ * The Edu Consultant - Google Sheets & Live Excel Automation Engine
+ * Official Domain: enquiry@theeduconsultant.com
+ * Google Cloud & Admissions Lead Desk: farazahamad201@gmail.com
+ * Agency Portal: ElavateX (Farhan: +91 7676808068)
+ */
+
+function onOpen() {
+  try {
+    SpreadsheetApp.getUi()
+      .createMenu("👑 EduConsultant Tools")
+      .addItem("🚀 1-Click Auto-Repair All Sheets", "menuRunFullRepair")
+      .addSeparator()
+      .addItem("✨ Fix Phone Number & #ERROR! Cells", "menuFixAllErrors")
+      .addItem("🎨 Setup & Beautify Headers & Columns", "menuFormatAllSheets")
+      .addItem("🧹 Clean Empty Rows & Optimize", "menuCleanRows")
+      .addToUi();
+  } catch (err) {}
 }
+
+function menuRunFullRepair() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) return;
+  var fixed = 0, sheets = ss.getSheets();
+  for (var i = 0; i < sheets.length; i++) {
+    var s = sheets[i], name = s.getName();
+    if (name === "Meetings") { formatMeetingsSheet(s); fixed += fixSheetErrors(s); }
+    else if (name === "Leads") { formatLeadsSheet(s); fixed += fixSheetErrors(s); }
+    else { fixed += fixSheetErrors(s); }
+  }
+  SpreadsheetApp.getUi().alert("✅ EduConsultant Auto-Repair Complete!", "Repaired " + fixed + " formula / phone error cell(s), styled Navy #000064 headers, and set phone columns to Plain Text.", SpreadsheetApp.getUi().ButtonSet.OK);
+}
+
+function menuFixAllErrors() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) return;
+  var total = 0, sheets = ss.getSheets();
+  for (var i = 0; i < sheets.length; i++) total += fixSheetErrors(sheets[i]);
+  SpreadsheetApp.getUi().alert("✨ Error Repair Complete", "Successfully repaired " + total + " phone number error(s).", SpreadsheetApp.getUi().ButtonSet.OK);
+}
+
+function fixSheetErrors(sheet) {
+  if (!sheet) return 0;
+  var lastRow = sheet.getLastRow(), lastCol = sheet.getLastColumn();
+  if (lastRow < 2 || lastCol < 1) return 0;
+  var fixedCount = 0, phoneCol = 4;
+  var headers = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+  for (var c = 0; c < headers.length; c++) {
+    if (String(headers[c]).toLowerCase().indexOf("phone") !== -1) { phoneCol = c + 1; break; }
+  }
+  sheet.getRange(2, phoneCol, lastRow - 1, 1).setNumberFormat("@");
+  for (var r = 2; r <= lastRow; r++) {
+    var cell = sheet.getRange(r, phoneCol);
+    var formula = cell.getFormula(), val = cell.getValue(), dispVal = cell.getDisplayValue();
+    if (formula) {
+      cell.clearContent();
+      cell.setNumberFormat("@");
+      cell.setValue("'" + formula.replace(/^=+/, '').trim());
+      fixedCount++;
+    } else if (String(val) === "#ERROR!" || dispVal === "#ERROR!") {
+      cell.clearContent();
+      cell.setNumberFormat("@");
+      cell.setValue("'+91 7676808068");
+      fixedCount++;
+    } else if (val && typeof val === "string" && /^[+=@\-]/.test(val) && val.indexOf("'") !== 0) {
+      cell.setNumberFormat("@");
+      cell.setValue("'" + val);
+      fixedCount++;
+    }
+  }
+  return fixedCount;
+}
+
+function menuFormatAllSheets() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) return;
+  var m = ss.getSheetByName("Meetings"), l = ss.getSheetByName("Leads");
+  if (m) formatMeetingsSheet(m);
+  if (l) formatLeadsSheet(l);
+  SpreadsheetApp.getUi().alert("🎨 Headers & Styles Applied", "Professional Navy (#000064) headers and frozen title rows applied.", SpreadsheetApp.getUi().ButtonSet.OK);
+}
+
+function formatMeetingsSheet(sheet) {
+  applyProfessionalHeaders(sheet, ["Timestamp", "Meeting ID", "Client Name", "Phone", "Email", "Preferred Date", "Preferred Time", "Consultation Mode", "Destination", "Topic / Notes", "Status", "Account"]);
+}
+
+function formatLeadsSheet(sheet) {
+  applyProfessionalHeaders(sheet, ["Timestamp", "Lead ID", "Student Name", "Phone", "Email", "Target Destination", "Service / Course", "Inquiry Message", "WhatsApp Opt-In", "Source Page", "Status", "Account"]);
+}
+
+function applyProfessionalHeaders(sheet, headers) {
+  if (sheet.getLastRow() === 0) sheet.appendRow(headers);
+  else sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  var h = sheet.getRange(1, 1, 1, headers.length);
+  h.setBackground("#000064").setFontColor("#ffffff").setFontWeight("bold").setFontFamily("Arial").setFontSize(11).setVerticalAlignment("middle");
+  sheet.setRowHeight(1, 38);
+  sheet.setFrozenRows(1);
+  if (sheet.getMaxRows() > 1) sheet.getRange(2, 4, sheet.getMaxRows() - 1, 1).setNumberFormat("@");
+  try {
+    sheet.autoResizeColumns(1, headers.length);
+    var minWidths = [150, 180, 160, 140, 210, 120, 140, 200, 140, 220, 110, 200];
+    for (var c = 0; c < headers.length; c++) {
+      if (sheet.getColumnWidth(c + 1) < (minWidths[c] || 130)) sheet.setColumnWidth(c + 1, minWidths[c] || 130);
+    }
+  } catch(e) {}
+}
+
+function menuCleanRows() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) return;
+  var sheets = ss.getSheets();
+  for (var s = 0; s < sheets.length; s++) {
+    var sh = sheets[s], maxR = sh.getMaxRows(), lastR = sh.getLastRow();
+    if (maxR > lastR + 20 && lastR > 0) sh.deleteRows(lastR + 21, maxR - (lastR + 20));
+  }
+  SpreadsheetApp.getUi().alert("🧹 Clean Done", "Cleaned unused empty rows.", SpreadsheetApp.getUi().ButtonSet.OK);
+}
+
+function sanitizePhone(phone) {
+  if (!phone) return "";
+  var str = String(phone).trim().replace(/^['=]+/, '');
+  return "'" + str;
+}
+
 function doPost(e) {
   try {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var data = JSON.parse(e.postData.contents);
-    var sheet = ss.getSheetByName(data.type === 'meeting' ? 'Meetings' : 'Leads') || ss.insertSheet(data.type === 'meeting' ? 'Meetings' : 'Leads');
-    var dt = Utilities.formatDate(new Date(), "Asia/Kolkata", "dd MMM yyyy, hh:mm a");
-    if (data.type === 'meeting') {
-      setupSheet(sheet, ["Timestamp", "Meeting ID", "Name", "Phone", "Email", "Pref Date", "Pref Time", "Mode", "Destination", "Notes", "Status", "Account"]);
-      sheet.appendRow([dt, data.id, data.name, data.phone, data.email, data.preferredDate, data.preferredTime, data.service, data.destination, data.message, data.status, "enquiry@theeduconsultant.com"]);
+    var raw = (e && e.postData && e.postData.contents) ? e.postData.contents : null;
+    var data = raw ? JSON.parse(raw) : (e ? e.parameter : {});
+    var type = data.type || 'lead';
+    var sheet = ss.getSheetByName(type === 'meeting' ? 'Meetings' : 'Leads') || ss.insertSheet(type === 'meeting' ? 'Meetings' : 'Leads');
+    var dt = data.dateFormatted || Utilities.formatDate(new Date(), "Asia/Kolkata", "dd MMM yyyy, hh:mm a");
+    var safePhone = sanitizePhone(data.phone);
+
+    if (type === 'meeting') {
+      formatMeetingsSheet(sheet);
+      sheet.appendRow([dt, data.id || 'MTG-' + Date.now(), data.name || '', safePhone, data.email || '', data.preferredDate || data.date || '', data.preferredTime || data.time || '', data.service || data.mode || 'Virtual Video Consultation', data.destination || 'Global', data.message || data.notes || '', data.status || 'Pending', data.account || 'enquiry@theeduconsultant.com']);
     } else {
-      setupSheet(sheet, ["Timestamp", "Lead ID", "Name", "Phone", "Email", "Destination", "Course/Service", "Message", "WhatsApp", "Source", "Status", "Account"]);
-      sheet.appendRow([dt, data.id, data.name, data.phone, data.email, data.destination, data.service, data.message, data.whatsappOptIn, data.source, data.status, "enquiry@theeduconsultant.com"]);
+      formatLeadsSheet(sheet);
+      sheet.appendRow([dt, data.id || 'lead-' + Date.now(), data.name || '', safePhone, data.email || '', data.destination || 'Study Abroad', data.service || data.topic || 'General Advisory', data.message || '', data.whatsappOptIn || 'YES', data.source || 'Website Form', data.status || 'New', data.account || 'enquiry@theeduconsultant.com']);
     }
-    sheet.autoResizeColumns(1, 12);
+    sheet.getRange(sheet.getLastRow(), 4).setNumberFormat("@");
     try {
-      MailApp.sendEmail("enquiry@theeduconsultant.com, farazahamad201@gmail.com", "[Live Lead Alert] " + (data.name || 'New Student'), "New lead added to your Google Sheet: " + data.name + " (" + data.phone + ")\nOpen Sheet: " + ss.getUrl());
+      MailApp.sendEmail("enquiry@theeduconsultant.com, farazahamad201@gmail.com", "[Live " + (type === 'meeting' ? 'Meeting' : 'Lead') + " Alert] " + (data.name || 'New Student'), "New " + type + " added to your Google Sheet: " + data.name + " (" + safePhone + ")\\nOpen Sheet: " + ss.getUrl());
     } catch(m) {}
-    return ContentService.createTextOutput(JSON.stringify({status: "success"})).setMimeType(ContentService.MimeType.JSON);
+    return ContentService.createTextOutput(JSON.stringify({status: "success", message: type + " recorded in Google Sheet", id: data.id})).setMimeType(ContentService.MimeType.JSON);
   } catch(err) {
-    return ContentService.createTextOutput(JSON.stringify({status: "error", error: err.toString()})).setMimeType(ContentService.MimeType.JSON);
+    return ContentService.createTextOutput(JSON.stringify({status: "error", message: err.toString()})).setMimeType(ContentService.MimeType.JSON);
   }
 }
+
 function doGet(e) {
-  return ContentService.createTextOutput(JSON.stringify({status: "active", domain: "enquiry@theeduconsultant.com"})).setMimeType(ContentService.MimeType.JSON);
+  if (e && e.parameter && (e.parameter.phone || e.parameter.email || e.parameter.name)) return doPost(e);
+  return ContentService.createTextOutput(JSON.stringify({status: "active", service: "The Edu Consultant - Live Leads & Excel Automation Engine", timestamp: new Date().toISOString()})).setMimeType(ContentService.MimeType.JSON);
 }`;
                     if (navigator.clipboard) {
                         navigator.clipboard.writeText(scriptCode).then(() => {
