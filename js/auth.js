@@ -406,143 +406,91 @@
         },
 
         showOtpNotification: function (target, channel, otp, contextLabel = 'Security Verification') {
-            const channelName = channel === 'sms' ? 'Mobile SMS' : 'Email Inbox';
-            const icon = channel === 'sms' ? 'fa-comment-sms' : 'fa-envelope-open-text';
-
-            let container = document.getElementById('edu-otp-toast-container');
-            if (!container) {
-                container = document.createElement('div');
-                container.id = 'edu-otp-toast-container';
-                container.style.cssText = 'position:fixed;top:20px;right:20px;z-index:9999999;max-width:400px;width:calc(100% - 40px);pointer-events:none;';
-                document.body.appendChild(container);
-            }
-
-            const card = document.createElement('div');
-            card.style.cssText = 'pointer-events:auto;margin-bottom:12px;background:#ffffff;border:2px solid #000064;border-radius:16px;box-shadow:0 12px 36px rgba(0,0,100,0.22);padding:18px 20px;animation:fadeIn 0.3s ease;';
-            card.innerHTML = `
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center text-white" style="width:34px;height:34px;background-color:#000064 !important;">
-                            <i class="fa-solid ${icon} fs-14"></i>
-                        </div>
-                        <div>
-                            <div class="fw-bold text-dark fs-14" style="line-height:1.2;">OTP Dispatched (${channelName})</div>
-                            <small class="text-muted fs-11">${contextLabel} • The Edu Consultant</small>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close fs-11" onclick="this.closest('div[style*=\\'pointer-events:auto\\']').remove()"></button>
-                </div>
-                <p class="fs-12 text-muted mb-2">A one-time 6-digit code has been sent to <strong>${target}</strong>:</p>
-                <div class="p-2.5 rounded-3 text-center my-2" style="background:#f4f6fa;border:1px dashed #000064;">
-                    <span class="fs-10 text-uppercase fw-bold text-muted d-block mb-1">Your 6-Digit OTP</span>
-                    <span class="fs-24 font-monospace fw-bold" style="letter-spacing:6px;color:#000064 !important;">${otp}</span>
-                </div>
-                <div class="d-flex align-items-center justify-content-between mt-2 pt-1 border-top">
-                    <span class="fs-11 text-muted"><i class="fa-regular fa-clock me-1"></i> Valid for 5 minutes</span>
-                    <button type="button" class="btn btn-sm btn-link text-primary fs-12 p-0 text-decoration-none fw-bold" onclick="navigator.clipboard?.writeText('${otp}'); this.textContent='Copied!';">Copy Code</button>
-                </div>
-            `;
-            container.appendChild(card);
-
-            setTimeout(() => {
-                if (card && card.parentNode) card.remove();
-            }, 30000);
+            // CONFIDENTIALITY DIRECTIVE: OTP must NEVER appear on the client website UI.
+            // Only delivery channels are the user's private email inbox and server logs.
+            return;
         },
 
         sendSignupOtp: async function (target, channel = 'email', userName = 'Scholar', altEmail = '') {
             try {
                 if (!target) {
-                    this.showToast('Please enter your ' + (channel === 'sms' ? 'mobile number' : 'email address') + ' first.', 'warning');
+                    this.showToast('Please enter your email address first.', 'warning');
                     return { success: false, message: 'Target required' };
                 }
-                const cleanTarget = target.trim();
-                if (channel === 'email' && !cleanTarget.includes('@')) {
+                const cleanTarget = target.trim().toLowerCase();
+                if (!cleanTarget.includes('@')) {
                     this.showToast('Please enter a valid email address.', 'warning');
                     return { success: false, message: 'Invalid email' };
-                }
-                if (channel === 'sms' && normalizePhone(cleanTarget).length < 7) {
-                    this.showToast('Please enter a valid mobile number with country code.', 'warning');
-                    return { success: false, message: 'Invalid phone' };
                 }
 
                 const otp = this.generateOtp();
                 this._signupOtpSession = {
                     target: cleanTarget,
-                    channel: channel,
+                    channel: 'email',
                     otp: otp,
                     expiresAt: Date.now() + 5 * 60 * 1000,
                     verified: false
                 };
 
-                // 1. Dispatch real Email / SMS via Hostinger Server Endpoint (api/send-otp.php)
+                // 1. Dispatch real Email via Hostinger Server Endpoint (api/send-otp.php)
                 try {
                     fetch('api/send-otp.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             target: cleanTarget,
-                            channel: channel,
+                            channel: 'email',
                             otp: otp,
                             name: userName,
                             context: 'signup',
-                            altEmail: altEmail
+                            altEmail: cleanTarget
                         })
                     }).catch(err => {
                         console.log('[EduAuth] Server OTP dispatch notice:', err);
                     });
                 } catch (netErr) {}
 
-                // 2. Display on-screen Notification & Toast
-                try {
-                    this.showOtpNotification(cleanTarget, channel, otp, 'Signup Verification');
-                    this.showToast(`OTP dispatched to ${cleanTarget} via ${channel === 'sms' ? 'SMS' : 'Email'}.`, 'info');
-                } catch (uiErr) {}
+                // 2. Display strictly confidential notice
+                this.showToast(`Confidential 6-digit OTP sent to ${cleanTarget}. Please check your email inbox and spam folder.`, 'info');
 
                 // 3. Safe audit log to Firebase Firestore
                 if (window.EduFirebase && window.EduFirebase.db) {
                     try {
                         window.EduFirebase.db.collection('otp_audits').add({
                             target: cleanTarget,
-                            channel: channel,
+                            channel: 'email',
                             type: 'signup_otp',
                             createdAt: new Date().toISOString()
                         }).catch(() => {});
                     } catch (e) {}
                 }
 
-                return { success: true, target: cleanTarget, channel: channel, otp: otp };
+                // Return success without exposing the secret OTP code to the caller
+                return { success: true, target: cleanTarget, channel: 'email' };
             } catch (fatalErr) {
-                console.error('[EduAuth] sendSignupOtp caught exception:', fatalErr);
-                const safeOtp = Math.floor(100000 + Math.random() * 900000).toString();
-                this._signupOtpSession = {
-                    target: (target || '').trim(),
-                    channel: channel,
-                    otp: safeOtp,
-                    expiresAt: Date.now() + 5 * 60 * 1000,
-                    verified: false
-                };
-                return { success: true, target: (target || '').trim(), channel: channel, otp: safeOtp };
+                console.error('[EduAuth] sendSignupOtp exception:', fatalErr);
+                return { success: false, message: 'Could not send verification email' };
             }
         },
 
         verifySignupOtp: function (inputCode) {
             const session = this._signupOtpSession;
             if (!session) {
-                this.showToast('No active OTP session. Please click "Send OTP" first.', 'danger');
+                this.showToast('No active OTP session. Please click "Send Verification Code" first.', 'danger');
                 return { success: false, message: 'No active session' };
             }
             if (Date.now() > session.expiresAt) {
-                this.showToast('OTP has expired. Please request a new verification code.', 'danger');
+                this.showToast('Verification code has expired. Please request a new code.', 'danger');
                 return { success: false, message: 'Expired code' };
             }
             const cleanInput = (inputCode || '').toString().trim();
             if (cleanInput !== session.otp) {
-                this.showToast('Invalid OTP entered. Please check the 6-digit code.', 'danger');
+                this.showToast('Invalid OTP entered. Please check the 6-digit code in your email.', 'danger');
                 return { success: false, message: 'Invalid code' };
             }
 
             session.verified = true;
-            this.showToast('Identity Verified Successfully! ✅', 'success');
+            this.showToast('Email Verified Successfully! ✅', 'success');
             return { success: true, target: session.target, channel: session.channel };
         },
 
@@ -552,53 +500,51 @@
 
         sendLoginOtp: async function (user, channel = 'email') {
             if (!user) return { success: false };
-            const actualChannel = (channel === 'sms' && user.phone) ? 'sms' : 'email';
-            const target = (actualChannel === 'sms') ? user.phone : user.email;
+            const target = (user.email || '').trim().toLowerCase();
             const otp = this.generateOtp();
 
             this._loginOtpSession = {
                 user: user,
                 target: target,
-                channel: actualChannel,
+                channel: 'email',
                 otp: otp,
                 expiresAt: Date.now() + 5 * 60 * 1000,
                 verified: false
             };
 
-            // 1. Dispatch real Email / SMS via Hostinger Server Endpoint (api/send-otp.php)
+            // 1. Dispatch real Email via Hostinger Server Endpoint (api/send-otp.php)
             try {
                 fetch('api/send-otp.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         target: target,
-                        channel: actualChannel,
+                        channel: 'email',
                         otp: otp,
                         name: user.name || 'Scholar',
                         context: 'login',
-                        altEmail: user.email || ''
+                        altEmail: target
                     })
                 }).catch(err => {
                     console.log('[EduAuth] Server OTP dispatch notice:', err);
                 });
             } catch (netErr) {}
 
-            this.showOtpNotification(target, actualChannel, otp, '2-Factor Sign-In');
-            this.showToast(`Security code dispatched to ${target} (${actualChannel.toUpperCase()}).`, 'info');
+            this.showToast(`Security code dispatched to your registered email (${target}). Check inbox.`, 'info');
 
             if (window.EduFirebase && window.EduFirebase.db) {
                 try {
                     window.EduFirebase.db.collection('otp_audits').add({
                         userEmail: user.email,
                         target: target,
-                        channel: actualChannel,
+                        channel: 'email',
                         type: 'login_2fa',
                         createdAt: new Date().toISOString()
                     }).catch(() => {});
                 } catch (e) {}
             }
 
-            return { success: true, target: target, channel: actualChannel, otp: otp };
+            return { success: true, target: target, channel: 'email' };
         },
 
         verifyLoginOtp: function (inputCode) {
