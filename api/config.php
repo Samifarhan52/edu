@@ -23,7 +23,7 @@ define('DB_CHARSET', 'utf8mb4');
 // ==============================================================================
 // 2. CONTACT, LEADS & NOTIFICATION EMAIL ADDRESSES
 // ==============================================================================
-define('ADMIN_EMAIL', 'farazahamad201@gmail.com');
+define('ADMIN_EMAIL', 'enquiry@theeduconsultant.com');
 define('ENQUIRY_EMAIL', 'enquiry@theeduconsultant.com');
 define('NOREPLY_EMAIL', 'noreply@theeduconsultant.com');
 define('ADMIN_PHONE', '9845371459');

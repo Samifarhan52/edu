@@ -181,54 +181,65 @@
                         </div>
 
                         <!-- OTP Verification Panel -->
-                        <div class="p-3 mb-3 rounded-3 border bg-light-subtle" id="otpVerificationPanel" style="border-style: dashed !important; border-color: #cbd5e1 !important;">
+                        <div class="p-3 mb-3 rounded-3 border bg-light-subtle" id="otpVerificationPanel" style="border: 1.5px solid #000064 !important; background: #f8fafc !important;">
                             <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
                                 <label class="zForm-label mb-0 fw-bold fs-13 text-dark">
-                                    <i class="fa-solid fa-shield-halved text-primary me-1"></i> Verify Email or Mobile Number <span class="text-danger">*</span>
+                                    <i class="fa-solid fa-shield-halved text-primary me-1"></i> Identity Verification <span class="text-danger">*</span>
                                 </label>
                                 <span class="badge bg-secondary-subtle text-secondary fs-11 px-2.5 py-1 rounded-pill" id="otpStatusBadge">
                                     <i class="fa-regular fa-clock me-1"></i> Verification Pending
                                 </span>
                             </div>
 
-                            <div class="d-flex align-items-center gap-3 mb-2.5 fs-12">
-                                <label class="d-flex align-items-center gap-1 cursor-pointer">
-                                    <input type="radio" name="otpChannel" value="email" checked class="form-check-input mt-0" id="channelEmailRadio">
-                                    <span>Verify via <strong>Email</strong></span>
-                                </label>
-                                <label class="d-flex align-items-center gap-1 cursor-pointer">
-                                    <input type="radio" name="otpChannel" value="sms" class="form-check-input mt-0" id="channelSmsRadio">
-                                    <span>Verify via <strong>Mobile SMS</strong></span>
-                                </label>
-                            </div>
+                            <p class="fs-12 text-muted mb-2.5">
+                                Click either button below to receive your 6-digit verification code:
+                            </p>
 
-                            <div class="d-flex gap-2">
-                                <button type="button" class="btn btn-sm btn-outline-primary rounded-3 px-3 py-2 fw-bold fs-12 d-flex align-items-center gap-1.5" id="btnSendOtp" onclick="handleSendSignupOtp()">
-                                    <i class="fa-solid fa-paper-plane"></i>
-                                    <span id="btnSendOtpText">Send Verification OTP</span>
-                                </button>
+                            <!-- Direct Clickable Action Buttons -->
+                            <div class="row g-2 mb-2" id="otpActionButtonsContainer">
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-outline-primary w-100 py-2.5 px-2 rounded-3 fw-bold fs-12 d-flex align-items-center justify-content-center gap-1.5 shadow-sm" id="btnVerifyViaEmail" onclick="handleDirectOtpDispatch('email')">
+                                        <i class="fa-solid fa-envelope fs-14"></i>
+                                        <span id="btnVerifyViaEmailText">Verify via Email OTP</span>
+                                    </button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-outline-success w-100 py-2.5 px-2 rounded-3 fw-bold fs-12 d-flex align-items-center justify-content-center gap-1.5 shadow-sm" id="btnVerifyViaSms" onclick="handleDirectOtpDispatch('sms')">
+                                        <i class="fa-solid fa-comment-sms fs-14"></i>
+                                        <span id="btnVerifyViaSmsText">Verify via Mobile SMS OTP</span>
+                                    </button>
+                                </div>
                             </div>
 
                             <!-- OTP Input Box (Reveals once OTP sent) -->
                             <div id="otpInputSection" class="mt-3 pt-3 border-top d-none">
-                                <p class="fs-12 text-muted mb-2" id="otpSentNoticeText">
-                                    Enter the 6-digit verification code sent to your account:
-                                </p>
+                                <div class="alert alert-info py-2 px-3 fs-12 rounded-3 mb-2.5 d-flex align-items-center justify-content-between flex-wrap gap-2" id="otpNoticeBox">
+                                    <div>
+                                        <i class="fa-solid fa-circle-info me-1"></i>
+                                        <span id="otpSentNoticeText">A 6-digit code has been dispatched.</span>
+                                    </div>
+                                    <span class="badge bg-primary text-white fs-11 font-monospace" id="otpQuickCodeBadge" style="letter-spacing: 2px;"></span>
+                                </div>
+
                                 <div class="row g-2 align-items-center">
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control zForm-control text-center fs-18 fw-bold font-monospace py-2" 
+                                        <input type="text" class="form-control zForm-control text-center fs-20 fw-bold font-monospace py-2" 
                                                id="signupOtpCodeInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" 
-                                               placeholder="••••••" style="letter-spacing: 6px;" />
+                                               placeholder="••••••" style="letter-spacing: 6px; border: 2px solid #000064;" />
                                     </div>
                                     <div class="col-sm-5">
-                                        <button type="button" class="btn btn-primary w-100 py-2 rounded-3 fw-bold fs-13 d-flex align-items-center justify-content-center gap-1" id="btnConfirmOtp" onclick="handleVerifySignupOtp()">
-                                            <i class="fa-solid fa-check"></i> Verify OTP
+                                        <button type="button" class="btn btn-primary w-100 py-2.5 rounded-3 fw-bold fs-13 d-flex align-items-center justify-content-center gap-1 shadow-sm" id="btnConfirmOtp" onclick="handleVerifySignupOtp()" style="background-color: var(--brand-primary); border-color: var(--brand-primary);">
+                                            <i class="fa-solid fa-check"></i> Verify OTP Code
                                         </button>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mt-2 fs-11 text-muted">
-                                    <span>Code expires in 5 minutes</span>
-                                    <a href="#" class="text-brand-primary text-decoration-none fw-semibold" onclick="handleSendSignupOtp(); return false;">Resend Code</a>
+                                    <span><i class="fa-regular fa-clock me-1"></i> Valid for 5 minutes</span>
+                                    <div class="d-flex gap-2">
+                                        <a href="#" class="text-brand-primary text-decoration-none fw-bold" id="btnAutoFillOtp" onclick="handleAutoFillOtp(); return false;">1-Click Auto-Fill</a>
+                                        <span>•</span>
+                                        <a href="#" class="text-brand-primary text-decoration-none fw-semibold" onclick="handleResendCurrentOtp(); return false;">Resend Code</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -308,6 +319,8 @@
     <script>
         let isOtpVerified = false;
         let verifiedChannelUsed = '';
+        let currentDispatchedOtp = '';
+        let currentDispatchedChannel = 'email';
 
         function checkStrength(val) {
             const bar = document.getElementById('strengthFill');
@@ -327,45 +340,86 @@
             }
         }
 
-        async function handleSendSignupOtp() {
-            const channel = document.querySelector('input[name="otpChannel"]:checked').value;
-            const email = document.getElementById('regEmail').value.trim();
-            const phone = document.getElementById('regPhone').value.trim();
+        async function handleDirectOtpDispatch(channel) {
+            currentDispatchedChannel = channel || 'email';
+            const email = (document.getElementById('regEmail')?.value || '').trim();
+            const phone = (document.getElementById('regPhone')?.value || '').trim();
+            const name = (document.getElementById('regFullName')?.value || '').trim();
 
-            const target = (channel === 'sms') ? phone : email;
+            const target = (currentDispatchedChannel === 'sms') ? phone : email;
             if (!target) {
-                alert(`Please enter your ${channel === 'sms' ? 'mobile number' : 'email address'} first before requesting an OTP.`);
-                if (channel === 'sms') document.getElementById('regPhone').focus();
-                else document.getElementById('regEmail').focus();
+                alert(`Please enter your ${currentDispatchedChannel === 'sms' ? 'Mobile Number' : 'Email Address'} first.`);
+                if (currentDispatchedChannel === 'sms') {
+                    document.getElementById('regPhone')?.focus();
+                } else {
+                    document.getElementById('regEmail')?.focus();
+                }
                 return;
             }
 
-            const sendBtn = document.getElementById('btnSendOtp');
-            const sendBtnText = document.getElementById('btnSendOtpText');
-            sendBtn.disabled = true;
-            sendBtnText.textContent = 'Sending OTP...';
+            const btnEmail = document.getElementById('btnVerifyViaEmail');
+            const btnSms = document.getElementById('btnVerifyViaSms');
+            const targetBtn = (currentDispatchedChannel === 'sms') ? btnSms : btnEmail;
+            const targetBtnText = (currentDispatchedChannel === 'sms') ? document.getElementById('btnVerifyViaSmsText') : document.getElementById('btnVerifyViaEmailText');
+
+            if (targetBtn) targetBtn.disabled = true;
+            if (targetBtnText) targetBtnText.textContent = 'Sending Code...';
 
             try {
-                const res = await edAuth.sendSignupOtp(target, channel);
-                sendBtn.disabled = false;
-                sendBtnText.textContent = 'Resend OTP';
+                // Pass email as altEmail so user receives it via email even if SMS gateway is simulated
+                const res = await edAuth.sendSignupOtp(target, currentDispatchedChannel, name, email);
+                if (targetBtn) targetBtn.disabled = false;
+                if (targetBtnText) targetBtnText.textContent = (currentDispatchedChannel === 'sms') ? 'Resend SMS OTP' : 'Resend Email OTP';
 
                 if (res && res.success) {
+                    currentDispatchedOtp = res.otp || '';
                     const otpSection = document.getElementById('otpInputSection');
-                    otpSection.classList.remove('d-none');
-                    document.getElementById('otpSentNoticeText').innerHTML = 
-                        `A 6-digit OTP has been dispatched to <strong>${target}</strong> via <strong>${channel.toUpperCase()}</strong>:`;
-                    document.getElementById('signupOtpCodeInput').focus();
+                    if (otpSection) otpSection.classList.remove('d-none');
+
+                    const noticeText = document.getElementById('otpSentNoticeText');
+                    if (noticeText) {
+                        noticeText.innerHTML = `6-digit OTP sent to <strong>${target}</strong> via <strong>${currentDispatchedChannel === 'sms' ? 'SMS' : 'Email'}</strong>:`;
+                    }
+
+                    const quickBadge = document.getElementById('otpQuickCodeBadge');
+                    if (quickBadge && res.otp) {
+                        quickBadge.textContent = 'CODE: ' + res.otp;
+                    }
+
+                    const inputEl = document.getElementById('signupOtpCodeInput');
+                    if (inputEl) {
+                        inputEl.value = '';
+                        inputEl.focus();
+                    }
                 }
-            } catch (e) {
-                console.error('Send OTP Error:', e);
-                sendBtn.disabled = false;
-                sendBtnText.textContent = 'Send Verification OTP';
+            } catch (err) {
+                console.error('OTP Dispatch Error:', err);
+                if (targetBtn) targetBtn.disabled = false;
+                if (targetBtnText) targetBtnText.textContent = (currentDispatchedChannel === 'sms') ? 'Verify via Mobile SMS OTP' : 'Verify via Email OTP';
+                alert('Could not dispatch OTP. Please check your connection and try again.');
             }
         }
 
+        function handleAutoFillOtp() {
+            const session = edAuth.getSignupOtpSession();
+            const codeToFill = currentDispatchedOtp || (session ? session.otp : '');
+            if (!codeToFill) {
+                alert('Please click "Verify via Email OTP" or "Verify via Mobile SMS OTP" first.');
+                return;
+            }
+            const inputEl = document.getElementById('signupOtpCodeInput');
+            if (inputEl) {
+                inputEl.value = codeToFill;
+                inputEl.focus();
+            }
+        }
+
+        function handleResendCurrentOtp() {
+            handleDirectOtpDispatch(currentDispatchedChannel || 'email');
+        }
+
         function handleVerifySignupOtp() {
-            const code = document.getElementById('signupOtpCodeInput').value.trim();
+            const code = (document.getElementById('signupOtpCodeInput')?.value || '').trim();
             if (code.length !== 6) {
                 alert('Please enter the full 6-digit OTP code.');
                 return;
@@ -374,19 +428,35 @@
             const res = edAuth.verifySignupOtp(code);
             if (res && res.success) {
                 isOtpVerified = true;
-                verifiedChannelUsed = res.channel;
+                verifiedChannelUsed = res.channel || currentDispatchedChannel;
 
                 // Update UI badge to verified
                 const badge = document.getElementById('otpStatusBadge');
-                badge.className = 'badge bg-success-subtle text-success border border-success fs-11 px-2.5 py-1 rounded-pill';
-                badge.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i> Verified via ${res.channel.toUpperCase()}`;
+                if (badge) {
+                    badge.className = 'badge bg-success text-white border border-success fs-11 px-2.5 py-1 rounded-pill';
+                    badge.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i> Verified via ${verifiedChannelUsed.toUpperCase()}`;
+                }
 
                 // Lock inputs
-                document.getElementById('signupOtpCodeInput').disabled = true;
-                document.getElementById('btnConfirmOtp').disabled = true;
-                document.getElementById('btnConfirmOtp').innerHTML = '<i class="fa-solid fa-circle-check"></i> Verified';
-                document.getElementById('btnSendOtp').disabled = true;
-                document.getElementById('otpInputSection').classList.add('bg-success-subtle', 'p-2', 'rounded-3');
+                const inputEl = document.getElementById('signupOtpCodeInput');
+                if (inputEl) inputEl.disabled = true;
+
+                const confirmBtn = document.getElementById('btnConfirmOtp');
+                if (confirmBtn) {
+                    confirmBtn.disabled = true;
+                    confirmBtn.className = 'btn btn-success w-100 py-2.5 rounded-3 fw-bold fs-13 d-flex align-items-center justify-content-center gap-1';
+                    confirmBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Verified Successfully';
+                }
+
+                const btnEmail = document.getElementById('btnVerifyViaEmail');
+                const btnSms = document.getElementById('btnVerifyViaSms');
+                if (btnEmail) btnEmail.disabled = true;
+                if (btnSms) btnSms.disabled = true;
+
+                const otpSection = document.getElementById('otpInputSection');
+                if (otpSection) {
+                    otpSection.classList.add('bg-success-subtle', 'p-3', 'rounded-3', 'border', 'border-success');
+                }
             }
         }
 

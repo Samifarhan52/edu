@@ -449,7 +449,7 @@
             }, 30000);
         },
 
-        sendSignupOtp: async function (target, channel = 'email') {
+        sendSignupOtp: async function (target, channel = 'email', userName = 'Scholar', altEmail = '') {
             if (!target) {
                 this.showToast('Please enter your ' + (channel === 'sms' ? 'mobile number' : 'email address') + ' first.', 'warning');
                 return { success: false, message: 'Target required' };
@@ -473,17 +473,37 @@
                 verified: false
             };
 
-            this.showOtpNotification(cleanTarget, channel, otp, 'Signup Verification');
-            this.showToast(`OTP sent to ${cleanTarget} via ${channel === 'sms' ? 'SMS' : 'Email'}.`, 'info');
+            // 1. Dispatch real Email / SMS via Hostinger Server Endpoint (api/send-otp.php)
+            try {
+                fetch('api/send-otp.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        target: cleanTarget,
+                        channel: channel,
+                        otp: otp,
+                        name: userName,
+                        context: 'signup',
+                        altEmail: altEmail
+                    })
+                }).catch(err => {
+                    console.log('[EduAuth] Server OTP dispatch notice:', err);
+                });
+            } catch (netErr) {}
 
+            // 2. Display on-screen Notification & Toast
+            this.showOtpNotification(cleanTarget, channel, otp, 'Signup Verification');
+            this.showToast(`OTP dispatched to ${cleanTarget} via ${channel === 'sms' ? 'SMS' : 'Email'}.`, 'info');
+
+            // 3. Safe audit log to Firebase Firestore
             if (window.EduFirebase && window.EduFirebase.db) {
                 try {
-                    window.EduFirebase.db.collection('_system').doc('otp_logs').collection('logs').add({
+                    window.EduFirebase.db.collection('otp_audits').add({
                         target: cleanTarget,
                         channel: channel,
                         type: 'signup_otp',
-                        timestamp: window.firebase.firestore.FieldValue.serverTimestamp()
-                    });
+                        createdAt: new Date().toISOString()
+                    }).catch(() => {});
                 } catch (e) {}
             }
 
@@ -530,18 +550,36 @@
                 verified: false
             };
 
+            // 1. Dispatch real Email / SMS via Hostinger Server Endpoint (api/send-otp.php)
+            try {
+                fetch('api/send-otp.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        target: target,
+                        channel: actualChannel,
+                        otp: otp,
+                        name: user.name || 'Scholar',
+                        context: 'login',
+                        altEmail: user.email || ''
+                    })
+                }).catch(err => {
+                    console.log('[EduAuth] Server OTP dispatch notice:', err);
+                });
+            } catch (netErr) {}
+
             this.showOtpNotification(target, actualChannel, otp, '2-Factor Sign-In');
             this.showToast(`Security code dispatched to ${target} (${actualChannel.toUpperCase()}).`, 'info');
 
             if (window.EduFirebase && window.EduFirebase.db) {
                 try {
-                    window.EduFirebase.db.collection('_system').doc('otp_logs').collection('logs').add({
+                    window.EduFirebase.db.collection('otp_audits').add({
                         userEmail: user.email,
                         target: target,
                         channel: actualChannel,
                         type: 'login_2fa',
-                        timestamp: window.firebase.firestore.FieldValue.serverTimestamp()
-                    });
+                        createdAt: new Date().toISOString()
+                    }).catch(() => {});
                 } catch (e) {}
             }
 
@@ -576,6 +614,10 @@
 
             this.showToast(`Authentication Verified! Welcome, ${user.nickName || user.name}!`, 'success');
             return { success: true, user: user };
+        },
+
+        getSignupOtpSession: function () {
+            return this._signupOtpSession || null;
         },
 
         getLoginOtpSession: function () {

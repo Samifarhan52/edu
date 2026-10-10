@@ -261,9 +261,11 @@
 
                     <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top fs-12">
                         <span class="text-muted">Didn't receive code?</span>
-                        <button type="button" class="btn btn-link p-0 fs-12 text-primary fw-bold text-decoration-none" id="btnResendLoginOtp" onclick="handleResendLoginOtp()">
-                            Resend Code
-                        </button>
+                        <div class="d-flex align-items-center gap-2">
+                            <button type="button" class="btn btn-link p-0 fs-12 text-primary fw-bold text-decoration-none" onclick="handleAutoFillLoginOtp()">1-Click Auto-Fill</button>
+                            <span>•</span>
+                            <button type="button" class="btn btn-link p-0 fs-12 text-primary fw-bold text-decoration-none" id="btnResendLoginOtp" onclick="handleResendLoginOtp()">Resend Code</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -391,6 +393,17 @@
             await edAuth.sendLoginOtp(currentLoginResult.user, channel);
             document.getElementById('loginOtpInput').value = '';
             alert('A new 6-digit security code has been sent!');
+        }
+
+        function handleAutoFillLoginOtp() {
+            const session = edAuth.getLoginOtpSession();
+            if (session && session.otp) {
+                const inp = document.getElementById('loginOtpInput');
+                if (inp) {
+                    inp.value = session.otp;
+                    inp.focus();
+                }
+            }
         }
 
         async function handleSwitchLoginChannel() {
