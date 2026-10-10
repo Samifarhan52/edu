@@ -49,6 +49,10 @@
             flex-shrink: 0;
             transition: all 0.3s ease;
             z-index: 1040;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
         }
 
         .sidebar-menu {
@@ -1595,33 +1599,33 @@
                                     <div class="row g-2 mb-2">
                                         <div class="col-md-6">
                                             <label class="form-label fw-bold text-dark fs-12 mb-1">Project ID <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbProjectIdInput" placeholder="e.g. the-edu-consultant-db" required/>
+                                            <input type="text" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbProjectIdInput" value="the-edu-consultant-db" placeholder="e.g. the-edu-consultant-db" required/>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label fw-bold text-dark fs-12 mb-1">API Key <span class="text-danger">*</span></label>
-                                            <input type="password" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbApiKeyInput" placeholder="AIzaSy..." required/>
+                                            <input type="text" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbApiKeyInput" value="AIzaSyBVrg2bXJKyH4zh0yPGGiLvLaqznMmqwnU" placeholder="AIzaSy..." required/>
                                         </div>
                                     </div>
 
                                     <div class="row g-2 mb-2">
                                         <div class="col-md-6">
                                             <label class="form-label fw-bold text-dark fs-12 mb-1">Auth Domain</label>
-                                            <input type="text" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbAuthDomainInput" placeholder="project-id.firebaseapp.com"/>
+                                            <input type="text" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbAuthDomainInput" value="the-edu-consultant-db.firebaseapp.com" placeholder="project-id.firebaseapp.com"/>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label fw-bold text-dark fs-12 mb-1">Storage Bucket</label>
-                                            <input type="text" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbStorageBucketInput" placeholder="project-id.appspot.com"/>
+                                            <input type="text" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbStorageBucketInput" value="the-edu-consultant-db.firebasestorage.app" placeholder="project-id.appspot.com"/>
                                         </div>
                                     </div>
 
                                     <div class="row g-2 mb-3">
                                         <div class="col-md-6">
                                             <label class="form-label fw-bold text-dark fs-12 mb-1">Messaging Sender ID</label>
-                                            <input type="text" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbMessagingSenderIdInput" placeholder="e.g. 123456789012"/>
+                                            <input type="text" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbMessagingSenderIdInput" value="850972665682" placeholder="e.g. 123456789012"/>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label fw-bold text-dark fs-12 mb-1">App ID</label>
-                                            <input type="text" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbAppIdInput" placeholder="1:123456:web:..."/>
+                                            <input type="text" class="form-control rounded-3 py-1.5 px-3 fs-13" id="fbAppIdInput" value="1:850972665682:web:d2f72c0f971dd853f0bc8b" placeholder="1:123456:web:..."/>
                                         </div>
                                     </div>
 
@@ -2197,14 +2201,14 @@
     <!-- Firebase SDK (Compat Version for Web) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="js/firebase-config.js?v=6.0"></script>
-    <script src="js/firebase-service.js?v=6.0"></script>
-    <script src="js/security.js"></script>
-    <script src="js/auth.js?v=6.0"></script>
-    <script src="js/cms.js?v=6.0"></script>
-    <script src="js/leads.js?v=6.0"></script>
-    <script src="js/edconsultants.js?v=6.0"></script>
-    <script src="js/elevatex.js?v=6.0"></script>
+    <script src="js/firebase-config.js?v=7.0"></script>
+    <script src="js/firebase-service.js?v=7.0"></script>
+    <script src="js/security.js?v=7.0"></script>
+    <script src="js/auth.js?v=7.0"></script>
+    <script src="js/cms.js?v=7.0"></script>
+    <script src="js/leads.js?v=7.0"></script>
+    <script src="js/edconsultants.js?v=7.0"></script>
+    <script src="js/elevatex.js?v=7.0"></script>
     <script>
         const toggleBtn = document.getElementById('sidebarToggleBtn');
         const sidebar = document.getElementById('dashboardSidebar');
@@ -2219,7 +2223,13 @@
             if (!window.EduFirebase) return;
 
             const cfg = (window.EduFirebase && window.EduFirebase.getConfig()) || {};
-            const sheetsUrl = (window.EduFirebase && window.EduFirebase.getSheetsWebhookUrl()) || (window.EduLeads && window.EduLeads.getSheetsWebhookUrl()) || '';
+            const defaultProjectId = "the-edu-consultant-db";
+            const defaultApiKey = "AIzaSyBVrg2bXJKyH4zh0yPGGiLvLaqznMmqwnU";
+            const defaultAuthDomain = "the-edu-consultant-db.firebaseapp.com";
+            const defaultStorageBucket = "the-edu-consultant-db.firebasestorage.app";
+            const defaultMessagingSenderId = "850972665682";
+            const defaultAppId = "1:850972665682:web:d2f72c0f971dd853f0bc8b";
+            const defaultSheetsUrl = "https://script.google.com/macros/s/AKfycbxgUoEMiYVQIPi-LE0rqW2Mho63s1JV6WbbPNnOsGwdgoDDP6VQAYf1ImfulmWRb1bn/exec";
 
             const pId = document.getElementById('fbProjectIdInput');
             const aKey = document.getElementById('fbApiKeyInput');
@@ -2229,16 +2239,22 @@
             const appId = document.getElementById('fbAppIdInput');
             const sheetsIn = document.getElementById('sheetsWebhookInput');
 
-            if (pId && cfg.projectId) pId.value = cfg.projectId;
-            if (aKey && cfg.apiKey) aKey.value = cfg.apiKey;
-            if (aDom && cfg.authDomain) aDom.value = cfg.authDomain;
-            if (sBuc && cfg.storageBucket) sBuc.value = cfg.storageBucket;
-            if (mId && cfg.messagingSenderId) mId.value = cfg.messagingSenderId;
-            if (appId && cfg.appId) appId.value = cfg.appId;
-            if (sheetsIn && sheetsUrl) sheetsIn.value = sheetsUrl;
+            if (pId) pId.value = (cfg && cfg.projectId) || pId.value || defaultProjectId;
+            if (aKey) aKey.value = (cfg && cfg.apiKey) || aKey.value || defaultApiKey;
+            if (aDom) aDom.value = (cfg && cfg.authDomain) || aDom.value || defaultAuthDomain;
+            if (sBuc) sBuc.value = (cfg && cfg.storageBucket) || sBuc.value || defaultStorageBucket;
+            if (mId) mId.value = (cfg && cfg.messagingSenderId) || mId.value || defaultMessagingSenderId;
+            if (appId) appId.value = (cfg && cfg.appId) || appId.value || defaultAppId;
+            if (sheetsIn) sheetsIn.value = (window.EduFirebase && window.EduFirebase.getSheetsWebhookUrl()) || defaultSheetsUrl;
 
-            if (window.EduFirebase && window.EduFirebase.updateUiBadges) {
-                window.EduFirebase.updateUiBadges();
+            // Auto-ensure connection on dashboard load
+            if (window.EduFirebase) {
+                if (!window.EduFirebase.isConnected()) {
+                    window.EduFirebase.init();
+                }
+                if (window.EduFirebase.updateUiBadges) {
+                    window.EduFirebase.updateUiBadges();
+                }
             }
 
             // Test & Save Firebase
@@ -2246,19 +2262,14 @@
             if (btnTestFb) {
                 btnTestFb.onclick = async () => {
                     const newCfg = {
-                        projectId: (pId ? pId.value : '').trim(),
-                        apiKey: (aKey ? aKey.value : '').trim(),
-                        authDomain: (aDom ? aDom.value : '').trim(),
-                        storageBucket: (sBuc ? sBuc.value : '').trim(),
-                        messagingSenderId: (mId ? mId.value : '').trim(),
-                        appId: (appId ? appId.value : '').trim(),
-                        sheetsWebhookUrl: (sheetsIn ? sheetsIn.value : '').trim()
+                        projectId: (pId && pId.value ? pId.value : defaultProjectId).trim(),
+                        apiKey: (aKey && aKey.value ? aKey.value : defaultApiKey).trim(),
+                        authDomain: (aDom && aDom.value ? aDom.value : defaultAuthDomain).trim(),
+                        storageBucket: (sBuc && sBuc.value ? sBuc.value : defaultStorageBucket).trim(),
+                        messagingSenderId: (mId && mId.value ? mId.value : defaultMessagingSenderId).trim(),
+                        appId: (appId && appId.value ? appId.value : defaultAppId).trim(),
+                        sheetsWebhookUrl: (sheetsIn && sheetsIn.value ? sheetsIn.value : defaultSheetsUrl).trim()
                     };
-
-                    if (!newCfg.projectId || !newCfg.apiKey) {
-                        alert('Please enter at least the Project ID and API Key.');
-                        return;
-                    }
 
                     const resBox = document.getElementById('fbTestResultBox');
                     if (resBox) {
@@ -2287,15 +2298,20 @@
             if (btnSync) {
                 btnSync.onclick = async () => {
                     if (!window.EduFirebase.isConnected()) {
-                        alert('Please connect Firebase Firestore first before syncing.');
-                        return;
+                        window.EduFirebase.init();
                     }
                     btnSync.disabled = true;
                     btnSync.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Pushing to Cloud...';
                     const res = await window.EduFirebase.syncLocalToCloud();
-                    alert(res.message);
                     btnSync.disabled = false;
                     btnSync.innerHTML = '<i class="fa-solid fa-cloud-arrow-up me-1"></i> Push All Local Users & Leads to Cloud';
+
+                    const resBox = document.getElementById('fbTestResultBox');
+                    if (resBox) {
+                        resBox.className = res.success ? 'mt-2 alert alert-success py-2 px-3 fs-12 mb-0' : 'mt-2 alert alert-danger py-2 px-3 fs-12 mb-0';
+                        resBox.innerHTML = (res.success ? '<i class="fa-solid fa-circle-check me-1"></i> ' : '<i class="fa-solid fa-circle-exclamation me-1"></i> ') + res.message;
+                        resBox.classList.remove('d-none');
+                    }
                 };
             }
 

@@ -23,14 +23,17 @@
 
         // Retrieve active configuration
         getConfig: function () {
+            const defaults = window.EDU_FIREBASE_CONFIG || {};
             try {
                 const stored = localStorage.getItem(STORAGE_KEY);
                 if (stored) {
                     const parsed = JSON.parse(stored);
-                    if (parsed && parsed.projectId) return parsed;
+                    if (parsed && parsed.projectId && parsed.apiKey && parsed.apiKey.length > 5) {
+                        return Object.assign({}, defaults, parsed);
+                    }
                 }
             } catch (e) {}
-            return window.EDU_FIREBASE_CONFIG || {};
+            return defaults;
         },
 
         // Save new configuration from Admin Dashboard
