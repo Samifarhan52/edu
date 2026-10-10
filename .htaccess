@@ -30,6 +30,9 @@ AddDefaultCharset UTF-8
     RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
     RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
+    # Quick Aliases: Redirect /admin or /admin/ directly to /admin-dashboard.html
+    RewriteRule ^admin/?$ admin-dashboard.html [NC,L,R=301]
+
     # Clean URLs: Allow accessing pages without .html extension (e.g., /blog-list -> blog-list.html)
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}\.html -f
