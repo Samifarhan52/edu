@@ -16,6 +16,7 @@
     const STORAGE_PAGES = 'the_edu_custom_pages';
     const STORAGE_NAV = 'the_edu_custom_nav';
     const STORAGE_SETTINGS = 'the_edu_site_settings';
+    const STORAGE_SITE_PAGES = 'the_edu_site_pages';
 
     // Seed Default Curated Articles
     const DEFAULT_BLOGS = [
@@ -305,6 +306,130 @@ Start internship networking during your second semester. Utilize university care
         copyrightNotice: '© 2026 The Edu Consultant. All rights reserved.'
     };
 
+    // Default Site Pages (Canva & WordPress Visual CMS)
+    const DEFAULT_SITE_PAGES = {
+        home: {
+            pageKey: 'home',
+            pageTitle: 'The Edu Consultant | Premier International Admissions & Scholarships',
+            badgeText: '👑 Premier Study Abroad Consultancy',
+            heroTitle: 'Your Global University Journey Starts Here',
+            heroSubtitle: 'Empowering ambitious minds to secure admits in top universities across the UK, USA, Canada, Australia, and Europe with full scholarship advisory.',
+            btnPrimaryText: 'Explore Universities',
+            btnPrimaryLink: 'universities-list.html',
+            btnSecondaryText: 'Book Free Counseling',
+            btnSecondaryLink: 'contact-us.html',
+            heroImage: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80',
+            stat1Num: '99.4%',
+            stat1Label: 'Visa Success',
+            stat2Num: '1,500+',
+            stat2Label: 'Partner Unis',
+            stat3Num: '£14M+',
+            stat3Label: 'Scholarships Secured',
+            featureTitle: 'Global Admissions Excellence',
+            featureBody: 'Direct university partnerships, expert UCAS counseling, and guaranteed documentation guidance.'
+        },
+        about: {
+            pageKey: 'about',
+            pageTitle: 'About Us | The Edu Consultant',
+            badgeText: 'About The Edu Consultant',
+            heroTitle: 'Shaping Global Futures Through Elite Education',
+            heroSubtitle: 'Led by Faraz Ahamed, our consultancy empowers students worldwide with ethical counseling, Ivy League admissions strategies, and life-changing scholarships.',
+            btnPrimaryText: 'Meet Our Mentors',
+            btnPrimaryLink: 'contact-us.html',
+            btnSecondaryText: 'View Universities',
+            btnSecondaryLink: 'universities-list.html',
+            heroImage: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80',
+            stat1Num: '12+ Yrs',
+            stat1Label: 'Advisory Legacy',
+            stat2Num: '45+',
+            stat2Label: 'Countries Covered',
+            stat3Num: '10k+',
+            stat3Label: 'Scholars Guided',
+            featureTitle: 'Our Vision & Ethics',
+            featureBody: 'Zero compromise on student potential. Personalized end-to-end guidance from profile diagnostics to student visa clearance.'
+        },
+        universities: {
+            pageKey: 'universities',
+            pageTitle: 'Top Universities Directory | The Edu Consultant',
+            badgeText: 'Direct University Representation',
+            heroTitle: 'Browse 1,500+ Top Global Universities',
+            heroSubtitle: 'Filter institutions across UK Russell Group, US Ivy League & Tier-1, Australian Group of Eight, and German Tech Universities.',
+            btnPrimaryText: 'Filter by Country',
+            btnPrimaryLink: '#countryFilters',
+            btnSecondaryText: 'Talk to Advisor',
+            btnSecondaryLink: 'contact-us.html',
+            heroImage: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80',
+            stat1Num: '1,500+',
+            stat1Label: 'Partner Universities',
+            stat2Num: '100%',
+            stat2Label: 'Accredited Programs',
+            stat3Num: 'Free',
+            stat3Label: 'Application Filing',
+            featureTitle: 'Direct Admission Pathways',
+            featureBody: 'Fast-track offer letters, priority CAS/I-20 issuance, and application fee waivers.'
+        },
+        scholarships: {
+            pageKey: 'scholarships',
+            pageTitle: 'International Scholarships & Grants | The Edu Consultant',
+            badgeText: '£14M+ In Grants Awarded',
+            heroTitle: 'Secure Merit & Need-Based Tuition Waivers',
+            heroSubtitle: 'Comprehensive directory of Chevening, GREAT, Fulbright, Commonwealth, and University Chancellor merit scholarships.',
+            btnPrimaryText: 'Browse Scholarships',
+            btnPrimaryLink: '#scholarshipGrid',
+            btnSecondaryText: 'Evaluate Eligibility',
+            btnSecondaryLink: 'contact-us.html',
+            heroImage: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80',
+            stat1Num: '£14M+',
+            stat1Label: 'Total Awarded',
+            stat2Num: '48+',
+            stat2Label: 'Active Grants',
+            stat3Num: '100%',
+            stat3Label: 'Tuition Waivers',
+            featureTitle: 'Scholarship Dossier Strategy',
+            featureBody: 'Professional SOP crafting, financial affidavit assistance, and mentor letter formatting.'
+        },
+        contact: {
+            pageKey: 'contact',
+            pageTitle: 'Contact & 1-on-1 Advisory | The Edu Consultant',
+            badgeText: 'Admissions Hotline +91 9845371459',
+            heroTitle: 'Book Your 1-on-1 Consultation Session',
+            heroSubtitle: 'Get in touch with Senior Academic Advisors. Schedule a virtual video meeting or visit our advisory lounge.',
+            btnPrimaryText: 'Schedule Virtual Session',
+            btnPrimaryLink: '#bookingForm',
+            btnSecondaryText: 'WhatsApp Chat',
+            btnSecondaryLink: 'https://wa.me/919845371459',
+            heroImage: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80',
+            stat1Num: '15 Mins',
+            stat1Label: 'Response Time',
+            stat2Num: '1-on-1',
+            stat2Label: 'Dedicated Mentors',
+            stat3Num: '24/7',
+            stat3Label: 'WhatsApp Support',
+            featureTitle: 'Direct Counselor Access',
+            featureBody: 'Virtual sessions conducted via secure video calls or in-person advisory lounges.'
+        },
+        destinations: {
+            pageKey: 'destinations',
+            pageTitle: 'Study Destinations Worldwide | The Edu Consultant',
+            badgeText: 'Global Study Destinations',
+            heroTitle: 'Explore Top Study Destinations in 2026',
+            heroSubtitle: 'Discover post-study work visas, tuition fees, and living costs across the United Kingdom, USA, Canada, Australia, and Germany.',
+            btnPrimaryText: 'Compare Countries',
+            btnPrimaryLink: '#destinationsGrid',
+            btnSecondaryText: 'Get Counseling',
+            btnSecondaryLink: 'contact-us.html',
+            heroImage: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80',
+            stat1Num: '2-3 Yrs',
+            stat1Label: 'Post-Study Work',
+            stat2Num: '6',
+            stat2Label: 'Top Global Hubs',
+            stat3Num: '99%',
+            stat3Label: 'Visa Approvals',
+            featureTitle: 'Immigration & Career Alignment',
+            featureBody: 'Full compliance with Tier-4/Student Route visas, F-1 visa interviews, and PR pathways.'
+        }
+    };
+
     // CMS Engine Object
     const EduCMS = {
         // --- STORAGE RETRIEVAL & PERSISTENCE ---
@@ -587,6 +712,237 @@ Start internship networking during your second semester. Utilize university care
             let custom = this.getCustomPages();
             custom = custom.filter(p => p.id !== pageId);
             this.saveCustomPages(custom);
+        },
+
+        // --- CANVA & WORDPRESS VISUAL SITE PAGES CMS ---
+        getSitePages: function () {
+            try {
+                const data = localStorage.getItem(STORAGE_SITE_PAGES);
+                const local = data ? JSON.parse(data) : {};
+                return Object.assign({}, DEFAULT_SITE_PAGES, local);
+            } catch (e) {
+                return Object.assign({}, DEFAULT_SITE_PAGES);
+            }
+        },
+
+        getSitePage: function (pageKey) {
+            const pages = this.getSitePages();
+            return pages[pageKey] || DEFAULT_SITE_PAGES[pageKey] || DEFAULT_SITE_PAGES['home'];
+        },
+
+        saveSitePage: function (pageKey, pageData) {
+            try {
+                const pages = this.getSitePages();
+                pages[pageKey] = Object.assign({}, pages[pageKey] || {}, pageData, {
+                    pageKey: pageKey,
+                    updatedAt: new Date().toISOString()
+                });
+                localStorage.setItem(STORAGE_SITE_PAGES, JSON.stringify(pages));
+
+                // Save to Cloud Firestore permanently
+                if (window.EduFirebase && typeof window.EduFirebase.saveSiteContent === 'function') {
+                    window.EduFirebase.saveSiteContent(pageKey, pages[pageKey]).catch(() => {});
+                }
+                return pages[pageKey];
+            } catch (e) {
+                console.warn('[EduCMS] Error saving site page:', e);
+                return null;
+            }
+        },
+
+        switchVisualPage: function (pageKey) {
+            const validKey = DEFAULT_SITE_PAGES[pageKey] ? pageKey : 'home';
+            document.querySelectorAll('.visual-page-pick-btn').forEach(btn => {
+                if (btn.getAttribute('data-page') === validKey) {
+                    btn.classList.remove('btn-outline-secondary');
+                    btn.classList.add('btn-primary', 'active');
+                } else {
+                    btn.classList.remove('btn-primary', 'active');
+                    btn.classList.add('btn-outline-secondary');
+                }
+            });
+
+            const pageData = this.getSitePage(validKey);
+            const currKeyInput = document.getElementById('veCurrentPageKey');
+            if (currKeyInput) currKeyInput.value = validKey;
+
+            const pageLabels = {
+                home: 'Home (index.html)',
+                about: 'About Us (about-us.html)',
+                universities: 'Universities (universities-list.html)',
+                scholarships: 'Scholarships (scholarship-list.html)',
+                contact: 'Contact Us (contact-us.html)',
+                destinations: 'Study Destinations'
+            };
+            const labelEl = document.getElementById('veCurrentPageLabel');
+            if (labelEl) labelEl.textContent = pageLabels[validKey] || validKey;
+
+            const urlMap = {
+                home: 'https://theeduconsultant.com/index.html',
+                about: 'https://theeduconsultant.com/about-us.html',
+                universities: 'https://theeduconsultant.com/universities-list.html',
+                scholarships: 'https://theeduconsultant.com/scholarship-list.html',
+                contact: 'https://theeduconsultant.com/contact-us.html',
+                destinations: 'https://theeduconsultant.com/study-destinations.html'
+            };
+            const browserUrlEl = document.getElementById('vePreviewBrowserUrl');
+            if (browserUrlEl) browserUrlEl.textContent = urlMap[validKey] || 'https://theeduconsultant.com';
+
+            const liveLinkEl = document.getElementById('veLiveWebpageLink');
+            if (liveLinkEl) {
+                const pageHref = validKey === 'home' ? 'index.html' : `${validKey}.html`;
+                liveLinkEl.href = pageHref;
+            }
+
+            // Fill Form inputs
+            const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+            setVal('vePageTitle', pageData.pageTitle);
+            setVal('veBadgeText', pageData.badgeText);
+            setVal('veHeroTitle', pageData.heroTitle);
+            setVal('veHeroSubtitle', pageData.heroSubtitle);
+            setVal('veBtnPrimaryText', pageData.btnPrimaryText);
+            setVal('veBtnPrimaryLink', pageData.btnPrimaryLink);
+            setVal('veBtnSecondaryText', pageData.btnSecondaryText);
+            setVal('veBtnSecondaryLink', pageData.btnSecondaryLink);
+            setVal('veHeroImage', pageData.heroImage);
+            setVal('veStat1Num', pageData.stat1Num);
+            setVal('veStat1Label', pageData.stat1Label);
+            setVal('veStat2Num', pageData.stat2Num);
+            setVal('veStat2Label', pageData.stat2Label);
+            setVal('veStat3Num', pageData.stat3Num);
+            setVal('veStat3Label', pageData.stat3Label);
+            setVal('veFeatureTitle', pageData.featureTitle);
+            setVal('veFeatureBody', pageData.featureBody);
+
+            this.updateVisualPreview();
+        },
+
+        updateVisualPreview: function () {
+            const getVal = (id, fallback = '') => { const el = document.getElementById(id); return el ? el.value : fallback; };
+
+            const badgeText = getVal('veBadgeText', 'Premier Study Abroad Consultancy');
+            const heroTitle = getVal('veHeroTitle', 'Your Global University Journey Starts Here');
+            const heroSubtitle = getVal('veHeroSubtitle', 'Empowering ambitious minds to secure admits in top universities.');
+            const btn1Text = getVal('veBtnPrimaryText', 'Explore Universities');
+            const btn2Text = getVal('veBtnSecondaryText', 'Book Counseling');
+            const heroImage = getVal('veHeroImage', 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80');
+            const stat1Num = getVal('veStat1Num', '99.4%');
+            const stat1Label = getVal('veStat1Label', 'Visa Success');
+            const stat2Num = getVal('veStat2Num', '1,500+');
+            const stat2Label = getVal('veStat2Label', 'Partner Unis');
+            const stat3Num = getVal('veStat3Num', '£14M+');
+            const stat3Label = getVal('veStat3Label', 'Scholarships');
+            const featureTitle = getVal('veFeatureTitle', 'Premier Admission Network');
+            const featureBody = getVal('veFeatureBody', 'Direct UCAS center representation with guaranteed response times.');
+
+            const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+            setText('vePrevBadge', badgeText);
+            setText('vePrevHeroTitle', heroTitle);
+            setText('vePrevHeroSubtitle', heroSubtitle);
+            setText('vePrevBtnPrimary', btn1Text);
+            setText('vePrevBtnSecondary', btn2Text);
+            setText('vePrevStat1Num', stat1Num);
+            setText('vePrevStat1Label', stat1Label);
+            setText('vePrevStat2Num', stat2Num);
+            setText('vePrevStat2Label', stat2Label);
+            setText('vePrevStat3Num', stat3Num);
+            setText('vePrevStat3Label', stat3Label);
+            setText('vePrevFeatureTitle', featureTitle);
+            setText('vePrevFeatureBody', featureBody);
+
+            const canvasBanner = document.getElementById('veCanvasHeroBanner');
+            if (canvasBanner) {
+                canvasBanner.style.backgroundImage = `url('${heroImage}')`;
+            }
+        },
+
+        saveVisualPageForm: function (e) {
+            if (e) e.preventDefault();
+            const getVal = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+            const pageKey = getVal('veCurrentPageKey') || 'home';
+
+            const pageData = {
+                pageTitle: getVal('vePageTitle'),
+                badgeText: getVal('veBadgeText'),
+                heroTitle: getVal('veHeroTitle'),
+                heroSubtitle: getVal('veHeroSubtitle'),
+                btnPrimaryText: getVal('veBtnPrimaryText'),
+                btnPrimaryLink: getVal('veBtnPrimaryLink'),
+                btnSecondaryText: getVal('veBtnSecondaryText'),
+                btnSecondaryLink: getVal('veBtnSecondaryLink'),
+                heroImage: getVal('veHeroImage'),
+                stat1Num: getVal('veStat1Num'),
+                stat1Label: getVal('veStat1Label'),
+                stat2Num: getVal('veStat2Num'),
+                stat2Label: getVal('veStat2Label'),
+                stat3Num: getVal('veStat3Num'),
+                stat3Label: getVal('veStat3Label'),
+                featureTitle: getVal('veFeatureTitle'),
+                featureBody: getVal('veFeatureBody')
+            };
+
+            this.saveSitePage(pageKey, pageData);
+            this.showToast('Page Published Live!', `Modifications for "${pageKey}" saved permanently to Firestore & Website.`);
+            this.updateVisualPreview();
+        },
+
+        setVeHeroImage: function (url) {
+            const input = document.getElementById('veHeroImage');
+            if (input) {
+                input.value = url;
+                this.updateVisualPreview();
+            }
+        },
+
+        resetVisualPageForm: function () {
+            const currKey = (document.getElementById('veCurrentPageKey') || {}).value || 'home';
+            const defaultData = DEFAULT_SITE_PAGES[currKey] || DEFAULT_SITE_PAGES['home'];
+            this.saveSitePage(currKey, defaultData);
+            this.switchVisualPage(currKey);
+            this.showToast('Content Reset', `Reset "${currKey}" to default layout.`);
+        },
+
+        applySiteContent: function () {
+            try {
+                const path = window.location.pathname.toLowerCase();
+                let pageKey = 'home';
+                if (path.includes('about')) pageKey = 'about';
+                else if (path.includes('universit')) pageKey = 'universities';
+                else if (path.includes('scholarship')) pageKey = 'scholarships';
+                else if (path.includes('contact')) pageKey = 'contact';
+                else if (path.includes('destination')) pageKey = 'destinations';
+
+                const pageData = this.getSitePage(pageKey);
+                if (!pageData) return;
+
+                if (pageData.pageTitle && !document.title.includes('Admin') && !document.title.includes('Scholar Portal')) {
+                    document.title = pageData.pageTitle;
+                }
+
+                const heroHeadlineEl = document.querySelector('.hero-headline, .hero-title, [data-cms="hero-title"]');
+                if (heroHeadlineEl && pageData.heroTitle) {
+                    heroHeadlineEl.textContent = pageData.heroTitle;
+                }
+
+                const heroSubtitleEl = document.querySelector('.hero-subtitle, [data-cms="hero-subtitle"]');
+                if (heroSubtitleEl && pageData.heroSubtitle) {
+                    heroSubtitleEl.textContent = pageData.heroSubtitle;
+                }
+
+                const heroBadgeEl = document.querySelector('.hero-badge, [data-cms="hero-badge"]');
+                if (heroBadgeEl && pageData.badgeText) {
+                    heroBadgeEl.textContent = pageData.badgeText;
+                }
+
+                if (pageData.heroImage) {
+                    const heroBannerEl = document.querySelector('.hero-section, .banner-section, [data-cms="hero-bg"]');
+                    if (heroBannerEl) {
+                        heroBannerEl.style.backgroundImage = `url('${pageData.heroImage}')`;
+                    }
+                }
+            } catch (err) {
+                console.warn('[EduCMS] Error applying site content:', err);
+            }
         },
 
         // --- DYNAMIC NAVBAR & DROPDOWNS CMS ---
@@ -1343,6 +1699,23 @@ Start internship networking during your second semester. Utilize university care
             // 4. Render Admin Student & Scholar Accounts Hub Table
             this.renderAdminUsersTable();
             this.updateAdminDashboardCounters();
+
+            // 4b. Initialize Canva / WordPress Visual Page Editor
+            this.switchVisualPage('home');
+            if (window.EduFirebase && typeof window.EduFirebase.fetchAllSitePages === 'function') {
+                window.EduFirebase.fetchAllSitePages().then(cloudPages => {
+                    if (cloudPages && Object.keys(cloudPages).length > 0) {
+                        try {
+                            const raw = localStorage.getItem(STORAGE_SITE_PAGES);
+                            const local = raw ? JSON.parse(raw) : {};
+                            const merged = Object.assign({}, DEFAULT_SITE_PAGES, local, cloudPages);
+                            localStorage.setItem(STORAGE_SITE_PAGES, JSON.stringify(merged));
+                            const currKey = (document.getElementById('veCurrentPageKey') || {}).value || 'home';
+                            this.switchVisualPage(currKey);
+                        } catch (e) {}
+                    }
+                }).catch(() => {});
+            }
 
             // 5. Bind "Create New Blog" Form
             const blogForm = document.getElementById('adminNewBlogForm');
@@ -2278,18 +2651,30 @@ Start internship networking during your second semester. Utilize university care
             container.innerHTML = docs.map(doc => {
                 const uploadedDate = doc.uploadedAt ? new Date(doc.uploadedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'On file';
                 
+                const fileDownloadBtn = doc.fileData 
+                    ? `<a href="${doc.fileData}" download="${doc.fileName || doc.title || 'Document'}" target="_blank" class="btn btn-sm btn-outline-success rounded-pill px-2.5 py-1 fs-11 fw-bold"><i class="fa-solid fa-download me-1"></i> View / Download Document</a>` 
+                    : `<span class="badge bg-light text-muted border fs-11">Encrypted on File</span>`;
+
+                let statusBadgeClass = 'bg-secondary';
+                if (doc.status === 'Verified') statusBadgeClass = 'bg-success';
+                else if (doc.status === 'Needs Re-upload') statusBadgeClass = 'bg-danger';
+                else if (doc.status === 'Under Review') statusBadgeClass = 'bg-warning text-dark';
+
                 return `
                     <div class="card border rounded-3 p-3 mb-3 shadow-xs bg-white">
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2 pb-2 border-bottom">
                             <div>
                                 <h6 class="fw-bold text-dark mb-0">${doc.title}</h6>
-                                <span class="fs-12 text-muted">Category: ${doc.type || 'Document'} • Uploaded: ${uploadedDate}</span>
+                                <span class="fs-12 text-muted">Category: ${doc.type || 'Document'} • Uploaded: ${uploadedDate} ${doc.fileSize ? `(${doc.fileSize})` : ''}</span>
                             </div>
-                            <span class="badge bg-light text-muted font-monospace fs-11">Doc ID: ${doc.id}</span>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge ${statusBadgeClass} fs-11 fw-bold">${doc.status || 'Pending'}</span>
+                                ${fileDownloadBtn}
+                            </div>
                         </div>
                         <div class="row align-items-center g-2 mb-2">
                             <div class="col-md-5">
-                                <input type="text" class="form-control form-control-sm fs-12 py-1" id="docDetailInput_${doc.id}" value="${doc.detail || doc.fileName || ''}" placeholder="Counselor verification notes">
+                                <input type="text" class="form-control form-control-sm fs-12 py-1" id="docDetailInput_${doc.id}" value="${doc.detail || doc.fileName || ''}" placeholder="Counselor notes / verification remark">
                             </div>
                             <div class="col-md-4">
                                 <select class="form-select form-select-sm fs-12 py-1" id="docStatusSelect_${doc.id}">
@@ -2308,9 +2693,26 @@ Start internship networking during your second semester. Utilize university care
                                 </button>
                             </div>
                         </div>
+                        <div class="d-flex align-items-center gap-1 mt-1">
+                            <span class="fs-11 text-muted me-1">Quick Action:</span>
+                            <button type="button" class="btn btn-xs btn-outline-success rounded-pill py-0 px-2 fs-11" onclick="window.EduCMS.quickVerifyDoc('${user.email}', '${doc.id}', 'Verified')">✓ Mark Verified</button>
+                            <button type="button" class="btn btn-xs btn-outline-warning rounded-pill py-0 px-2 fs-11 text-dark" onclick="window.EduCMS.quickVerifyDoc('${user.email}', '${doc.id}', 'Under Review')">🟡 Under Review</button>
+                            <button type="button" class="btn btn-xs btn-outline-danger rounded-pill py-0 px-2 fs-11" onclick="window.EduCMS.quickVerifyDoc('${user.email}', '${doc.id}', 'Needs Re-upload')">❌ Needs Re-upload</button>
+                        </div>
                     </div>
                 `;
             }).join('');
+        },
+
+        quickVerifyDoc: function (email, docId, newStatus) {
+            if (!email || !docId) return;
+            window.edAuth.updateUserDocument(email, docId, { status: newStatus });
+            if (window.EduFirebase && typeof window.EduFirebase.updateStudentDocumentStatus === 'function') {
+                window.EduFirebase.updateStudentDocumentStatus(email, docId, newStatus, '').catch(() => {});
+            }
+            this.showToast('Document Verification Updated', `Status marked as "${newStatus}".`);
+            const updatedUser = window.edAuth.getUserByEmail(email);
+            this.renderManageUserDocs(updatedUser);
         },
 
         updateDocStatusFromAdmin: function (email, docId) {
@@ -2322,6 +2724,9 @@ Start internship networking during your second semester. Utilize university care
             const newDetail = detailEl ? detailEl.value.trim() : '';
 
             window.edAuth.updateUserDocument(email, docId, { status: newStatus, detail: newDetail });
+            if (window.EduFirebase && typeof window.EduFirebase.updateStudentDocumentStatus === 'function') {
+                window.EduFirebase.updateStudentDocumentStatus(email, docId, newStatus, newDetail).catch(() => {});
+            }
             this.showToast('Document Status Updated', `Document marked as "${newStatus}".`);
 
             const updatedUser = window.edAuth.getUserByEmail(email);
@@ -2651,6 +3056,9 @@ Start internship networking during your second semester. Utilize university care
 
         // 4. Apply Global Site Settings across all pages
         EduCMS.applyGlobalSettings();
+
+        // 4b. Apply Custom Site Pages Content across public pages
+        EduCMS.applySiteContent();
 
         // 5. Auto-detect page type
         const path = window.location.pathname.toLowerCase();

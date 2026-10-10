@@ -282,6 +282,12 @@
         if (!user.mentor) user.mentor = 'Dr. Eleanor Vance';
         if (!user.phone) user.phone = '';
         if (!user.destination) user.destination = 'Global';
+        if (!user.avatar) user.avatar = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80';
+        if (!user.qualification) user.qualification = "Bachelor's Degree";
+        if (!user.gpa) user.gpa = '';
+        if (!user.program) user.program = "Postgraduate Master's Degree";
+        if (!user.intake) user.intake = 'Fall 2026';
+        if (!user.budget) user.budget = 'Standard (£15,000 - £25,000/yr)';
         if (!user.registeredAt) user.registeredAt = new Date().toISOString();
         if (typeof user.counseling === 'undefined') user.counseling = null;
         return user;
@@ -719,9 +725,17 @@
             if (!email) return false;
             const cleanEmail = email.trim().toLowerCase();
             const db = getDB();
-            if (!db[cleanEmail]) return false;
+            let user = db[cleanEmail];
+            if (!user) {
+                const current = this.getUser();
+                if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                    user = current;
+                    db[cleanEmail] = user;
+                }
+            }
+            if (!user) return false;
 
-            db[cleanEmail] = Object.assign({}, db[cleanEmail], updates);
+            db[cleanEmail] = Object.assign({}, user, updates);
             saveDB(db);
             syncUserToCloud(db[cleanEmail]);
 
@@ -822,7 +836,14 @@
             if (!email) return null;
             const cleanEmail = email.trim().toLowerCase();
             const db = getDB();
-            const user = db[cleanEmail];
+            let user = db[cleanEmail];
+            if (!user) {
+                const current = this.getUser();
+                if (current && current.email && current.email.toLowerCase() === cleanEmail) {
+                    user = current;
+                    db[cleanEmail] = user;
+                }
+            }
             if (!user) return null;
 
             if (!Array.isArray(user.documents)) user.documents = [];
@@ -835,6 +856,7 @@
                 detail: docData.detail || (docData.status === 'Verified' ? 'Verified by Admissions' : 'Under Counselor Review'),
                 fileName: docData.fileName || '',
                 fileSize: docData.fileSize || '',
+                fileData: docData.fileData || '',
                 notes: docData.notes || '',
                 uploadedAt: new Date().toISOString()
             };

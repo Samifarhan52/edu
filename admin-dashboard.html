@@ -1200,163 +1200,412 @@
             <!-- ============================================================== -->
             <!-- PANEL: PAGE BUILDER STUDIO                                     -->
             <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- PANEL: PAGE BUILDER & CANVA / WORDPRESS VISUAL EDITOR          -->
+            <!-- ============================================================== -->
             <section id="panel-pages" class="admin-view-panel">
-                <div class="row g-4">
-                    <!-- Left: Page Creation Form -->
-                    <div class="col-xl-7">
-                        <div class="card border rounded-4 shadow-sm p-4 bg-white mb-4">
-                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                <div>
-                                    <h4 class="fw-bold text-dark mb-1"><i class="fa-solid fa-file-circle-plus text-primary me-2"></i>Page Builder Studio</h4>
-                                    <p class="text-muted fs-13 mb-0">Create new standalone pages with custom URLs that automatically render live on your website.</p>
-                                </div>
-                                <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill">Owner Exclusive</span>
-                            </div>
-
-                            <form id="adminNewPageForm">
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold text-dark fs-14">Page Title <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="pageTitleInput" placeholder="e.g., Complete Student Visa & Financial Proof Guide 2026" required/>
-                                </div>
-
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-7">
-                                        <label class="form-label fw-bold text-dark fs-14">URL Slug (Address) <span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-light text-muted fs-13">page.html?slug=</span>
-                                            <input type="text" class="form-control rounded-end-3 py-2 px-3 fs-14 font-monospace" id="pageSlugInput" placeholder="visa-guide" required/>
-                                        </div>
-                                        <span class="text-muted fs-11 mt-1 d-block">This slug defines the public URL for students and search engines.</span>
-                                    </div>
-                                    <div class="col-md-5 d-flex align-items-end">
-                                        <button type="button" class="btn btn-outline-secondary w-100 py-2 rounded-3 fs-13 fw-semibold" id="autoGenerateSlugBtn">
-                                            <i class="fa-solid fa-wand-magic-sparkles me-1 text-warning"></i> Auto-Generate Slug
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label fw-bold text-dark fs-14">Category / Theme</label>
-                                        <select class="form-select rounded-3 py-2 px-3 fs-14" id="pageCategoryInput">
-                                            <option value="Visa & Immigration">Visa & Immigration</option>
-                                            <option value="Scholarships & Funding">Scholarships & Funding</option>
-                                            <option value="Admissions Guidance">Admissions Guidance</option>
-                                            <option value="Campus Life & Culture">Campus Life & Culture</option>
-                                            <option value="Test Preparation (IELTS/GRE)">Test Preparation (IELTS/GRE)</option>
-                                            <option value="Career & Post-Study Work">Career & Post-Study Work</option>
-                                            <option value="Institutional Partnerships">Institutional Partnerships</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label fw-bold text-dark fs-14">Publication Status</label>
-                                        <select class="form-select rounded-3 py-2 px-3 fs-14" id="pageStatusInput">
-                                            <option value="published">Published (Live Online)</option>
-                                            <option value="draft">Draft (Private)</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold text-dark fs-14">Hero Headline (Banner Title)</label>
-                                    <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="pageHeroTitleInput" placeholder="e.g., Master Your Embassy Interview & Financial Proof"/>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold text-dark fs-14">Hero Subtitle / Synopsis</label>
-                                    <textarea class="form-control rounded-3 py-2 px-3 fs-14" id="pageHeroSubtitleInput" rows="2" placeholder="Brief summary displayed prominently at the top of the custom page..."></textarea>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold text-dark fs-14">Cover Image URL</label>
-                                    <input type="url" class="form-control rounded-3 py-2 px-3 fs-14" id="pageCoverImageInput" placeholder="https://images.unsplash.com/photo-..." value="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80"/>
-                                    <div class="d-flex align-items-center gap-1 mt-2 flex-wrap">
-                                        <span class="fs-12 text-muted me-1">Quick Presets:</span>
-                                        <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80">Visa & Docs</button>
-                                        <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80">Scholarships</button>
-                                        <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80">Global Careers</button>
-                                        <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80">University Campus</button>
-                                    </div>
-                                </div>
-
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label fw-bold text-dark fs-14">Author Name</label>
-                                        <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="pageAuthorInput" value="The Edu Consultant Editorial"/>
-                                    </div>
-                                </div>
-
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold text-dark fs-14">Page Body Content (Markdown or HTML) <span class="text-danger">*</span></label>
-                                    <textarea class="form-control rounded-3 p-3 fs-14 font-monospace" id="pageContentInput" rows="9" placeholder="Write paragraphs, ### Subheadings, - Bullet point lists, or HTML tags..." required></textarea>
-                                    <span class="text-muted fs-12 mt-1 d-block">Supports standard markdown formatting (### Headings, - Bullet points, 1. Numbered steps) and HTML.</span>
-                                </div>
-
-                                <button type="submit" class="btn btn-warning w-100 py-3 rounded-pill fw-bold text-dark shadow-sm fs-15" style="background-color: var(--button); border: none;">
-                                    <i class="fa-solid fa-cloud-arrow-up me-2"></i> Publish Page to Live Website
-                                </button>
-                            </form>
-                        </div>
+                <!-- Studio Navigation Tabs -->
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h4 class="fw-bold text-dark mb-1">
+                            <i class="fa-solid fa-wand-magic-sparkles text-warning me-2"></i>Page Builder & Visual Studio
+                        </h4>
+                        <p class="text-muted fs-13 mb-0">Edit any website page with Canva & WordPress-style real-time live preview, or generate new standalone landing pages.</p>
                     </div>
-
-                    <!-- Right: Live Page Preview Card -->
-                    <div class="col-xl-5">
-                        <div class="card border rounded-4 shadow-sm p-4 bg-white sticky-top" style="top: 24px;">
-                            <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
-                                <span class="fs-12 text-uppercase fw-bold text-muted"><i class="fa-solid fa-eye me-1 text-primary"></i> Live Rendering Preview</span>
-                                <span class="badge bg-success-subtle text-success fw-bold font-monospace fs-11" id="livePreviewPageSlug">page.html?slug=visa-guide</span>
-                            </div>
-
-                            <div class="border rounded-3 overflow-hidden shadow-xs">
-                                <div style="height: 160px; background: #e2e8f0; position: relative;">
-                                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" id="livePreviewPageImage" class="w-100 h-100 object-fit-cover" alt="Cover Preview" loading="lazy" decoding="async">
-                                    <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2 fw-bold" id="livePreviewPageCategory">Visa Guidance</span>
-                                </div>
-                                <div class="p-3 bg-white">
-                                    <h5 class="fw-bold text-dark mb-1" id="livePreviewPageTitle">Your Webpage Title</h5>
-                                    <h6 class="fs-13 text-primary fw-semibold mb-2" id="livePreviewPageHero">Page Hero Headline</h6>
-                                    <p class="fs-12 text-muted mb-3" id="livePreviewPageContent">Your comprehensive page content, guidance paragraphs, and advisory roadmap will appear here...</p>
-                                    <div class="pt-2 border-top d-flex justify-content-between align-items-center">
-                                        <span class="fs-11 text-muted">Author: The Edu Consultant</span>
-                                        <span class="badge bg-primary text-white fs-11">Verified Live Template</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="alert alert-info border-0 rounded-3 mt-4 mb-0 fs-13 d-flex align-items-start gap-2">
-                                <i class="fa-solid fa-circle-info fs-5 mt-1 text-primary"></i>
-                                <div>
-                                    <b>Linking your new page:</b> Once published, go to the <b>Navbar & Menus</b> panel to add it as a menu item in your website's header dropdown!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <ul class="nav nav-pills p-1 bg-light rounded-pill border" id="pageStudioTabNav" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active rounded-pill px-3 py-2 fw-bold fs-13" id="tab-visual-editor-btn" data-bs-toggle="pill" data-bs-target="#tab-visual-editor-pane" type="button" role="tab">
+                                <i class="fa-solid fa-paintbrush me-1 text-warning"></i> Visual Page Editor (Canva Mode)
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded-pill px-3 py-2 fw-bold fs-13" id="tab-custom-pages-btn" data-bs-toggle="pill" data-bs-target="#tab-custom-pages-pane" type="button" role="tab">
+                                <i class="fa-solid fa-file-circle-plus me-1 text-primary"></i> Standalone URLs (Slug Builder)
+                            </button>
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- Published Custom Pages Table -->
-                <div class="card border rounded-4 shadow-sm p-4 bg-white mt-4">
-                    <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
-                        <div>
-                            <h5 class="fw-bold text-dark mb-1"><i class="fa-solid fa-table-list text-primary me-2"></i>All Published Webpages</h5>
-                            <span class="text-muted fs-13">Manage existing pages, view live links, or remove pages.</span>
+                <div class="tab-content" id="pageStudioTabContent">
+                    <!-- SUB-TAB 1: CANVA & WORDPRESS STYLE VISUAL EDITOR -->
+                    <div class="tab-pane fade show active" id="tab-visual-editor-pane" role="tabpanel">
+                        <!-- Quick Page Switcher Buttons -->
+                        <div class="card border rounded-4 shadow-sm p-3 bg-white mb-4">
+                            <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
+                                <span class="fs-12 text-uppercase fw-bold text-muted"><i class="fa-solid fa-sliders me-1 text-primary"></i> Select Page to Edit:</span>
+                                <span class="badge bg-success-subtle text-success fs-11 fw-bold"><i class="fa-solid fa-bolt me-1"></i> Changes publish live to website</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 overflow-auto pb-1 flex-wrap" id="visualPageSelectorBar">
+                                <button type="button" class="btn btn-primary btn-sm rounded-pill px-3 py-2 fs-12 fw-bold visual-page-pick-btn active" data-page="home" onclick="window.EduCMS.switchVisualPage('home')">
+                                    <i class="fa-solid fa-house me-1"></i> Home (index.html)
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-2 fs-12 fw-bold visual-page-pick-btn" data-page="about" onclick="window.EduCMS.switchVisualPage('about')">
+                                    <i class="fa-solid fa-circle-info me-1"></i> About Us (about-us.html)
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-2 fs-12 fw-bold visual-page-pick-btn" data-page="universities" onclick="window.EduCMS.switchVisualPage('universities')">
+                                    <i class="fa-solid fa-building-columns me-1"></i> Universities (universities-list.html)
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-2 fs-12 fw-bold visual-page-pick-btn" data-page="scholarships" onclick="window.EduCMS.switchVisualPage('scholarships')">
+                                    <i class="fa-solid fa-award me-1"></i> Scholarships (scholarship-list.html)
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-2 fs-12 fw-bold visual-page-pick-btn" data-page="contact" onclick="window.EduCMS.switchVisualPage('contact')">
+                                    <i class="fa-solid fa-headset me-1"></i> Contact Us (contact-us.html)
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-2 fs-12 fw-bold visual-page-pick-btn" data-page="destinations" onclick="window.EduCMS.switchVisualPage('destinations')">
+                                    <i class="fa-solid fa-globe me-1"></i> Study Destinations
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Visual Editor Split Layout -->
+                        <div class="row g-4">
+                            <!-- Left: Visual Controls Form -->
+                            <div class="col-xl-7">
+                                <div class="card border rounded-4 shadow-sm p-4 bg-white mb-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+                                        <h5 class="fw-bold text-dark mb-0">
+                                            <i class="fa-solid fa-pen-ruler text-primary me-2"></i>Edit Content: <span id="veCurrentPageLabel" class="text-primary">Home (index.html)</span>
+                                        </h5>
+                                        <span class="badge bg-warning text-dark fw-bold px-2.5 py-1 rounded-pill fs-11">Live Cloud Sync</span>
+                                    </div>
+
+                                    <form id="visualEditorForm" onsubmit="window.EduCMS.saveVisualPageForm(event)">
+                                        <input type="hidden" id="veCurrentPageKey" value="home">
+
+                                        <!-- 1. Header & Badge -->
+                                        <div class="row g-3 mb-3">
+                                            <div class="col-md-7">
+                                                <label class="form-label fw-bold text-dark fs-13">Page Meta Title</label>
+                                                <input type="text" class="form-control rounded-3 py-2 px-3 fs-13" id="vePageTitle" oninput="window.EduCMS.updateVisualPreview()" required>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label class="form-label fw-bold text-dark fs-13">Hero Badge Pill</label>
+                                                <input type="text" class="form-control rounded-3 py-2 px-3 fs-13" id="veBadgeText" oninput="window.EduCMS.updateVisualPreview()">
+                                            </div>
+                                        </div>
+
+                                        <!-- 2. Hero Headline & Subtitle -->
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark fs-13">Hero Main Headline <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-14 fw-bold" id="veHeroTitle" oninput="window.EduCMS.updateVisualPreview()" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark fs-13">Hero Subtitle / Description</label>
+                                            <textarea class="form-control rounded-3 py-2 px-3 fs-13" id="veHeroSubtitle" rows="2" oninput="window.EduCMS.updateVisualPreview()"></textarea>
+                                        </div>
+
+                                        <!-- 3. Action Buttons -->
+                                        <div class="row g-3 mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold text-dark fs-13">Primary CTA Button</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control rounded-start-3 py-2 px-2.5 fs-13" id="veBtnPrimaryText" placeholder="Button Text" oninput="window.EduCMS.updateVisualPreview()">
+                                                    <input type="text" class="form-control rounded-end-3 py-2 px-2.5 fs-13" id="veBtnPrimaryLink" placeholder="URL link">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold text-dark fs-13">Secondary CTA Button</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control rounded-start-3 py-2 px-2.5 fs-13" id="veBtnSecondaryText" placeholder="Button Text" oninput="window.EduCMS.updateVisualPreview()">
+                                                    <input type="text" class="form-control rounded-end-3 py-2 px-2.5 fs-13" id="veBtnSecondaryLink" placeholder="URL link">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 4. Hero Background / Banner Image -->
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark fs-13">Hero Background / Banner Image URL</label>
+                                            <input type="url" class="form-control rounded-3 py-2 px-3 fs-13" id="veHeroImage" oninput="window.EduCMS.updateVisualPreview()">
+                                            <div class="d-flex align-items-center gap-1 mt-2 flex-wrap">
+                                                <span class="fs-11 text-muted me-1">Canva Stock Presets:</span>
+                                                <button type="button" class="cms-preset-chip" onclick="window.EduCMS.setVeHeroImage('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80')">Campus Life</button>
+                                                <button type="button" class="cms-preset-chip" onclick="window.EduCMS.setVeHeroImage('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80')">Students Team</button>
+                                                <button type="button" class="cms-preset-chip" onclick="window.EduCMS.setVeHeroImage('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80')">Graduation</button>
+                                                <button type="button" class="cms-preset-chip" onclick="window.EduCMS.setVeHeroImage('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=80')">London / UK</button>
+                                                <button type="button" class="cms-preset-chip" onclick="window.EduCMS.setVeHeroImage('https://images.unsplash.com/photo-1506146332389-18140dc7b2fb?auto=format&fit=crop&w=1200&q=80')">Global Campus</button>
+                                            </div>
+                                        </div>
+
+                                        <!-- 5. Key Highlights / Stats -->
+                                        <div class="mb-3 p-3 bg-light rounded-3 border">
+                                            <label class="form-label fw-bold text-dark fs-13 d-block mb-2"><i class="fa-solid fa-chart-line text-warning me-1"></i> Banner Key Statistics (3 Highlights)</label>
+                                            <div class="row g-2">
+                                                <div class="col-4">
+                                                    <input type="text" class="form-control form-control-sm mb-1 fw-bold" id="veStat1Num" placeholder="99.4%" oninput="window.EduCMS.updateVisualPreview()">
+                                                    <input type="text" class="form-control form-control-sm text-muted fs-11" id="veStat1Label" placeholder="Visa Success" oninput="window.EduCMS.updateVisualPreview()">
+                                                </div>
+                                                <div class="col-4">
+                                                    <input type="text" class="form-control form-control-sm mb-1 fw-bold" id="veStat2Num" placeholder="1,500+" oninput="window.EduCMS.updateVisualPreview()">
+                                                    <input type="text" class="form-control form-control-sm text-muted fs-11" id="veStat2Label" placeholder="Partner Unis" oninput="window.EduCMS.updateVisualPreview()">
+                                                </div>
+                                                <div class="col-4">
+                                                    <input type="text" class="form-control form-control-sm mb-1 fw-bold" id="veStat3Num" placeholder="£14M+" oninput="window.EduCMS.updateVisualPreview()">
+                                                    <input type="text" class="form-control form-control-sm text-muted fs-11" id="veStat3Label" placeholder="Scholarships" oninput="window.EduCMS.updateVisualPreview()">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 6. Features / Editorial Section -->
+                                        <div class="mb-4">
+                                            <label class="form-label fw-bold text-dark fs-13">Featured Highlights Section (Heading & Content)</label>
+                                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-13 mb-2" id="veFeatureTitle" placeholder="Section Heading (e.g. Why Choose The Edu Consultant)" oninput="window.EduCMS.updateVisualPreview()">
+                                            <textarea class="form-control rounded-3 py-2 px-3 fs-13" id="veFeatureBody" rows="3" placeholder="Paragraph content or bullet points displayed under the hero banner..." oninput="window.EduCMS.updateVisualPreview()"></textarea>
+                                        </div>
+
+                                        <!-- Save / Publish Button -->
+                                        <div class="d-flex align-items-center gap-2">
+                                            <button type="submit" class="btn btn-warning flex-grow-1 py-3 rounded-pill fw-bold text-dark shadow-sm fs-15" style="background-color: var(--button); border: none;">
+                                                <i class="fa-solid fa-cloud-arrow-up me-2"></i> Save & Publish Changes Live to Website
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary rounded-pill px-3 py-3 fs-13" onclick="window.EduCMS.resetVisualPageForm()">
+                                                <i class="fa-solid fa-rotate-left"></i> Reset
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Right: Canva-Style Split-Screen Real-Time Preview -->
+                            <div class="col-xl-5">
+                                <div class="card border rounded-4 shadow-sm p-4 bg-white sticky-top" style="top: 24px;">
+                                    <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+                                        <span class="fs-12 text-uppercase fw-bold text-muted">
+                                            <i class="fa-solid fa-eye me-1 text-primary"></i> Canva Live Preview
+                                        </span>
+                                        <a href="index.html" target="_blank" class="badge bg-primary text-white text-decoration-none py-1.5 px-2.5 rounded-pill fs-11" id="veLiveWebpageLink">
+                                            Open Public Page <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+                                        </a>
+                                    </div>
+
+                                    <!-- Mock Browser Window Frame -->
+                                    <div class="border rounded-4 overflow-hidden shadow-sm bg-dark position-relative">
+                                        <!-- Browser header bar -->
+                                        <div class="bg-secondary bg-opacity-25 px-3 py-2 d-flex align-items-center gap-2 border-bottom border-white-10">
+                                            <span class="rounded-circle bg-danger d-inline-block" style="width: 8px; height: 8px;"></span>
+                                            <span class="rounded-circle bg-warning d-inline-block" style="width: 8px; height: 8px;"></span>
+                                            <span class="rounded-circle bg-success d-inline-block" style="width: 8px; height: 8px;"></span>
+                                            <span class="fs-11 text-white-50 text-truncate ms-2 font-monospace" id="vePreviewBrowserUrl">https://theeduconsultant.com/index.html</span>
+                                        </div>
+
+                                        <!-- Hero Visual Canvas -->
+                                        <div id="veCanvasHeroBanner" style="min-height: 320px; position: relative; background-size: cover; background-position: center; transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; color: white;">
+                                            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,100,0.4) 0%, rgba(6,9,59,0.92) 100%); z-index: 1;"></div>
+                                            
+                                            <div class="position-relative" style="z-index: 2;">
+                                                <span class="badge bg-warning text-dark fw-bold mb-2 rounded-pill px-2.5 py-1 fs-11" id="vePrevBadge">
+                                                    Premier Study Abroad Consultancy
+                                                </span>
+                                                <h4 class="fw-800 text-white mb-2" id="vePrevHeroTitle" style="line-height: 1.25;">
+                                                    Your Global University Journey Starts Here
+                                                </h4>
+                                                <p class="text-white-50 fs-12 mb-3" id="vePrevHeroSubtitle">
+                                                    Empowering ambitious minds to secure admits in top universities across the UK, USA, Canada, and Europe.
+                                                </p>
+                                                
+                                                <div class="d-flex align-items-center gap-2 flex-wrap mb-3">
+                                                    <span class="btn btn-warning btn-sm rounded-pill px-3 py-1 fw-bold fs-11 text-dark" id="vePrevBtnPrimary">
+                                                        Explore Universities
+                                                    </span>
+                                                    <span class="btn btn-outline-light btn-sm rounded-pill px-3 py-1 fw-semibold fs-11" id="vePrevBtnSecondary">
+                                                        Book Counseling
+                                                    </span>
+                                                </div>
+
+                                                <!-- Stat Badges in Preview -->
+                                                <div class="row g-2 pt-2 border-top border-white-10 text-center">
+                                                    <div class="col-4">
+                                                        <div class="fw-bold text-warning fs-13" id="vePrevStat1Num">99.4%</div>
+                                                        <div class="text-white-50 fs-10" id="vePrevStat1Label">Visa Success</div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="fw-bold text-warning fs-13" id="vePrevStat2Num">1,500+</div>
+                                                        <div class="text-white-50 fs-10" id="vePrevStat2Label">Partner Unis</div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="fw-bold text-warning fs-13" id="vePrevStat3Num">£14M+</div>
+                                                        <div class="text-white-50 fs-10" id="vePrevStat3Label">Scholarships</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Feature Highlight Preview Box -->
+                                        <div class="p-3 bg-white border-top">
+                                            <h6 class="fw-bold text-dark mb-1 fs-13" id="vePrevFeatureTitle">Premier Admission Network</h6>
+                                            <p class="text-muted fs-11 mb-0" id="vePrevFeatureBody">Direct UCAS center representation with guaranteed response times and dedicated mentors.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-info border-0 rounded-3 mt-3 mb-0 fs-12 d-flex align-items-center gap-2">
+                                        <i class="fa-solid fa-cloud-arrow-up text-primary fs-5"></i>
+                                        <span>Saving here automatically writes to <b>Cloud Firestore</b> and immediately updates the live website for all visiting students.</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table align-middle table-hover mb-0">
-                            <thead class="table-light fs-13 text-muted text-uppercase">
-                                <tr>
-                                    <th class="ps-4">Page Title & Slug</th>
-                                    <th>Category</th>
-                                    <th>Author</th>
-                                    <th>Status</th>
-                                    <th class="pe-4 text-end">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminPagesTableBody" class="fs-14">
-                                <!-- Populated dynamically by cms.js -->
-                            </tbody>
-                        </table>
+                    <!-- SUB-TAB 2: STANDALONE LANDING PAGES (SLUG BUILDER) -->
+                    <div class="tab-pane fade" id="tab-custom-pages-pane" role="tabpanel">
+                        <div class="row g-4">
+                            <!-- Left: Page Creation Form -->
+                            <div class="col-xl-7">
+                                <div class="card border rounded-4 shadow-sm p-4 bg-white mb-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-3">
+                                        <div>
+                                            <h5 class="fw-bold text-dark mb-1"><i class="fa-solid fa-file-circle-plus text-primary me-2"></i>Create Standalone Webpage</h5>
+                                            <p class="text-muted fs-13 mb-0">Generate new custom pages with dedicated URLs (e.g. <code>page.html?slug=visa-guide</code>).</p>
+                                        </div>
+                                        <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill">Owner Exclusive</span>
+                                    </div>
+
+                                    <form id="adminNewPageForm">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark fs-14">Page Title <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="pageTitleInput" placeholder="e.g., Complete Student Visa & Financial Proof Guide 2026" required/>
+                                        </div>
+
+                                        <div class="row g-3 mb-3">
+                                            <div class="col-md-7">
+                                                <label class="form-label fw-bold text-dark fs-14">URL Slug (Address) <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light text-muted fs-13">page.html?slug=</span>
+                                                    <input type="text" class="form-control rounded-end-3 py-2 px-3 fs-14 font-monospace" id="pageSlugInput" placeholder="visa-guide" required/>
+                                                </div>
+                                                <span class="text-muted fs-11 mt-1 d-block">This slug defines the public URL for students and search engines.</span>
+                                            </div>
+                                            <div class="col-md-5 d-flex align-items-end">
+                                                <button type="button" class="btn btn-outline-secondary w-100 py-2 rounded-3 fs-13 fw-semibold" id="autoGenerateSlugBtn">
+                                                    <i class="fa-solid fa-wand-magic-sparkles me-1 text-warning"></i> Auto-Generate Slug
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row g-3 mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold text-dark fs-14">Category / Theme</label>
+                                                <select class="form-select rounded-3 py-2 px-3 fs-14" id="pageCategoryInput">
+                                                    <option value="Visa & Immigration">Visa & Immigration</option>
+                                                    <option value="Scholarships & Funding">Scholarships & Funding</option>
+                                                    <option value="Admissions Guidance">Admissions Guidance</option>
+                                                    <option value="Campus Life & Culture">Campus Life & Culture</option>
+                                                    <option value="Test Preparation (IELTS/GRE)">Test Preparation (IELTS/GRE)</option>
+                                                    <option value="Career & Post-Study Work">Career & Post-Study Work</option>
+                                                    <option value="Institutional Partnerships">Institutional Partnerships</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold text-dark fs-14">Publication Status</label>
+                                                <select class="form-select rounded-3 py-2 px-3 fs-14" id="pageStatusInput">
+                                                    <option value="published">Published (Live Online)</option>
+                                                    <option value="draft">Draft (Private)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark fs-14">Hero Headline (Banner Title)</label>
+                                            <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="pageHeroTitleInput" placeholder="e.g., Master Your Embassy Interview & Financial Proof"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark fs-14">Hero Subtitle / Synopsis</label>
+                                            <textarea class="form-control rounded-3 py-2 px-3 fs-14" id="pageHeroSubtitleInput" rows="2" placeholder="Brief summary displayed prominently at the top of the custom page..."></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold text-dark fs-14">Cover Image URL</label>
+                                            <input type="url" class="form-control rounded-3 py-2 px-3 fs-14" id="pageCoverImageInput" placeholder="https://images.unsplash.com/photo-..." value="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80"/>
+                                            <div class="d-flex align-items-center gap-1 mt-2 flex-wrap">
+                                                <span class="fs-12 text-muted me-1">Quick Presets:</span>
+                                                <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80">Visa & Docs</button>
+                                                <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80">Scholarships</button>
+                                                <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80">Global Careers</button>
+                                                <button type="button" class="cms-preset-chip page-image-preset-btn" data-url="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80">University Campus</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row g-3 mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold text-dark fs-14">Author Name</label>
+                                                <input type="text" class="form-control rounded-3 py-2 px-3 fs-14" id="pageAuthorInput" value="The Edu Consultant Editorial"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label fw-bold text-dark fs-14">Page Body Content (Markdown or HTML) <span class="text-danger">*</span></label>
+                                            <textarea class="form-control rounded-3 p-3 fs-14 font-monospace" id="pageContentInput" rows="9" placeholder="Write paragraphs, ### Subheadings, - Bullet point lists, or HTML tags..." required></textarea>
+                                            <span class="text-muted fs-12 mt-1 d-block">Supports standard markdown formatting (### Headings, - Bullet points, 1. Numbered steps) and HTML.</span>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-warning w-100 py-3 rounded-pill fw-bold text-dark shadow-sm fs-15" style="background-color: var(--button); border: none;">
+                                            <i class="fa-solid fa-cloud-arrow-up me-2"></i> Publish Page to Live Website
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Right: Live Page Preview Card -->
+                            <div class="col-xl-5">
+                                <div class="card border rounded-4 shadow-sm p-4 bg-white sticky-top" style="top: 24px;">
+                                    <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+                                        <span class="fs-12 text-uppercase fw-bold text-muted"><i class="fa-solid fa-eye me-1 text-primary"></i> Standalone Preview</span>
+                                        <span class="badge bg-success-subtle text-success fw-bold font-monospace fs-11" id="livePreviewPageSlug">page.html?slug=visa-guide</span>
+                                    </div>
+
+                                    <div class="border rounded-3 overflow-hidden shadow-xs">
+                                        <div style="height: 160px; background: #e2e8f0; position: relative;">
+                                            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" id="livePreviewPageImage" class="w-100 h-100 object-fit-cover" alt="Cover Preview" loading="lazy" decoding="async">
+                                            <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2 fw-bold" id="livePreviewPageCategory">Visa Guidance</span>
+                                        </div>
+                                        <div class="p-3 bg-white">
+                                            <h5 class="fw-bold text-dark mb-1" id="livePreviewPageTitle">Your Webpage Title</h5>
+                                            <h6 class="fs-13 text-primary fw-semibold mb-2" id="livePreviewPageHero">Page Hero Headline</h6>
+                                            <p class="fs-12 text-muted mb-3" id="livePreviewPageContent">Your comprehensive page content, guidance paragraphs, and advisory roadmap will appear here...</p>
+                                            <div class="pt-2 border-top d-flex justify-content-between align-items-center">
+                                                <span class="fs-11 text-muted">Author: The Edu Consultant</span>
+                                                <span class="badge bg-primary text-white fs-11">Verified Live Template</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-info border-0 rounded-3 mt-4 mb-0 fs-13 d-flex align-items-start gap-2">
+                                        <i class="fa-solid fa-circle-info fs-5 mt-1 text-primary"></i>
+                                        <div>
+                                            <b>Linking your new page:</b> Once published, go to the <b>Navbar & Menus</b> panel to add it as a menu item in your website's header dropdown!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Published Custom Pages Table -->
+                        <div class="card border rounded-4 shadow-sm p-4 bg-white mt-4">
+                            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-1"><i class="fa-solid fa-table-list text-primary me-2"></i>All Published Standalone Webpages</h5>
+                                    <span class="text-muted fs-13">Manage existing pages, view live links, or remove pages.</span>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table align-middle table-hover mb-0">
+                                    <thead class="table-light fs-13 text-muted text-uppercase">
+                                        <tr>
+                                            <th class="ps-4">Page Title & Slug</th>
+                                            <th>Category</th>
+                                            <th>Author</th>
+                                            <th>Status</th>
+                                            <th class="pe-4 text-end">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminPagesTableBody" class="fs-14">
+                                        <!-- Populated dynamically by cms.js -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -2625,8 +2874,21 @@ function doGet(e) {
 
         // 3. Admin Dashboard Bootstrap
         function initAdminDashboard() {
+            // Strict Authentication & Role-Based Authorization Guard
+            const user = (window.edAuth && typeof window.edAuth.getUser === 'function') ? window.edAuth.getUser() : null;
+            if (!user) {
+                window.location.href = 'login.html?authReason=admin_required';
+                return;
+            }
+
+            const isAdmin = (user.role === 'Admin' || user.isOwner === true || user.email === 'farazahamad201@gmail.com');
+            if (!isAdmin) {
+                alert('Access Denied: Administrator permissions required to access the Admin CMS Studio. Redirecting to your Scholar Portal...');
+                window.location.href = 'student-dashboard.html';
+                return;
+            }
+
             try {
-                const user = (window.edAuth && typeof window.edAuth.getUser === 'function') ? window.edAuth.getUser() : null;
                 if (user) {
                     document.querySelectorAll('.dashboard-admin-name').forEach(el => el.textContent = user.name);
                     document.querySelectorAll('.dashboard-admin-role').forEach(el => el.textContent = user.badge || user.role);

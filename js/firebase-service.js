@@ -470,6 +470,117 @@
             }
         },
 
+        // ====================================================================
+        // CMS & VISUAL SITE CONTENT (Canva & WordPress Page Editor Integration)
+        // ====================================================================
+
+        // Save visual page content (Home, About, Services, etc.) to Firestore
+        saveSiteContent: async function (pageKey, pageData) {
+            if (!pageKey) return false;
+            if (!this.isConnected()) this.init();
+            if (this.isConnected()) {
+                try {
+                    const docData = Object.assign({}, pageData, {
+                        pageKey: pageKey,
+                        domainAccount: 'enquiry@theeduconsultant.com',
+                        updatedAt: window.firebase.firestore.FieldValue.serverTimestamp(),
+                        updatedBy: 'farazahamad201@gmail.com'
+                    });
+                    await this.db.collection('site_pages').doc(pageKey).set(docData, { merge: true });
+                    console.log(`[EduFirebase] Page content "${pageKey}" saved to Cloud Firestore.`);
+                    return true;
+                } catch (e) {
+                    console.warn(`[EduFirebase] Could not save page content "${pageKey}":`, e);
+                }
+            }
+            return false;
+        },
+
+        // Fetch visual page content from Firestore
+        fetchSiteContent: async function (pageKey) {
+            if (!pageKey) return null;
+            if (!this.isConnected()) this.init();
+            if (this.isConnected()) {
+                try {
+                    const doc = await this.db.collection('site_pages').doc(pageKey).get();
+                    if (doc.exists) return doc.data();
+                } catch (e) {
+                    console.warn(`[EduFirebase] Error fetching page content "${pageKey}":`, e);
+                }
+            }
+            return null;
+        },
+
+        // Fetch all visual site pages from Firestore
+        fetchAllSitePages: async function () {
+            if (!this.isConnected()) this.init();
+            if (this.isConnected()) {
+                try {
+                    const snapshot = await this.db.collection('site_pages').get();
+                    const pages = {};
+                    snapshot.forEach(doc => {
+                        pages[doc.id] = doc.data();
+                    });
+                    return pages;
+                } catch (e) {
+                    console.warn('[EduFirebase] Error fetching site pages:', e);
+                }
+            }
+            return {};
+        },
+
+        // Save custom landing page to Firestore
+        saveCustomPage: async function (pageData) {
+            if (!pageData || !pageData.slug) return false;
+            if (!this.isConnected()) this.init();
+            if (this.isConnected()) {
+                try {
+                    const docData = Object.assign({}, pageData, {
+                        domainAccount: 'enquiry@theeduconsultant.com',
+                        updatedAt: window.firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    await this.db.collection('custom_pages').doc(pageData.slug).set(docData, { merge: true });
+                    return true;
+                } catch (e) {
+                    console.warn('[EduFirebase] Could not save custom page to Firestore:', e);
+                }
+            }
+            return false;
+        },
+
+        // Update Student Document Status (Admin Verification in Cloud)
+        updateStudentDocumentStatus: async function (email, docId, status, notes) {
+            if (!email || !docId) return false;
+            const cleanEmail = email.trim().toLowerCase();
+            if (!this.isConnected()) this.init();
+            if (this.isConnected()) {
+                try {
+                    const userRef = this.db.collection('users').doc(cleanEmail);
+                    const userDoc = await userRef.get();
+                    if (userDoc.exists) {
+                        const userData = userDoc.data();
+                        const docs = Array.isArray(userData.documents) ? userData.documents : [];
+                        const target = docs.find(d => d && d.id === docId);
+                        if (target) {
+                            target.status = status || 'Verified';
+                            if (notes) target.notes = notes;
+                            target.verifiedAt = new Date().toISOString();
+                            target.verifiedBy = 'farazahamad201@gmail.com';
+                            await userRef.update({
+                                documents: docs,
+                                cloudUpdatedAt: window.firebase.firestore.FieldValue.serverTimestamp()
+                            });
+                            console.log(`[EduFirebase] Document ${docId} for ${cleanEmail} updated to ${status}.`);
+                            return true;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('[EduFirebase] Error updating document status in Firestore:', e);
+                }
+            }
+            return false;
+        },
+
         // Update UI status badges across Admin Dashboard
         updateUiBadges: function () {
             const badge = document.getElementById('firebaseStatusBadge');
