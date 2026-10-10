@@ -11,4 +11,4 @@ Disallow: /*.jsonl$
 Disallow: /*.sql$
 
 # Host Sitemap
-Sitemap: https://edu-two-eta.vercel.app/sitemap.xml
+Sitemap: https://theeduconsultant.in/sitemap.xml
