@@ -322,6 +322,9 @@
         // Batch upload all local leads and meetings to Cloud Firestore
         syncLocalToCloud: async function () {
             if (!this.isConnected()) {
+                this.init();
+            }
+            if (!this.isConnected()) {
                 return { success: false, message: 'Please connect Firebase Firestore first.' };
             }
 
@@ -336,7 +339,7 @@
 
                 localLeads.forEach(lead => {
                     if (lead && lead.id) {
-                        const ref = this.db.collection('leads').doc(lead.id);
+                        const ref = this.db.collection('leads').doc(String(lead.id));
                         batch.set(ref, Object.assign({}, lead, {
                             domainAccount: 'enquiry@theeduconsultant.com',
                             cloudMigratedAt: window.firebase.firestore.FieldValue.serverTimestamp()
@@ -347,7 +350,7 @@
 
                 localMeetings.forEach(meeting => {
                     if (meeting && meeting.id) {
-                        const ref = this.db.collection('meetings').doc(meeting.id);
+                        const ref = this.db.collection('meetings').doc(String(meeting.id));
                         batch.set(ref, Object.assign({}, meeting, {
                             domainAccount: 'enquiry@theeduconsultant.com',
                             cloudMigratedAt: window.firebase.firestore.FieldValue.serverTimestamp()
@@ -357,24 +360,63 @@
                 });
 
                 let uploadedUsers = 0;
+                const userMap = {};
+
+                // 1. Master Owner Admin
+                userMap['farazahamad201@gmail.com'] = {
+                    email: 'farazahamad201@gmail.com',
+                    name: 'Faraz Ahamad',
+                    role: 'Admin',
+                    isOwner: true,
+                    status: 'Active',
+                    registeredAt: new Date().toISOString()
+                };
+
+                // 2. All accounts from edAuth
+                if (window.edAuth && typeof window.edAuth.getAllUsers === 'function') {
+                    const uList = window.edAuth.getAllUsers();
+                    uList.forEach(u => {
+                        if (u && u.email) {
+                            userMap[u.email.trim().toLowerCase()] = u;
+                        }
+                    });
+                }
+
+                // 3. Raw localStorage users
                 try {
-                    const storedUsers = localStorage.getItem('the_edu_users_db');
-                    if (storedUsers) {
-                        const parsedUsers = JSON.parse(storedUsers);
+                    const rawUsers = localStorage.getItem('the_edu_users_db');
+                    if (rawUsers) {
+                        const parsedUsers = JSON.parse(rawUsers);
                         Object.keys(parsedUsers).forEach(uEmail => {
                             const uRecord = parsedUsers[uEmail];
                             if (uRecord && uEmail) {
-                                const cleanU = uEmail.trim().toLowerCase();
-                                const ref = this.db.collection('users').doc(cleanU);
-                                batch.set(ref, Object.assign({}, uRecord, {
-                                    domainAccount: 'enquiry@theeduconsultant.com',
-                                    cloudMigratedAt: window.firebase.firestore.FieldValue.serverTimestamp()
-                                }), { merge: true });
-                                uploadedUsers++;
+                                userMap[uEmail.trim().toLowerCase()] = uRecord;
                             }
                         });
                     }
-                } catch(uErr) {}
+                } catch (uErr) {}
+
+                // Push all users to batch
+                Object.keys(userMap).forEach(cleanU => {
+                    const uRecord = userMap[cleanU];
+                    const ref = this.db.collection('users').doc(cleanU);
+                    batch.set(ref, Object.assign({}, uRecord, {
+                        domainAccount: 'enquiry@theeduconsultant.com',
+                        cloudMigratedAt: window.firebase.firestore.FieldValue.serverTimestamp()
+                    }), { merge: true });
+                    uploadedUsers++;
+                });
+
+                // Always write a sync checkpoint record to _system/sync_status
+                const statusRef = this.db.collection('_system').doc('sync_status');
+                batch.set(statusRef, {
+                    lastSyncAt: window.firebase.firestore.FieldValue.serverTimestamp(),
+                    syncedBy: 'farazahamad201@gmail.com',
+                    domain: 'theeduconsultant.in',
+                    totalUsersSynced: uploadedUsers,
+                    totalLeadsSynced: uploadedLeads,
+                    totalMeetingsSynced: uploadedMeetings
+                }, { merge: true });
 
                 await batch.commit();
 
