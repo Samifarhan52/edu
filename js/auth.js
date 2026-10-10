@@ -15,14 +15,14 @@
     const DB_KEY = 'the_edu_users_db';
     const OWNER_KEY = 'the_edu_owner_creds';
 
-    // Default Owner Master Credentials
+    // Default Owner Master Credentials (strictly reserved for platform administration)
     const DEFAULT_OWNER = {
-        name: 'Faraz Ahamed (Founder & Director)',
-        email: 'farazahamad201@gmail.com',
+        name: 'The Edu Consultant Admin Desk',
+        email: 'enquiry@theeduconsultant.com',
         secondaryEmail: 'enquiry@theeduconsultant.com',
         password: 'AdminMaster2026!',
         role: 'Admin',
-        badge: 'Owner',
+        badge: 'Master Admin',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
         authProvider: 'Master Credentials',
         isOwner: true
@@ -35,56 +35,14 @@
 
     // Default Seed Accounts (Pre-registered for immediate access)
     const DEFAULT_ACCOUNTS = {
-        'farazahamad201@gmail.com': {
-            id: 'EDU-ADMIN-001',
-            name: 'Faraz Ahamed (Founder & Director)',
-            email: 'farazahamad201@gmail.com',
-            phone: '+91 9845371459',
-            password: 'AdminMaster2026!',
-            role: 'Admin',
-            badge: 'Owner',
-            isOwner: true,
-            destination: 'Global',
-            status: 'Active',
-            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
-            authProvider: 'Master Credentials'
-        },
         'enquiry@theeduconsultant.com': {
-            id: 'EDU-ADMIN-002',
+            id: 'EDU-ADMIN-001',
             name: 'The Edu Consultant Admin Desk',
             email: 'enquiry@theeduconsultant.com',
             phone: '+91 9845371459',
             password: 'AdminMaster2026!',
             role: 'Admin',
-            badge: 'Owner',
-            isOwner: true,
-            destination: 'Global',
-            status: 'Active',
-            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
-            authProvider: 'Master Credentials'
-        },
-        'admin@theeduconsultant.com': {
-            id: 'EDU-ADMIN-003',
-            name: 'Master Administrator',
-            email: 'admin@theeduconsultant.com',
-            phone: '+91 9845371459',
-            password: 'AdminMaster2026!',
-            role: 'Admin',
-            badge: 'Owner',
-            isOwner: true,
-            destination: 'Global',
-            status: 'Active',
-            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
-            authProvider: 'Master Credentials'
-        },
-        'adm.faraz@gmail.com': {
-            id: 'EDU-ADMIN-004',
-            name: 'Faraz Ahamed (Director)',
-            email: 'adm.faraz@gmail.com',
-            phone: '+91 9845371459',
-            password: 'AdminMaster2026!',
-            role: 'Admin',
-            badge: 'Owner',
+            badge: 'Master Admin',
             isOwner: true,
             destination: 'Global',
             status: 'Active',
@@ -265,6 +223,8 @@
         if (!user) return user;
         if (!user.id) user.id = generateScholarId();
         if (!user.email) user.email = email;
+        if (!user.nickName) user.nickName = (user.name || '').split(' ')[0] || 'Scholar';
+        if (!user.userType) user.userType = (user.role === 'Admin') ? 'Administrator' : 'Student';
         if (!Array.isArray(user.applications)) user.applications = [];
         if (!Array.isArray(user.savedUniversities)) user.savedUniversities = [];
         if (!Array.isArray(user.documents)) user.documents = [];
@@ -297,7 +257,13 @@
         try {
             const raw = localStorage.getItem(OWNER_KEY);
             if (!raw) return DEFAULT_OWNER;
-            return Object.assign({}, DEFAULT_OWNER, JSON.parse(raw));
+            const parsed = JSON.parse(raw);
+            // Strictly enforce enquiry@theeduconsultant.com
+            if (parsed.email !== 'enquiry@theeduconsultant.com') {
+                saveOwner(DEFAULT_OWNER);
+                return DEFAULT_OWNER;
+            }
+            return Object.assign({}, DEFAULT_OWNER, parsed);
         } catch (e) {
             return DEFAULT_OWNER;
         }
@@ -313,6 +279,11 @@
         try {
             const raw = localStorage.getItem(DB_KEY);
             const parsed = raw ? JSON.parse(raw) : {};
+            // Wipe out legacy admin accounts from local browser storage
+            delete parsed['farazahamad201@gmail.com'];
+            delete parsed['admin@theeduconsultant.com'];
+            delete parsed['adm.faraz@gmail.com'];
+
             const combined = Object.assign({}, DEFAULT_ACCOUNTS, parsed);
             // Ensure every user record is normalized
             let hasChanges = false;
@@ -338,6 +309,42 @@
         try {
             localStorage.setItem(DB_KEY, JSON.stringify(db));
         } catch (e) {}
+    }
+
+    function normalizePhone(phone) {
+        if (!phone) return '';
+        return phone.toString().replace(/[^0-9]/g, '');
+    }
+
+    function findUserByIdentifier(identifier) {
+        if (!identifier) return null;
+        const clean = identifier.trim();
+        const db = getDB();
+
+        // 1. Direct email match
+        if (clean.includes('@')) {
+            const cleanEmail = clean.toLowerCase();
+            return db[cleanEmail] || null;
+        }
+
+        // 2. Phone number match
+        const inputDigits = normalizePhone(clean);
+        if (inputDigits.length >= 7) {
+            for (const key in db) {
+                if (Object.prototype.hasOwnProperty.call(db, key)) {
+                    const u = db[key];
+                    if (u && u.phone) {
+                        const userDigits = normalizePhone(u.phone);
+                        if (userDigits === inputDigits ||
+                            (inputDigits.length >= 10 && userDigits.endsWith(inputDigits)) ||
+                            (userDigits.length >= 10 && inputDigits.endsWith(userDigits))) {
+                            return u;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     function syncUserToCloud(user) {
@@ -393,135 +400,294 @@
             return user && (user.isOwner === true || user.role === 'Admin');
         },
 
-        login: async function (email, password, roleHint = null) {
+        // --- 2FA OTP & IDENTITY VERIFICATION ENGINE ---
+        generateOtp: function () {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        },
+
+        showOtpNotification: function (target, channel, otp, contextLabel = 'Security Verification') {
+            const channelName = channel === 'sms' ? 'Mobile SMS' : 'Email Inbox';
+            const icon = channel === 'sms' ? 'fa-comment-sms' : 'fa-envelope-open-text';
+
+            let container = document.getElementById('edu-otp-toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'edu-otp-toast-container';
+                container.style.cssText = 'position:fixed;top:20px;right:20px;z-index:9999999;max-width:400px;width:calc(100% - 40px);pointer-events:none;';
+                document.body.appendChild(container);
+            }
+
+            const card = document.createElement('div');
+            card.style.cssText = 'pointer-events:auto;margin-bottom:12px;background:#ffffff;border:2px solid #000064;border-radius:16px;box-shadow:0 12px 36px rgba(0,0,100,0.22);padding:18px 20px;animation:fadeIn 0.3s ease;';
+            card.innerHTML = `
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center text-white" style="width:34px;height:34px;background-color:#000064 !important;">
+                            <i class="fa-solid ${icon} fs-14"></i>
+                        </div>
+                        <div>
+                            <div class="fw-bold text-dark fs-14" style="line-height:1.2;">OTP Dispatched (${channelName})</div>
+                            <small class="text-muted fs-11">${contextLabel} • The Edu Consultant</small>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close fs-11" onclick="this.closest('div[style*=\\'pointer-events:auto\\']').remove()"></button>
+                </div>
+                <p class="fs-12 text-muted mb-2">A one-time 6-digit code has been sent to <strong>${target}</strong>:</p>
+                <div class="p-2.5 rounded-3 text-center my-2" style="background:#f4f6fa;border:1px dashed #000064;">
+                    <span class="fs-10 text-uppercase fw-bold text-muted d-block mb-1">Your 6-Digit OTP</span>
+                    <span class="fs-24 font-monospace fw-bold" style="letter-spacing:6px;color:#000064 !important;">${otp}</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-2 pt-1 border-top">
+                    <span class="fs-11 text-muted"><i class="fa-regular fa-clock me-1"></i> Valid for 5 minutes</span>
+                    <button type="button" class="btn btn-sm btn-link text-primary fs-12 p-0 text-decoration-none fw-bold" onclick="navigator.clipboard?.writeText('${otp}'); this.textContent='Copied!';">Copy Code</button>
+                </div>
+            `;
+            container.appendChild(card);
+
+            setTimeout(() => {
+                if (card && card.parentNode) card.remove();
+            }, 30000);
+        },
+
+        sendSignupOtp: async function (target, channel = 'email') {
+            if (!target) {
+                this.showToast('Please enter your ' + (channel === 'sms' ? 'mobile number' : 'email address') + ' first.', 'warning');
+                return { success: false, message: 'Target required' };
+            }
+            const cleanTarget = target.trim();
+            if (channel === 'email' && !cleanTarget.includes('@')) {
+                this.showToast('Please enter a valid email address.', 'warning');
+                return { success: false, message: 'Invalid email' };
+            }
+            if (channel === 'sms' && normalizePhone(cleanTarget).length < 7) {
+                this.showToast('Please enter a valid mobile number with country code.', 'warning');
+                return { success: false, message: 'Invalid phone' };
+            }
+
+            const otp = this.generateOtp();
+            this._signupOtpSession = {
+                target: cleanTarget,
+                channel: channel,
+                otp: otp,
+                expiresAt: Date.now() + 5 * 60 * 1000,
+                verified: false
+            };
+
+            this.showOtpNotification(cleanTarget, channel, otp, 'Signup Verification');
+            this.showToast(`OTP sent to ${cleanTarget} via ${channel === 'sms' ? 'SMS' : 'Email'}.`, 'info');
+
+            if (window.EduFirebase && window.EduFirebase.db) {
+                try {
+                    window.EduFirebase.db.collection('_system').doc('otp_logs').collection('logs').add({
+                        target: cleanTarget,
+                        channel: channel,
+                        type: 'signup_otp',
+                        timestamp: window.firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                } catch (e) {}
+            }
+
+            return { success: true, target: cleanTarget, channel: channel, otp: otp };
+        },
+
+        verifySignupOtp: function (inputCode) {
+            const session = this._signupOtpSession;
+            if (!session) {
+                this.showToast('No active OTP session. Please click "Send OTP" first.', 'danger');
+                return { success: false, message: 'No active session' };
+            }
+            if (Date.now() > session.expiresAt) {
+                this.showToast('OTP has expired. Please request a new verification code.', 'danger');
+                return { success: false, message: 'Expired code' };
+            }
+            const cleanInput = (inputCode || '').toString().trim();
+            if (cleanInput !== session.otp) {
+                this.showToast('Invalid OTP entered. Please check the 6-digit code.', 'danger');
+                return { success: false, message: 'Invalid code' };
+            }
+
+            session.verified = true;
+            this.showToast('Identity Verified Successfully! ✅', 'success');
+            return { success: true, target: session.target, channel: session.channel };
+        },
+
+        isSignupOtpVerified: function () {
+            return this._signupOtpSession && this._signupOtpSession.verified === true;
+        },
+
+        sendLoginOtp: async function (user, channel = 'email') {
+            if (!user) return { success: false };
+            const actualChannel = (channel === 'sms' && user.phone) ? 'sms' : 'email';
+            const target = (actualChannel === 'sms') ? user.phone : user.email;
+            const otp = this.generateOtp();
+
+            this._loginOtpSession = {
+                user: user,
+                target: target,
+                channel: actualChannel,
+                otp: otp,
+                expiresAt: Date.now() + 5 * 60 * 1000,
+                verified: false
+            };
+
+            this.showOtpNotification(target, actualChannel, otp, '2-Factor Sign-In');
+            this.showToast(`Security code dispatched to ${target} (${actualChannel.toUpperCase()}).`, 'info');
+
+            if (window.EduFirebase && window.EduFirebase.db) {
+                try {
+                    window.EduFirebase.db.collection('_system').doc('otp_logs').collection('logs').add({
+                        userEmail: user.email,
+                        target: target,
+                        channel: actualChannel,
+                        type: 'login_2fa',
+                        timestamp: window.firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                } catch (e) {}
+            }
+
+            return { success: true, target: target, channel: actualChannel, otp: otp };
+        },
+
+        verifyLoginOtp: function (inputCode) {
+            const session = this._loginOtpSession;
+            if (!session || !session.user) {
+                this.showToast('Login session expired. Please sign in again.', 'danger');
+                return { success: false, message: 'No session' };
+            }
+            if (Date.now() > session.expiresAt) {
+                this.showToast('Security code has expired. Please sign in again.', 'danger');
+                return { success: false, message: 'Expired code' };
+            }
+            const cleanInput = (inputCode || '').toString().trim();
+            if (cleanInput !== session.otp) {
+                this.showToast('Invalid verification code. Please check and try again.', 'danger');
+                return { success: false, message: 'Invalid code' };
+            }
+
+            session.verified = true;
+            const user = session.user;
+            user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_' + Date.now();
+            user.loggedInAt = new Date().toISOString();
+            this.setUser(user);
+
+            if (window.EduFirebase && typeof window.EduFirebase.saveUser === 'function') {
+                window.EduFirebase.saveUser(user).catch(() => {});
+            }
+
+            this.showToast(`Authentication Verified! Welcome, ${user.nickName || user.name}!`, 'success');
+            return { success: true, user: user };
+        },
+
+        getLoginOtpSession: function () {
+            return this._loginOtpSession || null;
+        },
+
+        login: async function (identifier, password) {
             // 1. Rate Limiting Check
             if (window.EduSecurity) {
                 const rateCheck = window.EduSecurity.rateLimiter.check('login_attempts', 12, 60000);
                 if (!rateCheck.allowed) {
                     this.showToast(rateCheck.message, 'danger');
-                    return false;
+                    return { success: false, message: rateCheck.message };
                 }
                 window.EduSecurity.rateLimiter.record('login_attempts');
             }
 
-            // 2. Input Validation & Alias Expansion
-            let cleanEmail = (email || '').trim().toLowerCase();
+            // 2. Input Validation
+            const cleanInput = (identifier || '').trim();
             const cleanPassword = (password || '').trim();
 
-            if (cleanEmail === 'admin' || cleanEmail === 'owner') cleanEmail = 'farazahamad201@gmail.com';
-            if (cleanEmail === 'faraz' || cleanEmail === 'farazahamad') cleanEmail = 'farazahamad201@gmail.com';
-            if (cleanEmail === 'enquiry') cleanEmail = 'enquiry@theeduconsultant.com';
-            if (cleanEmail === 'farhan') cleanEmail = 'farazahamad201@gmail.com';
-
-            const isKnownAdmin = [
-                'farazahamad201@gmail.com',
-                'enquiry@theeduconsultant.com',
-                'admin@theeduconsultant.com',
-                'adm.faraz@gmail.com',
-                'director@theeduconsultant.com',
-                'farhan@elavatex.com'
-            ].includes(cleanEmail) || cleanEmail.startsWith('admin@') || cleanEmail.startsWith('director@');
-
-            if (!isKnownAdmin && window.EduSecurity && !window.EduSecurity.validateEmail(cleanEmail)) {
-                this.showToast('Security Alert: Please enter a valid email format.', 'danger');
-                return false;
+            if (!cleanInput || !cleanPassword) {
+                this.showToast('Please enter your registered email or mobile number and password.', 'warning');
+                return { success: false, message: 'Missing fields' };
             }
 
-            const owner = getOwner();
-            const isOwnerEmail = isKnownAdmin || (owner.email && cleanEmail === owner.email.toLowerCase());
+            const cleanEmail = cleanInput.toLowerCase();
 
-            const validMasterPasswords = [
-                owner.password,
-                'AdminMaster2026!',
-                'Faraz2026!',
-                'Faraz@2026',
-                'Admin2026!',
-                'Admin@2026',
-                'admin123',
-                'faraz123',
-                'admin',
-                'faraz',
-                'theedu2026',
-                'password123',
-                '9845371459',
-                '7676808068'
-            ];
-
-            // A. Check if attempting Owner / Master login
-            if (isOwnerEmail) {
-                if (!validMasterPasswords.includes(cleanPassword)) {
-                    this.showToast('Security Alert: Incorrect Password for Admin. (Master Password: AdminMaster2026! or Faraz2026!)', 'danger');
-                    return false;
+            // A. Master Admin Check (Confidential, strictly enquiry@theeduconsultant.com / AdminMaster2026!)
+            if (cleanEmail === 'enquiry@theeduconsultant.com') {
+                if (cleanPassword !== 'AdminMaster2026!') {
+                    this.showToast('Authentication Failed: Invalid email or password.', 'danger');
+                    return { success: false, message: 'Invalid credentials' };
                 }
-                // Successfully authenticated as Owner
-                const user = { ...owner };
-                user.email = cleanEmail;
-                user.name = cleanEmail.includes('faraz') ? 'Faraz Ahamed (Founder & Director)' : (owner.name || 'Faraz (Director & Owner)');
-                user.role = 'Admin';
-                user.badge = 'Owner';
-                user.isOwner = true;
-                user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_owner_' + Date.now();
-                user.loggedInAt = new Date().toISOString();
+
+                // Authenticated Master Admin (Direct confidential access)
+                const owner = getOwner();
+                const user = {
+                    id: 'EDU-ADMIN-001',
+                    name: owner.name || 'The Edu Consultant Admin Desk',
+                    email: 'enquiry@theeduconsultant.com',
+                    phone: '+91 9845371459',
+                    role: 'Admin',
+                    badge: 'Master Admin',
+                    isOwner: true,
+                    avatar: owner.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
+                    authProvider: 'Master Credentials',
+                    token: window.EduSecurity ? window.EduSecurity.generateSessionToken(owner) : 'tok_owner_' + Date.now(),
+                    loggedInAt: new Date().toISOString()
+                };
                 this.setUser(user);
-                this.showToast(`Owner Access Verified: Welcome back, ${user.name}!`, 'success');
+                this.showToast('Master Admin Access Verified. Redirecting...', 'success');
                 setTimeout(() => {
                     window.location.href = 'admin-dashboard.html';
                 }, 150);
-                return true;
+                return { success: true, isAdmin: true, user: user };
             }
 
-            // B. Regular Scholar / Student Login
-            const db = getDB();
-            let user = db[cleanEmail];
+            // B. Scholar / Student / Parent Login (by Email OR Mobile Number)
+            let user = findUserByIdentifier(cleanInput);
 
-            // 1. If not found in local cache, query Firebase Cloud Firestore
-            if (!user && window.EduFirebase && typeof window.EduFirebase.fetchUser === 'function') {
+            // 1. If not found locally, query Firebase Cloud Firestore
+            if (!user && window.EduFirebase) {
                 try {
-                    const cloudUser = await window.EduFirebase.fetchUser(cleanEmail);
-                    if (cloudUser && cloudUser.email) {
-                        user = normalizeUserRecord(cloudUser, cleanEmail);
-                        db[cleanEmail] = user;
-                        saveDB(db);
-                        console.log(`[EduAuth] Restored user "${cleanEmail}" from Firebase Firestore.`);
+                    if (cleanInput.includes('@')) {
+                        const cloudUser = await window.EduFirebase.fetchUser(cleanInput.toLowerCase());
+                        if (cloudUser && cloudUser.email) {
+                            const db = getDB();
+                            user = normalizeUserRecord(cloudUser, cloudUser.email);
+                            db[cloudUser.email.toLowerCase()] = user;
+                            saveDB(db);
+                        }
+                    } else if (window.EduFirebase.db) {
+                        const inputDigits = normalizePhone(cleanInput);
+                        const snap = await window.EduFirebase.db.collection('users').get();
+                        snap.forEach(doc => {
+                            const d = doc.data();
+                            if (d && d.phone && normalizePhone(d.phone).endsWith(inputDigits)) {
+                                user = normalizeUserRecord(d, d.email || doc.id);
+                            }
+                        });
                     }
                 } catch (fbErr) {
-                    console.warn('[EduAuth] Firestore fetch user error:', fbErr);
+                    console.warn('[EduAuth] Cloud search error:', fbErr);
                 }
             }
 
-            // Strict Authentication: Account must already exist
             if (!user) {
-                if (cleanEmail.includes('admin') || cleanEmail.includes('faraz') || cleanEmail.includes('theedu')) {
-                    this.showToast(`Admin hint: Use email "farazahamad201@gmail.com" and password "AdminMaster2026!".`, 'warning');
-                } else {
-                    this.showToast(`Account Not Found: No profile registered with "${cleanEmail}". Please register on the Sign Up page first.`, 'danger');
-                }
-                return false;
+                this.showToast('Account Not Found: No profile registered with this email or mobile number.', 'danger');
+                return { success: false, message: 'Account not found' };
             }
 
-            // 2. Strict Password Verification
-            if (user.password !== cleanPassword && !validMasterPasswords.includes(cleanPassword)) {
-                this.showToast('Authentication Failed: Incorrect password for this account. Please try again.', 'danger');
-                return false;
+            // 2. Password Verification
+            if (user.password !== cleanPassword) {
+                this.showToast('Authentication Failed: Incorrect password for this account.', 'danger');
+                return { success: false, message: 'Incorrect password' };
             }
 
-            // Generate Session Token
-            user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_' + Date.now();
-            user.loggedInAt = new Date().toISOString();
-            this.setUser(user);
+            // 3. Initiate 2FA OTP for User
+            const preferredChannel = cleanInput.includes('@') ? 'email' : (user.phone ? 'sms' : 'email');
+            await this.sendLoginOtp(user, preferredChannel);
 
-            // Update user's last login in Firestore asynchronously
-            if (window.EduFirebase && typeof window.EduFirebase.saveUser === 'function') {
-                window.EduFirebase.saveUser(user).catch(() => {});
-            }
-
-            this.showToast(`Welcome back, ${user.name}!`, 'success');
-
-            const targetPage = (user.role === 'Admin' || user.isOwner === true) ? 'admin-dashboard.html' : 'student-dashboard.html';
-            setTimeout(() => {
-                window.location.href = targetPage;
-            }, 150);
-            return true;
+            return {
+                success: true,
+                requireOtp: true,
+                user: user,
+                channels: {
+                    email: user.email,
+                    phone: user.phone || ''
+                },
+                currentChannel: preferredChannel
+            };
         },
 
         signup: async function (formData) {
@@ -542,54 +708,70 @@
                 return false;
             }
 
+            if (!formData.phone || normalizePhone(formData.phone).length < 7) {
+                this.showToast('Security Alert: Please enter a valid mobile number with country code.', 'danger');
+                return false;
+            }
+
             if (!formData.password || formData.password.length < 6) {
                 this.showToast('Security Alert: Password must be at least 6 characters long.', 'danger');
                 return false;
             }
 
-            const db = getDB();
-            const owner = getOwner();
-
-            // Check if user already exists in Cloud Firestore
-            let existsInCloud = false;
-            if (window.EduFirebase && typeof window.EduFirebase.fetchUser === 'function') {
-                try {
-                    const cloudUser = await window.EduFirebase.fetchUser(cleanEmail);
-                    if (cloudUser) existsInCloud = true;
-                } catch (e) {}
+            // 3. OTP Verification Enforcement
+            if (!formData.otpVerified) {
+                this.showToast('Verification Required: Please verify your Email or Mobile Number with OTP before signing up.', 'warning');
+                return false;
             }
 
-            // 3. Prevent duplicate account creation
-            if (cleanEmail === owner.email.toLowerCase() || db[cleanEmail] || existsInCloud) {
+            const db = getDB();
+
+            // Prevent duplicate account creation
+            if (cleanEmail === 'enquiry@theeduconsultant.com' || db[cleanEmail]) {
                 this.showToast(`Account Exists: An account is already registered with "${cleanEmail}". Please sign in instead.`, 'warning');
                 return false;
             }
 
+            if (window.EduFirebase && typeof window.EduFirebase.fetchUser === 'function') {
+                try {
+                    const cloudUser = await window.EduFirebase.fetchUser(cleanEmail);
+                    if (cloudUser) {
+                        this.showToast(`Account Exists: An account is already registered with "${cleanEmail}". Please sign in instead.`, 'warning');
+                        return false;
+                    }
+                } catch (e) {}
+            }
+
             const safeName = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.name || 'New Scholar') : (formData.name || 'New Scholar');
+            const safeNickName = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.nickName || safeName.split(' ')[0]) : (formData.nickName || safeName.split(' ')[0]);
+            const safeUserType = (formData.userType === 'Parent / Guardian') ? 'Parent / Guardian' : 'Student';
             const safePhone = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.phone || '') : (formData.phone || '');
             const safeDest = window.EduSecurity ? window.EduSecurity.sanitizeText(formData.destination || 'Global') : (formData.destination || 'Global');
 
-            // Public registrations are ALWAYS Students with 100% clean, real original state
             const user = {
                 id: generateScholarId(),
                 name: safeName,
+                nickName: safeNickName,
+                userType: safeUserType,
                 email: cleanEmail,
                 phone: safePhone,
                 destination: safeDest,
                 password: formData.password,
                 role: 'Student',
-                badge: 'Scholar',
+                badge: safeUserType === 'Parent / Guardian' ? 'Parent / Guardian' : 'Scholar',
+                isVerified: true,
+                verifiedVia: formData.verifiedVia || 'email',
                 mentor: 'Dr. Eleanor Vance',
                 status: 'Active',
                 registeredAt: new Date().toISOString(),
                 milestonePhase: 1,
-                applications: [],        // Initialized clean: no fake mock applications
-                savedUniversities: [],   // Clean state
-                documents: [],           // Clean state: no fake mock documents
-                grants: [],              // Clean state: no fake mock scholarships
-                counseling: null,        // None scheduled initially
+                applications: [],
+                savedUniversities: [],
+                documents: [],
+                grants: [],
+                counseling: null,
                 avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
-                authProvider: formData.authProvider || 'Email',
+                authProvider: 'Email & OTP',
                 loggedInAt: new Date().toISOString()
             };
 
@@ -601,14 +783,14 @@
                 try {
                     await window.EduFirebase.saveUser(user);
                 } catch (fbErr) {
-                    console.warn('[EduAuth] Could not persist user to Firestore:', fbErr);
+                    console.warn('[EduAuth] Cloud Firestore save error:', fbErr);
                 }
             }
 
             user.token = window.EduSecurity ? window.EduSecurity.generateSessionToken(user) : 'tok_' + Date.now();
             this.setUser(user);
 
-            this.showToast(`Account registered successfully! Welcome, ${user.name}!`, 'success');
+            this.showToast(`Account registered and verified! Welcome, ${user.nickName || user.name}!`, 'success');
 
             setTimeout(() => {
                 window.location.href = 'student-dashboard.html';

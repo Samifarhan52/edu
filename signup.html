@@ -141,38 +141,101 @@
 
                     <!-- Sign Up Form -->
                     <form id="signUpForm" onsubmit="handleSignUpSubmit(event)">
+                        <!-- Who Are You Selector (Student vs Parent / Guardian) -->
                         <div class="mb-3">
-                            <label class="zForm-label">I am joining as:</label>
+                            <label class="zForm-label">Who are you? <span class="text-danger">*</span></label>
                             <div class="d-flex gap-2">
-                                <label class="flex-fill border rounded-3 p-2 text-center cursor-pointer bg-light d-flex align-items-center justify-content-center gap-2">
-                                    <input type="radio" name="accountRole" value="Student" checked class="form-check-input mt-0">
+                                <label class="flex-fill border rounded-3 p-2.5 text-center cursor-pointer bg-light d-flex align-items-center justify-content-center gap-2 user-type-card" style="transition: all 0.2s ease;">
+                                    <input type="radio" name="userType" value="Student" checked class="form-check-input mt-0">
                                     <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-graduation-cap text-primary me-1"></i> Student / Scholar</span>
                                 </label>
-                                <label class="flex-fill border rounded-3 p-2 text-center cursor-pointer bg-light d-flex align-items-center justify-content-center gap-2">
-                                    <input type="radio" name="accountRole" value="Counselor" class="form-check-input mt-0">
-                                    <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-user-tie text-warning me-1"></i> Counselor / Staff</span>
+                                <label class="flex-fill border rounded-3 p-2.5 text-center cursor-pointer bg-light d-flex align-items-center justify-content-center gap-2 user-type-card" style="transition: all 0.2s ease;">
+                                    <input type="radio" name="userType" value="Parent / Guardian" class="form-check-input mt-0">
+                                    <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-user-group text-success me-1"></i> Parent / Guardian</span>
                                 </label>
                             </div>
                         </div>
 
+                        <!-- Full Name & Nick Name -->
                         <div class="row g-3 mb-3">
                             <div class="col-sm-6">
-                                <label for="regFullName" class="zForm-label">Full Name</label>
-                                <input type="text" required name="fullName" class="form-control zForm-control" id="regFullName" placeholder="e.g. Alex Morgan" />
+                                <label for="regFullName" class="zForm-label">Full Name <span class="text-danger">*</span></label>
+                                <input type="text" required name="fullName" class="form-control zForm-control" id="regFullName" placeholder="e.g. Alex Morgan" autocomplete="name" />
                             </div>
                             <div class="col-sm-6">
-                                <label for="regPhone" class="zForm-label">Phone Number</label>
-                                <input type="tel" required name="phone" class="form-control zForm-control" id="regPhone" placeholder="+1 (555) 000-0000" />
+                                <label for="regNickName" class="zForm-label">Nick Name <span class="text-danger">*</span></label>
+                                <input type="text" required name="nickName" class="form-control zForm-control" id="regNickName" placeholder="What should we call you?" autocomplete="nickname" />
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="regEmail" class="zForm-label">Email Address</label>
-                            <input type="email" required name="email" class="form-control zForm-control" id="regEmail" placeholder="you@domain.com" />
+                        <!-- Email Address & Mobile Number -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <label for="regEmail" class="zForm-label">Email Address <span class="text-danger">*</span></label>
+                                <input type="email" required name="email" class="form-control zForm-control" id="regEmail" placeholder="you@domain.com" autocomplete="email" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="regPhone" class="zForm-label">Mobile Number <span class="text-danger">*</span></label>
+                                <input type="tel" required name="phone" class="form-control zForm-control" id="regPhone" placeholder="+91 98453 71459" autocomplete="tel" />
+                            </div>
                         </div>
 
+                        <!-- OTP Verification Panel -->
+                        <div class="p-3 mb-3 rounded-3 border bg-light-subtle" id="otpVerificationPanel" style="border-style: dashed !important; border-color: #cbd5e1 !important;">
+                            <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                                <label class="zForm-label mb-0 fw-bold fs-13 text-dark">
+                                    <i class="fa-solid fa-shield-halved text-primary me-1"></i> Verify Email or Mobile Number <span class="text-danger">*</span>
+                                </label>
+                                <span class="badge bg-secondary-subtle text-secondary fs-11 px-2.5 py-1 rounded-pill" id="otpStatusBadge">
+                                    <i class="fa-regular fa-clock me-1"></i> Verification Pending
+                                </span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-3 mb-2.5 fs-12">
+                                <label class="d-flex align-items-center gap-1 cursor-pointer">
+                                    <input type="radio" name="otpChannel" value="email" checked class="form-check-input mt-0" id="channelEmailRadio">
+                                    <span>Verify via <strong>Email</strong></span>
+                                </label>
+                                <label class="d-flex align-items-center gap-1 cursor-pointer">
+                                    <input type="radio" name="otpChannel" value="sms" class="form-check-input mt-0" id="channelSmsRadio">
+                                    <span>Verify via <strong>Mobile SMS</strong></span>
+                                </label>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-sm btn-outline-primary rounded-3 px-3 py-2 fw-bold fs-12 d-flex align-items-center gap-1.5" id="btnSendOtp" onclick="handleSendSignupOtp()">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    <span id="btnSendOtpText">Send Verification OTP</span>
+                                </button>
+                            </div>
+
+                            <!-- OTP Input Box (Reveals once OTP sent) -->
+                            <div id="otpInputSection" class="mt-3 pt-3 border-top d-none">
+                                <p class="fs-12 text-muted mb-2" id="otpSentNoticeText">
+                                    Enter the 6-digit verification code sent to your account:
+                                </p>
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control zForm-control text-center fs-18 fw-bold font-monospace py-2" 
+                                               id="signupOtpCodeInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" 
+                                               placeholder="••••••" style="letter-spacing: 6px;" />
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <button type="button" class="btn btn-primary w-100 py-2 rounded-3 fw-bold fs-13 d-flex align-items-center justify-content-center gap-1" id="btnConfirmOtp" onclick="handleVerifySignupOtp()">
+                                            <i class="fa-solid fa-check"></i> Verify OTP
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-2 fs-11 text-muted">
+                                    <span>Code expires in 5 minutes</span>
+                                    <a href="#" class="text-brand-primary text-decoration-none fw-semibold" onclick="handleSendSignupOtp(); return false;">Resend Code</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preferred Target Destination -->
                         <div class="mb-3">
-                            <label for="regDestination" class="zForm-label">Preferred Study Destination</label>
+                            <label for="regDestination" class="zForm-label">Preferred Study Destination <span class="text-danger">*</span></label>
                             <select class="form-select zForm-control sf-select-checkbox" id="regDestination" required>
                                 <option value="" selected disabled>Select Target Country</option>
                                 <option value="United States">🇺🇸 United States</option>
@@ -182,14 +245,17 @@
                                 <option value="Germany">🇩🇪 Germany</option>
                                 <option value="Ireland">🇮🇪 Ireland</option>
                                 <option value="New Zealand">🇳🇿 New Zealand</option>
+                                <option value="Singapore">🇸🇬 Singapore</option>
+                                <option value="Global">🌐 Global Advisory</option>
                             </select>
                         </div>
 
+                        <!-- Create Password & Confirm Password -->
                         <div class="row g-3 mb-3">
                             <div class="col-sm-6">
-                                <label for="regPassword" class="zForm-label">Password</label>
+                                <label for="regPassword" class="zForm-label">Create Password <span class="text-danger">*</span></label>
                                 <div class="position-relative">
-                                    <input type="password" required name="password" class="form-control zForm-control passShowHideInput" id="regPassword" placeholder="Min. 6 chars" oninput="checkStrength(this.value)" />
+                                    <input type="password" required name="password" class="form-control zForm-control passShowHideInput" id="regPassword" placeholder="Min. 6 chars" oninput="checkStrength(this.value)" autocomplete="new-password" />
                                     <button type="button" class="btn border-0 position-absolute end-0 top-50 translate-middle-y text-muted toggle-password">
                                         <i class="fa-solid fa-eye"></i>
                                     </button>
@@ -199,8 +265,8 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label for="regConfirmPassword" class="zForm-label">Confirm Password</label>
-                                <input type="password" required name="confirmPassword" class="form-control zForm-control" id="regConfirmPassword" placeholder="Re-enter password" />
+                                <label for="regConfirmPassword" class="zForm-label">Confirm Password <span class="text-danger">*</span></label>
+                                <input type="password" required name="confirmPassword" class="form-control zForm-control" id="regConfirmPassword" placeholder="Re-enter password" autocomplete="new-password" />
                             </div>
                         </div>
 
@@ -240,6 +306,9 @@
     <script src="js/edconsultants.js?v=8.0"></script>
     <script src="js/elevatex.js?v=8.0"></script>
     <script>
+        let isOtpVerified = false;
+        let verifiedChannelUsed = '';
+
         function checkStrength(val) {
             const bar = document.getElementById('strengthFill');
             if (!val) {
@@ -258,19 +327,94 @@
             }
         }
 
+        async function handleSendSignupOtp() {
+            const channel = document.querySelector('input[name="otpChannel"]:checked').value;
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+
+            const target = (channel === 'sms') ? phone : email;
+            if (!target) {
+                alert(`Please enter your ${channel === 'sms' ? 'mobile number' : 'email address'} first before requesting an OTP.`);
+                if (channel === 'sms') document.getElementById('regPhone').focus();
+                else document.getElementById('regEmail').focus();
+                return;
+            }
+
+            const sendBtn = document.getElementById('btnSendOtp');
+            const sendBtnText = document.getElementById('btnSendOtpText');
+            sendBtn.disabled = true;
+            sendBtnText.textContent = 'Sending OTP...';
+
+            try {
+                const res = await edAuth.sendSignupOtp(target, channel);
+                sendBtn.disabled = false;
+                sendBtnText.textContent = 'Resend OTP';
+
+                if (res && res.success) {
+                    const otpSection = document.getElementById('otpInputSection');
+                    otpSection.classList.remove('d-none');
+                    document.getElementById('otpSentNoticeText').innerHTML = 
+                        `A 6-digit OTP has been dispatched to <strong>${target}</strong> via <strong>${channel.toUpperCase()}</strong>:`;
+                    document.getElementById('signupOtpCodeInput').focus();
+                }
+            } catch (e) {
+                console.error('Send OTP Error:', e);
+                sendBtn.disabled = false;
+                sendBtnText.textContent = 'Send Verification OTP';
+            }
+        }
+
+        function handleVerifySignupOtp() {
+            const code = document.getElementById('signupOtpCodeInput').value.trim();
+            if (code.length !== 6) {
+                alert('Please enter the full 6-digit OTP code.');
+                return;
+            }
+
+            const res = edAuth.verifySignupOtp(code);
+            if (res && res.success) {
+                isOtpVerified = true;
+                verifiedChannelUsed = res.channel;
+
+                // Update UI badge to verified
+                const badge = document.getElementById('otpStatusBadge');
+                badge.className = 'badge bg-success-subtle text-success border border-success fs-11 px-2.5 py-1 rounded-pill';
+                badge.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i> Verified via ${res.channel.toUpperCase()}`;
+
+                // Lock inputs
+                document.getElementById('signupOtpCodeInput').disabled = true;
+                document.getElementById('btnConfirmOtp').disabled = true;
+                document.getElementById('btnConfirmOtp').innerHTML = '<i class="fa-solid fa-circle-check"></i> Verified';
+                document.getElementById('btnSendOtp').disabled = true;
+                document.getElementById('otpInputSection').classList.add('bg-success-subtle', 'p-2', 'rounded-3');
+            }
+        }
+
         async function handleSignUpSubmit(event) {
             event.preventDefault();
-            const name = document.getElementById('regFullName').value.trim();
+            const fullName = document.getElementById('regFullName').value.trim();
+            const nickName = document.getElementById('regNickName').value.trim();
             const email = document.getElementById('regEmail').value.trim();
             const phone = document.getElementById('regPhone').value.trim();
             const destination = document.getElementById('regDestination').value;
             const password = document.getElementById('regPassword').value;
             const confirmPassword = document.getElementById('regConfirmPassword').value;
-            const roleEl = document.querySelector('input[name="accountRole"]:checked');
-            const roleVal = roleEl ? roleEl.value : 'Student';
+            const userTypeEl = document.querySelector('input[name="userType"]:checked');
+            const userType = userTypeEl ? userTypeEl.value : 'Student';
+
+            if (!fullName || !nickName || !email || !phone || !destination) {
+                alert('Please fill in all required fields.');
+                return;
+            }
 
             if (password !== confirmPassword) {
-                alert('Passwords do not match. Please re-check.');
+                alert('Passwords do not match. Please verify and re-enter.');
+                return;
+            }
+
+            if (!isOtpVerified) {
+                alert('Verification Required: Please verify your Email Address or Mobile Number with OTP before creating your account.');
+                document.getElementById('otpVerificationPanel').scrollIntoView({ behavior: 'smooth' });
                 return;
             }
 
@@ -280,12 +424,15 @@
 
             try {
                 const success = await edAuth.signup({
-                    name: name,
+                    name: fullName,
+                    nickName: nickName,
+                    userType: userType,
                     email: email,
                     phone: phone,
                     destination: destination,
                     password: password,
-                    role: roleVal
+                    otpVerified: true,
+                    verifiedVia: verifiedChannelUsed
                 });
                 if (!success) {
                     btn.disabled = false;

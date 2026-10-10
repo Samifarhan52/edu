@@ -2132,7 +2132,7 @@ Start internship networking during your second semester. Utilize university care
             const resetBtn = document.getElementById('adminResetOwnerBtn');
             if (resetBtn) {
                 resetBtn.addEventListener('click', () => {
-                    if (confirm('Are you sure you want to restore the Master Owner credentials back to factory defaults (admin@theeduconsultant.com / AdminMaster2026!)?')) {
+                    if (confirm('Are you sure you want to restore the Master Owner credentials back to factory defaults (enquiry@theeduconsultant.com / AdminMaster2026!)?')) {
                         if (window.edAuth && window.edAuth.resetOwnerAccount) {
                             window.edAuth.resetOwnerAccount();
                         }

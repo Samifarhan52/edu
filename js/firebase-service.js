@@ -363,9 +363,9 @@
                 const userMap = {};
 
                 // 1. Master Owner Admin
-                userMap['farazahamad201@gmail.com'] = {
-                    email: 'farazahamad201@gmail.com',
-                    name: 'Faraz Ahamad',
+                userMap['enquiry@theeduconsultant.com'] = {
+                    email: 'enquiry@theeduconsultant.com',
+                    name: 'The Edu Consultant Admin Desk',
                     role: 'Admin',
                     isOwner: true,
                     status: 'Active',
@@ -411,7 +411,7 @@
                 const statusRef = this.db.collection('_system').doc('sync_status');
                 batch.set(statusRef, {
                     lastSyncAt: window.firebase.firestore.FieldValue.serverTimestamp(),
-                    syncedBy: 'farazahamad201@gmail.com',
+                    syncedBy: 'enquiry@theeduconsultant.com',
                     domain: 'theeduconsultant.in',
                     totalUsersSynced: uploadedUsers,
                     totalLeadsSynced: uploadedLeads,
@@ -484,7 +484,7 @@
                         pageKey: pageKey,
                         domainAccount: 'enquiry@theeduconsultant.com',
                         updatedAt: window.firebase.firestore.FieldValue.serverTimestamp(),
-                        updatedBy: 'farazahamad201@gmail.com'
+                        updatedBy: 'enquiry@theeduconsultant.com'
                     });
                     await this.db.collection('site_pages').doc(pageKey).set(docData, { merge: true });
                     console.log(`[EduFirebase] Page content "${pageKey}" saved to Cloud Firestore.`);
@@ -565,7 +565,7 @@
                             target.status = status || 'Verified';
                             if (notes) target.notes = notes;
                             target.verifiedAt = new Date().toISOString();
-                            target.verifiedBy = 'farazahamad201@gmail.com';
+                            target.verifiedBy = 'enquiry@theeduconsultant.com';
                             await userRef.update({
                                 documents: docs,
                                 cloudUpdatedAt: window.firebase.firestore.FieldValue.serverTimestamp()
