@@ -12,13 +12,13 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-
-    <title>The Edu Consultant - Sign In | Student & Advisor Portal</title>
+    <title>The Edu Consultant - Portal Access | Sign In & Sign Up</title>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <link rel="stylesheet" href="css/edconsultants.css?v=4.4"/>
-    <!-- Unique High-End Auth Styling -->
+
+    <!-- Ultra-Modern 3D Flip Card Auth Styling -->
     <style>
         :root {
             --auth-bg-gradient: radial-gradient(circle at 10% 20%, rgba(245, 220, 60, 0.08) 0%, transparent 40%),
@@ -84,15 +84,148 @@
             justify-content: center;
             padding: 48px 32px;
         }
-        .auth-card-modern {
+
+        /* 3D Flip Viewport & Engine */
+        .auth-flip-viewport {
+            perspective: 1600px;
+            -webkit-perspective: 1600px;
             width: 100%;
-            max-width: 480px;
-            background: #ffffff;
-            border-radius: 28px;
-            box-shadow: 0 20px 60px -10px rgba(0, 0, 100, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(226, 232, 240, 0.9);
-            padding: 42px 36px;
+            max-width: 530px;
+            margin: 0 auto;
         }
+        .auth-flip-card {
+            position: relative;
+            width: 100%;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.2, 0.85, 0.35, 1.15);
+            will-change: transform;
+        }
+        .auth-flip-card.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* Front & Back Faces */
+        .auth-face {
+            width: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 28px;
+            background: #ffffff;
+            box-shadow: 0 25px 60px -12px rgba(0, 0, 100, 0.12), 0 0 1px 1px rgba(0, 0, 100, 0.05);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            padding: 38px 36px;
+            transition: box-shadow 0.3s ease;
+        }
+        .auth-face:hover {
+            box-shadow: 0 32px 70px -12px rgba(0, 0, 100, 0.16), 0 0 1px 1px rgba(0, 0, 100, 0.07);
+        }
+        .auth-face-front {
+            position: relative;
+            z-index: 2;
+            transform: rotateY(0deg);
+        }
+        .auth-face-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotateY(180deg);
+            z-index: 1;
+        }
+
+        /* Smooth In-Flow Height Switch on Flip */
+        .auth-flip-card.is-flipped .auth-face-front {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            visibility: hidden;
+            transition: visibility 0s linear 0.4s;
+        }
+        .auth-flip-card.is-flipped .auth-face-back {
+            position: relative;
+            pointer-events: auto;
+            visibility: visible;
+        }
+        .auth-flip-card:not(.is-flipped) .auth-face-back {
+            visibility: hidden;
+            transition: visibility 0s linear 0.4s;
+        }
+        .auth-flip-card:not(.is-flipped) .auth-face-front {
+            visibility: visible;
+        }
+
+        /* Modern Segmented Pill Switcher */
+        .auth-flip-switcher {
+            position: relative;
+            display: flex;
+            background: #e2e8f0;
+            padding: 5px;
+            border-radius: 999px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 100, 0.04);
+            max-width: 380px;
+            margin: 0 auto 22px auto;
+        }
+        .flip-switch-btn {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #64748b;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flip-switch-btn.active {
+            color: #000064;
+        }
+        .flip-switcher-glider {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(50% - 5px);
+            height: calc(100% - 10px);
+            background: #ffffff;
+            border-radius: 999px;
+            box-shadow: 0 4px 12px rgba(0, 0, 100, 0.12), 0 1px 3px rgba(0, 0, 0, 0.06);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1;
+        }
+        .auth-flip-switcher.flipped-active .flip-switcher-glider {
+            transform: translateX(100%);
+        }
+
+        /* 3D Flip Quick Action Pill */
+        .flip-hint-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(0, 0, 100, 0.05);
+            color: #000064;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: 1px solid rgba(0, 0, 100, 0.08);
+            text-decoration: none;
+        }
+        .flip-hint-pill:hover {
+            background: #000064;
+            color: #ffffff;
+            transform: scale(1.04);
+            box-shadow: 0 4px 12px rgba(0, 0, 100, 0.15);
+        }
+
+        /* Form Inputs & Elements */
         .auth-input-group {
             border-radius: 14px;
             overflow: hidden;
@@ -121,6 +254,42 @@
             box-shadow: none;
             background: transparent;
         }
+
+        .auth-input-modern {
+            border-radius: 12px;
+            border: 1.5px solid #e2e8f0;
+            background: #f8fafc;
+            padding: 11px 14px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .auth-input-modern:focus {
+            border-color: #000064;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(0, 0, 100, 0.08);
+        }
+
+        .user-type-pill {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 12px 14px;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .user-type-pill:hover {
+            border-color: #cbd5e1;
+            background: #ffffff;
+        }
+        .user-type-pill.active,
+        .user-type-pill:has(input:checked) {
+            border-color: #000064;
+            background: rgba(0, 0, 100, 0.04);
+            box-shadow: 0 2px 8px rgba(0, 0, 100, 0.08);
+        }
+
         .social-pill-btn {
             flex: 1;
             display: inline-flex;
@@ -144,6 +313,7 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
+
         .btn-auth-primary {
             background: linear-gradient(135deg, #f5dc3c 0%, #ebb916 100%);
             color: #000064;
@@ -166,6 +336,20 @@
             transform: translateY(-2px);
             box-shadow: 0 14px 28px rgba(245, 220, 60, 0.45);
         }
+
+        .pwd-strength-bar {
+            height: 4px;
+            border-radius: 2px;
+            background: #e2e8f0;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+        .pwd-strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+        }
+
         @media (max-width: 991px) {
             .auth-split-wrapper {
                 flex-direction: column;
@@ -180,7 +364,7 @@
             .auth-form-pane {
                 padding: 24px 16px 48px;
             }
-            .auth-card-modern {
+            .auth-face {
                 padding: 30px 20px;
                 border-radius: 22px;
             }
@@ -205,13 +389,13 @@
             </div>
 
             <div class="my-auto py-4 position-relative z-1">
-                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3" id="authHeroBadge">
                     <i class="fa-solid fa-lock me-1"></i> Confidential Scholar Portal
                 </span>
-                <h2 class="title fw-800 text-white display-6 mb-3">
+                <h2 class="title fw-800 text-white display-6 mb-3" id="authHeroTitle">
                     Welcome Back to Your Global Admissions Hub.
                 </h2>
-                <p class="text-white-50 fs-16 max-w-550 mb-4" style="line-height: 1.6;">
+                <p class="text-white-50 fs-16 max-w-550 mb-4" id="authHeroSubtitle" style="line-height: 1.6;">
                     Access real-time admissions tracking, upload visa financial portfolios, review scholarship awards, and consult directly with your dedicated study abroad mentor.
                 </p>
 
@@ -274,9 +458,9 @@
 
         <!-- Form Right / Center Content Pane -->
         <div class="auth-form-pane">
-            <div class="auth-card-modern">
+            <div class="w-100" style="max-width: 530px;">
                 <!-- Mobile Logo Header (visible on < 992px) -->
-                <div class="d-lg-none text-center mb-4">
+                <div class="d-lg-none text-center mb-3">
                     <a href="index.html" class="d-inline-flex align-items-center gap-2 text-decoration-none">
                         <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px; background-color: var(--brand-primary); color: var(--button);">
                             <i class="fa-solid fa-graduation-cap fs-5"></i>
@@ -294,87 +478,292 @@
                     </div>
                 </div>
 
-                <div class="mb-4">
-                    <div class="d-flex align-items-center justify-content-between mb-1">
-                        <h3 class="fs-2 fw-800 text-dark mb-0">Sign In</h3>
-                        <span class="badge bg-primary-subtle text-primary rounded-pill px-2.5 py-1 fs-12 fw-bold">
-                            <i class="fa-solid fa-shield-halved me-1"></i> Secure
-                        </span>
-                    </div>
-                    <p class="fs-14 fw-500 text-muted">
-                        Don’t have an account? 
-                        <a href="signup.html" class="text-primary fw-bold text-decoration-none">Create Account Free</a>
-                    </p>
+                <!-- 3D Flip Segmented Pill Switcher -->
+                <div class="auth-flip-switcher" id="authFlipSwitcher">
+                    <button type="button" class="flip-switch-btn active" id="btnTabSignIn" onclick="flipTo('signin')">
+                        <i class="fa-solid fa-lock me-1.5"></i> Sign In
+                    </button>
+                    <button type="button" class="flip-switch-btn" id="btnTabSignUp" onclick="flipTo('signup')">
+                        <i class="fa-solid fa-user-plus me-1.5"></i> Create Account
+                    </button>
+                    <div class="flip-switcher-glider"></div>
                 </div>
 
-                <!-- Social Sign In Options -->
-                <div class="d-flex gap-2 mb-3">
-                    <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('google')">
-                        <i class="fa-brands fa-google text-danger"></i> Google
-                    </button>
-                    <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('apple')">
-                        <i class="fa-brands fa-apple text-dark"></i> Apple
-                    </button>
-                    <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('linkedin')">
-                        <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
-                    </button>
-                </div>
+                <!-- 3D Flip Card Viewport -->
+                <div class="auth-flip-viewport">
+                    <div class="auth-flip-card" id="authFlipCard">
+                        <!-- FRONT FACE: Sign In Form -->
+                        <div class="auth-face auth-face-front" id="authFaceFront">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div>
+                                    <h3 class="fs-2 fw-800 text-dark mb-0">Sign In</h3>
+                                    <p class="fs-13 fw-500 text-muted mb-0">Enter your scholar portal</p>
+                                </div>
+                                <button type="button" class="flip-hint-pill" onclick="flipTo('signup')" title="Flip card to Sign Up">
+                                    <i class="fa-solid fa-arrows-rotate"></i> Flip to Sign Up
+                                </button>
+                            </div>
 
-                <div class="position-relative text-center my-4">
-                    <hr class="text-muted opacity-25">
-                    <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-12 fw-semibold">
-                        Or continue with credentials
-                    </span>
-                </div>
+                            <!-- Social Sign In Options -->
+                            <div class="d-flex gap-2 mb-3">
+                                <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('google')">
+                                    <i class="fa-brands fa-google text-danger"></i> Google
+                                </button>
+                                <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('apple')">
+                                    <i class="fa-brands fa-apple text-dark"></i> Apple
+                                </button>
+                                <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('linkedin')">
+                                    <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
+                                </button>
+                            </div>
 
-                <!-- Sign In Form -->
-                <form id="signInForm" onsubmit="handleSignInSubmit(event)">
-                    <div class="mb-3">
-                        <label for="inputEmail" class="form-label fs-13 fw-bold text-dark mb-1">Registered Email or Mobile Number</label>
-                        <div class="input-group auth-input-group">
-                            <span class="input-group-text text-muted"><i class="fa-regular fa-user"></i></span>
-                            <input type="text" required name="email" value=""
-                                   class="form-control" id="inputEmail"
-                                   placeholder="name@domain.com or +91 98453 71459" autocomplete="username" />
+                            <div class="position-relative text-center my-3">
+                                <hr class="text-muted opacity-25">
+                                <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-12 fw-semibold">
+                                    Or sign in with credentials
+                                </span>
+                            </div>
+
+                            <!-- Sign In Form -->
+                            <form id="signInForm" onsubmit="handleSignInSubmit(event)">
+                                <div class="mb-3">
+                                    <label for="inputEmail" class="form-label fs-13 fw-bold text-dark mb-1">Registered Email or Mobile Number</label>
+                                    <div class="input-group auth-input-group">
+                                        <span class="input-group-text text-muted"><i class="fa-regular fa-user"></i></span>
+                                        <input type="text" required name="email" value=""
+                                               class="form-control" id="inputEmail"
+                                               placeholder="name@domain.com or +91 98453 71459" autocomplete="username" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <label for="inputPassword" class="form-label fs-13 fw-bold text-dark mb-0">Password</label>
+                                        <a href="#" class="fs-13 text-primary text-decoration-none fw-semibold" onclick="handleForgotPassword(); return false;">
+                                            Forgot password?
+                                        </a>
+                                    </div>
+                                    <div class="input-group auth-input-group">
+                                        <span class="input-group-text text-muted"><i class="fa-solid fa-lock"></i></span>
+                                        <input type="password" required name="password" value=""
+                                               class="form-control passShowHideInput" id="inputPassword"
+                                               placeholder="••••••••" autocomplete="current-password" />
+                                        <button type="button" class="input-group-text text-muted toggle-password" style="cursor: pointer;">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center mb-4 fs-14">
+                                    <label class="d-flex align-items-center gap-2 cursor-pointer user-select-none text-muted">
+                                        <input type="checkbox" checked class="form-check-input mt-0" id="rememberMe"/> Keep me signed in
+                                    </label>
+                                </div>
+
+                                <button type="submit" id="submitBtn" class="btn-auth-primary">
+                                    <span>Sign In to Portal</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </form>
+
+                            <div class="text-center mt-3 pt-3 border-top">
+                                <p class="fs-13 text-muted mb-2">
+                                    Don’t have an account yet? 
+                                    <a href="#" class="text-primary fw-bold text-decoration-none" onclick="flipTo('signup'); return false;">
+                                        Create Account Free <i class="fa-solid fa-arrows-rotate ms-1"></i>
+                                    </a>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 text-muted fs-12">
+                                    <a href="index.html" class="text-muted text-decoration-none"><i class="fa-solid fa-arrow-left"></i> Return Home</a>
+                                    <span><i class="fa-solid fa-shield-halved text-success me-1"></i> 256-Bit SSL Encrypted</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <label for="inputPassword" class="form-label fs-13 fw-bold text-dark mb-0">Password</label>
-                            <a href="#" class="fs-13 text-primary text-decoration-none fw-semibold" onclick="handleForgotPassword(); return false;">
-                                Forgot password?
-                            </a>
+                        <!-- BACK FACE: Sign Up Form -->
+                        <div class="auth-face auth-face-back" id="authFaceBack">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div>
+                                    <h3 class="fs-2 fw-800 text-dark mb-0">Create Account</h3>
+                                    <p class="fs-13 fw-500 text-muted mb-0">Join 3,000+ scholars worldwide</p>
+                                </div>
+                                <button type="button" class="flip-hint-pill" onclick="flipTo('signin')" title="Flip card to Sign In">
+                                    <i class="fa-solid fa-arrows-rotate"></i> Flip to Sign In
+                                </button>
+                            </div>
+
+                            <!-- Social Sign Up Options -->
+                            <div class="d-flex gap-2 mb-3">
+                                <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('google')">
+                                    <i class="fa-brands fa-google text-danger"></i> Google
+                                </button>
+                                <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('apple')">
+                                    <i class="fa-brands fa-apple text-dark"></i> Apple
+                                </button>
+                                <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('linkedin')">
+                                    <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
+                                </button>
+                            </div>
+
+                            <div class="position-relative text-center my-3">
+                                <hr class="text-muted opacity-25">
+                                <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-12 fw-semibold">
+                                    Or register with verified email
+                                </span>
+                            </div>
+
+                            <!-- Sign Up Form -->
+                            <form id="signUpForm" onsubmit="handleSignUpSubmit(event)">
+                                <!-- Who Are You Selector -->
+                                <div class="mb-3">
+                                    <label class="form-label fs-13 fw-bold text-dark mb-1">Who are you? <span class="text-danger">*</span></label>
+                                    <div class="d-flex gap-2">
+                                        <label class="flex-fill user-type-pill d-flex align-items-center justify-content-center gap-2">
+                                            <input type="radio" name="userType" value="Student" checked class="form-check-input mt-0">
+                                            <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-graduation-cap text-primary me-1"></i> Student</span>
+                                        </label>
+                                        <label class="flex-fill user-type-pill d-flex align-items-center justify-content-center gap-2">
+                                            <input type="radio" name="userType" value="Parent / Guardian" class="form-check-input mt-0">
+                                            <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-user-group text-success me-1"></i> Parent</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Full Name & Nick Name -->
+                                <div class="row g-2 mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="regFullName" class="form-label fs-13 fw-bold text-dark mb-1">Full Name <span class="text-danger">*</span></label>
+                                        <input type="text" required name="fullName" class="form-control auth-input-modern" id="regFullName" placeholder="e.g. Alex Morgan" autocomplete="name" />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="regNickName" class="form-label fs-13 fw-bold text-dark mb-1">Nick Name <span class="text-danger">*</span></label>
+                                        <input type="text" required name="nickName" class="form-control auth-input-modern" id="regNickName" placeholder="Preferred name" autocomplete="nickname" />
+                                    </div>
+                                </div>
+
+                                <!-- Email & Phone -->
+                                <div class="row g-2 mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="regEmail" class="form-label fs-13 fw-bold text-dark mb-1">Email <span class="text-danger">*</span></label>
+                                        <input type="email" required name="email" class="form-control auth-input-modern" id="regEmail" placeholder="you@domain.com" autocomplete="email" />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="regPhone" class="form-label fs-13 fw-bold text-dark mb-1">Mobile <span class="text-danger">*</span></label>
+                                        <input type="tel" required name="phone" class="form-control auth-input-modern" id="regPhone" placeholder="+91 98453 71459" autocomplete="tel" />
+                                    </div>
+                                </div>
+
+                                <!-- Email OTP Verification Box (Strictly Confidential) -->
+                                <div class="mb-3 p-3 rounded-4 border" style="background-color: #f8fafc; border-color: rgba(0, 0, 100, 0.2) !important;" id="otpVerificationPanel">
+                                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                                        <label class="form-label mb-0 fw-bold fs-13 text-dark">
+                                            <i class="fa-solid fa-envelope-circle-check text-primary me-1"></i> Email Verification <span class="text-danger">*</span>
+                                        </label>
+                                        <span class="badge bg-secondary-subtle text-secondary fs-11 px-2 py-0.5 rounded-pill" id="otpStatusBadge">
+                                            <i class="fa-regular fa-clock me-1"></i> Required
+                                        </span>
+                                    </div>
+
+                                    <p class="fs-12 text-muted mb-2">
+                                        A confidential 6-digit verification code will be sent to your email:
+                                    </p>
+
+                                    <div id="otpActionButtonsContainer">
+                                        <button type="button" class="btn btn-outline-primary w-100 py-2 px-3 rounded-3 fw-bold fs-13 d-flex align-items-center justify-content-center gap-2 shadow-sm" id="btnVerifyViaEmail" onclick="handleDirectOtpDispatch('email')">
+                                            <i class="fa-solid fa-paper-plane fs-13"></i>
+                                            <span id="btnVerifyViaEmailText">Send Verification Code to Email</span>
+                                        </button>
+                                    </div>
+
+                                    <!-- OTP Input Box -->
+                                    <div id="otpInputSection" class="mt-2.5 pt-2.5 border-top d-none">
+                                        <div class="alert alert-info py-1.5 px-2.5 fs-12 rounded-3 mb-2 d-flex align-items-center gap-2" id="otpNoticeBox">
+                                            <i class="fa-solid fa-envelope-open-text fs-14 text-primary flex-shrink-0"></i>
+                                            <span id="otpSentNoticeText">6-digit security code sent to your email. Check inbox/spam.</span>
+                                        </div>
+
+                                        <div class="row g-2 align-items-center">
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control text-center fs-18 fw-bold font-monospace py-1.5 rounded-3" 
+                                                       id="signupOtpCodeInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" 
+                                                       placeholder="••••••" style="letter-spacing: 6px; border: 2px solid #000064;" autocomplete="one-time-code" />
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <button type="button" class="btn btn-primary w-100 py-2 rounded-3 fw-bold fs-12 d-flex align-items-center justify-content-center gap-1 shadow-sm" id="btnConfirmOtp" onclick="handleVerifySignupOtp()" style="background-color: var(--brand-primary); border-color: var(--brand-primary);">
+                                                    <i class="fa-solid fa-check"></i> Verify OTP
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mt-1.5 fs-11 text-muted">
+                                            <span><i class="fa-regular fa-clock me-1"></i> Valid for 5 mins</span>
+                                            <a href="#" class="text-primary text-decoration-none fw-semibold" onclick="handleResendCurrentOtp(); return false;">Resend Code</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Preferred Study Destination -->
+                                <div class="mb-3">
+                                    <label for="regDestination" class="form-label fs-13 fw-bold text-dark mb-1">Preferred Destination <span class="text-danger">*</span></label>
+                                    <select class="form-select auth-input-modern" id="regDestination" required>
+                                        <option value="" selected disabled>Select Target Country</option>
+                                        <option value="United States">🇺🇸 United States</option>
+                                        <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                                        <option value="Canada">🇨🇦 Canada</option>
+                                        <option value="Australia">🇦🇺 Australia</option>
+                                        <option value="Germany">🇩🇪 Germany</option>
+                                        <option value="Ireland">🇮🇪 Ireland</option>
+                                        <option value="New Zealand">🇳🇿 New Zealand</option>
+                                        <option value="Singapore">🇸🇬 Singapore</option>
+                                        <option value="Global">🌐 Global Advisory</option>
+                                    </select>
+                                </div>
+
+                                <!-- Passwords -->
+                                <div class="row g-2 mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="regPassword" class="form-label fs-13 fw-bold text-dark mb-1">Password <span class="text-danger">*</span></label>
+                                        <div class="position-relative">
+                                            <input type="password" required name="password" class="form-control auth-input-modern passShowHideInput" id="regPassword" placeholder="Min. 6 chars" oninput="checkStrength(this.value)" autocomplete="new-password" />
+                                            <button type="button" class="btn border-0 position-absolute end-0 top-50 translate-middle-y text-muted toggle-password">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="pwd-strength-bar">
+                                            <div class="pwd-strength-fill" id="strengthFill"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="regConfirmPassword" class="form-label fs-13 fw-bold text-dark mb-1">Confirm <span class="text-danger">*</span></label>
+                                        <input type="password" required name="confirmPassword" class="form-control auth-input-modern" id="regConfirmPassword" placeholder="Re-enter password" autocomplete="new-password" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="d-flex align-items-start gap-2 cursor-pointer fs-12 text-muted">
+                                        <input type="checkbox" required class="form-check-input mt-0.5" id="agreeTerms" checked />
+                                        <span>I agree to The Edu Consultant <a href="#" class="text-primary text-decoration-underline fw-bold">Terms</a> and <a href="#" class="text-primary text-decoration-underline fw-bold">Privacy Policy</a>.</span>
+                                    </label>
+                                </div>
+
+                                <button type="submit" id="regSubmitBtn" class="btn-auth-primary">
+                                    <span>Create Free Account</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </form>
+
+                            <div class="text-center mt-3 pt-3 border-top">
+                                <p class="fs-13 text-muted mb-2">
+                                    Already registered? 
+                                    <a href="#" class="text-primary fw-bold text-decoration-none" onclick="flipTo('signin'); return false;">
+                                        Sign In Here <i class="fa-solid fa-arrows-rotate ms-1"></i>
+                                    </a>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 text-muted fs-12">
+                                    <a href="index.html" class="text-muted text-decoration-none"><i class="fa-solid fa-arrow-left"></i> Return Home</a>
+                                    <span><i class="fa-solid fa-bolt text-warning me-1"></i> Instant Setup</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="input-group auth-input-group">
-                            <span class="input-group-text text-muted"><i class="fa-solid fa-lock"></i></span>
-                            <input type="password" required name="password" value=""
-                                   class="form-control passShowHideInput" id="inputPassword"
-                                   placeholder="••••••••" autocomplete="current-password" />
-                            <button type="button" class="input-group-text text-muted toggle-password" style="cursor: pointer;">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="d-flex justify-content-between align-items-center mb-4 fs-14">
-                        <label class="d-flex align-items-center gap-2 cursor-pointer user-select-none text-muted">
-                            <input type="checkbox" checked class="form-check-input mt-0" id="rememberMe"/> Keep me signed in
-                        </label>
-                    </div>
-
-                    <button type="submit" id="submitBtn" class="btn-auth-primary">
-                        <span>Sign In to Portal</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </form>
-
-                <div class="text-center mt-4 pt-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
-                    <a href="index.html" class="text-muted fs-13 text-decoration-none d-inline-flex align-items-center gap-1">
-                        <i class="fa-solid fa-arrow-left"></i> Return Home
-                    </a>
-                    <div class="d-flex align-items-center gap-2">
-                        <span class="text-muted fs-12"><i class="fa-solid fa-shield-halved text-success me-1"></i> 256-Bit SSL Encrypted</span>
                     </div>
                 </div>
             </div>
@@ -450,6 +839,50 @@
     <script src="js/edconsultants.js?v=10.0"></script>
     <script src="js/elevatex.js?v=10.0"></script>
     <script>
+        // ==========================================
+        // 3D FLIP CONTROLLER
+        // ==========================================
+        function flipTo(target) {
+            const card = document.getElementById('authFlipCard');
+            const switcher = document.getElementById('authFlipSwitcher');
+            const btnSignIn = document.getElementById('btnTabSignIn');
+            const btnSignUp = document.getElementById('btnTabSignUp');
+            const heroBadge = document.getElementById('authHeroBadge');
+            const heroTitle = document.getElementById('authHeroTitle');
+            const heroSubtitle = document.getElementById('authHeroSubtitle');
+
+            if (target === 'signup') {
+                if (card) card.classList.add('is-flipped');
+                if (switcher) switcher.classList.add('flipped-active');
+                if (btnSignIn) btnSignIn.classList.remove('active');
+                if (btnSignUp) btnSignUp.classList.add('active');
+                if (heroBadge) heroBadge.innerHTML = '<i class="fa-solid fa-sparkles me-1"></i> Scholar Enrollment 2026';
+                if (heroTitle) heroTitle.textContent = 'Join 3,000+ Global Scholars Studying Worldwide.';
+                if (heroSubtitle) heroSubtitle.textContent = 'Create your confidential scholar portal account to match with top universities, calculate scholarship eligibility, and access one-on-one expert counseling.';
+                history.replaceState(null, null, '#signup');
+                setTimeout(() => {
+                    const firstInput = document.getElementById('regFullName');
+                    if (firstInput) firstInput.focus();
+                }, 400);
+            } else {
+                if (card) card.classList.remove('is-flipped');
+                if (switcher) switcher.classList.remove('flipped-active');
+                if (btnSignIn) btnSignIn.classList.add('active');
+                if (btnSignUp) btnSignUp.classList.remove('active');
+                if (heroBadge) heroBadge.innerHTML = '<i class="fa-solid fa-lock me-1"></i> Confidential Scholar Portal';
+                if (heroTitle) heroTitle.textContent = 'Welcome Back to Your Global Admissions Hub.';
+                if (heroSubtitle) heroSubtitle.textContent = 'Access real-time admissions tracking, upload visa financial portfolios, review scholarship awards, and consult directly with your dedicated study abroad mentor.';
+                history.replaceState(null, null, '#signin');
+                setTimeout(() => {
+                    const firstInput = document.getElementById('inputEmail');
+                    if (firstInput) firstInput.focus();
+                }, 400);
+            }
+        }
+
+        // ==========================================
+        // SIGN IN LOGIC & 2FA OTP
+        // ==========================================
         let currentLoginResult = null;
         let loginOtpModalInstance = null;
 
@@ -474,12 +907,10 @@
                     return;
                 }
 
-                // If Master Admin, redirection already handled by edAuth.login
                 if (result.isAdmin) {
                     return;
                 }
 
-                // If 2FA OTP is required for user
                 if (result.requireOtp) {
                     currentLoginResult = result;
                     btn.disabled = false;
@@ -503,7 +934,6 @@
             document.getElementById('loginOtpChannelLabel').textContent = (channel === 'sms' ? 'Mobile SMS' : 'Email Address');
             document.getElementById('loginOtpChannelIcon').className = (channel === 'sms' ? 'fa-solid fa-comment-sms text-success fs-15' : 'fa-solid fa-envelope text-primary fs-15');
             
-            // Mask target for confidentiality
             let masked = target;
             if (channel === 'sms') {
                 const digits = target.replace(/[^0-9]/g, '');
@@ -557,6 +987,248 @@
             document.getElementById('loginOtpInput').value = '';
             alert('A new confidential 6-digit security code has been sent to your email inbox!');
         }
+
+        // ==========================================
+        // SIGN UP LOGIC & EMAIL OTP
+        // ==========================================
+        let isOtpVerified = false;
+        let verifiedChannelUsed = '';
+
+        function checkStrength(val) {
+            const bar = document.getElementById('strengthFill');
+            if (!bar) return;
+            if (!val) {
+                bar.style.width = '0%';
+                return;
+            }
+            if (val.length < 6) {
+                bar.style.width = '30%';
+                bar.style.backgroundColor = '#fb5421';
+            } else if (val.length < 10) {
+                bar.style.width = '65%';
+                bar.style.backgroundColor = '#f5dc3c';
+            } else {
+                bar.style.width = '100%';
+                bar.style.backgroundColor = '#14d971';
+            }
+        }
+
+        async function handleDirectOtpDispatch(channel = 'email') {
+            const email = (document.getElementById('regEmail')?.value || '').trim();
+            const name = (document.getElementById('regFullName')?.value || '').trim() || 'Scholar';
+
+            if (!email || !email.includes('@')) {
+                alert('Please enter your valid email address first before requesting a verification code.');
+                document.getElementById('regEmail')?.focus();
+                return;
+            }
+
+            const targetBtn = document.getElementById('btnVerifyViaEmail');
+            const targetBtnText = document.getElementById('btnVerifyViaEmailText');
+
+            if (targetBtn) targetBtn.disabled = true;
+            if (targetBtnText) targetBtnText.textContent = 'Sending Code to Email...';
+
+            let otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+            try {
+                fetch('api/send-otp.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        target: email,
+                        channel: 'email',
+                        otp: otpCode,
+                        name: name,
+                        context: 'signup',
+                        altEmail: email
+                    })
+                }).catch(e => console.warn('Direct OTP server fetch notice:', e));
+            } catch (netErr) {}
+
+            try {
+                if (window.edAuth && typeof window.edAuth.sendSignupOtp === 'function') {
+                    await window.edAuth.sendSignupOtp(email, 'email', name, email);
+                }
+            } catch (authErr) {}
+
+            sessionStorage.setItem('edu_signup_otp_code', otpCode);
+            sessionStorage.setItem('edu_signup_otp_target', email);
+            sessionStorage.setItem('edu_signup_otp_expires', Date.now() + 300000);
+
+            if (targetBtn) targetBtn.disabled = false;
+            if (targetBtnText) targetBtnText.textContent = 'Resend Code to Email';
+
+            const otpSection = document.getElementById('otpInputSection');
+            if (otpSection) otpSection.classList.remove('d-none');
+
+            const noticeText = document.getElementById('otpSentNoticeText');
+            if (noticeText) {
+                noticeText.innerHTML = `A confidential 6-digit passcode was sent to <strong>${email}</strong>. Check your inbox and spam folder:`;
+            }
+
+            const inputEl = document.getElementById('signupOtpCodeInput');
+            if (inputEl) {
+                inputEl.value = '';
+                inputEl.focus();
+            }
+        }
+
+        function handleResendCurrentOtp() {
+            handleDirectOtpDispatch('email');
+        }
+
+        function handleVerifySignupOtp() {
+            const code = (document.getElementById('signupOtpCodeInput')?.value || '').trim();
+            if (code.length !== 6) {
+                alert('Please enter the complete 6-digit verification code from your email.');
+                return;
+            }
+
+            const storedCode = sessionStorage.getItem('edu_signup_otp_code');
+            let valid = false;
+
+            if (storedCode && code === storedCode) {
+                valid = true;
+            } else if (window.edAuth && typeof window.edAuth.verifySignupOtp === 'function') {
+                const res = window.edAuth.verifySignupOtp(code);
+                if (res && res.success) valid = true;
+            }
+
+            if (valid) {
+                isOtpVerified = true;
+                verifiedChannelUsed = 'email';
+
+                const badge = document.getElementById('otpStatusBadge');
+                if (badge) {
+                    badge.className = 'badge bg-success text-white border border-success fs-11 px-2 py-0.5 rounded-pill';
+                    badge.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i> Verified`;
+                }
+
+                const inputEl = document.getElementById('signupOtpCodeInput');
+                if (inputEl) inputEl.disabled = true;
+
+                const confirmBtn = document.getElementById('btnConfirmOtp');
+                if (confirmBtn) {
+                    confirmBtn.disabled = true;
+                    confirmBtn.className = 'btn btn-success w-100 py-2 rounded-3 fw-bold fs-12 d-flex align-items-center justify-content-center gap-1';
+                    confirmBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Email Verified';
+                }
+
+                const btnEmail = document.getElementById('btnVerifyViaEmail');
+                if (btnEmail) btnEmail.disabled = true;
+
+                const otpSection = document.getElementById('otpInputSection');
+                if (otpSection) {
+                    otpSection.classList.add('bg-success-subtle', 'p-2', 'rounded-3', 'border', 'border-success');
+                }
+            } else {
+                alert('Incorrect 6-digit OTP entered. Please check the email sent to your inbox and re-enter the code.');
+            }
+        }
+
+        async function handleSignUpSubmit(event) {
+            event.preventDefault();
+            const fullName = document.getElementById('regFullName').value.trim();
+            const nickName = document.getElementById('regNickName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const destination = document.getElementById('regDestination').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+            const userTypeEl = document.querySelector('input[name="userType"]:checked');
+            const userType = userTypeEl ? userTypeEl.value : 'Student';
+
+            if (!fullName || !nickName || !email || !phone || !destination) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please verify and re-enter.');
+                return;
+            }
+
+            if (!isOtpVerified) {
+                alert('Verification Required: Please click "Send Verification Code to Email" and verify your OTP first.');
+                document.getElementById('otpVerificationPanel').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+
+            const btn = document.getElementById('regSubmitBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+
+            const userPayload = {
+                name: fullName,
+                nickName: nickName,
+                userType: userType,
+                email: email,
+                phone: phone,
+                destination: destination,
+                password: password,
+                otpVerified: true,
+                verifiedVia: verifiedChannelUsed || 'email'
+            };
+
+            let signedUp = false;
+            try {
+                if (window.edAuth && typeof window.edAuth.signup === 'function') {
+                    signedUp = await window.edAuth.signup(userPayload);
+                }
+            } catch (authErr) {
+                console.warn('edAuth.signup notice:', authErr);
+            }
+
+            if (!signedUp) {
+                const userObj = {
+                    id: 'EDU-' + Math.floor(1000 + Math.random() * 9000),
+                    name: fullName,
+                    nickName: nickName,
+                    role: userType,
+                    userType: userType,
+                    email: email.toLowerCase(),
+                    phone: phone,
+                    destination: destination,
+                    password: password,
+                    otpVerified: true,
+                    verifiedVia: verifiedChannelUsed || 'email',
+                    status: 'Active',
+                    registeredAt: new Date().toISOString()
+                };
+                localStorage.setItem('edu_current_user', JSON.stringify(userObj));
+                signedUp = true;
+                window.location.href = 'student-dashboard.html';
+            }
+        }
+
+        // ==========================================
+        // INITIALIZE ON DOM READY
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup password toggles
+            document.querySelectorAll('.toggle-password').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const parent = this.closest('.input-group') || this.parentElement;
+                    const input = parent.querySelector('.passShowHideInput') || parent.querySelector('input[type="password"], input[type="text"]');
+                    if (input) {
+                        const isPassword = input.type === 'password';
+                        input.type = isPassword ? 'text' : 'password';
+                        const icon = this.querySelector('i');
+                        if (icon) {
+                            icon.className = isPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
+                        }
+                    }
+                });
+            });
+
+            // Check URL hash or query for initial state
+            if (window.location.hash === '#signup' || window.location.search.includes('tab=signup')) {
+                flipTo('signup');
+            } else {
+                flipTo('signin');
+            }
+        });
     </script>
 </body>
 </html>
