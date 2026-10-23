@@ -16,81 +16,213 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-    <link rel="stylesheet" href="css/edconsultants.css?v=4.4"/>
+    <link rel="stylesheet" href="css/edconsultants.css?v=4.5"/>
 
-    <!-- Ultra-Modern 3D Flip Card Auth Styling -->
+    <!-- Super Attractive Luxury 3D Flip Card Auth Styling -->
     <style>
         :root {
-            --auth-bg-gradient: radial-gradient(circle at 10% 20%, rgba(245, 220, 60, 0.08) 0%, transparent 40%),
-                                radial-gradient(circle at 90% 80%, rgba(0, 0, 100, 0.08) 0%, transparent 40%),
-                                #f6f9fc;
+            --auth-canvas: radial-gradient(ellipse at 85% 15%, rgba(245, 220, 60, 0.07) 0%, transparent 45%),
+                           radial-gradient(ellipse at 15% 85%, rgba(0, 0, 100, 0.05) 0%, transparent 45%),
+                           #f8fafc;
+            --brand-navy: #00004a;
+            --brand-gold: #f5dc3c;
+            --brand-gold-hover: #ebb916;
+            --card-radius: 24px;
         }
+
+        body {
+            background: var(--auth-canvas);
+            overflow-x: hidden;
+        }
+
         .auth-split-wrapper {
             min-height: 100vh;
             display: flex;
         }
+
+        /* Cinematic Luxury Left Showcase Pane */
         .auth-hero-pane {
             flex: 1.05;
-            background: linear-gradient(145deg, #00004a 0%, #03035b 50%, #0a1768 100%);
+            background-color: #03071e;
+            background-image: 
+                radial-gradient(circle at 85% 15%, rgba(245, 220, 60, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 15% 85%, rgba(56, 189, 248, 0.16) 0%, transparent 45%),
+                linear-gradient(145deg, rgba(3, 7, 30, 0.94) 0%, rgba(10, 23, 85, 0.90) 50%, rgba(15, 23, 42, 0.96) 100%),
+                url('images/campus-tour.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 64px 56px;
+            padding: 56px 48px;
             color: #ffffff;
             overflow: hidden;
         }
+
+        /* Ambient glowing background orbs */
         .auth-hero-pane::before {
             content: '';
             position: absolute;
-            top: -120px;
-            right: -120px;
-            width: 380px;
-            height: 380px;
+            top: -100px;
+            right: -100px;
+            width: 420px;
+            height: 420px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(245, 220, 60, 0.22) 0%, transparent 70%);
             pointer-events: none;
-            filter: blur(40px);
+            filter: blur(50px);
+            animation: pulseGlow 10s ease-in-out infinite alternate;
         }
         .auth-hero-pane::after {
             content: '';
             position: absolute;
-            bottom: -100px;
-            left: -100px;
-            width: 340px;
-            height: 340px;
+            bottom: -80px;
+            left: -80px;
+            width: 380px;
+            height: 380px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(20, 217, 113, 0.18) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.20) 0%, transparent 70%);
             pointer-events: none;
-            filter: blur(40px);
+            filter: blur(50px);
+            animation: pulseGlow 8s ease-in-out infinite alternate-reverse;
         }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.8; }
+            100% { transform: scale(1.15) translate(15px, -15px); opacity: 1; }
+        }
+
+        .hero-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            background: rgba(245, 220, 60, 0.14);
+            border: 1px solid rgba(245, 220, 60, 0.35);
+            color: #f5dc3c;
+            font-size: 11.5px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            margin-bottom: 16px;
+        }
+
+        .hero-display-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2rem, 3.2vw, 2.85rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+        .hero-display-title .gradient-text {
+            background: linear-gradient(135deg, #ffffff 40%, #f5dc3c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .auth-stat-pill {
             background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(14px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.16);
             border-radius: 16px;
-            padding: 12px 16px;
-            transition: transform 0.25s ease, background 0.25s ease;
+            padding: 12px 14px;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .auth-stat-pill:hover {
             transform: translateY(-3px);
-            background: rgba(255, 255, 255, 0.13);
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(245, 220, 60, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
+
+        .hero-floating-card {
+            background: rgba(255, 255, 255, 0.09);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s ease;
+        }
+        .hero-floating-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Right Form Pane */
         .auth-form-pane {
             flex: 1.15;
-            background: var(--auth-bg-gradient);
+            background: var(--auth-canvas);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 48px 32px;
+            padding: 32px 24px;
+            position: relative;
+        }
+
+        /* Segmented Pill Switcher Glider */
+        .auth-flip-switcher {
+            position: relative;
+            display: flex;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.95);
+            padding: 4px;
+            border-radius: 999px;
+            box-shadow: 0 4px 18px rgba(0, 0, 80, 0.06);
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto 16px auto;
+        }
+        .flip-switch-btn {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #64748b;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .flip-switch-btn.active {
+            color: #00004a;
+        }
+        .flip-switcher-glider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: #ffffff;
+            border-radius: 999px;
+            box-shadow: 0 4px 12px rgba(0, 0, 80, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+            z-index: 1;
+        }
+        .auth-flip-switcher.flipped-active .flip-switcher-glider {
+            transform: translateX(100%);
         }
 
         /* 3D Flip Viewport & Engine */
         .auth-flip-viewport {
-            perspective: 1600px;
-            -webkit-perspective: 1600px;
+            perspective: 2000px;
+            -webkit-perspective: 2000px;
             width: 100%;
-            max-width: 530px;
+            max-width: 520px;
             margin: 0 auto;
         }
         .auth-flip-card {
@@ -98,27 +230,27 @@
             width: 100%;
             transform-style: preserve-3d;
             -webkit-transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.2, 0.85, 0.35, 1.15);
+            transition: transform 0.75s cubic-bezier(0.3, 1.25, 0.5, 1);
             will-change: transform;
         }
         .auth-flip-card.is-flipped {
             transform: rotateY(180deg);
         }
 
-        /* Front & Back Faces */
+        /* Card Faces */
         .auth-face {
             width: 100%;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-            border-radius: 28px;
+            border-radius: var(--card-radius);
             background: #ffffff;
-            box-shadow: 0 25px 60px -12px rgba(0, 0, 100, 0.12), 0 0 1px 1px rgba(0, 0, 100, 0.05);
-            border: 1px solid rgba(226, 232, 240, 0.9);
-            padding: 38px 36px;
+            box-shadow: 0 20px 50px -10px rgba(0, 0, 80, 0.12), 0 0 0 1px rgba(0, 0, 80, 0.05);
+            border: 1px solid rgba(226, 232, 240, 0.85);
+            padding: 30px 28px;
             transition: box-shadow 0.3s ease;
         }
         .auth-face:hover {
-            box-shadow: 0 32px 70px -12px rgba(0, 0, 100, 0.16), 0 0 1px 1px rgba(0, 0, 100, 0.07);
+            box-shadow: 0 25px 60px -10px rgba(0, 0, 80, 0.16), 0 0 0 1px rgba(0, 0, 80, 0.07);
         }
         .auth-face-front {
             position: relative;
@@ -133,14 +265,14 @@
             z-index: 1;
         }
 
-        /* Smooth In-Flow Height Switch on Flip */
+        /* Fluid In-Flow Height Control */
         .auth-flip-card.is-flipped .auth-face-front {
             position: absolute;
             top: 0;
             left: 0;
             pointer-events: none;
             visibility: hidden;
-            transition: visibility 0s linear 0.4s;
+            transition: visibility 0s linear 0.35s;
         }
         .auth-flip-card.is-flipped .auth-face-back {
             position: relative;
@@ -149,67 +281,20 @@
         }
         .auth-flip-card:not(.is-flipped) .auth-face-back {
             visibility: hidden;
-            transition: visibility 0s linear 0.4s;
+            transition: visibility 0s linear 0.35s;
         }
         .auth-flip-card:not(.is-flipped) .auth-face-front {
             visibility: visible;
         }
 
-        /* Modern Segmented Pill Switcher */
-        .auth-flip-switcher {
-            position: relative;
-            display: flex;
-            background: #e2e8f0;
-            padding: 5px;
-            border-radius: 999px;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 100, 0.04);
-            max-width: 380px;
-            margin: 0 auto 22px auto;
-        }
-        .flip-switch-btn {
-            position: relative;
-            z-index: 2;
-            flex: 1;
-            border: none;
-            background: transparent;
-            padding: 9px 18px;
-            border-radius: 999px;
-            font-size: 13.5px;
-            font-weight: 700;
-            color: #64748b;
-            transition: color 0.3s ease;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .flip-switch-btn.active {
-            color: #000064;
-        }
-        .flip-switcher-glider {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            width: calc(50% - 5px);
-            height: calc(100% - 10px);
-            background: #ffffff;
-            border-radius: 999px;
-            box-shadow: 0 4px 12px rgba(0, 0, 100, 0.12), 0 1px 3px rgba(0, 0, 0, 0.06);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            z-index: 1;
-        }
-        .auth-flip-switcher.flipped-active .flip-switcher-glider {
-            transform: translateX(100%);
-        }
-
-        /* 3D Flip Quick Action Pill */
+        /* Flip Quick Hint Button */
         .flip-hint-pill {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             padding: 5px 12px;
-            border-radius: 20px;
-            background: rgba(0, 0, 100, 0.05);
+            border-radius: 999px;
+            background: rgba(0, 0, 100, 0.04);
             color: #000064;
             font-size: 11.5px;
             font-weight: 700;
@@ -221,13 +306,38 @@
         .flip-hint-pill:hover {
             background: #000064;
             color: #ffffff;
-            transform: scale(1.04);
+            transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(0, 0, 100, 0.15);
         }
 
-        /* Form Inputs & Elements */
+        /* Social Auth Pills */
+        .social-pill-btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            color: #1e293b;
+            font-size: 12.5px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .social-pill-btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Form Inputs */
         .auth-input-group {
-            border-radius: 14px;
+            border-radius: 12px;
             overflow: hidden;
             border: 1.5px solid #e2e8f0;
             transition: all 0.2s ease;
@@ -236,18 +346,19 @@
         .auth-input-group:focus-within {
             border-color: #000064;
             background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(0, 0, 100, 0.08);
+            box-shadow: 0 0 0 3.5px rgba(0, 0, 100, 0.08);
         }
         .auth-input-group .input-group-text {
             border: none;
             background: transparent;
-            padding-left: 16px;
+            padding-left: 14px;
+            font-size: 14px;
         }
         .auth-input-group .form-control {
             border: none;
             background: transparent;
-            padding: 13px 14px 13px 6px;
-            font-size: 14.5px;
+            padding: 10px 12px 10px 4px;
+            font-size: 13.5px;
             font-weight: 500;
         }
         .auth-input-group .form-control:focus {
@@ -259,21 +370,21 @@
             border-radius: 12px;
             border: 1.5px solid #e2e8f0;
             background: #f8fafc;
-            padding: 11px 14px;
-            font-size: 14px;
+            padding: 9px 12px;
+            font-size: 13px;
             font-weight: 500;
             transition: all 0.2s ease;
         }
         .auth-input-modern:focus {
             border-color: #000064;
             background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(0, 0, 100, 0.08);
+            box-shadow: 0 0 0 3.5px rgba(0, 0, 100, 0.08);
         }
 
         .user-type-pill {
             border: 1.5px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 12px 14px;
+            border-radius: 12px;
+            padding: 8px 12px;
             background: #f8fafc;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -287,42 +398,20 @@
         .user-type-pill:has(input:checked) {
             border-color: #000064;
             background: rgba(0, 0, 100, 0.04);
-            box-shadow: 0 2px 8px rgba(0, 0, 100, 0.08);
+            box-shadow: 0 2px 6px rgba(0, 0, 100, 0.06);
         }
 
-        .social-pill-btn {
-            flex: 1;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 11px 14px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            background: #ffffff;
-            color: #1e293b;
-            font-size: 13.5px;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .social-pill-btn:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
+        /* Primary Glowing Action Button */
         .btn-auth-primary {
             background: linear-gradient(135deg, #f5dc3c 0%, #ebb916 100%);
-            color: #000064;
+            color: #00004a;
             font-weight: 800;
-            font-size: 15.5px;
+            font-size: 14.5px;
+            letter-spacing: 0.2px;
             border: none;
-            border-radius: 14px;
-            padding: 14px 20px;
-            box-shadow: 0 10px 24px rgba(245, 220, 60, 0.35);
+            border-radius: 12px;
+            padding: 12px 20px;
+            box-shadow: 0 8px 20px rgba(245, 220, 60, 0.35);
             transition: all 0.25s ease;
             display: flex;
             align-items: center;
@@ -332,16 +421,21 @@
         }
         .btn-auth-primary:hover {
             background: linear-gradient(135deg, #fae455 0%, #f0c224 100%);
-            color: #00004a;
+            color: #000033;
             transform: translateY(-2px);
-            box-shadow: 0 14px 28px rgba(245, 220, 60, 0.45);
+            box-shadow: 0 12px 26px rgba(245, 220, 60, 0.45);
+        }
+        .btn-auth-primary:disabled {
+            opacity: 0.7;
+            transform: none;
+            cursor: not-allowed;
         }
 
         .pwd-strength-bar {
-            height: 4px;
+            height: 3px;
             border-radius: 2px;
             background: #e2e8f0;
-            margin-top: 6px;
+            margin-top: 5px;
             overflow: hidden;
         }
         .pwd-strength-fill {
@@ -355,18 +449,19 @@
                 flex-direction: column;
             }
             .auth-hero-pane {
-                padding: 32px 20px 24px;
+                padding: 36px 20px 28px;
                 flex: none;
             }
-            .auth-hero-pane .hero-extra {
-                display: none;
+            .auth-hero-pane .hero-extra,
+            .auth-hero-pane .hero-floating-card {
+                display: none !important;
             }
             .auth-form-pane {
-                padding: 24px 16px 48px;
+                padding: 24px 16px 40px;
             }
             .auth-face {
-                padding: 30px 20px;
-                border-radius: 22px;
+                padding: 24px 18px;
+                border-radius: 20px;
             }
         }
     </style>
@@ -375,87 +470,115 @@
 <body class="font-family-nunitoSans direction-ltr">
 
     <div class="auth-split-wrapper">
-        <!-- Brand Left Showcase Banner -->
+        <!-- Cinematic Left Showcase Banner -->
         <div class="auth-hero-pane">
             <div class="position-relative z-1">
-                <a href="index.html" class="logo text-decoration-none d-flex align-items-center gap-2 mb-4">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 48px; height: 48px; min-width: 48px; min-height: 48px; background-color: var(--button); color: var(--brand-primary);">
-                        <i class="fa-solid fa-graduation-cap fs-4"></i>
-                    </div>
-                    <span class="fs-3 fw-bold text-white" style="font-family: 'Poppins', sans-serif;">
-                        The Edu <span style="color: var(--button);">Consultant</span>
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
+                    <a href="index.html" class="logo text-decoration-none d-flex align-items-center gap-2">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 44px; height: 44px; min-width: 44px; min-height: 44px; background-color: var(--button); color: var(--brand-primary);">
+                            <i class="fa-solid fa-graduation-cap fs-5"></i>
+                        </div>
+                        <span class="fs-4 fw-bold text-white" style="font-family: 'Poppins', sans-serif;">
+                            The Edu <span style="color: var(--button);">Consultant</span>
+                        </span>
+                    </a>
+                    <span class="badge rounded-pill px-3 py-1.5 fw-semibold d-none d-sm-inline-flex align-items-center gap-1.5" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); font-size: 11px;">
+                        <i class="fa-solid fa-star text-warning"></i> Premier Global Admissions
                     </span>
-                </a>
+                </div>
             </div>
 
-            <div class="my-auto py-4 position-relative z-1">
-                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3" id="authHeroBadge">
+            <div class="my-auto py-3 position-relative z-1">
+                <span class="hero-badge-pill" id="authHeroBadge">
                     <i class="fa-solid fa-sparkles me-1"></i> Scholar Enrollment 2026
                 </span>
-                <h2 class="title fw-800 text-white display-6 mb-3" id="authHeroTitle">
-                    Join 3,000+ Global Scholars Studying Worldwide.
-                </h2>
-                <p class="text-white-50 fs-16 max-w-550 mb-4" id="authHeroSubtitle" style="line-height: 1.6;">
+                
+                <h1 class="hero-display-title" id="authHeroTitle">
+                    Join 3,000+ Global Scholars <span class="gradient-text">Studying Worldwide.</span>
+                </h1>
+                
+                <p class="text-white-50 fs-15 max-w-550 mb-3" id="authHeroSubtitle" style="line-height: 1.55;">
                     Create your confidential scholar portal account to match with top universities, calculate scholarship eligibility, and access one-on-one expert counseling.
                 </p>
 
-                <!-- 4 Live Metric Pills (User Specifications) -->
-                <div class="row g-2 mb-4 max-w-550">
+                <!-- Floating Achievement Glass Card -->
+                <div class="hero-floating-card d-none d-md-flex align-items-center gap-3 p-3 rounded-4 mb-3" style="max-width: 460px;">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 42px; height: 42px; background: linear-gradient(135deg, #f5dc3c, #ebb916); color: #00004a; font-size: 18px;">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-center mb-0.5">
+                            <span class="fs-13 fw-bold text-white">Cambridge University Admit</span>
+                            <span class="badge bg-warning text-dark fs-10 px-2 py-0.5 rounded-pill fw-bold">Scholar 2026</span>
+                        </div>
+                        <div class="fs-12 text-white-50">£28,500 Chancellor's Scholarship Awarded</div>
+                    </div>
+                </div>
+
+                <!-- 4 Live Metric Pills -->
+                <div class="row g-2 mb-3 max-w-550">
                     <div class="col-6 col-sm-3">
                         <div class="auth-stat-pill text-center">
                             <div class="fs-18 fw-800 text-warning">500+</div>
-                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Partner Unis</div>
+                            <div class="fs-10 text-white-50 text-uppercase fw-semibold">Partner Unis</div>
                         </div>
                     </div>
                     <div class="col-6 col-sm-3">
                         <div class="auth-stat-pill text-center">
                             <div class="fs-18 fw-800 text-info">120+</div>
-                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Countries</div>
+                            <div class="fs-10 text-white-50 text-uppercase fw-semibold">Countries</div>
                         </div>
                     </div>
                     <div class="col-6 col-sm-3">
                         <div class="auth-stat-pill text-center">
                             <div class="fs-18 fw-800 text-success">3k+</div>
-                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Global Scholars</div>
+                            <div class="fs-10 text-white-50 text-uppercase fw-semibold">Scholars</div>
                         </div>
                     </div>
                     <div class="col-6 col-sm-3">
                         <div class="auth-stat-pill text-center">
                             <div class="fs-18 fw-800 text-white">22k</div>
-                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Courses</div>
+                            <div class="fs-10 text-white-50 text-uppercase fw-semibold">Courses</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Verified Features List -->
-                <div class="hero-extra p-4 rounded-4 text-white" style="background: rgba(255, 255, 255, 0.09); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.16); max-width: 490px;">
-                    <div class="d-flex flex-column gap-3 text-white-90 fs-14">
-                        <div class="d-flex align-items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-warning"></i> <span>100% Free Counseling for 500+ Partner Universities in 120+ Countries</span>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-warning"></i> <span>Explore 22,000+ Accredited Degree & Master's Programs</span>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-warning"></i> <span>Direct Application Fee Waivers & 98.2% Visa Clearance Record</span>
+                <!-- Verified Testimonial Glass Card -->
+                <div class="hero-extra p-3 rounded-4 text-white" style="background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.14); max-width: 480px;">
+                    <div class="d-flex align-items-center gap-1 text-warning mb-1 fs-12">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span class="text-white-50 fs-11 ms-2 fw-semibold">4.9 / 5 Verified Student Rating</span>
+                    </div>
+                    <p class="fs-12 fst-italic text-white-90 mb-2" style="line-height: 1.45;">
+                        "The Edu Consultant unlocked application fee waivers, guided my SOP, and secured my UK tier-4 visa clearance in record time."
+                    </p>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-size: 11px;">SJ</div>
+                        <div>
+                            <div class="fw-bold fs-12 text-white">Sarah Jenkins</div>
+                            <div class="text-white-50 fs-10">MSc Data Science • University of Oxford (UK)</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="position-relative z-1 text-white-50 fs-13 d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="position-relative z-1 text-white-50 fs-12 d-flex justify-content-between align-items-center flex-wrap gap-2 pt-2 border-top border-white-10">
                 <span>© 2026 The Edu Consultant Global Inc.</span>
-                <a href="index.html" class="text-white-50 text-decoration-underline">Back to Homepage</a>
+                <span class="text-white-50">Engineered by <a href="https://ElavateX.com" target="_blank" class="text-white text-decoration-none fw-bold">ElavateX</a></span>
             </div>
         </div>
 
         <!-- Form Right / Center Content Pane -->
         <div class="auth-form-pane">
-            <div class="w-100" style="max-width: 530px;">
+            <div class="w-100" style="max-width: 520px;">
                 <!-- Mobile Logo Header (visible on < 992px) -->
                 <div class="d-lg-none text-center mb-3">
                     <a href="index.html" class="d-inline-flex align-items-center gap-2 text-decoration-none">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px; background-color: var(--brand-primary); color: var(--button);">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px; background-color: var(--brand-primary); color: var(--button);">
                             <i class="fa-solid fa-graduation-cap fs-5"></i>
                         </div>
                         <span class="fs-4 fw-800" style="color: var(--brand-primary); font-family: 'Poppins', sans-serif;">
@@ -464,20 +587,20 @@
                     </a>
                     <!-- Compact Mobile Stats Badge -->
                     <div class="d-flex justify-content-center gap-2 mt-2">
-                        <span class="badge bg-light text-muted border fs-11">500+ Unis</span>
-                        <span class="badge bg-light text-muted border fs-11">120+ Countries</span>
-                        <span class="badge bg-light text-muted border fs-11">3k+ Scholars</span>
-                        <span class="badge bg-light text-muted border fs-11">22k Courses</span>
+                        <span class="badge bg-light text-muted border fs-10">500+ Unis</span>
+                        <span class="badge bg-light text-muted border fs-10">120+ Countries</span>
+                        <span class="badge bg-light text-muted border fs-10">3k+ Scholars</span>
+                        <span class="badge bg-light text-muted border fs-10">22k Courses</span>
                     </div>
                 </div>
 
-                <!-- 3D Flip Segmented Pill Switcher -->
+                <!-- 3D Flip Segmented Pill Switcher Glider -->
                 <div class="auth-flip-switcher flipped-active" id="authFlipSwitcher">
                     <button type="button" class="flip-switch-btn" id="btnTabSignIn" onclick="flipTo('signin')">
-                        <i class="fa-solid fa-lock me-1.5"></i> Sign In
+                        <i class="fa-solid fa-lock"></i> Sign In
                     </button>
                     <button type="button" class="flip-switch-btn active" id="btnTabSignUp" onclick="flipTo('signup')">
-                        <i class="fa-solid fa-user-plus me-1.5"></i> Create Account
+                        <i class="fa-solid fa-user-plus"></i> Create Account
                     </button>
                     <div class="flip-switcher-glider"></div>
                 </div>
@@ -487,10 +610,10 @@
                     <div class="auth-flip-card is-flipped" id="authFlipCard">
                         <!-- FRONT FACE: Sign In Form -->
                         <div class="auth-face auth-face-front" id="authFaceFront">
-                            <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div class="d-flex align-items-center justify-content-between mb-2.5">
                                 <div>
-                                    <h3 class="fs-2 fw-800 text-dark mb-0">Sign In</h3>
-                                    <p class="fs-13 fw-500 text-muted mb-0">Enter your scholar portal</p>
+                                    <h3 class="fs-22 fw-800 text-dark mb-0">Sign In</h3>
+                                    <p class="fs-12 fw-500 text-muted mb-0">Enter your confidential scholar portal</p>
                                 </div>
                                 <button type="button" class="flip-hint-pill" onclick="flipTo('signup')" title="Flip card to Sign Up">
                                     <i class="fa-solid fa-arrows-rotate"></i> Flip to Sign Up
@@ -498,29 +621,29 @@
                             </div>
 
                             <!-- Social Sign In Options -->
-                            <div class="d-flex gap-2 mb-3">
+                            <div class="d-flex gap-2 mb-2.5">
                                 <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('google')">
-                                    <i class="fa-brands fa-google text-danger"></i> Google
+                                    <i class="fa-brands fa-google text-danger fs-13"></i> <span>Google</span>
                                 </button>
                                 <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('apple')">
-                                    <i class="fa-brands fa-apple text-dark"></i> Apple
+                                    <i class="fa-brands fa-apple text-dark fs-13"></i> <span>Apple</span>
                                 </button>
                                 <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('linkedin')">
-                                    <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
+                                    <i class="fa-brands fa-linkedin text-primary fs-13"></i> <span>LinkedIn</span>
                                 </button>
                             </div>
 
-                            <div class="position-relative text-center my-3">
-                                <hr class="text-muted opacity-25">
-                                <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-12 fw-semibold">
+                            <div class="position-relative text-center my-2.5">
+                                <hr class="text-muted opacity-20 my-0">
+                                <span class="position-absolute top-50 start-50 translate-middle bg-white px-2.5 text-muted fs-11 fw-semibold text-uppercase" style="letter-spacing: 0.5px;">
                                     Or sign in with credentials
                                 </span>
                             </div>
 
                             <!-- Sign In Form -->
                             <form id="signInForm" onsubmit="handleSignInSubmit(event)">
-                                <div class="mb-3">
-                                    <label for="inputEmail" class="form-label fs-13 fw-bold text-dark mb-1">Registered Email or Mobile Number</label>
+                                <div class="mb-2.5">
+                                    <label for="inputEmail" class="form-label fs-12 fw-bold text-dark mb-1">Registered Email or Mobile Number</label>
                                     <div class="input-group auth-input-group">
                                         <span class="input-group-text text-muted"><i class="fa-regular fa-user"></i></span>
                                         <input type="text" required name="email" value=""
@@ -529,10 +652,10 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-2.5">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <label for="inputPassword" class="form-label fs-13 fw-bold text-dark mb-0">Password</label>
-                                        <a href="#" class="fs-13 text-primary text-decoration-none fw-semibold" onclick="handleForgotPassword(); return false;">
+                                        <label for="inputPassword" class="form-label fs-12 fw-bold text-dark mb-0">Password</label>
+                                        <a href="#" class="fs-12 text-primary text-decoration-none fw-semibold" onclick="handleForgotPassword(); return false;">
                                             Forgot password?
                                         </a>
                                     </div>
@@ -542,12 +665,12 @@
                                                class="form-control passShowHideInput" id="inputPassword"
                                                placeholder="••••••••" autocomplete="current-password" />
                                         <button type="button" class="input-group-text text-muted toggle-password" style="cursor: pointer;">
-                                            <i class="fa-solid fa-eye"></i>
+                                            <i class="fa-solid fa-eye fs-13"></i>
                                         </button>
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-between align-items-center mb-4 fs-14">
+                                <div class="d-flex justify-content-between align-items-center mb-3 fs-13">
                                     <label class="d-flex align-items-center gap-2 cursor-pointer user-select-none text-muted">
                                         <input type="checkbox" checked class="form-check-input mt-0" id="rememberMe"/> Keep me signed in
                                     </label>
@@ -559,14 +682,14 @@
                                 </button>
                             </form>
 
-                            <div class="text-center mt-3 pt-3 border-top">
-                                <p class="fs-13 text-muted mb-2">
+                            <div class="text-center mt-2.5 pt-2 border-top">
+                                <p class="fs-12 text-muted mb-1.5">
                                     Don’t have an account yet? 
                                     <a href="#" class="text-primary fw-bold text-decoration-none" onclick="flipTo('signup'); return false;">
                                         Create Account Free <i class="fa-solid fa-arrows-rotate ms-1"></i>
                                     </a>
                                 </p>
-                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 text-muted fs-12">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 text-muted fs-11">
                                     <a href="index.html" class="text-muted text-decoration-none"><i class="fa-solid fa-arrow-left"></i> Return Home</a>
                                     <span><i class="fa-solid fa-shield-halved text-success me-1"></i> 256-Bit SSL Encrypted</span>
                                 </div>
@@ -575,10 +698,10 @@
 
                         <!-- BACK FACE: Sign Up Form -->
                         <div class="auth-face auth-face-back" id="authFaceBack">
-                            <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
                                 <div>
-                                    <h3 class="fs-2 fw-800 text-dark mb-0">Create Account</h3>
-                                    <p class="fs-13 fw-500 text-muted mb-0">Join 3,000+ scholars worldwide</p>
+                                    <h3 class="fs-22 fw-800 text-dark mb-0">Create Account</h3>
+                                    <p class="fs-12 fw-500 text-muted mb-0">Join 3,000+ scholars worldwide</p>
                                 </div>
                                 <button type="button" class="flip-hint-pill" onclick="flipTo('signin')" title="Flip card to Sign In">
                                     <i class="fa-solid fa-arrows-rotate"></i> Flip to Sign In
@@ -586,21 +709,21 @@
                             </div>
 
                             <!-- Social Sign Up Options -->
-                            <div class="d-flex gap-2 mb-3">
+                            <div class="d-flex gap-2 mb-2">
                                 <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('google')">
-                                    <i class="fa-brands fa-google text-danger"></i> Google
+                                    <i class="fa-brands fa-google text-danger fs-13"></i> <span>Google</span>
                                 </button>
                                 <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('apple')">
-                                    <i class="fa-brands fa-apple text-dark"></i> Apple
+                                    <i class="fa-brands fa-apple text-dark fs-13"></i> <span>Apple</span>
                                 </button>
                                 <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('linkedin')">
-                                    <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
+                                    <i class="fa-brands fa-linkedin text-primary fs-13"></i> <span>LinkedIn</span>
                                 </button>
                             </div>
 
-                            <div class="position-relative text-center my-3">
-                                <hr class="text-muted opacity-25">
-                                <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-12 fw-semibold">
+                            <div class="position-relative text-center my-2">
+                                <hr class="text-muted opacity-20 my-0">
+                                <span class="position-absolute top-50 start-50 translate-middle bg-white px-2.5 text-muted fs-11 fw-semibold text-uppercase" style="letter-spacing: 0.5px;">
                                     Or register with verified email
                                 </span>
                             </div>
@@ -608,96 +731,94 @@
                             <!-- Sign Up Form -->
                             <form id="signUpForm" onsubmit="handleSignUpSubmit(event)">
                                 <!-- Who Are You Selector -->
-                                <div class="mb-3">
-                                    <label class="form-label fs-13 fw-bold text-dark mb-1">Who are you? <span class="text-danger">*</span></label>
+                                <div class="mb-2">
+                                    <label class="form-label fs-12 fw-bold text-dark mb-1">Who are you? <span class="text-danger">*</span></label>
                                     <div class="d-flex gap-2">
-                                        <label class="flex-fill user-type-pill d-flex align-items-center justify-content-center gap-2">
+                                        <label class="flex-fill user-type-pill d-flex align-items-center justify-content-center gap-2 py-1.5">
                                             <input type="radio" name="userType" value="Student" checked class="form-check-input mt-0">
-                                            <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-graduation-cap text-primary me-1"></i> Student</span>
+                                            <span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-graduation-cap text-primary me-1"></i> Student</span>
                                         </label>
-                                        <label class="flex-fill user-type-pill d-flex align-items-center justify-content-center gap-2">
+                                        <label class="flex-fill user-type-pill d-flex align-items-center justify-content-center gap-2 py-1.5">
                                             <input type="radio" name="userType" value="Parent / Guardian" class="form-check-input mt-0">
-                                            <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-user-group text-success me-1"></i> Parent</span>
+                                            <span class="fs-12 fw-bold text-dark"><i class="fa-solid fa-user-group text-success me-1"></i> Parent / Guardian</span>
                                         </label>
                                     </div>
                                 </div>
 
                                 <!-- Full Name & Nick Name -->
-                                <div class="row g-2 mb-3">
-                                    <div class="col-sm-6">
-                                        <label for="regFullName" class="form-label fs-13 fw-bold text-dark mb-1">Full Name <span class="text-danger">*</span></label>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <label for="regFullName" class="form-label fs-12 fw-bold text-dark mb-1">Full Name <span class="text-danger">*</span></label>
                                         <input type="text" required name="fullName" class="form-control auth-input-modern" id="regFullName" placeholder="e.g. Alex Morgan" autocomplete="name" />
                                     </div>
-                                    <div class="col-sm-6">
-                                        <label for="regNickName" class="form-label fs-13 fw-bold text-dark mb-1">Nick Name <span class="text-danger">*</span></label>
+                                    <div class="col-6">
+                                        <label for="regNickName" class="form-label fs-12 fw-bold text-dark mb-1">Nick Name <span class="text-danger">*</span></label>
                                         <input type="text" required name="nickName" class="form-control auth-input-modern" id="regNickName" placeholder="Preferred name" autocomplete="nickname" />
                                     </div>
                                 </div>
 
                                 <!-- Email & Phone -->
-                                <div class="row g-2 mb-3">
-                                    <div class="col-sm-6">
-                                        <label for="regEmail" class="form-label fs-13 fw-bold text-dark mb-1">Email <span class="text-danger">*</span></label>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <label for="regEmail" class="form-label fs-12 fw-bold text-dark mb-1">Email <span class="text-danger">*</span></label>
                                         <input type="email" required name="email" class="form-control auth-input-modern" id="regEmail" placeholder="you@domain.com" autocomplete="email" />
                                     </div>
-                                    <div class="col-sm-6">
-                                        <label for="regPhone" class="form-label fs-13 fw-bold text-dark mb-1">Mobile <span class="text-danger">*</span></label>
+                                    <div class="col-6">
+                                        <label for="regPhone" class="form-label fs-12 fw-bold text-dark mb-1">Mobile <span class="text-danger">*</span></label>
                                         <input type="tel" required name="phone" class="form-control auth-input-modern" id="regPhone" placeholder="+91 98453 71459" autocomplete="tel" />
                                     </div>
                                 </div>
 
-                                <!-- Email OTP Verification Box (Strictly Confidential) -->
-                                <div class="mb-3 p-3 rounded-4 border" style="background-color: #f8fafc; border-color: rgba(0, 0, 100, 0.2) !important;" id="otpVerificationPanel">
-                                    <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
-                                        <label class="form-label mb-0 fw-bold fs-13 text-dark">
-                                            <i class="fa-solid fa-envelope-circle-check text-primary me-1"></i> Email Verification <span class="text-danger">*</span>
-                                        </label>
-                                        <span class="badge bg-secondary-subtle text-secondary fs-11 px-2 py-0.5 rounded-pill" id="otpStatusBadge">
+                                <!-- Email OTP Verification Bar (Confidential & Streamlined) -->
+                                <div class="mb-2 p-2 rounded-3 border" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-color: rgba(0, 0, 100, 0.12) !important;" id="otpVerificationPanel">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center gap-1.5">
+                                            <i class="fa-solid fa-shield-halved text-primary fs-12"></i>
+                                            <span class="fw-bold fs-12 text-dark">Confidential Email OTP <span class="text-danger">*</span></span>
+                                        </div>
+                                        <span class="badge bg-secondary-subtle text-secondary fs-10 px-2 py-0.5 rounded-pill" id="otpStatusBadge">
                                             <i class="fa-regular fa-clock me-1"></i> Required
                                         </span>
                                     </div>
 
-                                    <p class="fs-12 text-muted mb-2">
-                                        A confidential 6-digit verification code will be sent to your email:
-                                    </p>
-
-                                    <div id="otpActionButtonsContainer">
-                                        <button type="button" class="btn btn-outline-primary w-100 py-2 px-3 rounded-3 fw-bold fs-13 d-flex align-items-center justify-content-center gap-2 shadow-sm" id="btnVerifyViaEmail" onclick="handleDirectOtpDispatch('email')">
-                                            <i class="fa-solid fa-paper-plane fs-13"></i>
-                                            <span id="btnVerifyViaEmailText">Send Verification Code to Email</span>
+                                    <div class="d-flex align-items-center justify-content-between mt-1.5 gap-2" id="otpActionButtonsContainer">
+                                        <span class="fs-11 text-muted">A confidential 6-digit code will be sent to your email.</span>
+                                        <button type="button" class="btn btn-outline-primary btn-sm px-2.5 py-1 rounded-pill fw-bold fs-11 flex-shrink-0 d-flex align-items-center gap-1 shadow-sm" id="btnVerifyViaEmail" onclick="handleDirectOtpDispatch('email')">
+                                            <i class="fa-solid fa-paper-plane fs-11"></i>
+                                            <span id="btnVerifyViaEmailText">Send Code</span>
                                         </button>
                                     </div>
 
                                     <!-- OTP Input Box -->
-                                    <div id="otpInputSection" class="mt-2.5 pt-2.5 border-top d-none">
-                                        <div class="alert alert-info py-1.5 px-2.5 fs-12 rounded-3 mb-2 d-flex align-items-center gap-2" id="otpNoticeBox">
-                                            <i class="fa-solid fa-envelope-open-text fs-14 text-primary flex-shrink-0"></i>
-                                            <span id="otpSentNoticeText">6-digit security code sent to your email. Check inbox/spam.</span>
+                                    <div id="otpInputSection" class="mt-2 pt-2 border-top d-none">
+                                        <div class="alert alert-info py-1 px-2 fs-11 rounded-2 mb-1.5 d-flex align-items-center gap-2" id="otpNoticeBox">
+                                            <i class="fa-solid fa-envelope-open-text text-primary flex-shrink-0"></i>
+                                            <span id="otpSentNoticeText">6-digit passcode sent to your email. Check inbox/spam:</span>
                                         </div>
 
-                                        <div class="row g-2 align-items-center">
-                                            <div class="col-sm-7">
-                                                <input type="text" class="form-control text-center fs-18 fw-bold font-monospace py-1.5 rounded-3" 
+                                        <div class="row g-1.5 align-items-center">
+                                            <div class="col-7">
+                                                <input type="text" class="form-control text-center fs-16 fw-bold font-monospace py-1 rounded-2" 
                                                        id="signupOtpCodeInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" 
-                                                       placeholder="••••••" style="letter-spacing: 6px; border: 2px solid #000064;" autocomplete="one-time-code" />
+                                                       placeholder="••••••" style="letter-spacing: 5px; border: 2px solid #000064;" autocomplete="one-time-code" />
                                             </div>
-                                            <div class="col-sm-5">
-                                                <button type="button" class="btn btn-primary w-100 py-2 rounded-3 fw-bold fs-12 d-flex align-items-center justify-content-center gap-1 shadow-sm" id="btnConfirmOtp" onclick="handleVerifySignupOtp()" style="background-color: var(--brand-primary); border-color: var(--brand-primary);">
+                                            <div class="col-5">
+                                                <button type="button" class="btn btn-primary w-100 py-1.5 rounded-2 fw-bold fs-11 d-flex align-items-center justify-content-center gap-1 shadow-sm" id="btnConfirmOtp" onclick="handleVerifySignupOtp()" style="background-color: var(--brand-primary); border-color: var(--brand-primary);">
                                                     <i class="fa-solid fa-check"></i> Verify OTP
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center mt-1.5 fs-11 text-muted">
-                                            <span><i class="fa-regular fa-clock me-1"></i> Valid for 5 mins</span>
-                                            <a href="#" class="text-primary text-decoration-none fw-semibold" onclick="handleResendCurrentOtp(); return false;">Resend Code</a>
+                                        <div class="d-flex justify-content-between align-items-center mt-1 fs-10 text-muted">
+                                            <span><i class="fa-regular fa-clock me-1"></i> Valid 5m</span>
+                                            <a href="#" class="text-primary text-decoration-none fw-bold" onclick="handleResendCurrentOtp(); return false;">Resend Code</a>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Preferred Study Destination -->
-                                <div class="mb-3">
-                                    <label for="regDestination" class="form-label fs-13 fw-bold text-dark mb-1">Preferred Destination <span class="text-danger">*</span></label>
-                                    <select class="form-select auth-input-modern" id="regDestination" required>
+                                <div class="mb-2">
+                                    <label for="regDestination" class="form-label fs-12 fw-bold text-dark mb-1">Preferred Destination <span class="text-danger">*</span></label>
+                                    <select class="form-select auth-input-modern py-1.5" id="regDestination" required>
                                         <option value="" selected disabled>Select Target Country</option>
                                         <option value="United States">🇺🇸 United States</option>
                                         <option value="United Kingdom">🇬🇧 United Kingdom</option>
@@ -712,48 +833,48 @@
                                 </div>
 
                                 <!-- Passwords -->
-                                <div class="row g-2 mb-3">
-                                    <div class="col-sm-6">
-                                        <label for="regPassword" class="form-label fs-13 fw-bold text-dark mb-1">Password <span class="text-danger">*</span></label>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <label for="regPassword" class="form-label fs-12 fw-bold text-dark mb-1">Password <span class="text-danger">*</span></label>
                                         <div class="position-relative">
-                                            <input type="password" required name="password" class="form-control auth-input-modern passShowHideInput" id="regPassword" placeholder="Min. 6 chars" oninput="checkStrength(this.value)" autocomplete="new-password" />
-                                            <button type="button" class="btn border-0 position-absolute end-0 top-50 translate-middle-y text-muted toggle-password">
-                                                <i class="fa-solid fa-eye"></i>
+                                            <input type="password" required name="password" class="form-control auth-input-modern passShowHideInput py-1.5" id="regPassword" placeholder="Min. 6 chars" oninput="checkStrength(this.value)" autocomplete="new-password" />
+                                            <button type="button" class="btn border-0 position-absolute end-0 top-50 translate-middle-y text-muted toggle-password p-1">
+                                                <i class="fa-solid fa-eye fs-12"></i>
                                             </button>
                                         </div>
                                         <div class="pwd-strength-bar">
                                             <div class="pwd-strength-fill" id="strengthFill"></div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <label for="regConfirmPassword" class="form-label fs-13 fw-bold text-dark mb-1">Confirm <span class="text-danger">*</span></label>
-                                        <input type="password" required name="confirmPassword" class="form-control auth-input-modern" id="regConfirmPassword" placeholder="Re-enter password" autocomplete="new-password" />
+                                    <div class="col-6">
+                                        <label for="regConfirmPassword" class="form-label fs-12 fw-bold text-dark mb-1">Confirm <span class="text-danger">*</span></label>
+                                        <input type="password" required name="confirmPassword" class="form-control auth-input-modern py-1.5" id="regConfirmPassword" placeholder="Re-enter password" autocomplete="new-password" />
                                     </div>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label class="d-flex align-items-start gap-2 cursor-pointer fs-12 text-muted">
+                                <div class="mb-2.5">
+                                    <label class="d-flex align-items-start gap-2 cursor-pointer fs-11 text-muted user-select-none">
                                         <input type="checkbox" required class="form-check-input mt-0.5" id="agreeTerms" checked />
-                                        <span>I agree to The Edu Consultant <a href="#" class="text-primary text-decoration-underline fw-bold">Terms</a> and <a href="#" class="text-primary text-decoration-underline fw-bold">Privacy Policy</a>.</span>
+                                        <span>I agree to The Edu Consultant <a href="#" class="text-primary text-decoration-underline fw-bold">Terms</a> & <a href="#" class="text-primary text-decoration-underline fw-bold">Privacy Policy</a>.</span>
                                     </label>
                                 </div>
 
                                 <button type="submit" id="regSubmitBtn" class="btn-auth-primary">
-                                    <span>Create Free Account</span>
+                                    <span>Complete Free Registration</span>
                                     <i class="fa-solid fa-arrow-right"></i>
                                 </button>
                             </form>
 
-                            <div class="text-center mt-3 pt-3 border-top">
-                                <p class="fs-13 text-muted mb-2">
-                                    Already registered? 
+                            <div class="text-center mt-2 pt-2 border-top">
+                                <p class="fs-12 text-muted mb-1">
+                                    Already have an account? 
                                     <a href="#" class="text-primary fw-bold text-decoration-none" onclick="flipTo('signin'); return false;">
-                                        Sign In Here <i class="fa-solid fa-arrows-rotate ms-1"></i>
+                                        Sign In Instead <i class="fa-solid fa-arrows-rotate ms-1"></i>
                                     </a>
                                 </p>
-                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 text-muted fs-12">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 text-muted fs-11">
                                     <a href="index.html" class="text-muted text-decoration-none"><i class="fa-solid fa-arrow-left"></i> Return Home</a>
-                                    <span><i class="fa-solid fa-bolt text-warning me-1"></i> Instant Setup</span>
+                                    <span><i class="fa-solid fa-shield-halved text-success me-1"></i> 256-Bit SSL Encrypted</span>
                                 </div>
                             </div>
                         </div>
@@ -763,40 +884,36 @@
         </div>
     </div>
 
-    <!-- 2-Step Verification (OTP) Modal for Scholar / Parent Sign-In -->
+    <!-- 2FA Login OTP Modal (Strictly Confidential Email Delivery) -->
     <div class="modal fade" id="loginOtpModal" tabindex="-1" aria-labelledby="loginOtpModalLabel" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 440px;">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
-                <div class="modal-header border-0 pb-0 pt-4 px-4">
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px; background: rgba(0,0,100,0.1); color: var(--brand-primary);">
-                            <i class="fa-solid fa-shield-halved fs-18"></i>
+                <div class="modal-header border-0 pb-0 pt-4 px-4 position-relative">
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center w-100">
+                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-warning-subtle text-warning mb-2" style="width: 58px; height: 58px;">
+                            <i class="fa-solid fa-shield-halved fs-3" style="color: var(--brand-primary);"></i>
                         </div>
-                        <div>
-                            <h5 class="modal-title fw-bold text-dark fs-18 mb-0" id="loginOtpModalLabel">Two-Factor Security Verification</h5>
-                            <span class="fs-12 text-muted">Protecting your confidential scholar portal</span>
-                        </div>
+                        <h4 class="modal-title fw-800 text-dark" id="loginOtpModalLabel">Two-Factor Authentication</h4>
+                        <p class="text-muted fs-13 mb-0">Confidential security verification code sent</p>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btnCloseLoginOtp"></button>
                 </div>
-                <div class="modal-body px-4 pt-3 pb-4">
-                    <p class="fs-13 text-muted mb-3">
-                        We have dispatched a 6-digit verification passcode to your registered account:
-                    </p>
-                    <div class="p-2.5 rounded-3 bg-light border d-flex align-items-center justify-content-between mb-3">
-                        <div class="d-flex align-items-center gap-2">
-                            <i id="loginOtpChannelIcon" class="fa-solid fa-envelope text-primary fs-15"></i>
-                            <div>
-                                <span class="fs-11 text-muted d-block text-uppercase fw-bold" id="loginOtpChannelLabel">Registered Email</span>
-                                <span class="fs-13 fw-bold text-dark font-monospace" id="loginOtpTargetDisplay">***</span>
-                            </div>
+
+                <div class="modal-body p-4">
+                    <div class="alert alert-light border d-flex align-items-center gap-3 p-3 rounded-3 mb-3">
+                        <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px;">
+                            <i id="loginOtpChannelIcon" class="fa-solid fa-envelope text-primary fs-5"></i>
+                        </div>
+                        <div class="text-start">
+                            <div class="fs-11 text-uppercase fw-bold text-muted" id="loginOtpChannelLabel">Email Address</div>
+                            <div class="fw-bold fs-14 text-dark" id="loginOtpTargetDisplay">s•••@domain.com</div>
                         </div>
                     </div>
 
                     <form id="loginOtpForm" onsubmit="handleVerifyLoginOtp(event)">
                         <div class="mb-3 text-center">
-                            <label for="loginOtpInput" class="form-label fs-12 fw-bold text-dark text-uppercase mb-2">Enter 6-Digit Code</label>
-                            <input type="text" class="form-control text-center fs-24 fw-bold font-monospace py-2.5 rounded-3 border-2" 
+                            <label for="loginOtpInput" class="form-label fs-11 fw-bold text-dark text-uppercase mb-2">Enter 6-Digit Code</label>
+                            <input type="text" class="form-control text-center fs-22 fw-bold font-monospace py-2 rounded-3 border-2" 
                                    id="loginOtpInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" 
                                    placeholder="••••••" style="letter-spacing: 8px; border-color: var(--brand-primary);" required autofocus autocomplete="one-time-code" />
                             <div class="fs-11 text-muted mt-2">
@@ -804,15 +921,15 @@
                             </div>
                         </div>
 
-                        <button type="submit" id="btnConfirmLoginOtp" class="btn btn-warning w-100 py-3 rounded-3 fw-bold fs-15 shadow-sm d-flex align-items-center justify-content-center gap-2" style="background-color: var(--button); color: var(--brand-primary); border: none;">
+                        <button type="submit" id="btnConfirmLoginOtp" class="btn-auth-primary">
                             <span>Verify Code & Enter Portal</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </form>
 
-                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top fs-12">
+                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top fs-11">
                         <span class="text-muted">Didn't receive code?</span>
-                        <button type="button" class="btn btn-link p-0 fs-12 text-primary fw-bold text-decoration-none" id="btnResendLoginOtp" onclick="handleResendLoginOtp()">Resend Code to Email</button>
+                        <button type="button" class="btn btn-link p-0 fs-11 text-primary fw-bold text-decoration-none" id="btnResendLoginOtp" onclick="handleResendLoginOtp()">Resend Code to Email</button>
                     </div>
                 </div>
             </div>
@@ -850,26 +967,26 @@
                 if (btnSignIn) btnSignIn.classList.remove('active');
                 if (btnSignUp) btnSignUp.classList.add('active');
                 if (heroBadge) heroBadge.innerHTML = '<i class="fa-solid fa-sparkles me-1"></i> Scholar Enrollment 2026';
-                if (heroTitle) heroTitle.textContent = 'Join 3,000+ Global Scholars Studying Worldwide.';
+                if (heroTitle) heroTitle.innerHTML = 'Join 3,000+ Global Scholars <span class="gradient-text">Studying Worldwide.</span>';
                 if (heroSubtitle) heroSubtitle.textContent = 'Create your confidential scholar portal account to match with top universities, calculate scholarship eligibility, and access one-on-one expert counseling.';
                 history.replaceState(null, null, '#signup');
                 setTimeout(() => {
                     const firstInput = document.getElementById('regFullName');
                     if (firstInput) firstInput.focus();
-                }, 400);
+                }, 350);
             } else {
                 if (card) card.classList.remove('is-flipped');
                 if (switcher) switcher.classList.remove('flipped-active');
                 if (btnSignIn) btnSignIn.classList.add('active');
                 if (btnSignUp) btnSignUp.classList.remove('active');
                 if (heroBadge) heroBadge.innerHTML = '<i class="fa-solid fa-lock me-1"></i> Confidential Scholar Portal';
-                if (heroTitle) heroTitle.textContent = 'Welcome Back to Your Global Admissions Hub.';
-                if (heroSubtitle) heroSubtitle.textContent = 'Access real-time admissions tracking, upload visa financial portfolios, review scholarship awards, and consult directly with your dedicated study abroad mentor.';
+                if (heroTitle) heroTitle.innerHTML = 'Transform Ambition Into A <span class="gradient-text">World-Class Degree.</span>';
+                if (heroSubtitle) heroSubtitle.textContent = 'Access real-time admissions tracking, calculate scholarship eligibility, upload visa portfolios, and consult directly with your dedicated study abroad mentor.';
                 history.replaceState(null, null, '#signin');
                 setTimeout(() => {
                     const firstInput = document.getElementById('inputEmail');
                     if (firstInput) firstInput.focus();
-                }, 400);
+                }, 350);
             }
         }
 
@@ -925,7 +1042,7 @@
             const target = session.target;
 
             document.getElementById('loginOtpChannelLabel').textContent = (channel === 'sms' ? 'Mobile SMS' : 'Email Address');
-            document.getElementById('loginOtpChannelIcon').className = (channel === 'sms' ? 'fa-solid fa-comment-sms text-success fs-15' : 'fa-solid fa-envelope text-primary fs-15');
+            document.getElementById('loginOtpChannelIcon').className = (channel === 'sms' ? 'fa-solid fa-comment-sms text-success fs-5' : 'fa-solid fa-envelope text-primary fs-5');
             
             let masked = target;
             if (channel === 'sms') {
@@ -1020,7 +1137,7 @@
             const targetBtnText = document.getElementById('btnVerifyViaEmailText');
 
             if (targetBtn) targetBtn.disabled = true;
-            if (targetBtnText) targetBtnText.textContent = 'Sending Code to Email...';
+            if (targetBtnText) targetBtnText.textContent = 'Sending Code...';
 
             let otpCode = Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -1050,14 +1167,14 @@
             sessionStorage.setItem('edu_signup_otp_expires', Date.now() + 300000);
 
             if (targetBtn) targetBtn.disabled = false;
-            if (targetBtnText) targetBtnText.textContent = 'Resend Code to Email';
+            if (targetBtnText) targetBtnText.textContent = 'Resend Code';
 
             const otpSection = document.getElementById('otpInputSection');
             if (otpSection) otpSection.classList.remove('d-none');
 
             const noticeText = document.getElementById('otpSentNoticeText');
             if (noticeText) {
-                noticeText.innerHTML = `A confidential 6-digit passcode was sent to <strong>${email}</strong>. Check your inbox and spam folder:`;
+                noticeText.innerHTML = `6-digit security code sent to <strong>${email}</strong>. Check inbox/spam:`;
             }
 
             const inputEl = document.getElementById('signupOtpCodeInput');
@@ -1094,7 +1211,7 @@
 
                 const badge = document.getElementById('otpStatusBadge');
                 if (badge) {
-                    badge.className = 'badge bg-success text-white border border-success fs-11 px-2 py-0.5 rounded-pill';
+                    badge.className = 'badge bg-success text-white border border-success fs-10 px-2 py-0.5 rounded-pill';
                     badge.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i> Verified`;
                 }
 
@@ -1104,7 +1221,7 @@
                 const confirmBtn = document.getElementById('btnConfirmOtp');
                 if (confirmBtn) {
                     confirmBtn.disabled = true;
-                    confirmBtn.className = 'btn btn-success w-100 py-2 rounded-3 fw-bold fs-12 d-flex align-items-center justify-content-center gap-1';
+                    confirmBtn.className = 'btn btn-success w-100 py-1.5 rounded-2 fw-bold fs-11 d-flex align-items-center justify-content-center gap-1';
                     confirmBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Email Verified';
                 }
 
@@ -1113,7 +1230,7 @@
 
                 const otpSection = document.getElementById('otpInputSection');
                 if (otpSection) {
-                    otpSection.classList.add('bg-success-subtle', 'p-2', 'rounded-3', 'border', 'border-success');
+                    otpSection.classList.add('bg-success-subtle', 'p-2', 'rounded-2', 'border', 'border-success');
                 }
             } else {
                 alert('Incorrect 6-digit OTP entered. Please check the email sent to your inbox and re-enter the code.');
@@ -1143,7 +1260,7 @@
             }
 
             if (!isOtpVerified) {
-                alert('Verification Required: Please click "Send Verification Code to Email" and verify your OTP first.');
+                alert('Verification Required: Please click "Send Code" next to Email Verification and verify your OTP first.');
                 document.getElementById('otpVerificationPanel').scrollIntoView({ behavior: 'smooth' });
                 return;
             }
@@ -1215,7 +1332,7 @@
                 });
             });
 
-            // On signup.html, default to signup face unless #signin requested
+            // On signup.html, default to signup unless explicitly requesting signin
             if (window.location.hash === '#signin' || window.location.search.includes('tab=signin')) {
                 flipTo('signin');
             } else {
