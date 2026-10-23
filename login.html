@@ -18,191 +18,363 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <link rel="stylesheet" href="css/edconsultants.css?v=4.4"/>
-    <!-- Note: Mobile journey scroll flow is strictly excluded from authentication pages -->
+    <!-- Unique High-End Auth Styling -->
     <style>
-        .social-btn {
+        :root {
+            --auth-bg-gradient: radial-gradient(circle at 10% 20%, rgba(245, 220, 60, 0.08) 0%, transparent 40%),
+                                radial-gradient(circle at 90% 80%, rgba(0, 0, 100, 0.08) 0%, transparent 40%),
+                                #f6f9fc;
+        }
+        .auth-split-wrapper {
+            min-height: 100vh;
+            display: flex;
+        }
+        .auth-hero-pane {
+            flex: 1.05;
+            background: linear-gradient(145deg, #00004a 0%, #03035b 50%, #0a1768 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 64px 56px;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .auth-hero-pane::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -120px;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(245, 220, 60, 0.22) 0%, transparent 70%);
+            pointer-events: none;
+            filter: blur(40px);
+        }
+        .auth-hero-pane::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(20, 217, 113, 0.18) 0%, transparent 70%);
+            pointer-events: none;
+            filter: blur(40px);
+        }
+        .auth-stat-pill {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 16px;
+            padding: 12px 16px;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+        .auth-stat-pill:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.13);
+        }
+        .auth-form-pane {
+            flex: 1.15;
+            background: var(--auth-bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 32px;
+        }
+        .auth-card-modern {
+            width: 100%;
+            max-width: 480px;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px -10px rgba(0, 0, 100, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            padding: 42px 36px;
+        }
+        .auth-input-group {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1.5px solid #e2e8f0;
+            transition: all 0.2s ease;
+            background: #f8fafc;
+        }
+        .auth-input-group:focus-within {
+            border-color: #000064;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(0, 0, 100, 0.08);
+        }
+        .auth-input-group .input-group-text {
+            border: none;
+            background: transparent;
+            padding-left: 16px;
+        }
+        .auth-input-group .form-control {
+            border: none;
+            background: transparent;
+            padding: 13px 14px 13px 6px;
+            font-size: 14.5px;
+            font-weight: 500;
+        }
+        .auth-input-group .form-control:focus {
+            box-shadow: none;
+            background: transparent;
+        }
+        .social-pill-btn {
+            flex: 1;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 11px 16px;
-            border-radius: 10px;
-            border: 1px solid var(--stroke-2);
+            gap: 8px;
+            padding: 11px 14px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
             background: #ffffff;
-            color: var(--title-text);
-            font-size: 14px;
+            color: #1e293b;
+            font-size: 13.5px;
             font-weight: 600;
-            transition: all 0.25s ease;
-            text-decoration: none;
-            flex: 1;
-        }
-        .social-btn:hover {
-            background-color: var(--secondary);
-            border-color: #bbbbbb;
-            transform: translateY(-1px);
-        }
-        .role-pill-btn {
-            font-size: 12px;
-            font-weight: 600;
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: 1px solid var(--stroke-2);
-            background: var(--secondary);
-            color: var(--para-text);
-            cursor: pointer;
             transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
         }
-        .role-pill-btn:hover, .role-pill-btn.active {
-            background: var(--button);
-            color: var(--brand-primary);
-            border-color: var(--button);
-            font-weight: 700;
+        .social-pill-btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .btn-auth-primary {
+            background: linear-gradient(135deg, #f5dc3c 0%, #ebb916 100%);
+            color: #000064;
+            font-weight: 800;
+            font-size: 15.5px;
+            border: none;
+            border-radius: 14px;
+            padding: 14px 20px;
+            box-shadow: 0 10px 24px rgba(245, 220, 60, 0.35);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+        .btn-auth-primary:hover {
+            background: linear-gradient(135deg, #fae455 0%, #f0c224 100%);
+            color: #00004a;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(245, 220, 60, 0.45);
+        }
+        @media (max-width: 991px) {
+            .auth-split-wrapper {
+                flex-direction: column;
+            }
+            .auth-hero-pane {
+                padding: 32px 20px 24px;
+                flex: none;
+            }
+            .auth-hero-pane .hero-extra {
+                display: none;
+            }
+            .auth-form-pane {
+                padding: 24px 16px 48px;
+            }
+            .auth-card-modern {
+                padding: 30px 20px;
+                border-radius: 22px;
+            }
         }
     </style>
 </head>
 
-<body class="font-family-nunitoSans direction-ltr bg-white">
+<body class="font-family-nunitoSans direction-ltr">
 
-    <div class="signLog-section">
-        <!-- Brand Left Banner (Desktop) -->
-        <div class="right" style="background: linear-gradient(135deg, rgba(0, 0, 100, 0.88), rgba(6, 6, 141, 0.85)), url('images/scholar-acceptance.jpg') center/cover no-repeat;">
-            <a href="index.html" class="logo text-decoration-none d-flex align-items-center gap-2">
-                <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px; min-width: 48px; min-height: 48px; background-color: var(--button); color: var(--brand-primary);">
-                    <i class="fa-solid fa-graduation-cap fs-4"></i>
-                </div>
-                <span class="fs-3 fw-bold text-white" style="font-family: 'Poppins', sans-serif;">
-                    The Edu <span style="color: var(--button);">Consultant</span>
+    <div class="auth-split-wrapper">
+        <!-- Brand Left Showcase Banner -->
+        <div class="auth-hero-pane">
+            <div class="position-relative z-1">
+                <a href="index.html" class="logo text-decoration-none d-flex align-items-center gap-2 mb-4">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 48px; height: 48px; min-width: 48px; min-height: 48px; background-color: var(--button); color: var(--brand-primary);">
+                        <i class="fa-solid fa-graduation-cap fs-4"></i>
+                    </div>
+                    <span class="fs-3 fw-bold text-white" style="font-family: 'Poppins', sans-serif;">
+                        The Edu <span style="color: var(--button);">Consultant</span>
+                    </span>
+                </a>
+            </div>
+
+            <div class="my-auto py-4 position-relative z-1">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3">
+                    <i class="fa-solid fa-lock me-1"></i> Confidential Scholar Portal
                 </span>
-            </a>
-            <div class="my-auto py-5">
-                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3">Global Scholar Portal</span>
-                <h2 class="title fw-800 text-white display-6">
-                    Welcome Back to Your Global Education Journey!
+                <h2 class="title fw-800 text-white display-6 mb-3">
+                    Welcome Back to Your Global Admissions Hub.
                 </h2>
-                <p class="text-white-50 fs-16 mt-3 max-w-550">
-                    Log in to track university admissions, review CAS/I-20 issuance, upload visa documents, and chat directly with your assigned educational counselor.
+                <p class="text-white-50 fs-16 max-w-550 mb-4" style="line-height: 1.6;">
+                    Access real-time admissions tracking, upload visa financial portfolios, review scholarship awards, and consult directly with your dedicated study abroad mentor.
                 </p>
 
-                <!-- Student Testimonial Glass Card -->
-                <div class="p-4 rounded-4 mt-4 text-white" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); max-width: 480px;">
-                    <div class="d-flex align-items-center gap-1 text-warning mb-2 fs-14">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
+                <!-- 4 Live Metric Pills (User Specifications) -->
+                <div class="row g-2 mb-4 max-w-550">
+                    <div class="col-6 col-sm-3">
+                        <div class="auth-stat-pill text-center">
+                            <div class="fs-18 fw-800 text-warning">500+</div>
+                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Partner Unis</div>
+                        </div>
                     </div>
-                    <p class="fs-14 fst-italic text-white-90 mb-3" style="line-height: 1.5;">
-                        "The Edu Consultant made my dream of studying abroad a reality. From application fee waivers to visa filing, their dedicated advisors were with me every step."
+                    <div class="col-6 col-sm-3">
+                        <div class="auth-stat-pill text-center">
+                            <div class="fs-18 fw-800 text-info">120+</div>
+                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Countries</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <div class="auth-stat-pill text-center">
+                            <div class="fs-18 fw-800 text-success">3k+</div>
+                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Global Scholars</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <div class="auth-stat-pill text-center">
+                            <div class="fs-18 fw-800 text-white">22k</div>
+                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Courses</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verified Testimonial Glass Card -->
+                <div class="hero-extra p-4 rounded-4 text-white" style="background: rgba(255, 255, 255, 0.09); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.16); max-width: 480px;">
+                    <div class="d-flex align-items-center gap-1 text-warning mb-2 fs-13">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span class="text-white-50 fs-12 ms-2 fw-semibold">4.9 / 5 Verified Student Rating</span>
+                    </div>
+                    <p class="fs-14 fst-italic text-white-90 mb-3" style="line-height: 1.55;">
+                        "The Edu Consultant made my dream of studying in the UK effortless. Their team handled application fee waivers, SOP review, and mock visa prep with zero stress."
                     </p>
                     <div class="d-flex align-items-center gap-2">
-                        <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 13px;">SJ</div>
+                        <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 34px; height: 34px; font-size: 13px;">SJ</div>
                         <div>
                             <div class="fw-bold fs-13 text-white">Sarah Jenkins</div>
-                            <div class="text-white-50 fs-11">MSc Candidate • University of Oxford (UK)</div>
+                            <div class="text-white-50 fs-11">MSc Data Science • University of Oxford (UK)</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="text-white-50 fs-13 d-flex justify-content-between align-items-center">
+
+            <div class="position-relative z-1 text-white-50 fs-13 d-flex justify-content-between align-items-center flex-wrap gap-2">
                 <span>© 2026 The Edu Consultant Global Inc.</span>
                 <a href="index.html" class="text-white-50 text-decoration-underline">Back to Homepage</a>
             </div>
         </div>
 
-        <!-- Form Right / Center Content -->
-        <div class="left">
-            <div class="wrap w-100" style="max-width: 440px;">
+        <!-- Form Right / Center Content Pane -->
+        <div class="auth-form-pane">
+            <div class="auth-card-modern">
                 <!-- Mobile Logo Header (visible on < 992px) -->
                 <div class="d-lg-none text-center mb-4">
                     <a href="index.html" class="d-inline-flex align-items-center gap-2 text-decoration-none">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px; min-width: 42px; min-height: 42px; background-color: var(--brand-primary); color: var(--button);">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px; background-color: var(--brand-primary); color: var(--button);">
                             <i class="fa-solid fa-graduation-cap fs-5"></i>
                         </div>
                         <span class="fs-4 fw-800" style="color: var(--brand-primary); font-family: 'Poppins', sans-serif;">
                             The Edu <span style="color: var(--red);">Consultant</span>
                         </span>
                     </a>
+                    <!-- Compact Mobile Stats Badge -->
+                    <div class="d-flex justify-content-center gap-2 mt-2">
+                        <span class="badge bg-light text-muted border fs-11">500+ Unis</span>
+                        <span class="badge bg-light text-muted border fs-11">120+ Countries</span>
+                        <span class="badge bg-light text-muted border fs-11">3k+ Scholars</span>
+                        <span class="badge bg-light text-muted border fs-11">22k Courses</span>
+                    </div>
                 </div>
 
-                <div class="zMain-signLog-content">
-                    <div class="mb-4">
-                        <h3 class="fs-2 fw-800 text-title-text mb-1">Sign In</h3>
-                        <p class="fs-15 fw-500 text-para-text">
-                            Don’t have an account? 
-                            <a href="signup.html" class="text-brand-primary fw-bold text-decoration-none">Sign Up Free</a>
-                        </p>
-                    </div>
-
-                    <!-- Social Sign In Options -->
-                    <div class="d-flex gap-2 mb-3">
-                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('google')">
-                            <i class="fa-brands fa-google text-danger"></i> Google
-                        </button>
-                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('apple')">
-                            <i class="fa-brands fa-apple text-dark"></i> Apple
-                        </button>
-                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('linkedin')">
-                            <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
-                        </button>
-                    </div>
-
-                    <div class="position-relative text-center my-4">
-                        <hr class="text-muted opacity-25">
-                        <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-13 fw-semibold">
-                            Or sign in with email
+                <div class="mb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                        <h3 class="fs-2 fw-800 text-dark mb-0">Sign In</h3>
+                        <span class="badge bg-primary-subtle text-primary rounded-pill px-2.5 py-1 fs-12 fw-bold">
+                            <i class="fa-solid fa-shield-halved me-1"></i> Secure
                         </span>
                     </div>
+                    <p class="fs-14 fw-500 text-muted">
+                        Don’t have an account? 
+                        <a href="signup.html" class="text-primary fw-bold text-decoration-none">Create Account Free</a>
+                    </p>
+                </div>
 
-                    <!-- Sign In Form -->
-                    <form id="signInForm" onsubmit="handleSignInSubmit(event)">
-                        <div class="mb-3">
-                            <label for="inputEmail" class="zForm-label">Registered Email or Mobile Number</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-regular fa-user"></i></span>
-                                <input type="text" required name="email" value=""
-                                       class="form-control zForm-control border-start-0" id="inputEmail"
-                                       placeholder="e.g. name@example.com or +91 98453 71459" autocomplete="username" />
-                            </div>
+                <!-- Social Sign In Options -->
+                <div class="d-flex gap-2 mb-3">
+                    <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('google')">
+                        <i class="fa-brands fa-google text-danger"></i> Google
+                    </button>
+                    <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('apple')">
+                        <i class="fa-brands fa-apple text-dark"></i> Apple
+                    </button>
+                    <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('linkedin')">
+                        <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
+                    </button>
+                </div>
+
+                <div class="position-relative text-center my-4">
+                    <hr class="text-muted opacity-25">
+                    <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-12 fw-semibold">
+                        Or continue with credentials
+                    </span>
+                </div>
+
+                <!-- Sign In Form -->
+                <form id="signInForm" onsubmit="handleSignInSubmit(event)">
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label fs-13 fw-bold text-dark mb-1">Registered Email or Mobile Number</label>
+                        <div class="input-group auth-input-group">
+                            <span class="input-group-text text-muted"><i class="fa-regular fa-user"></i></span>
+                            <input type="text" required name="email" value=""
+                                   class="form-control" id="inputEmail"
+                                   placeholder="name@domain.com or +91 98453 71459" autocomplete="username" />
                         </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <label for="inputPassword" class="zForm-label mb-0">Password</label>
-                                <a href="#" class="fs-13 text-brand-primary text-decoration-none fw-semibold" onclick="handleForgotPassword(); return false;">
-                                    Forgot password?
-                                </a>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-text bg-light border-end-0 text-muted"><i class="fa-solid fa-lock"></i></span>
-                                <input type="password" required name="password" value=""
-                                       class="form-control zForm-control border-start-0 border-end-0 passShowHideInput" id="inputPassword"
-                                       placeholder="••••••••" autocomplete="current-password" />
-                                <button type="button" class="input-group-text bg-light border-start-0 text-muted toggle-password" style="cursor: pointer;">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                            </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label for="inputPassword" class="form-label fs-13 fw-bold text-dark mb-0">Password</label>
+                            <a href="#" class="fs-13 text-primary text-decoration-none fw-semibold" onclick="handleForgotPassword(); return false;">
+                                Forgot password?
+                            </a>
                         </div>
-
-                        <div class="d-flex justify-content-between align-items-center mb-4 fs-14">
-                            <label class="d-flex align-items-center gap-2 cursor-pointer user-select-none">
-                                <input type="checkbox" checked class="form-check-input mt-0" id="rememberMe"/> Keep me signed in
-                            </label>
+                        <div class="input-group auth-input-group">
+                            <span class="input-group-text text-muted"><i class="fa-solid fa-lock"></i></span>
+                            <input type="password" required name="password" value=""
+                                   class="form-control passShowHideInput" id="inputPassword"
+                                   placeholder="••••••••" autocomplete="current-password" />
+                            <button type="button" class="input-group-text text-muted toggle-password" style="cursor: pointer;">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
                         </div>
+                    </div>
 
-                        <button type="submit" id="submitBtn" class="btn btn-warning w-100 py-3 rounded-3 fw-bold fs-16 shadow-sm d-flex align-items-center justify-content-center gap-2" style="background-color: var(--button); color: var(--brand-primary); border: none;">
-                            <span>Sign In to Portal</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </form>
+                    <div class="d-flex justify-content-between align-items-center mb-4 fs-14">
+                        <label class="d-flex align-items-center gap-2 cursor-pointer user-select-none text-muted">
+                            <input type="checkbox" checked class="form-check-input mt-0" id="rememberMe"/> Keep me signed in
+                        </label>
+                    </div>
 
-                    <div class="text-center mt-4 pt-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
-                        <a href="index.html" class="text-muted fs-13 text-decoration-none d-inline-flex align-items-center gap-1">
-                            <i class="fa-solid fa-arrow-left"></i> Return Home
-                        </a>
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="text-muted fs-12"><i class="fa-solid fa-shield-halved text-success me-1"></i> 256-Bit SSL Encrypted</span>
-                        </div>
+                    <button type="submit" id="submitBtn" class="btn-auth-primary">
+                        <span>Sign In to Portal</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="text-center mt-4 pt-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <a href="index.html" class="text-muted fs-13 text-decoration-none d-inline-flex align-items-center gap-1">
+                        <i class="fa-solid fa-arrow-left"></i> Return Home
+                    </a>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-muted fs-12"><i class="fa-solid fa-shield-halved text-success me-1"></i> 256-Bit SSL Encrypted</span>
                     </div>
                 </div>
             </div>

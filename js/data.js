@@ -16,11 +16,11 @@ window.EduData = {
     },
 
     stats: [
-        { label: "Partnering Universities", value: "100+", raw: 100, icon: "building", desc: "Top-ranked global institutions" },
-        { label: "Destination Countries", value: "20+", raw: 20, icon: "globe", desc: "Across North America, Europe & APAC" },
-        { label: "Global Students Placed", value: "1,280+", raw: 1280, icon: "users", desc: "Successful academic admissions" },
-        { label: "Visa Approval Rate", value: "98%", raw: 98, icon: "shield-check", desc: "Industry-leading embassy clearance" },
-        { label: "Specialized Programs", value: "25+", raw: 25, icon: "book-open", desc: "Undergraduate & postgraduate pathways" }
+        { label: "Partnering Universities", value: "500+", raw: 500, icon: "building", desc: "Top-ranked global institutions" },
+        { label: "Destination Countries", value: "120+", raw: 120, icon: "globe", desc: "Across North America, Europe, UK & APAC" },
+        { label: "Global Students Placed", value: "3,000+", raw: 3000, icon: "users", desc: "Successful academic admissions" },
+        { label: "Visa Approval Rate", value: "98.2%", raw: 98.2, icon: "shield-check", desc: "Industry-leading embassy clearance" },
+        { label: "Available Courses", value: "22,000+", raw: 22000, icon: "book-open", desc: "Undergraduate, postgraduate & STEM research programs" }
     ],
 
     destinations: [
@@ -88,46 +88,46 @@ window.EduData = {
 
     services: [
         {
-            id: "doc-processing",
-            title: "Document Processing",
-            icon: "file-text",
-            brief: "Professional SOP, LOR, and academic transcript verification tailored to institutional admission rubrics.",
-            desc: "Our senior admissions officers meticulously review, structure, and polish your Statement of Purpose (SOP), Letters of Recommendation (LORs), resume, and academic portfolios. We ensure every document aligns with university benchmarks to maximize acceptance probability."
-        },
-        {
-            id: "visa-processing",
-            title: "Visa Processing",
-            icon: "stamp",
-            brief: "Comprehensive embassy file compilation, mock interviews, and 98% visa approval track record.",
-            desc: "From financial documentation verification to biometric scheduling and one-on-one consular interview simulations, our certified visa consultants guide you with absolute precision."
-        },
-        {
             id: "admission-counseling",
-            title: "University Admission Counseling",
+            title: "University Profiling & Shortlisting",
             icon: "compass",
-            brief: "Strategic profile evaluation, course-to-career alignment, and direct institutional partnership waivers.",
-            desc: "We analyze your academic history, test scores, financial profile, and career aspirations to curate a strategic shortlist of Reach, Target, and Safety universities with application fee waivers where available."
+            brief: "Diagnostic profile evaluation, tier-matrix shortlisting, and institutional application fee waivers.",
+            desc: "We analyze your academic history, test scores, research background, and career aspirations to curate a strategic shortlist of Reach, Target, and Safety universities across 500+ world-class institutions, securing priority application fee waivers."
         },
         {
-            id: "professor-matching",
-            title: "Professor Matching Services",
-            icon: "user-check",
-            brief: "Specialized thesis supervisor matching and academic research reach-out for Masters and PhD scholars.",
-            desc: "Connect directly with prominent research supervisors and faculty heads. We assist in crafting compelling research proposals, academic CVs, and targeted faculty outreach letters."
+            id: "doc-processing",
+            title: "SOP & Academic Dossier Polishing",
+            icon: "file-text",
+            brief: "Bespoke Statement of Purpose (SOP), Letters of Recommendation (LORs), and academic portfolio development.",
+            desc: "Our senior admissions mentors meticulously structure, edit, and polish your Statement of Purpose (SOP), Letters of Recommendation (LORs), and curriculum vitae, aligning every application with specific faculty benchmarks to maximize acceptance rates."
         },
         {
             id: "scholarship-guidance",
-            title: "Scholarship Guidance",
+            title: "Scholarship & Grant Procurement",
             icon: "award",
-            brief: "Need-based and merit-based financial aid identification, fee waivers, and grant application support.",
-            desc: "Our scholarship desk unlocks institutional scholarships, government grants, and external fellowships, helping our students secure over $4.2M in cumulative tuition waivers."
+            brief: "Identification and filing for institutional merit bursaries, dean's awards, and government funding up to 100%.",
+            desc: "Our specialized financial aid desk navigates institutional endowments, government sponsorships, and external research fellowships, unlocking significant tuition fee waivers for qualifying students."
+        },
+        {
+            id: "visa-processing",
+            title: "Student Visa Advisory & Mock Prep",
+            icon: "stamp",
+            brief: "Meticulous embassy file compilation, financial proof auditing, and one-on-one consular interview simulations.",
+            desc: "From strict financial documentation auditing to biometric scheduling and realistic consular interview simulations, our certified visa consultants maintain an industry-leading 98.2% visa approval track record."
+        },
+        {
+            id: "education-loans",
+            title: "Education Loan & Financial Clearance",
+            icon: "building-columns",
+            brief: "Collateral and non-collateral international education loan matching with low interest rates and swift sanctions.",
+            desc: "We partner directly with leading national banks and international education finance institutions to offer fast-track collateral and non-collateral loans with preferential interest rates and pre-visa sanction letters."
         },
         {
             id: "pre-departure",
-            title: "Pre-Departure Support",
+            title: "Pre-Departure, Housing & Relocation",
             icon: "plane-takeoff",
-            brief: "Airport pickup coordination, foreign exchange, student housing booking, and international sim support.",
-            desc: "Your journey doesn't end with a visa. We organize pre-departure packing guides, flight ticketing, student accommodation booking, foreign exchange accounts, health insurance, and on-ground buddy connections."
+            brief: "Vetted student housing booking, multi-currency forex cards, discounted airfares, and on-ground buddy support.",
+            desc: "Your journey continues well past your visa grant. We assist with safe student housing bookings, zero-markup multi-currency forex accounts, discounted international student flight tickets, airport pickup, and local senior student buddy networks."
         }
     ],
 

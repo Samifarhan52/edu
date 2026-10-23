@@ -18,33 +18,163 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <link rel="stylesheet" href="css/edconsultants.css?v=4.4"/>
-    <!-- Note: Mobile journey scroll flow is strictly excluded from authentication pages -->
+    <!-- Unique High-End Auth Styling -->
     <style>
-        .social-btn {
+        :root {
+            --auth-bg-gradient: radial-gradient(circle at 10% 20%, rgba(245, 220, 60, 0.08) 0%, transparent 40%),
+                                radial-gradient(circle at 90% 80%, rgba(0, 0, 100, 0.08) 0%, transparent 40%),
+                                #f6f9fc;
+        }
+        .auth-split-wrapper {
+            min-height: 100vh;
+            display: flex;
+        }
+        .auth-hero-pane {
+            flex: 1.05;
+            background: linear-gradient(145deg, #00004a 0%, #03035b 50%, #0a1768 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 64px 56px;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        .auth-hero-pane::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -120px;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(245, 220, 60, 0.22) 0%, transparent 70%);
+            pointer-events: none;
+            filter: blur(40px);
+        }
+        .auth-hero-pane::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(20, 217, 113, 0.18) 0%, transparent 70%);
+            pointer-events: none;
+            filter: blur(40px);
+        }
+        .auth-stat-pill {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 16px;
+            padding: 12px 16px;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+        .auth-stat-pill:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.13);
+        }
+        .auth-form-pane {
+            flex: 1.15;
+            background: var(--auth-bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 32px;
+        }
+        .auth-card-modern {
+            width: 100%;
+            max-width: 540px;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px -10px rgba(0, 0, 100, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            padding: 42px 38px;
+        }
+        .auth-input-modern {
+            border-radius: 12px;
+            border: 1.5px solid #e2e8f0;
+            background: #f8fafc;
+            padding: 11px 14px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .auth-input-modern:focus {
+            border-color: #000064;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(0, 0, 100, 0.08);
+        }
+        .user-type-pill {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 12px 14px;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .user-type-pill:hover {
+            border-color: #cbd5e1;
+            background: #ffffff;
+        }
+        .user-type-pill.active,
+        .user-type-pill:has(input:checked) {
+            border-color: #000064;
+            background: rgba(0, 0, 100, 0.04);
+            box-shadow: 0 2px 8px rgba(0, 0, 100, 0.08);
+        }
+        .social-pill-btn {
+            flex: 1;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 11px 16px;
-            border-radius: 10px;
-            border: 1px solid var(--stroke-2);
+            gap: 8px;
+            padding: 11px 14px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
             background: #ffffff;
-            color: var(--title-text);
-            font-size: 14px;
+            color: #1e293b;
+            font-size: 13.5px;
             font-weight: 600;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             text-decoration: none;
-            flex: 1;
+            cursor: pointer;
         }
-        .social-btn:hover {
-            background-color: var(--secondary);
-            border-color: #bbbbbb;
-            transform: translateY(-1px);
+        .social-pill-btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .btn-auth-primary {
+            background: linear-gradient(135deg, #f5dc3c 0%, #ebb916 100%);
+            color: #000064;
+            font-weight: 800;
+            font-size: 15.5px;
+            border: none;
+            border-radius: 14px;
+            padding: 14px 20px;
+            box-shadow: 0 10px 24px rgba(245, 220, 60, 0.35);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+        .btn-auth-primary:hover {
+            background: linear-gradient(135deg, #fae455 0%, #f0c224 100%);
+            color: #00004a;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(245, 220, 60, 0.45);
         }
         .pwd-strength-bar {
             height: 4px;
             border-radius: 2px;
-            background: #e0e0e0;
+            background: #e2e8f0;
             margin-top: 6px;
             overflow: hidden;
         }
@@ -53,237 +183,304 @@
             width: 0%;
             transition: all 0.3s ease;
         }
+        @media (max-width: 991px) {
+            .auth-split-wrapper {
+                flex-direction: column;
+            }
+            .auth-hero-pane {
+                padding: 32px 20px 24px;
+                flex: none;
+            }
+            .auth-hero-pane .hero-extra {
+                display: none;
+            }
+            .auth-form-pane {
+                padding: 24px 16px 48px;
+            }
+            .auth-card-modern {
+                padding: 30px 20px;
+                border-radius: 22px;
+            }
+        }
     </style>
 </head>
 
-<body class="font-family-nunitoSans direction-ltr bg-white">
+<body class="font-family-nunitoSans direction-ltr">
 
-    <div class="signLog-section">
-        <!-- Brand Left Banner (Desktop) -->
-        <div class="right" style="background: linear-gradient(135deg, rgba(0, 0, 100, 0.88), rgba(6, 6, 141, 0.85)), url('images/hero-students.jpg') center/cover no-repeat;">
-            <a href="index.html" class="logo text-decoration-none d-flex align-items-center gap-2">
-                <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px; min-width: 48px; min-height: 48px; background-color: var(--button); color: var(--brand-primary);">
-                    <i class="fa-solid fa-graduation-cap fs-4"></i>
-                </div>
-                <span class="fs-3 fw-bold text-white" style="font-family: 'Poppins', sans-serif;">
-                    The Edu <span style="color: var(--button);">Consultant</span>
+    <div class="auth-split-wrapper">
+        <!-- Brand Left Showcase Banner -->
+        <div class="auth-hero-pane">
+            <div class="position-relative z-1">
+                <a href="index.html" class="logo text-decoration-none d-flex align-items-center gap-2 mb-4">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 48px; height: 48px; min-width: 48px; min-height: 48px; background-color: var(--button); color: var(--brand-primary);">
+                        <i class="fa-solid fa-graduation-cap fs-4"></i>
+                    </div>
+                    <span class="fs-3 fw-bold text-white" style="font-family: 'Poppins', sans-serif;">
+                        The Edu <span style="color: var(--button);">Consultant</span>
+                    </span>
+                </a>
+            </div>
+
+            <div class="my-auto py-4 position-relative z-1">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3">
+                    <i class="fa-solid fa-sparkles me-1"></i> Scholar Enrollment 2026
                 </span>
-            </a>
-            <div class="my-auto py-5">
-                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3">Begin Your Future</span>
-                <h2 class="title fw-800 text-white display-6">
-                    Join 25,000+ Global Students Studying Worldwide.
+                <h2 class="title fw-800 text-white display-6 mb-3">
+                    Join 3,000+ Global Scholars Studying Worldwide.
                 </h2>
-                <p class="text-white-50 fs-16 mt-3 max-w-550">
-                    Create your free portal account to match with top universities, calculate scholarship eligibility, and access one-on-one expert counseling.
+                <p class="text-white-50 fs-16 max-w-550 mb-4" style="line-height: 1.6;">
+                    Create your confidential scholar portal account to match with top universities, calculate scholarship eligibility, and access one-on-one expert counseling.
                 </p>
-                <div class="d-flex flex-column gap-3 mt-4 text-white-90 fs-14">
-                    <div class="d-flex align-items-center gap-2">
-                        <i class="fa-solid fa-circle-check text-warning"></i> 100% Free Counseling for 100+ Partner Universities
+
+                <!-- 4 Live Metric Pills (User Specifications) -->
+                <div class="row g-2 mb-4 max-w-550">
+                    <div class="col-6 col-sm-3">
+                        <div class="auth-stat-pill text-center">
+                            <div class="fs-18 fw-800 text-warning">500+</div>
+                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Partner Unis</div>
+                        </div>
                     </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <i class="fa-solid fa-circle-check text-warning"></i> Direct Application Fee Waivers up to $150/uni
+                    <div class="col-6 col-sm-3">
+                        <div class="auth-stat-pill text-center">
+                            <div class="fs-18 fw-800 text-info">120+</div>
+                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Countries</div>
+                        </div>
                     </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <i class="fa-solid fa-circle-check text-warning"></i> End-to-End Visa Filing & Mock Interview Prep
+                    <div class="col-6 col-sm-3">
+                        <div class="auth-stat-pill text-center">
+                            <div class="fs-18 fw-800 text-success">3k+</div>
+                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Global Scholars</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <div class="auth-stat-pill text-center">
+                            <div class="fs-18 fw-800 text-white">22k</div>
+                            <div class="fs-11 text-white-50 text-uppercase fw-semibold">Courses</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verified Features List -->
+                <div class="hero-extra p-4 rounded-4 text-white" style="background: rgba(255, 255, 255, 0.09); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.16); max-width: 490px;">
+                    <div class="d-flex flex-column gap-3 text-white-90 fs-14">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-warning"></i> <span>100% Free Counseling for 500+ Partner Universities in 120+ Countries</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-warning"></i> <span>Explore 22,000+ Accredited Degree & Master's Programs</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-warning"></i> <span>Direct Application Fee Waivers & 98.2% Visa Clearance Record</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="text-white-50 fs-13 d-flex justify-content-between align-items-center">
+
+            <div class="position-relative z-1 text-white-50 fs-13 d-flex justify-content-between align-items-center flex-wrap gap-2">
                 <span>© 2026 The Edu Consultant Global Inc.</span>
                 <a href="index.html" class="text-white-50 text-decoration-underline">Back to Homepage</a>
             </div>
         </div>
 
-        <!-- Form Right / Center Content -->
-        <div class="left">
-            <div class="wrap w-100" style="max-width: 500px;">
+        <!-- Form Right / Center Content Pane -->
+        <div class="auth-form-pane">
+            <div class="auth-card-modern">
                 <!-- Mobile Logo Header (visible on < 992px) -->
                 <div class="d-lg-none text-center mb-4">
                     <a href="index.html" class="d-inline-flex align-items-center gap-2 text-decoration-none">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px; min-width: 42px; min-height: 42px; background-color: var(--brand-primary); color: var(--button);">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px; background-color: var(--brand-primary); color: var(--button);">
                             <i class="fa-solid fa-graduation-cap fs-5"></i>
                         </div>
                         <span class="fs-4 fw-800" style="color: var(--brand-primary); font-family: 'Poppins', sans-serif;">
                             The Edu <span style="color: var(--red);">Consultant</span>
                         </span>
                     </a>
+                    <!-- Compact Mobile Stats Badge -->
+                    <div class="d-flex justify-content-center gap-2 mt-2">
+                        <span class="badge bg-light text-muted border fs-11">500+ Unis</span>
+                        <span class="badge bg-light text-muted border fs-11">120+ Countries</span>
+                        <span class="badge bg-light text-muted border fs-11">3k+ Scholars</span>
+                        <span class="badge bg-light text-muted border fs-11">22k Courses</span>
+                    </div>
                 </div>
 
-                <div class="zMain-signLog-content">
-                    <div class="mb-4">
-                        <h3 class="fs-2 fw-800 text-title-text mb-1">Create Student Account</h3>
-                        <p class="fs-15 fw-500 text-para-text">
-                            Already registered? 
-                            <a href="login.html" class="text-brand-primary fw-bold text-decoration-none">Sign In Here</a>
-                        </p>
-                    </div>
-
-                    <!-- Social Sign Up Options -->
-                    <div class="d-flex gap-2 mb-4">
-                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('google')">
-                            <i class="fa-brands fa-google text-danger"></i> Google
-                        </button>
-                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('apple')">
-                            <i class="fa-brands fa-apple text-dark"></i> Apple
-                        </button>
-                        <button type="button" class="social-btn" onclick="edAuth.openSocialModal('linkedin')">
-                            <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
-                        </button>
-                    </div>
-
-                    <div class="position-relative text-center my-4">
-                        <hr class="text-muted opacity-25">
-                        <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-13 fw-semibold">
-                            Or register with email
+                <div class="mb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                        <h3 class="fs-2 fw-800 text-dark mb-0">Create Account</h3>
+                        <span class="badge bg-primary-subtle text-primary rounded-pill px-2.5 py-1 fs-12 fw-bold">
+                            <i class="fa-solid fa-bolt me-1"></i> Instant Setup
                         </span>
                     </div>
+                    <p class="fs-14 fw-500 text-muted">
+                        Already registered? 
+                        <a href="login.html" class="text-primary fw-bold text-decoration-none">Sign In Here</a>
+                    </p>
+                </div>
 
-                    <!-- Sign Up Form -->
-                    <form id="signUpForm" onsubmit="handleSignUpSubmit(event)">
-                        <!-- Who Are You Selector (Student vs Parent / Guardian) -->
-                        <div class="mb-3">
-                            <label class="zForm-label">Who are you? <span class="text-danger">*</span></label>
-                            <div class="d-flex gap-2">
-                                <label class="flex-fill border rounded-3 p-2.5 text-center cursor-pointer bg-light d-flex align-items-center justify-content-center gap-2 user-type-card" style="transition: all 0.2s ease;">
-                                    <input type="radio" name="userType" value="Student" checked class="form-check-input mt-0">
-                                    <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-graduation-cap text-primary me-1"></i> Student / Scholar</span>
-                                </label>
-                                <label class="flex-fill border rounded-3 p-2.5 text-center cursor-pointer bg-light d-flex align-items-center justify-content-center gap-2 user-type-card" style="transition: all 0.2s ease;">
-                                    <input type="radio" name="userType" value="Parent / Guardian" class="form-check-input mt-0">
-                                    <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-user-group text-success me-1"></i> Parent / Guardian</span>
-                                </label>
-                            </div>
-                        </div>
+                <!-- Social Sign Up Options -->
+                <div class="d-flex gap-2 mb-3">
+                    <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('google')">
+                        <i class="fa-brands fa-google text-danger"></i> Google
+                    </button>
+                    <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('apple')">
+                        <i class="fa-brands fa-apple text-dark"></i> Apple
+                    </button>
+                    <button type="button" class="social-pill-btn" onclick="edAuth.openSocialModal('linkedin')">
+                        <i class="fa-brands fa-linkedin text-primary"></i> LinkedIn
+                    </button>
+                </div>
 
-                        <!-- Full Name & Nick Name -->
-                        <div class="row g-3 mb-3">
-                            <div class="col-sm-6">
-                                <label for="regFullName" class="zForm-label">Full Name <span class="text-danger">*</span></label>
-                                <input type="text" required name="fullName" class="form-control zForm-control" id="regFullName" placeholder="e.g. Alex Morgan" autocomplete="name" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="regNickName" class="zForm-label">Nick Name <span class="text-danger">*</span></label>
-                                <input type="text" required name="nickName" class="form-control zForm-control" id="regNickName" placeholder="What should we call you?" autocomplete="nickname" />
-                            </div>
-                        </div>
+                <div class="position-relative text-center my-4">
+                    <hr class="text-muted opacity-25">
+                    <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted fs-12 fw-semibold">
+                        Or register with verified email
+                    </span>
+                </div>
 
-                        <!-- Email Address & Mobile Number -->
-                        <div class="row g-3 mb-3">
-                            <div class="col-sm-6">
-                                <label for="regEmail" class="zForm-label">Email Address <span class="text-danger">*</span></label>
-                                <input type="email" required name="email" class="form-control zForm-control" id="regEmail" placeholder="you@domain.com" autocomplete="email" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="regPhone" class="zForm-label">Mobile Number <span class="text-danger">*</span></label>
-                                <input type="tel" required name="phone" class="form-control zForm-control" id="regPhone" placeholder="+91 98453 71459" autocomplete="tel" />
-                            </div>
-                        </div>
-
-                        <!-- Email OTP Verification Box (Strictly Confidential) -->
-                        <div class="mb-3 p-3 rounded-3 border" style="background-color: #f8fafc; border-color: #000064 !important;" id="otpVerificationPanel">
-                            <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
-                                <label class="zForm-label mb-0 fw-bold fs-13 text-dark">
-                                    <i class="fa-solid fa-envelope-circle-check text-primary me-1"></i> Email Identity Verification <span class="text-danger">*</span>
-                                </label>
-                                <span class="badge bg-secondary-subtle text-secondary fs-11 px-2.5 py-1 rounded-pill" id="otpStatusBadge">
-                                    <i class="fa-regular fa-clock me-1"></i> Verification Required
-                                </span>
-                            </div>
-
-                            <p class="fs-12 text-muted mb-2.5">
-                                A confidential 6-digit verification code will be dispatched to your email inbox:
-                            </p>
-
-                            <!-- Single Clear Action Button -->
-                            <div id="otpActionButtonsContainer">
-                                <button type="button" class="btn btn-outline-primary w-100 py-2.5 px-3 rounded-3 fw-bold fs-13 d-flex align-items-center justify-content-center gap-2 shadow-sm" id="btnVerifyViaEmail" onclick="handleDirectOtpDispatch('email')">
-                                    <i class="fa-solid fa-paper-plane fs-13"></i>
-                                    <span id="btnVerifyViaEmailText">Send Verification Code to Email</span>
-                                </button>
-                            </div>
-
-                            <!-- OTP Input Box (Reveals once OTP sent) -->
-                            <div id="otpInputSection" class="mt-3 pt-3 border-top d-none">
-                                <div class="alert alert-info py-2 px-3 fs-12 rounded-3 mb-2.5 d-flex align-items-center gap-2" id="otpNoticeBox">
-                                    <i class="fa-solid fa-envelope-open-text fs-15 text-primary flex-shrink-0"></i>
-                                    <span id="otpSentNoticeText">6-digit security code sent to your email. Please check your inbox and spam folder.</span>
-                                </div>
-
-                                <div class="row g-2 align-items-center">
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control zForm-control text-center fs-20 fw-bold font-monospace py-2" 
-                                               id="signupOtpCodeInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" 
-                                               placeholder="••••••" style="letter-spacing: 6px; border: 2px solid #000064;" autocomplete="one-time-code" />
-                                    </div>
-                                    <div class="col-sm-5">
-                                        <button type="button" class="btn btn-primary w-100 py-2.5 rounded-3 fw-bold fs-13 d-flex align-items-center justify-content-center gap-1 shadow-sm" id="btnConfirmOtp" onclick="handleVerifySignupOtp()" style="background-color: var(--brand-primary); border-color: var(--brand-primary);">
-                                            <i class="fa-solid fa-check"></i> Verify OTP Code
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mt-2 fs-11 text-muted">
-                                    <span><i class="fa-regular fa-clock me-1"></i> Code valid for 5 minutes</span>
-                                    <a href="#" class="text-brand-primary text-decoration-none fw-semibold" onclick="handleResendCurrentOtp(); return false;">Resend Code</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Preferred Target Destination -->
-                        <div class="mb-3">
-                            <label for="regDestination" class="zForm-label">Preferred Study Destination <span class="text-danger">*</span></label>
-                            <select class="form-select zForm-control sf-select-checkbox" id="regDestination" required>
-                                <option value="" selected disabled>Select Target Country</option>
-                                <option value="United States">🇺🇸 United States</option>
-                                <option value="United Kingdom">🇬🇧 United Kingdom</option>
-                                <option value="Canada">🇨🇦 Canada</option>
-                                <option value="Australia">🇦🇺 Australia</option>
-                                <option value="Germany">🇩🇪 Germany</option>
-                                <option value="Ireland">🇮🇪 Ireland</option>
-                                <option value="New Zealand">🇳🇿 New Zealand</option>
-                                <option value="Singapore">🇸🇬 Singapore</option>
-                                <option value="Global">🌐 Global Advisory</option>
-                            </select>
-                        </div>
-
-                        <!-- Create Password & Confirm Password -->
-                        <div class="row g-3 mb-3">
-                            <div class="col-sm-6">
-                                <label for="regPassword" class="zForm-label">Create Password <span class="text-danger">*</span></label>
-                                <div class="position-relative">
-                                    <input type="password" required name="password" class="form-control zForm-control passShowHideInput" id="regPassword" placeholder="Min. 6 chars" oninput="checkStrength(this.value)" autocomplete="new-password" />
-                                    <button type="button" class="btn border-0 position-absolute end-0 top-50 translate-middle-y text-muted toggle-password">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
-                                </div>
-                                <div class="pwd-strength-bar">
-                                    <div class="pwd-strength-fill" id="strengthFill"></div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="regConfirmPassword" class="zForm-label">Confirm Password <span class="text-danger">*</span></label>
-                                <input type="password" required name="confirmPassword" class="form-control zForm-control" id="regConfirmPassword" placeholder="Re-enter password" autocomplete="new-password" />
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="d-flex align-items-start gap-2 cursor-pointer fs-13 text-para-text">
-                                <input type="checkbox" required class="form-check-input mt-1" id="agreeTerms" checked />
-                                <span>I agree to The Edu Consultant <a href="#" class="text-brand-primary text-decoration-underline fw-bold">Terms of Service</a> and <a href="#" class="text-brand-primary text-decoration-underline fw-bold">Privacy Policy</a>.</span>
+                <!-- Sign Up Form -->
+                <form id="signUpForm" onsubmit="handleSignUpSubmit(event)">
+                    <!-- Who Are You Selector (Student vs Parent / Guardian) -->
+                    <div class="mb-3">
+                        <label class="form-label fs-13 fw-bold text-dark mb-1">Who are you? <span class="text-danger">*</span></label>
+                        <div class="d-flex gap-2">
+                            <label class="flex-fill user-type-pill d-flex align-items-center justify-content-center gap-2">
+                                <input type="radio" name="userType" value="Student" checked class="form-check-input mt-0">
+                                <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-graduation-cap text-primary me-1"></i> Student / Scholar</span>
+                            </label>
+                            <label class="flex-fill user-type-pill d-flex align-items-center justify-content-center gap-2">
+                                <input type="radio" name="userType" value="Parent / Guardian" class="form-check-input mt-0">
+                                <span class="fs-13 fw-bold text-dark"><i class="fa-solid fa-user-group text-success me-1"></i> Parent / Guardian</span>
                             </label>
                         </div>
-
-                        <button type="submit" id="regSubmitBtn" class="btn btn-warning w-100 py-3 rounded-3 fw-bold fs-16 shadow-sm d-flex align-items-center justify-content-center gap-2" style="background-color: var(--button); color: var(--brand-primary); border: none;">
-                            <span>Create Free Account</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </form>
-
-                    <div class="text-center mt-4 pt-2">
-                        <a href="index.html" class="text-muted fs-13 text-decoration-none d-inline-flex align-items-center gap-1">
-                            <i class="fa-solid fa-arrow-left"></i> Return to The Edu Consultant Homepage
-                        </a>
                     </div>
+
+                    <!-- Full Name & Nick Name -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-6">
+                            <label for="regFullName" class="form-label fs-13 fw-bold text-dark mb-1">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" required name="fullName" class="form-control auth-input-modern" id="regFullName" placeholder="e.g. Alex Morgan" autocomplete="name" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="regNickName" class="form-label fs-13 fw-bold text-dark mb-1">Nick Name <span class="text-danger">*</span></label>
+                            <input type="text" required name="nickName" class="form-control auth-input-modern" id="regNickName" placeholder="Preferred name" autocomplete="nickname" />
+                        </div>
+                    </div>
+
+                    <!-- Email Address & Mobile Number -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-6">
+                            <label for="regEmail" class="form-label fs-13 fw-bold text-dark mb-1">Email Address <span class="text-danger">*</span></label>
+                            <input type="email" required name="email" class="form-control auth-input-modern" id="regEmail" placeholder="you@domain.com" autocomplete="email" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="regPhone" class="form-label fs-13 fw-bold text-dark mb-1">Mobile Number <span class="text-danger">*</span></label>
+                            <input type="tel" required name="phone" class="form-control auth-input-modern" id="regPhone" placeholder="+91 98453 71459" autocomplete="tel" />
+                        </div>
+                    </div>
+
+                    <!-- Email OTP Verification Box (Strictly Confidential) -->
+                    <div class="mb-3 p-3 rounded-4 border" style="background-color: #f8fafc; border-color: rgba(0, 0, 100, 0.2) !important;" id="otpVerificationPanel">
+                        <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                            <label class="form-label mb-0 fw-bold fs-13 text-dark">
+                                <i class="fa-solid fa-envelope-circle-check text-primary me-1"></i> Email Identity Verification <span class="text-danger">*</span>
+                            </label>
+                            <span class="badge bg-secondary-subtle text-secondary fs-11 px-2.5 py-1 rounded-pill" id="otpStatusBadge">
+                                <i class="fa-regular fa-clock me-1"></i> Verification Required
+                            </span>
+                        </div>
+
+                        <p class="fs-12 text-muted mb-2.5">
+                            A confidential 6-digit verification code will be dispatched to your email inbox:
+                        </p>
+
+                        <!-- Single Clear Action Button -->
+                        <div id="otpActionButtonsContainer">
+                            <button type="button" class="btn btn-outline-primary w-100 py-2.5 px-3 rounded-3 fw-bold fs-13 d-flex align-items-center justify-content-center gap-2 shadow-sm" id="btnVerifyViaEmail" onclick="handleDirectOtpDispatch('email')">
+                                <i class="fa-solid fa-paper-plane fs-13"></i>
+                                <span id="btnVerifyViaEmailText">Send Verification Code to Email</span>
+                            </button>
+                        </div>
+
+                        <!-- OTP Input Box (Reveals once OTP sent) -->
+                        <div id="otpInputSection" class="mt-3 pt-3 border-top d-none">
+                            <div class="alert alert-info py-2 px-3 fs-12 rounded-3 mb-2.5 d-flex align-items-center gap-2" id="otpNoticeBox">
+                                <i class="fa-solid fa-envelope-open-text fs-15 text-primary flex-shrink-0"></i>
+                                <span id="otpSentNoticeText">6-digit security code sent to your email. Please check your inbox and spam folder.</span>
+                            </div>
+
+                            <div class="row g-2 align-items-center">
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control text-center fs-20 fw-bold font-monospace py-2 rounded-3" 
+                                           id="signupOtpCodeInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" 
+                                           placeholder="••••••" style="letter-spacing: 6px; border: 2px solid #000064;" autocomplete="one-time-code" />
+                                </div>
+                                <div class="col-sm-5">
+                                    <button type="button" class="btn btn-primary w-100 py-2.5 rounded-3 fw-bold fs-13 d-flex align-items-center justify-content-center gap-1 shadow-sm" id="btnConfirmOtp" onclick="handleVerifySignupOtp()" style="background-color: var(--brand-primary); border-color: var(--brand-primary);">
+                                        <i class="fa-solid fa-check"></i> Verify OTP Code
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-2 fs-11 text-muted">
+                                <span><i class="fa-regular fa-clock me-1"></i> Code valid for 5 minutes</span>
+                                <a href="#" class="text-primary text-decoration-none fw-semibold" onclick="handleResendCurrentOtp(); return false;">Resend Code</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preferred Target Destination -->
+                    <div class="mb-3">
+                        <label for="regDestination" class="form-label fs-13 fw-bold text-dark mb-1">Preferred Study Destination <span class="text-danger">*</span></label>
+                        <select class="form-select auth-input-modern" id="regDestination" required>
+                            <option value="" selected disabled>Select Target Country</option>
+                            <option value="United States">🇺🇸 United States</option>
+                            <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                            <option value="Canada">🇨🇦 Canada</option>
+                            <option value="Australia">🇦🇺 Australia</option>
+                            <option value="Germany">🇩🇪 Germany</option>
+                            <option value="Ireland">🇮🇪 Ireland</option>
+                            <option value="New Zealand">🇳🇿 New Zealand</option>
+                            <option value="Singapore">🇸🇬 Singapore</option>
+                            <option value="Global">🌐 Global Advisory</option>
+                        </select>
+                    </div>
+
+                    <!-- Create Password & Confirm Password -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-6">
+                            <label for="regPassword" class="form-label fs-13 fw-bold text-dark mb-1">Create Password <span class="text-danger">*</span></label>
+                            <div class="position-relative">
+                                <input type="password" required name="password" class="form-control auth-input-modern passShowHideInput" id="regPassword" placeholder="Min. 6 chars" oninput="checkStrength(this.value)" autocomplete="new-password" />
+                                <button type="button" class="btn border-0 position-absolute end-0 top-50 translate-middle-y text-muted toggle-password">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="pwd-strength-bar">
+                                <div class="pwd-strength-fill" id="strengthFill"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="regConfirmPassword" class="form-label fs-13 fw-bold text-dark mb-1">Confirm Password <span class="text-danger">*</span></label>
+                            <input type="password" required name="confirmPassword" class="form-control auth-input-modern" id="regConfirmPassword" placeholder="Re-enter password" autocomplete="new-password" />
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="d-flex align-items-start gap-2 cursor-pointer fs-13 text-muted">
+                            <input type="checkbox" required class="form-check-input mt-1" id="agreeTerms" checked />
+                            <span>I agree to The Edu Consultant <a href="#" class="text-primary text-decoration-underline fw-bold">Terms of Service</a> and <a href="#" class="text-primary text-decoration-underline fw-bold">Privacy Policy</a>.</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" id="regSubmitBtn" class="btn-auth-primary">
+                        <span>Create Free Account</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="text-center mt-4 pt-2">
+                    <a href="index.html" class="text-muted fs-13 text-decoration-none d-inline-flex align-items-center gap-1">
+                        <i class="fa-solid fa-arrow-left"></i> Return to The Edu Consultant Homepage
+                    </a>
                 </div>
             </div>
         </div>
